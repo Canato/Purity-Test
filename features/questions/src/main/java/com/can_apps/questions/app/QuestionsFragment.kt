@@ -1,0 +1,99 @@
+package com.can_apps.questions.app
+
+import android.content.Context
+import android.graphics.Color
+import android.os.Bundle
+import android.view.View
+import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import com.can_apps.questions.R
+import com.can_apps.questions.bresenter.QuestionIdModel
+import com.can_apps.questions.bresenter.QuestionsModel
+import com.can_apps.questions.core.QuestionsContract
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_questions.*
+
+internal class QuestionsFragment :
+    Fragment(R.layout.fragment_questions),
+    QuestionsRecyclerViewAdapter.Listener,
+    QuestionsContract.View {
+
+    companion object {
+        fun newInstance(): Fragment = QuestionsFragment()
+    }
+
+    private lateinit var presenter: QuestionsContract.Presenter
+    private lateinit var recyclerViewAdapter: QuestionsRecyclerViewAdapter
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        val serviceLocator = QuestionsServiceLocator(context)
+        presenter = serviceLocator.getPresenter()
+        recyclerViewAdapter = serviceLocator.getRecyclerViewAdapter(this)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        presenter.bind(this)
+        setOnBackPressedCallback()
+        presenter.onViewCreated()
+    }
+
+    private fun setOnBackPressedCallback() {
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                presenter.onBackPressed()
+            }
+        })
+    }
+
+    override fun onItemSelected(questionId: QuestionIdModel) {
+        //todo presenter.onItemSelected
+    }
+
+    override fun showLoading() {
+        progressView.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        progressView.visibility = View.GONE
+    }
+
+    override fun showList(model: List<QuestionsModel>) {
+        recyclerViewAdapter.updateList(model)
+    }
+
+    override fun showError(message: String) {
+        view?.let {
+            val snackbar = Snackbar.make(it, message, Snackbar.LENGTH_LONG)
+
+            snackbar.setActionTextColor(
+                ContextCompat.getColor(
+                    context!!,
+                    R.color.design_default_color_primary
+                )
+            )
+
+            val snackbarView = snackbar.view
+            val textView = snackbarView.findViewById<TextView>(R.id.snackbar_text)
+
+            textView?.setTextColor(
+                ContextCompat.getColor(
+                    context!!,
+                    R.color.design_default_color_error
+                )
+            )
+            snackbarView.setBackgroundColor(Color.BLACK)
+
+            snackbar.show()
+        }
+    }
+
+    override fun close() {
+        activity?.finish()
+    }
+}

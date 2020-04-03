@@ -1,2 +1,5 @@
-rootProject.name='Purity Test'
-include ':app'
+include ':app',
+        ':common',
+
+        // Features Module
+        ':features:questions'
