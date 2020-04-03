@@ -45,7 +45,7 @@ internal class QuestionsPresenterTest {
         val model = mockk<QuestionsModel>(relaxed = true)
 
         coEvery { interactor.retrieveList() } returns domain
-        coEvery { mapper.toModel(domain) } returns model
+        coEvery { mapper.toModel(domain) } returns listOf(model)
 
         //WHEN
         presenter.onViewCreated()
@@ -54,7 +54,7 @@ internal class QuestionsPresenterTest {
         verify {
             view.showLoading()
             view.hideLoading()
-            view.showList(model)
+            view.showList(listOf(model))
         }
     }
 
@@ -81,7 +81,7 @@ internal class QuestionsPresenterTest {
     }
 
     @Test
-    fun `WHEN back press, THEN close `() {
+    fun `WHEN back press, THEN close`() {
         //WHEN
         presenter.onBackPressed()
 

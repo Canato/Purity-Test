@@ -11,13 +11,13 @@ internal class QuestionItemViewHolder(
     val listener: QuestionsRecyclerViewAdapter.Listener
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
-
+//todo canato now
     fun bindView(model: QuestionsModel) {
-        question.text = model.question.value
-
-        questionItem.setOnClickListener {
-            listener.onItemSelected(model.questionId)
-        }
+//        question.text = model.question.value
+//
+//        questionItem.setOnClickListener {
+//            listener.onItemSelected(model.questionId)
+//        }
     }
 }
 

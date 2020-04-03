@@ -1,9 +1,6 @@
 package com.can_apps.questions.bresenter
 
-import com.can_apps.questions.core.QuestionDomain
-import com.can_apps.questions.core.QuestionIdDomain
-import com.can_apps.questions.core.QuestionWeightDomain
-import com.can_apps.questions.core.QuestionsDomain
+import com.can_apps.questions.core.*
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -18,16 +15,18 @@ internal class QuestionsModelMapperTest {
         val question = "Nice question to answer"
 
         val domain = QuestionsDomain.Valid(
-            QuestionIdDomain(questionId),
-            QuestionDomain(question),
-            false,
-            QuestionWeightDomain(9)
+            listOf(QuestionDetailsDomain(
+                QuestionIdDomain(questionId),
+                QuestionDomain(question),
+                false,
+                QuestionWeightDomain(9)
+            ))
         )
 
-        val expected = QuestionsModel(
+        val expected = listOf(QuestionsModel(
             QuestionModel(question),
             QuestionIdModel(questionId)
-        )
+        ))
 
         //WHEN
         val result = mapper.toModel(domain)

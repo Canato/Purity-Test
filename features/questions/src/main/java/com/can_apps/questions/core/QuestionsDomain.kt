@@ -20,4 +20,4 @@ internal data class QuestionDetailsDomain (
 
 internal inline class QuestionDomain(val value: String)
 internal inline class QuestionIdDomain(val value: ULong)
-internal inline class QuestionWeightDomain(val value: Int) TDD
+internal inline class QuestionWeightDomain(val value: Int)
