@@ -6,6 +6,10 @@ internal interface LoginContract {
         fun welcome()
 
         fun close()
+
+        fun onPositive(message: String)
+
+        fun onNegative(message: String)
     }
 
     interface Presenter {
@@ -16,8 +20,12 @@ internal interface LoginContract {
         fun onViewCreated()
 
         fun onBackPressed()
+
+        fun onSubmitPressed()
     }
 
-    interface Interactor {}
+    interface Interactor {
+        fun checkSubmit() : Boolean
+    }
     interface Repository {}
 }

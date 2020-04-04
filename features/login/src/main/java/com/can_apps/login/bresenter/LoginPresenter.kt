@@ -3,7 +3,9 @@ package com.can_apps.login.bresenter
 import android.widget.Toast
 import com.can_apps.login.core.LoginContract
 
-internal class LoginPresenter : LoginContract.Presenter {
+internal class LoginPresenter (
+    private val interactor: LoginContract.Interactor
+): LoginContract.Presenter {
 
     private lateinit var view: LoginContract.View
 
@@ -20,6 +22,13 @@ internal class LoginPresenter : LoginContract.Presenter {
 
     override fun onBackPressed() {
         view.close()
+    }
+
+    override fun onSubmitPressed() {
+      when(interactor.checkSubmit()){
+          true -> view.onPositive("true - as a Toast")
+          false -> view.onNegative("false - as a Snackbar")
+      }
     }
 
 }
