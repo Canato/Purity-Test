@@ -23,6 +23,12 @@ android {
         }
     }
 
+    kotlinOptions {
+        freeCompilerArgs += "-Xuse-experimental=kotlin.ExperimentalUnsignedTypes"
+        freeCompilerArgs += "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"
+        freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
+    }
+
 }
 
 dependencies {

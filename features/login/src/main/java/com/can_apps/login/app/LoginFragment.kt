@@ -26,11 +26,27 @@ internal class LoginFragment :
 
     }
 
-    override fun welcome() {
+    override fun showWelcomeMessage() {
         Toast.makeText(activity, "Welcome !", Toast.LENGTH_SHORT).show()
     }
 
     override fun close() {
         activity?.finish()
+    }
+
+    override fun showLoading() {
+        TODO("Not yet implemented")
+    }
+
+    override fun hideLoading() {
+        TODO("Not yet implemented")
+    }
+
+    override fun showError(error: String) {
+        TODO("Not yet implemented")
+    }
+
+    override fun showSuccess() {
+        TODO("Not yet implemented")
     }
 }
