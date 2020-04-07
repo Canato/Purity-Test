@@ -2,7 +2,7 @@ package com.can_apps.login.core
 
 internal class LoginInteractor(
     private val repository: LoginContract.Repository
-): LoginContract.Interactor {
+) : LoginContract.Interactor {
 
 
     override fun passwordValidation(password: LoginPasswordDomain): Boolean {
@@ -10,7 +10,14 @@ internal class LoginInteractor(
     }
 
     override fun loginNameValidation(loginName: LoginNameDomain): Boolean {
-        TODO()
+        val loginChar = loginName.value.toCharArray()
+
+        if (loginChar.size < 3)
+            return false
+
+        loginChar.forEach { char -> if (char <= 'A' || char >= 'z') return false }
+
+        return true
     }
 
     override fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain {

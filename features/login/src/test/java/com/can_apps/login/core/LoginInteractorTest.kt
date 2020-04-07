@@ -51,6 +51,32 @@ internal class LoginInteractorTest {
     }
 
     @Test
+    fun `GIVEN login with special characters , WHEN validate, THEN return false`() {
+        //GIVEN
+        val login = "Tom@"
+        val loginNameDomain = LoginNameDomain(login)
+
+        //WHEN
+        val result = interactor.loginNameValidation(loginNameDomain)
+
+        //THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `GIVEN login with empty characters , WHEN validate, THEN return false`() {
+        //GIVEN
+        val login = "Tom @sz"
+        val loginNameDomain = LoginNameDomain(login)
+
+        //WHEN
+        val result = interactor.loginNameValidation(loginNameDomain)
+
+        //THEN
+        assertFalse(result)
+    }
+
+    @Test
     fun `GIVEN login with digit , WHEN validate, THEN return false`() {
         //GIVEN
         val login = "Tom1"
