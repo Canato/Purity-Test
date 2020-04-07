@@ -15,7 +15,7 @@ internal class LoginInteractor(
         if (loginChar.size < 3)
             return false
 
-        loginChar.forEach { char -> if (char <= 'A' || char >= 'z') return false }
+        loginChar.forEach { char -> if (char < 'A' || char > 'z') return false }
 
         return true
     }
