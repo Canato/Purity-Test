@@ -10,14 +10,18 @@ internal class LoginInteractor(
     }
 
     override fun loginNameValidation(loginName: LoginNameDomain): Boolean {
-        val loginChar = loginName.value.toCharArray()
 
-        if (loginChar.size < 3)
+        val loginSize = loginName.value.length
+        if (loginSize < 3)
             return false
 
-        loginChar.forEach { char -> if (char < 'A' || char > 'z') return false }
+        val pattern = Regex(pattern = "[a-zA-Z]{$loginSize}")
+        if (pattern.matches(loginName.value)) {
+            return true
+        }
 
-        return true
+        return false
+
     }
 
     override fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain {
