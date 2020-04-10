@@ -32,7 +32,8 @@ internal class LoginInteractor(
     }
 
     override fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain {
-        TODO()
+
+        return repository.loginUser(loginName, password)
     }
 
 }
