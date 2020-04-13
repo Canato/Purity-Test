@@ -10,9 +10,8 @@ internal class LoginInteractor(
 
     override fun passwordValidation(password: LoginPasswordDomain): Boolean {
 
+        if (password.value.length < 8) return false
         val pattern = Regex(pattern = "[a-zA-Z0-9]+")
-        if (password.value.length < 8)
-            return false
 
         return (patternLowerCase.containsMatchIn(password.value) &&
                 patternUpperCase.containsMatchIn(password.value) &&
@@ -23,8 +22,8 @@ internal class LoginInteractor(
 
     override fun loginNameValidation(loginName: LoginNameDomain): Boolean {
 
-        val pattern = Regex(pattern = "[a-zA-Z]+")
         if (loginName.value.length < 4) return false
+        val pattern = Regex(pattern = "[a-zA-Z]+")
 
         return (patternLowerCase.containsMatchIn(loginName.value) &&
                 patternUpperCase.containsMatchIn(loginName.value) &&
