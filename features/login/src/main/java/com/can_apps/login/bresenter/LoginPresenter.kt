@@ -24,7 +24,7 @@ internal class LoginPresenter(
         view.close()
     }
 
-    override fun onLoginClicked(password: String, loginName: String) {
+    override fun onLoginClicked(loginName: String, password: String) {
         val passwordDomain = LoginPasswordDomain(password)
         val loginNameDomain = LoginNameDomain(loginName)
         val isPasswordValid = interactor.passwordValidation(passwordDomain)

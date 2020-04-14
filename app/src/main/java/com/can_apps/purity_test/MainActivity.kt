@@ -1,9 +1,8 @@
 package com.can_apps.purity_test
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
+import androidx.appcompat.app.AppCompatActivity
 import com.can_apps.login.app.LoginFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -16,18 +15,8 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.activity_main, LoginFragment.newInstance()).addToBackStack(null).commit()
-//            fab.visibility = View.INVISIBLE
+                .replace(R.id.activity_main, LoginFragment.newInstance()).addToBackStack(null)
+                .commit()
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
     }
 }

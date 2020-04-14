@@ -25,7 +25,7 @@ internal interface LoginContract {
 
         fun onBackPressed()
 
-        fun onLoginClicked(password: String, loginName: String)
+        fun onLoginClicked(loginName: String, password: String )
     }
 
     interface Interactor {
