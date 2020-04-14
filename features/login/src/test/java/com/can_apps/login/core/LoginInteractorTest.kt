@@ -40,7 +40,33 @@ internal class LoginInteractorTest {
     @Test
     fun `GIVEN login with less than four characters , WHEN validate, THEN return false`() {
         //GIVEN
-        val login = "Ta"
+        val login = "Tom"
+        val loginNameDomain = LoginNameDomain(login)
+
+        //WHEN
+        val result = interactor.loginNameValidation(loginNameDomain)
+
+        //THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `GIVEN login with special characters , WHEN validate, THEN return false`() {
+        //GIVEN
+        val login = "Tom@sz"
+        val loginNameDomain = LoginNameDomain(login)
+
+        //WHEN
+        val result = interactor.loginNameValidation(loginNameDomain)
+
+        //THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `GIVEN login with empty character , WHEN validate, THEN return false`() {
+        //GIVEN
+        val login = "Tom sz"
         val loginNameDomain = LoginNameDomain(login)
 
         //WHEN
@@ -77,9 +103,22 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN empty password, WHEN validate, THEN return false`() {
+    fun `GIVEN valid password with non valid extra characters, WHEN validate, THEN return false`() {
         //GIVEN
-        val password = ""
+        val password = "passWORD1 @!"
+        val passwordDomain = LoginPasswordDomain(password)
+
+        //WHEN
+        val result = interactor.passwordValidation(passwordDomain)
+
+        //THEN
+        assertFalse( result)
+    }
+
+    @Test
+    fun `GIVEN password with less than 8 characters, WHEN validate, THEN return false`() {
+        //GIVEN
+        val password = "passWO9"
         val passwordDomain = LoginPasswordDomain(password)
 
         //WHEN
