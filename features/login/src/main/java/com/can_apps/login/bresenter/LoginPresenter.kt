@@ -1,8 +1,6 @@
 package com.can_apps.login.bresenter
 
-import com.can_apps.login.core.LoginContract
-import com.can_apps.login.core.LoginNameDomain
-import com.can_apps.login.core.LoginPasswordDomain
+import com.can_apps.login.core.*
 
 internal class LoginPresenter(
     private val interactor: LoginContract.Interactor
@@ -33,8 +31,10 @@ internal class LoginPresenter(
         val isLoginValid = interactor.loginNameValidation(loginNameDomain)
 
         if (isLoginValid && isPasswordValid) {
-            view.showSuccess()
-            val result = interactor.loginUser(loginNameDomain, passwordDomain)
+            when (interactor.loginUser(loginNameDomain, passwordDomain)) {
+                LoginDomain.Success -> view.showSuccess()
+                LoginDomain.Fail(LoginErrorDomain("flipflops")) -> view.showError("flipflops")
+            }
         } else
             view.showError("Sorry, something is invalid")
     }
