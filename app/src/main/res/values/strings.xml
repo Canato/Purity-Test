@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Purity Test</string>
+    <string name="login_text">Login</string>
 </resources>

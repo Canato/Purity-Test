@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import com.can_apps.login.R
 import com.can_apps.login.core.LoginContract
 
-internal class LoginFragment :
+class LoginFragment :
     Fragment(R.layout.fragment_login),
     LoginContract.View {
 

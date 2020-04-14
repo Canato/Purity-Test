@@ -42,4 +42,5 @@ dependencies {
     implementation project(':common')
     implementation project(':features:questions')
     implementation project(':features:login')
+    implementation 'com.google.android.material:material:1.1.0'
 }
