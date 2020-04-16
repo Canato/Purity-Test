@@ -25,6 +25,7 @@ internal class LoginPresenter(
     }
 
     override fun onLoginClicked(password: String, loginName: String) {
+
         val passwordDomain = LoginPasswordDomain(password)
         val loginNameDomain = LoginNameDomain(loginName)
         val isPasswordValid = interactor.passwordValidation(passwordDomain)
@@ -33,7 +34,9 @@ internal class LoginPresenter(
         if (isLoginValid && isPasswordValid) {
             when (interactor.loginUser(loginNameDomain, passwordDomain)) {
                 LoginDomain.Success -> view.showSuccess()
-                LoginDomain.Fail(LoginErrorDomain("flipflops")) -> view.showError("flipflops")
+                LoginDomain.Fail(LoginErrorDomain("Sorry, login is not available")) -> view.showError(
+                    "Sorry, login is not available"
+                )
             }
         } else
             view.showError("Sorry, something is invalid")

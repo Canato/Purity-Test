@@ -32,8 +32,14 @@ class LoginFragment :
 
         presenter.bind(this)
         presenter.onViewCreated()
-        loginSubmitButton.setOnClickListener { presenter.onLoginClicked("", "") }
+        loginSubmitButton.setOnClickListener {
+            presenter.onLoginClicked(
+                loginPasswordEditText.text.toString(),
+                loginEditText.text.toString()
+            )
+        }
     }
+
 
     override fun showWelcomeMessage() {
         Toast.makeText(activity, "Welcome !", Toast.LENGTH_SHORT).show()
@@ -44,11 +50,9 @@ class LoginFragment :
     }
 
     override fun showLoading() {
-        TODO("Not yet implemented")
     }
 
     override fun hideLoading() {
-        TODO("Not yet implemented")
     }
 
     override fun showError(error: String) {

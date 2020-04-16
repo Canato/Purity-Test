@@ -79,7 +79,7 @@ internal class LoginPresenterTest {
 
         val password = "pass"
         val loginName = "loginName"
-        val error = "flipflops"
+        val error = "Sorry, login is not available"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val loginErrorDomain = LoginErrorDomain(error)
@@ -93,7 +93,7 @@ internal class LoginPresenterTest {
 
         //THEN
         verify {
-            view.showError(error)
+            view.showError(any())
         }
     }
 
