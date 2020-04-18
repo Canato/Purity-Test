@@ -93,7 +93,7 @@ internal class LoginPresenterTest {
 
         //THEN
         verify {
-            view.showError(any())
+            view.showError(error)
         }
     }
 
