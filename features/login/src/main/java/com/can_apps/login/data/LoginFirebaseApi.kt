@@ -25,7 +25,6 @@ internal class LoginFirebaseApiDefault (private val auth: FirebaseAuth): LoginFi
         auth.signInWithEmailAndPassword(login, password)
             .addOnCompleteListener { task ->
                 result = task.isSuccessful
-
             }
         return result
     }

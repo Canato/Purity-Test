@@ -30,9 +30,5 @@ internal class LoginInteractor(
                 pattern.matches(loginName.value))
     }
 
-    override fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain {
-
-        return repository.loginUser(loginName, password)
-    }
-
+    override fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain = repository.loginUser(loginName, password)
 }

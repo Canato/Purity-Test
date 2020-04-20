@@ -74,7 +74,7 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN loginUser fail, WHEN onLoginClicked, THEN show success`() {
+    fun `GIVEN loginUser fail, WHEN onLoginClicked, THEN show fail`() {
         //GIVEN
 
         val password = "pass"
@@ -123,7 +123,7 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN invalid password and valid loginName, WHEN onLoginClicked, THEN show success`() {
+    fun `GIVEN invalid password and valid loginName, WHEN onLoginClicked, THEN show fail`() {
         //GIVEN
         val password = "pass"
         val loginName = "loginName"
@@ -147,7 +147,7 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN invalid password and loginName, WHEN onLoginClicked, THEN show success`() {
+    fun `GIVEN invalid password and loginName, WHEN onLoginClicked, THEN show fail`() {
         //GIVEN
         val password = "pass"
         val loginName = "loginName"
