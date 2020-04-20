@@ -27,7 +27,7 @@ internal class LoginInteractorTest {
     @Test
     fun `GIVEN valid login name, WHEN validate, THEN return true`() {
         //GIVEN
-        val login = "Tomasz"
+        val login = "Tomasz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
 
         //WHEN
@@ -53,7 +53,7 @@ internal class LoginInteractorTest {
     @Test
     fun `GIVEN login with special characters , WHEN validate, THEN return false`() {
         //GIVEN
-        val login = "Tom@sz"
+        val login = "Tom!sz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
 
         //WHEN
@@ -66,7 +66,7 @@ internal class LoginInteractorTest {
     @Test
     fun `GIVEN login with empty character , WHEN validate, THEN return false`() {
         //GIVEN
-        val login = "Tom sz"
+        val login = "Tom sz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
 
         //WHEN
@@ -77,9 +77,22 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN login with digit , WHEN validate, THEN return false`() {
+    fun `GIVEN login without AT symbol , WHEN validate, THEN return false`() {
         //GIVEN
-        val login = "Tom1"
+        val login = "TomaszATgmail.com"
+        val loginNameDomain = LoginNameDomain(login)
+
+        //WHEN
+        val result = interactor.loginNameValidation(loginNameDomain)
+
+        //THEN
+        assertFalse(result)
+    }
+
+    @Test
+    fun `GIVEN login without dot after AT symbol , WHEN validate, THEN return false`() {
+        //GIVEN
+        val login = "Tomasz@gmailDOTcom"
         val loginNameDomain = LoginNameDomain(login)
 
         //WHEN
