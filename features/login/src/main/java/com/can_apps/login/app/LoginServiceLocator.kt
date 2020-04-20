@@ -11,14 +11,11 @@ import com.google.firebase.auth.FirebaseAuth
 
 internal class LoginServiceLocator(private val context: Context) {
 
-    private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-
-    fun getPresenter(): LoginContract.Presenter =
-        LoginPresenter(
-            getInteractor()
-        )
+    fun getPresenter(): LoginContract.Presenter = LoginPresenter(getInteractor())
 
     private fun getInteractor(): LoginContract.Interactor = LoginInteractor(getRepository())
+
     private fun getRepository(): LoginContract.Repository = LoginRepository(getApi())
-    private fun getApi(): LoginFirebaseApi = LoginFirebaseApiDefault(auth)
+
+    private fun getApi(): LoginFirebaseApi = LoginFirebaseApiDefault(FirebaseAuth.getInstance())
 }
