@@ -32,11 +32,9 @@ internal class LoginPresenter(
         val isLoginValid = interactor.loginNameValidation(loginNameDomain)
 
         if (isLoginValid && isPasswordValid) {
-            when (interactor.loginUser(loginNameDomain, passwordDomain)) {
+            when (val result = interactor.loginUser(loginNameDomain, passwordDomain)) {
                 LoginDomain.Success -> view.showSuccess()
-                LoginDomain.Fail(LoginErrorDomain("Sorry, login is not available")) -> view.showError(
-                    "Sorry, login is not available"
-                )
+                is LoginDomain.Fail -> view.showError(result.error.value)
             }
         } else
             view.showError("Sorry, something is invalid")

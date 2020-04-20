@@ -21,7 +21,7 @@ internal class LoginInteractor(
     }
 
     override fun loginNameValidation(loginName: LoginNameDomain): Boolean {
-
+        
         if (loginName.value.length < 4) return false
         val pattern = Regex(pattern = "[a-zA-Z]+")
 
@@ -30,9 +30,5 @@ internal class LoginInteractor(
                 pattern.matches(loginName.value))
     }
 
-    override fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain {
-
-        return repository.loginUser(loginName, password)
-    }
-
+    override fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain = repository.loginUser(loginName, password)
 }

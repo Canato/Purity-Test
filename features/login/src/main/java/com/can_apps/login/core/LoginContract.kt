@@ -39,6 +39,5 @@ internal interface LoginContract {
 
     interface Repository {
         fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
-
     }
 }
