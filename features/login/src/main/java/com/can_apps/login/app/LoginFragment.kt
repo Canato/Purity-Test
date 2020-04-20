@@ -35,7 +35,7 @@ class LoginFragment :
         loginSubmitButton.setOnClickListener {
             presenter.onLoginClicked(
                 loginPasswordEditText.text.toString(),
-                loginEditText.text.toString()
+                loginNameEditText.text.toString()
             )
         }
     }
