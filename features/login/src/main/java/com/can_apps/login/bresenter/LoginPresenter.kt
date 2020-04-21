@@ -1,6 +1,8 @@
 package com.can_apps.login.bresenter
 
+import android.content.Context
 import com.can_apps.common.CoroutineDispatcherFactory
+import com.can_apps.login.R
 import com.can_apps.login.core.LoginContract
 import com.can_apps.login.core.LoginDomain
 import com.can_apps.login.core.LoginNameDomain
@@ -12,7 +14,8 @@ import kotlin.coroutines.CoroutineContext
 
 internal class LoginPresenter(
     private val interactor: LoginContract.Interactor,
-    private val dispatcher: CoroutineDispatcherFactory
+    private val dispatcher: CoroutineDispatcherFactory,
+    private val context: Context
 ) : LoginContract.Presenter, CoroutineScope {
 
     private lateinit var view: LoginContract.View
@@ -56,7 +59,7 @@ internal class LoginPresenter(
                 is LoginDomain.Fail -> view.showError(result.error.value)
             }
         } else
-            view.showError("Sorry, something is invalid")
+            view.showError(context.getString(R.string.login_error_message))
     }
 
 }

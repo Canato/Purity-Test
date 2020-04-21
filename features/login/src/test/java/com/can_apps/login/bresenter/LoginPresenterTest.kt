@@ -1,5 +1,6 @@
 package com.can_apps.login.bresenter
 
+import android.content.Context
 import com.can_apps.common.CoroutineDispatcherFactory
 import com.can_apps.common.CoroutineDispatcherFactoryUnconfined
 import com.can_apps.login.core.*
@@ -8,13 +9,14 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Test
 
 internal class LoginPresenterTest {
 
 
+    @MockK
+    private lateinit var context: Context
 
     @MockK
     private lateinit var interactor: LoginContract.Interactor
@@ -72,9 +74,9 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
 
-        every { interactor.loginNameValidation(loginDomain)} returns true
-        every { interactor.passwordValidation(passwordDomain)} returns true
-        every { interactor.loginUser(loginDomain, passwordDomain)} returns LoginDomain.Success
+        every { interactor.loginNameValidation(loginDomain) } returns true
+        every { interactor.passwordValidation(passwordDomain) } returns true
+        every { interactor.loginUser(loginDomain, passwordDomain) } returns LoginDomain.Success
 
         //WHEN
         presenter.onLoginClicked(password, loginName)
@@ -96,9 +98,11 @@ internal class LoginPresenterTest {
         val loginDomain = LoginNameDomain(loginName)
         val loginErrorDomain = LoginErrorDomain(error)
 
-        every { interactor.loginNameValidation(loginDomain)} returns true
-        every { interactor.passwordValidation(passwordDomain)} returns true
-        every { interactor.loginUser(loginDomain, passwordDomain)} returns LoginDomain.Fail(loginErrorDomain)
+        every { interactor.loginNameValidation(loginDomain) } returns true
+        every { interactor.passwordValidation(passwordDomain) } returns true
+        every { interactor.loginUser(loginDomain, passwordDomain) } returns LoginDomain.Fail(
+            loginErrorDomain
+        )
 
         //WHEN
         presenter.onLoginClicked(password, loginName)
@@ -117,8 +121,8 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
 
-        every { interactor.loginNameValidation(loginDomain)} returns false
-        every { interactor.passwordValidation(passwordDomain)} returns true
+        every { interactor.loginNameValidation(loginDomain) } returns false
+        every { interactor.passwordValidation(passwordDomain) } returns true
 
         //WHEN
         presenter.onLoginClicked(password, loginName)
@@ -142,8 +146,8 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
 
-        every { interactor.loginNameValidation(loginDomain)} returns true
-        every { interactor.passwordValidation(passwordDomain)} returns false
+        every { interactor.loginNameValidation(loginDomain) } returns true
+        every { interactor.passwordValidation(passwordDomain) } returns false
 
         //WHEN
         presenter.onLoginClicked(password, loginName)
@@ -166,8 +170,8 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
 
-        every { interactor.loginNameValidation(loginDomain)} returns false
-        every { interactor.passwordValidation(passwordDomain)} returns false
+        every { interactor.loginNameValidation(loginDomain) } returns false
+        every { interactor.passwordValidation(passwordDomain) } returns false
 
         //WHEN
         presenter.onLoginClicked(password, loginName)

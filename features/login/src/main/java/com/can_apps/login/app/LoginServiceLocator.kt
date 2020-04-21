@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 
 internal class LoginServiceLocator(private val context: Context) {
 
-    fun getPresenter(): LoginContract.Presenter = LoginPresenter(getInteractor(), getCoroutineDispatcher())
+    fun getPresenter(): LoginContract.Presenter = LoginPresenter(getInteractor(), getCoroutineDispatcher(), context)
 
     private fun getInteractor(): LoginContract.Interactor = LoginInteractor(getRepository())
 
