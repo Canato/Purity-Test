@@ -55,4 +55,6 @@ dependencies {
 
     // Firebase Auth
     implementation 'com.google.firebase:firebase-auth:19.3.0'
+
+    implementation project(':common')
 }

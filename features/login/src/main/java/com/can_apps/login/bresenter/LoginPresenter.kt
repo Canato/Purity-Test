@@ -1,12 +1,25 @@
 package com.can_apps.login.bresenter
 
-import com.can_apps.login.core.*
+import com.can_apps.common.CoroutineDispatcherFactory
+import com.can_apps.login.core.LoginContract
+import com.can_apps.login.core.LoginDomain
+import com.can_apps.login.core.LoginNameDomain
+import com.can_apps.login.core.LoginPasswordDomain
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 internal class LoginPresenter(
-    private val interactor: LoginContract.Interactor
-) : LoginContract.Presenter {
+    private val interactor: LoginContract.Interactor,
+    private val dispatcher: CoroutineDispatcherFactory
+) : LoginContract.Presenter, CoroutineScope {
 
     private lateinit var view: LoginContract.View
+
+    private val job = Job()
+    override val coroutineContext: CoroutineContext
+        get() = dispatcher.UI + job
 
 
     override fun bind(view: LoginContract.View) {
@@ -14,6 +27,7 @@ internal class LoginPresenter(
     }
 
     override fun unbind() {
+        job.cancel()
     }
 
     override fun onViewCreated() {
@@ -25,6 +39,10 @@ internal class LoginPresenter(
     }
 
     override fun onLoginClicked(password: String, loginName: String) {
+        retrieveData(password, loginName)
+    }
+
+    private fun CoroutineScope.retrieveData(password: String, loginName: String) = launch(dispatcher.IO) {
 
         val passwordDomain = LoginPasswordDomain(password)
         val loginNameDomain = LoginNameDomain(loginName)
@@ -32,6 +50,7 @@ internal class LoginPresenter(
         val isLoginValid = interactor.loginNameValidation(loginNameDomain)
 
         if (isLoginValid && isPasswordValid) {
+
             when (val result = interactor.loginUser(loginNameDomain, passwordDomain)) {
                 LoginDomain.Success -> view.showSuccess()
                 is LoginDomain.Fail -> view.showError(result.error.value)
@@ -41,3 +60,4 @@ internal class LoginPresenter(
     }
 
 }
+
