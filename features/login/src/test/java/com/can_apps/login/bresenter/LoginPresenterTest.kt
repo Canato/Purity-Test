@@ -1,15 +1,20 @@
 package com.can_apps.login.bresenter
 
+import com.can_apps.common.CoroutineDispatcherFactory
+import com.can_apps.common.CoroutineDispatcherFactoryUnconfined
 import com.can_apps.login.core.*
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Test
 
 internal class LoginPresenterTest {
+
+
 
     @MockK
     private lateinit var interactor: LoginContract.Interactor
@@ -17,12 +22,19 @@ internal class LoginPresenterTest {
     @MockK
     private lateinit var view: LoginContract.View
 
+    @MockK
+    private lateinit var dispatcherFactory: CoroutineDispatcherFactory
+
     @InjectMockKs
     private lateinit var presenter: LoginPresenter
 
     @Before
     fun setup() {
         MockKAnnotations.init(this, relaxed = true)
+
+        val unconfinedFactory = CoroutineDispatcherFactoryUnconfined()
+        every { dispatcherFactory.IO } returns unconfinedFactory.IO
+        every { dispatcherFactory.UI } returns unconfinedFactory.UI
 
         presenter.bind(view)
     }
