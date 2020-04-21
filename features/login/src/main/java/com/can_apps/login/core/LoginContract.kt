@@ -7,10 +7,6 @@ internal interface LoginContract {
 
         fun close()
 
-        fun showLoading()
-
-        fun hideLoading()
-
         fun showError(error: String)
 
         fun showSuccess()

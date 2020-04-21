@@ -49,12 +49,6 @@ class LoginFragment :
         activity?.finish()
     }
 
-    override fun showLoading() {
-    }
-
-    override fun hideLoading() {
-    }
-
     override fun showError(error: String) {
         view?.let { Snackbar.make(it, error, Snackbar.LENGTH_SHORT).show() }
     }
