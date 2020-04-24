@@ -17,12 +17,8 @@ internal class LoginInteractorTest {
     @InjectMockKs
     private lateinit var interactor: LoginInteractor
 
-
     @Before
-    fun setup() {
-        MockKAnnotations.init(this, relaxed = true)
-
-    }
+    fun setup() = MockKAnnotations.init(this)
 
     @Test
     fun `GIVEN valid login name, WHEN validate, THEN return true`() {
