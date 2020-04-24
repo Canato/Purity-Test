@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="white">#FFFFFF</color>
-    <string name="login_button_text">Submit</string>
-    <string name="login_edittext_hint">Enter login</string>
-    <string name="login_error_message">Sorry, something is invalid</string>
-    <string name="login_password_hint">Enter password</string>
-</resources>
