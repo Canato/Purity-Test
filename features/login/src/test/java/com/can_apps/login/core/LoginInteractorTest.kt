@@ -4,7 +4,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.verify
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -27,7 +27,7 @@ internal class LoginInteractorTest {
         val loginNameDomain = LoginNameDomain(login)
 
         //WHEN
-        val result = interactor.loginNameValidation(loginNameDomain)
+        val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
 
         //THEN
         assertTrue(result)
@@ -40,7 +40,7 @@ internal class LoginInteractorTest {
         val loginNameDomain = LoginNameDomain(login)
 
         //WHEN
-        val result = interactor.loginNameValidation(loginNameDomain)
+        val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
 
         //THEN
         assertFalse(result)
@@ -53,7 +53,7 @@ internal class LoginInteractorTest {
         val loginNameDomain = LoginNameDomain(login)
 
         //WHEN
-        val result = interactor.loginNameValidation(loginNameDomain)
+        val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
 
         //THEN
         assertFalse(result)
@@ -66,7 +66,7 @@ internal class LoginInteractorTest {
         val loginNameDomain = LoginNameDomain(login)
 
         //WHEN
-        val result = interactor.loginNameValidation(loginNameDomain)
+        val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
 
         //THEN
         assertFalse(result)
@@ -79,7 +79,7 @@ internal class LoginInteractorTest {
         val loginNameDomain = LoginNameDomain(login)
 
         //WHEN
-        val result = interactor.loginNameValidation(loginNameDomain)
+        val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
 
         //THEN
         assertFalse(result)
@@ -92,7 +92,7 @@ internal class LoginInteractorTest {
         val loginNameDomain = LoginNameDomain(login)
 
         //WHEN
-        val result = interactor.loginNameValidation(loginNameDomain)
+        val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
 
         //THEN
         assertFalse(result)
@@ -105,7 +105,7 @@ internal class LoginInteractorTest {
         val passwordDomain = LoginPasswordDomain(password)
 
         //WHEN
-        val result = interactor.passwordValidation(passwordDomain)
+        val result = runBlocking { interactor.passwordValidation(passwordDomain) }
 
         //THEN
         assertTrue(result)
@@ -118,10 +118,10 @@ internal class LoginInteractorTest {
         val passwordDomain = LoginPasswordDomain(password)
 
         //WHEN
-        val result = interactor.passwordValidation(passwordDomain)
+        val result = runBlocking { interactor.passwordValidation(passwordDomain) }
 
         //THEN
-        assertFalse( result)
+        assertFalse(result)
     }
 
     @Test
@@ -131,7 +131,7 @@ internal class LoginInteractorTest {
         val passwordDomain = LoginPasswordDomain(password)
 
         //WHEN
-        val result = interactor.passwordValidation(passwordDomain)
+        val result = runBlocking { interactor.passwordValidation(passwordDomain) }
 
         //THEN
         assertFalse(result)
@@ -144,7 +144,7 @@ internal class LoginInteractorTest {
         val passwordDomain = LoginPasswordDomain(password)
 
         //WHEN
-        val result = interactor.passwordValidation(passwordDomain)
+        val result = runBlocking { interactor.passwordValidation(passwordDomain) }
 
         //THEN
         assertFalse(result)
@@ -157,7 +157,7 @@ internal class LoginInteractorTest {
         val passwordDomain = LoginPasswordDomain(password)
 
         //WHEN
-        val result = interactor.passwordValidation(passwordDomain)
+        val result = runBlocking { interactor.passwordValidation(passwordDomain) }
 
         //THEN
         assertFalse(result)
@@ -170,7 +170,7 @@ internal class LoginInteractorTest {
         val passwordDomain = LoginPasswordDomain(password)
 
         //WHEN
-        val result = interactor.passwordValidation(passwordDomain)
+        val result = runBlocking { interactor.passwordValidation(passwordDomain) }
 
         //THEN
         assertFalse(result)
@@ -187,10 +187,17 @@ internal class LoginInteractorTest {
 
         val expected = LoginDomain.Success
 
-        every { repository.loginUser(loginNameDomain, passwordDomain) } returns expected
+        every {
+            runBlocking {
+                repository.loginUser(
+                    loginNameDomain,
+                    passwordDomain
+                )
+            }
+        } returns expected
 
         //WHEN
-        val result = interactor.loginUser(loginNameDomain, passwordDomain)
+        val result = runBlocking { interactor.loginUser(loginNameDomain, passwordDomain) }
 
         //THEN
         assertEquals(expected, result)
@@ -211,10 +218,17 @@ internal class LoginInteractorTest {
 
         val expected = LoginDomain.Fail(errorDomain)
 
-        every { repository.loginUser(loginNameDomain, passwordDomain) } returns expected
+        every {
+            runBlocking {
+                repository.loginUser(
+                    loginNameDomain,
+                    passwordDomain
+                )
+            }
+        } returns expected
 
         //WHEN
-        val result = interactor.loginUser(loginNameDomain, passwordDomain)
+        val result = runBlocking { interactor.loginUser(loginNameDomain, passwordDomain) }
 
         //THEN
         assertEquals(expected, result)

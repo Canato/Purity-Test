@@ -10,6 +10,7 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
@@ -75,9 +76,16 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
 
-        every { interactor.loginNameValidation(loginDomain) } returns true
-        every { interactor.passwordValidation(passwordDomain) } returns true
-        every { interactor.loginUser(loginDomain, passwordDomain) } returns LoginDomain.Success
+        every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns true
+        every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns true
+        every {
+            runBlocking {
+                interactor.loginUser(
+                    loginDomain,
+                    passwordDomain
+                )
+            }
+        } returns LoginDomain.Success
 
         //WHEN
         presenter.onLoginClicked(password, loginName)
@@ -99,9 +107,16 @@ internal class LoginPresenterTest {
         val loginDomain = LoginNameDomain(loginName)
         val loginErrorDomain = LoginErrorDomain(error)
 
-        every { interactor.loginNameValidation(loginDomain) } returns true
-        every { interactor.passwordValidation(passwordDomain) } returns true
-        every { interactor.loginUser(loginDomain, passwordDomain) } returns LoginDomain.Fail(
+        every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns true
+        every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns true
+        every {
+            runBlocking {
+                interactor.loginUser(
+                    loginDomain,
+                    passwordDomain
+                )
+            }
+        } returns LoginDomain.Fail(
             loginErrorDomain
         )
 
@@ -122,8 +137,8 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
 
-        every { interactor.loginNameValidation(loginDomain) } returns false
-        every { interactor.passwordValidation(passwordDomain) } returns true
+        every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns false
+        every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns true
 
         //WHEN
         presenter.onLoginClicked(password, loginName)
@@ -133,7 +148,7 @@ internal class LoginPresenterTest {
             view.showError(any())
         }
         verify(exactly = 0) {
-            interactor.loginUser(loginDomain, passwordDomain)
+            runBlocking { interactor.loginUser(loginDomain, passwordDomain) }
             view.showSuccess()
         }
 
@@ -147,8 +162,8 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
 
-        every { interactor.loginNameValidation(loginDomain) } returns true
-        every { interactor.passwordValidation(passwordDomain) } returns false
+        every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns true
+        every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns false
 
         //WHEN
         presenter.onLoginClicked(password, loginName)
@@ -158,7 +173,7 @@ internal class LoginPresenterTest {
             view.showError(any())
         }
         verify(exactly = 0) {
-            interactor.loginUser(loginDomain, passwordDomain)
+            runBlocking { interactor.loginUser(loginDomain, passwordDomain) }
             view.showSuccess()
         }
     }
@@ -171,8 +186,8 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
 
-        every { interactor.loginNameValidation(loginDomain) } returns false
-        every { interactor.passwordValidation(passwordDomain) } returns false
+        every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns false
+        every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns false
 
         //WHEN
         presenter.onLoginClicked(password, loginName)
@@ -182,7 +197,7 @@ internal class LoginPresenterTest {
             view.showError(any())
         }
         verify(exactly = 0) {
-            interactor.loginUser(loginDomain, passwordDomain)
+            runBlocking { interactor.loginUser(loginDomain, passwordDomain) }
             view.showSuccess()
         }
     }
