@@ -5,7 +5,7 @@ internal class LoginInteractor(
 ) : LoginContract.Interactor {
 
 
-    override fun passwordValidation(password: LoginPasswordDomain): Boolean {
+    override suspend fun passwordValidation(password: LoginPasswordDomain): Boolean {
 
         if (password.value.length < 8) return false
 
@@ -21,7 +21,7 @@ internal class LoginInteractor(
 
     }
 
-    override fun loginNameValidation(loginName: LoginNameDomain): Boolean {
+    override suspend fun loginNameValidation(loginName: LoginNameDomain): Boolean {
 
         if (loginName.value.length < 4) return false
         val pattern = Regex("[a-z0-9._]+[@][a-z0-9]+[.][a-z]+")
@@ -29,6 +29,9 @@ internal class LoginInteractor(
         return (pattern.matches(loginName.value.toLowerCase()))
     }
 
-    override fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain =
+    override suspend fun loginUser(
+        loginName: LoginNameDomain,
+        password: LoginPasswordDomain
+    ): LoginDomain =
         repository.loginUser(loginName, password)
 }

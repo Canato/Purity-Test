@@ -20,12 +20,7 @@ internal class LoginFirebaseApiDefault (private val auth: FirebaseAuth): LoginFi
         return result
     }
 
-    override fun loginExistingUser(login: String, password: String): Boolean {
-        var result = false
-        auth.signInWithEmailAndPassword(login, password)
-            .addOnCompleteListener { task ->
-                result = task.isSuccessful
-            }
-        return result
-    }
+    override fun loginExistingUser(login: String, password: String): Boolean =
+        auth.signInWithEmailAndPassword(login, password).isSuccessful
+
 }
