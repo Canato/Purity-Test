@@ -45,21 +45,22 @@ internal class LoginPresenter(
         userLoginValidation(password, loginName)
     }
 
-    private fun CoroutineScope.userLoginValidation(password: String, loginName: String) = launch(dispatcher.IO) {
+    private fun CoroutineScope.userLoginValidation(password: String, loginName: String) =
+        launch(dispatcher.IO) {
 
-        val passwordDomain = LoginPasswordDomain(password)
-        val loginNameDomain = LoginNameDomain(loginName)
-        val isPasswordValid = interactor.passwordValidation(passwordDomain)
-        val isLoginValid = interactor.loginNameValidation(loginNameDomain)
+            val passwordDomain = LoginPasswordDomain(password)
+            val loginNameDomain = LoginNameDomain(loginName)
+            val isPasswordValid = interactor.passwordValidation(passwordDomain)
+            val isLoginValid = interactor.loginNameValidation(loginNameDomain)
 
-        if (isLoginValid && isPasswordValid) {
-            when (val result = interactor.loginUser(loginNameDomain, passwordDomain)) {
-                LoginDomain.Success -> showSuccess()
-                is LoginDomain.Fail -> showError(result.error.value)
-            }
-        } else
-            showError(context.getString(R.string.login_error_message))
-    }
+            if (isLoginValid && isPasswordValid) {
+                when (val result = interactor.loginUser(loginNameDomain, passwordDomain)) {
+                    LoginDomain.Success -> showSuccess()
+                    is LoginDomain.Fail -> showError(result.error.value)
+                }
+            } else
+                showError(context.getString(R.string.login_error_message))
+        }
 
     private fun CoroutineScope.showSuccess() = launch(dispatcher.UI) {
         view.showSuccess()

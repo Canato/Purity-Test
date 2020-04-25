@@ -9,11 +9,11 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Test
 
 internal class LoginPresenterTest {
-
 
     @MockK
     private lateinit var context: Context
@@ -30,6 +30,7 @@ internal class LoginPresenterTest {
     @InjectMockKs
     private lateinit var presenter: LoginPresenter
 
+    @ExperimentalCoroutinesApi
     @Before
     fun setup() {
         MockKAnnotations.init(this, relaxed = true)
