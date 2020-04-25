@@ -34,4 +34,8 @@ internal class LoginInteractor(
         password: LoginPasswordDomain
     ): LoginDomain =
         repository.loginUser(loginName, password)
+
+    override fun logoutUser() {
+       repository.logoutUser()
+    }
 }

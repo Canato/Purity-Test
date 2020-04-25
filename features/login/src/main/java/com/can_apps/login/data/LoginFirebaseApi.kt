@@ -4,23 +4,22 @@ import com.google.firebase.auth.FirebaseAuth
 
 internal interface LoginFirebaseApi {
 
-    fun createNewUser(login: String, password: String): Boolean
-    fun loginExistingUser(login: String, password: String): Boolean
+    suspend fun createNewUser(login: String, password: String): Boolean
+    suspend fun loginExistingUser(login: String, password: String): Boolean
+    fun logoutUser()
 }
 
-internal class LoginFirebaseApiDefault (private val auth: FirebaseAuth): LoginFirebaseApi {
+internal class LoginFirebaseApiDefault(private val auth: FirebaseAuth) : LoginFirebaseApi {
 
-    override fun createNewUser(login: String, password: String): Boolean {
-        var result = false
+    override suspend fun createNewUser(login: String, password: String): Boolean =
+        auth.createUserWithEmailAndPassword(login, password).isSuccessful
 
-        auth.createUserWithEmailAndPassword(login, password)
-            .addOnCompleteListener { task ->
-                result = task.isSuccessful
-            }
-        return result
-    }
 
-    override fun loginExistingUser(login: String, password: String): Boolean =
+    override suspend fun loginExistingUser(login: String, password: String): Boolean =
         auth.signInWithEmailAndPassword(login, password).isSuccessful
+
+    override fun logoutUser() {
+        auth.signOut()
+    }
 
 }

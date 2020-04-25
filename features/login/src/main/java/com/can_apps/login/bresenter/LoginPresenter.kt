@@ -45,6 +45,10 @@ internal class LoginPresenter(
         userLoginValidation(password, loginName)
     }
 
+    override fun logoutUser() {
+        logout()
+    }
+
     private fun CoroutineScope.userLoginValidation(password: String, loginName: String) =
         launch(dispatcher.IO) {
 
@@ -68,6 +72,10 @@ internal class LoginPresenter(
 
     private fun CoroutineScope.showError(message: String) = launch(dispatcher.UI) {
         view.showError(message)
+    }
+
+    private fun CoroutineScope.logout() = launch(dispatcher.IO) {
+        interactor.logoutUser()
     }
 
 }

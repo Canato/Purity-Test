@@ -24,6 +24,8 @@ internal interface LoginContract {
         fun onBackPressed()
 
         fun onLoginClicked(password: String, loginName: String)
+
+        fun logoutUser()
     }
 
     interface Interactor {
@@ -33,10 +35,15 @@ internal interface LoginContract {
         suspend fun loginNameValidation(loginName: LoginNameDomain): Boolean
 
         suspend fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
+
+        fun logoutUser()
     }
 
     interface Repository {
 
         suspend fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
+
+        fun logoutUser()
+
     }
 }

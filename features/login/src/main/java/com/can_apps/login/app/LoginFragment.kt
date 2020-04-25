@@ -38,6 +38,9 @@ class LoginFragment :
                 loginNameEditText.text.toString()
             )
         }
+        logoutButton.setOnClickListener {
+            presenter.logoutUser()
+        }
     }
 
 

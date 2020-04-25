@@ -8,16 +8,25 @@ internal class LoginRepository(private val api: LoginFirebaseApi) : LoginContrac
     override suspend fun loginUser(
         loginName: LoginNameDomain,
         password: LoginPasswordDomain
-    ): LoginDomain =
+    ): LoginDomain {
+
+
         try {
-            if (!api.loginExistingUser(loginName.value, password.value)) {
-                if (!api.createNewUser(loginName.value, password.value)) {
-                    LoginDomain.Fail(LoginErrorDomain("Sorry, login is not available"))
+
+            val result = api.loginExistingUser(loginName.value, password.value)
+            if (!result) {
+                val result2 = api.createNewUser(loginName.value, password.value)
+                if (!result2) {
+                   return LoginDomain.Fail(LoginErrorDomain("Sorry, login is not available"))
                 }
             }
-            LoginDomain.Success
+            return LoginDomain.Success
         } catch (e: Exception) {
-            LoginDomain.Fail(LoginErrorDomain(e.message.toString()))
+            return LoginDomain.Fail(LoginErrorDomain(e.message.toString()))
         }
+    }
 
+    override fun logoutUser() {
+        api.logoutUser()
+    }
 }
