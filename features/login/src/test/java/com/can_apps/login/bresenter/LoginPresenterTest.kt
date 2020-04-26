@@ -72,7 +72,6 @@ internal class LoginPresenterTest {
     fun `GIVEN a view, WHEN on logoutUser pressed, THEN perform logout user`() {
         //GIVEN
 
-
         //WHEN
         presenter.logoutUser()
         //THEN
@@ -82,7 +81,7 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN valid password and loginName, WHEN onLoginClicked, THEN show success`() {
+    fun `GIVEN valid password and loginName, WHEN onSignClicked, THEN show success`() {
         //GIVEN
         val password = "pass"
         val loginName = "loginName"
@@ -101,7 +100,7 @@ internal class LoginPresenterTest {
         } returns LoginDomain.Success
 
         //WHEN
-        presenter.onLoginClicked(password, loginName)
+        presenter.onSignClicked(password, loginName)
 
         //THEN
         verify {
@@ -110,7 +109,7 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN loginUser fail, WHEN onLoginClicked, THEN show fail`() {
+    fun `GIVEN loginUser fail, WHEN onSignClicked, THEN show fail`() {
         //GIVEN
 
         val password = "pass"
@@ -134,7 +133,7 @@ internal class LoginPresenterTest {
         )
 
         //WHEN
-        presenter.onLoginClicked(password, loginName)
+        presenter.onSignClicked(password, loginName)
 
         //THEN
         verify {
@@ -143,7 +142,7 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN valid password and invalid loginName, WHEN onLoginClicked, THEN show fail`() {
+    fun `GIVEN valid password and invalid loginName, WHEN onSignClicked, THEN show fail`() {
         //GIVEN
         val password = "pass"
         val loginName = "loginName"
@@ -154,7 +153,7 @@ internal class LoginPresenterTest {
         every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns true
 
         //WHEN
-        presenter.onLoginClicked(password, loginName)
+        presenter.onSignClicked(password, loginName)
 
         //THEN
         verify {
@@ -168,7 +167,7 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN invalid password and valid loginName, WHEN onLoginClicked, THEN show fail`() {
+    fun `GIVEN invalid password and valid loginName, WHEN onSignClicked, THEN show fail`() {
         //GIVEN
         val password = "pass"
         val loginName = "loginName"
@@ -179,7 +178,7 @@ internal class LoginPresenterTest {
         every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns false
 
         //WHEN
-        presenter.onLoginClicked(password, loginName)
+        presenter.onSignClicked(password, loginName)
 
         //THEN
         verify {
@@ -192,7 +191,7 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN invalid password and loginName, WHEN onLoginClicked, THEN show fail`() {
+    fun `GIVEN invalid password and loginName, WHEN onSignClicked, THEN show fail`() {
         //GIVEN
         val password = "pass"
         val loginName = "loginName"
@@ -203,7 +202,7 @@ internal class LoginPresenterTest {
         every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns false
 
         //WHEN
-        presenter.onLoginClicked(password, loginName)
+        presenter.onSignClicked(password, loginName)
 
         //THEN
         verify {
@@ -211,6 +210,140 @@ internal class LoginPresenterTest {
         }
         verify(exactly = 0) {
             runBlocking { interactor.signInUser(loginDomain, passwordDomain) }
+            view.showSuccess()
+        }
+    }
+
+    @Test
+    fun `GIVEN valid password and loginName, WHEN onCreateUserClicked, THEN show success`() {
+        //GIVEN
+        val password = "pass"
+        val loginName = "loginName"
+        val passwordDomain = LoginPasswordDomain(password)
+        val loginDomain = LoginNameDomain(loginName)
+
+        every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns true
+        every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns true
+        every {
+            runBlocking {
+                interactor.createUser(
+                    loginDomain,
+                    passwordDomain
+                )
+            }
+        } returns LoginDomain.Success
+
+        //WHEN
+        presenter.onCreateLoginClicked(password, loginName)
+
+        //THEN
+        verify {
+            view.showSuccess()
+        }
+    }
+
+    @Test
+    fun `GIVEN loginUser fail, WHEN onCreateUserClicked, THEN show fail`() {
+        //GIVEN
+
+        val password = "pass"
+        val loginName = "loginName"
+        val error = "flipflops"
+        val passwordDomain = LoginPasswordDomain(password)
+        val loginDomain = LoginNameDomain(loginName)
+        val loginErrorDomain = LoginErrorDomain(error)
+
+        every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns true
+        every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns true
+        every {
+            runBlocking {
+                interactor.createUser(
+                    loginDomain,
+                    passwordDomain
+                )
+            }
+        } returns LoginDomain.Fail(
+            loginErrorDomain
+        )
+
+        //WHEN
+        presenter.onCreateLoginClicked(password, loginName)
+
+        //THEN
+        verify {
+            view.showError(error)
+        }
+    }
+
+    @Test
+    fun `GIVEN valid password and invalid loginName, WHEN onCreateUserClicked, THEN show fail`() {
+        //GIVEN
+        val password = "pass"
+        val loginName = "loginName"
+        val passwordDomain = LoginPasswordDomain(password)
+        val loginDomain = LoginNameDomain(loginName)
+
+        every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns false
+        every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns true
+
+        //WHEN
+        presenter.onCreateLoginClicked(password, loginName)
+
+        //THEN
+        verify {
+            view.showError(any())
+        }
+        verify(exactly = 0) {
+            runBlocking { interactor.createUser(loginDomain, passwordDomain) }
+            view.showSuccess()
+        }
+
+    }
+
+    @Test
+    fun `GIVEN invalid password and valid loginName, WHEN onCreateUserClicked, THEN show fail`() {
+        //GIVEN
+        val password = "pass"
+        val loginName = "loginName"
+        val passwordDomain = LoginPasswordDomain(password)
+        val loginDomain = LoginNameDomain(loginName)
+
+        every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns true
+        every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns false
+
+        //WHEN
+        presenter.onCreateLoginClicked(password, loginName)
+
+        //THEN
+        verify {
+            view.showError(any())
+        }
+        verify(exactly = 0) {
+            runBlocking { interactor.createUser(loginDomain, passwordDomain) }
+            view.showSuccess()
+        }
+    }
+
+    @Test
+    fun `GIVEN invalid password and loginName, WHEN onCreateUserClicked, THEN show fail`() {
+        //GIVEN
+        val password = "pass"
+        val loginName = "loginName"
+        val passwordDomain = LoginPasswordDomain(password)
+        val loginDomain = LoginNameDomain(loginName)
+
+        every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns false
+        every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns false
+
+        //WHEN
+        presenter.onCreateLoginClicked(password, loginName)
+
+        //THEN
+        verify {
+            view.showError(any())
+        }
+        verify(exactly = 0) {
+            runBlocking { interactor.createUser(loginDomain, passwordDomain) }
             view.showSuccess()
         }
     }

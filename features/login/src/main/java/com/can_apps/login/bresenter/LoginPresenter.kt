@@ -41,8 +41,12 @@ internal class LoginPresenter(
         view.close()
     }
 
-    override fun onLoginClicked(password: String, loginName: String) {
+    override fun onSignClicked(password: String, loginName: String) {
         userLoginValidation(password, loginName)
+    }
+
+    override fun onCreateLoginClicked(password: String, loginName: String) {
+        createUserValidation(password, loginName)
     }
 
     override fun logoutUser() {
@@ -54,6 +58,24 @@ internal class LoginPresenter(
     }
 
     private fun CoroutineScope.userLoginValidation(password: String, loginName: String) =
+            launch(dispatcher.IO) {
+
+                val passwordDomain = LoginPasswordDomain(password)
+                val loginNameDomain = LoginNameDomain(loginName)
+                val isPasswordValid = interactor.passwordValidation(passwordDomain)
+                val isLoginValid = interactor.loginNameValidation(loginNameDomain)
+
+                if (isLoginValid && isPasswordValid) {
+                    when (val result = interactor.signInUser(loginNameDomain, passwordDomain)) {
+                        LoginDomain.Success -> showSuccess()
+                        is LoginDomain.Fail -> showError(result.error.value)
+
+                    }
+                } else
+                    showError(context.getString(R.string.login_error_message))
+            }
+
+    private fun CoroutineScope.createUserValidation(password: String, loginName: String) =
         launch(dispatcher.IO) {
 
             val passwordDomain = LoginPasswordDomain(password)
@@ -62,15 +84,10 @@ internal class LoginPresenter(
             val isLoginValid = interactor.loginNameValidation(loginNameDomain)
 
             if (isLoginValid && isPasswordValid) {
-                when (val result = interactor.signInUser(loginNameDomain, passwordDomain)) {
+                when (val result = interactor.createUser(LoginNameDomain(loginName), passwordDomain)) {
                     LoginDomain.Success -> showSuccess()
-//                    is LoginDomain.Fail -> when (interactor.createUser(
-//                        loginNameDomain,
-//                        passwordDomain
-//                    )) {
-//                        LoginDomain.Success -> showSuccess()
-                        is LoginDomain.Fail -> showError(result.error.value)
-//                    }
+                    is LoginDomain.Fail -> showError(result.error.value)
+
                 }
             } else
                 showError(context.getString(R.string.login_error_message))

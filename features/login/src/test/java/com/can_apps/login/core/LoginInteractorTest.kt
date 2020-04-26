@@ -191,7 +191,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN repository success, WHEN loginUser, THEN return LoginDomain Success`() {
+    fun `GIVEN repository success, WHEN sign in user, THEN return LoginDomain Success`() {
         //GIVEN
         val login = "Tomasz"
         val loginNameDomain = LoginNameDomain(login)
@@ -219,7 +219,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN repository fail, WHEN loginUser, THEN return LoginDomain Fail`() {
+    fun `GIVEN repository fail, WHEN sign in user, THEN return LoginDomain Fail`() {
         //GIVEN
         val login = "Tomasz"
         val loginNameDomain = LoginNameDomain(login)
@@ -248,6 +248,67 @@ internal class LoginInteractorTest {
         assertEquals(expected, result)
 
     }
+
+    @Test
+    fun `GIVEN repository success, WHEN create new user, THEN return LoginDomain Success`() {
+        //GIVEN
+        val login = "Tomasz"
+        val loginNameDomain = LoginNameDomain(login)
+
+        val password = "passWORD1"
+        val passwordDomain = LoginPasswordDomain(password)
+
+        val expected = LoginDomain.Success
+
+        every {
+            runBlocking {
+                repository.createUser(
+                    loginNameDomain,
+                    passwordDomain
+                )
+            }
+        } returns expected
+
+        //WHEN
+        val result = runBlocking { interactor.createUser(loginNameDomain, passwordDomain) }
+
+        //THEN
+        assertEquals(expected, result)
+
+    }
+
+    @Test
+    fun `GIVEN repository fail, WHEN create new user, THEN return LoginDomain Fail`() {
+        //GIVEN
+        val login = "Tomasz"
+        val loginNameDomain = LoginNameDomain(login)
+
+        val password = "passWORD1"
+        val passwordDomain = LoginPasswordDomain(password)
+
+        val error = "flipflops"
+        val errorDomain = LoginErrorDomain(error)
+
+        val expected = LoginDomain.Fail(errorDomain)
+
+        every {
+            runBlocking {
+                repository.createUser(
+                    loginNameDomain,
+                    passwordDomain
+                )
+            }
+        } returns expected
+
+        //WHEN
+        val result = runBlocking { interactor.createUser(loginNameDomain, passwordDomain) }
+
+        //THEN
+        assertEquals(expected, result)
+
+    }
+
+
 
 
 }

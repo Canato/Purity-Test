@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="login_button_text">Submit</string>
+    <string name="login_sign_in_text">Sign In</string>
     <string name="login_edittext_hint">Enter login</string>
     <string name="login_password_hint">Enter password</string>
-    <string name="login_error_message">Sorry, something is invalid</string>
+    <string name="login_error_message">Sorry, your login/password didn\'t passed validation</string>
     <string name="logout_user">Logout User</string>
     <string name="check_logged_user">check logged user</string>
+    <string name="create_new_user">Create new user</string>
 </resources>

@@ -28,7 +28,7 @@ internal class LoginRepository(private val api: LoginFirebaseApi) : LoginContrac
         return try {
             val result = api.createNewUser(loginName.value, password.value)
             if (!result) {
-                LoginDomain.Fail(LoginErrorDomain("Sorry, login is not available"))
+                LoginDomain.Fail(LoginErrorDomain("Cannot create new user"))
             } else
                 LoginDomain.Success
         } catch (e: Exception) {

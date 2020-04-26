@@ -32,8 +32,15 @@ class LoginFragment :
 
         presenter.bind(this)
         presenter.onViewCreated()
-        loginSubmitButton.setOnClickListener {
-            presenter.onLoginClicked(
+        signInButton.setOnClickListener {
+            presenter.onSignClicked(
+                loginPasswordEditText.text.toString(),
+                loginNameEditText.text.toString()
+            )
+        }
+
+        createUserButton.setOnClickListener {
+            presenter.onCreateLoginClicked(
                 loginPasswordEditText.text.toString(),
                 loginNameEditText.text.toString()
             )
