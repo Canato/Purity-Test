@@ -4,6 +4,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before
@@ -18,7 +19,20 @@ internal class LoginInteractorTest {
     private lateinit var interactor: LoginInteractor
 
     @Before
-    fun setup() = MockKAnnotations.init(this)
+    fun setup() = MockKAnnotations.init(this, relaxed = true)
+
+    @Test
+    fun `GIVEN repository logout User , WHEN logout, THEN perform interactor logout user`() {
+        //GIVEN
+
+        //WHEN
+        runBlocking { interactor.logoutUser() }
+
+        //THEN
+        verify {
+            runBlocking { repository.logoutUser() }
+        }
+    }
 
     @Test
     fun `GIVEN valid login name, WHEN validate, THEN return true`() {
@@ -189,7 +203,7 @@ internal class LoginInteractorTest {
 
         every {
             runBlocking {
-                repository.loginUser(
+                repository.signInUser(
                     loginNameDomain,
                     passwordDomain
                 )
@@ -197,7 +211,7 @@ internal class LoginInteractorTest {
         } returns expected
 
         //WHEN
-        val result = runBlocking { interactor.loginUser(loginNameDomain, passwordDomain) }
+        val result = runBlocking { interactor.signInUser(loginNameDomain, passwordDomain) }
 
         //THEN
         assertEquals(expected, result)
@@ -220,7 +234,7 @@ internal class LoginInteractorTest {
 
         every {
             runBlocking {
-                repository.loginUser(
+                repository.signInUser(
                     loginNameDomain,
                     passwordDomain
                 )
@@ -228,7 +242,7 @@ internal class LoginInteractorTest {
         } returns expected
 
         //WHEN
-        val result = runBlocking { interactor.loginUser(loginNameDomain, passwordDomain) }
+        val result = runBlocking { interactor.signInUser(loginNameDomain, passwordDomain) }
 
         //THEN
         assertEquals(expected, result)

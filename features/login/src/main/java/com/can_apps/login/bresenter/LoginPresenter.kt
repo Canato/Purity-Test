@@ -49,6 +49,10 @@ internal class LoginPresenter(
         logout()
     }
 
+    override fun currentUser() {
+        checkUser()
+    }
+
     private fun CoroutineScope.userLoginValidation(password: String, loginName: String) =
         launch(dispatcher.IO) {
 
@@ -58,9 +62,15 @@ internal class LoginPresenter(
             val isLoginValid = interactor.loginNameValidation(loginNameDomain)
 
             if (isLoginValid && isPasswordValid) {
-                when (val result = interactor.loginUser(loginNameDomain, passwordDomain)) {
+                when (val result = interactor.signInUser(loginNameDomain, passwordDomain)) {
                     LoginDomain.Success -> showSuccess()
-                    is LoginDomain.Fail -> showError(result.error.value)
+//                    is LoginDomain.Fail -> when (interactor.createUser(
+//                        loginNameDomain,
+//                        passwordDomain
+//                    )) {
+//                        LoginDomain.Success -> showSuccess()
+                        is LoginDomain.Fail -> showError(result.error.value)
+//                    }
                 }
             } else
                 showError(context.getString(R.string.login_error_message))
@@ -72,6 +82,10 @@ internal class LoginPresenter(
 
     private fun CoroutineScope.showError(message: String) = launch(dispatcher.UI) {
         view.showError(message)
+    }
+
+    private fun CoroutineScope.checkUser() = launch(dispatcher.IO) {
+        view.showError("Currently logged as: " + interactor.checkUser())
     }
 
     private fun CoroutineScope.logout() = launch(dispatcher.IO) {

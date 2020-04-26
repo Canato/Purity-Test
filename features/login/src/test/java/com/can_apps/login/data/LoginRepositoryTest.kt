@@ -8,6 +8,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -22,7 +23,20 @@ internal class LoginRepositoryTest {
     private lateinit var repository: LoginRepository
 
     @Before
-    fun setup() = MockKAnnotations.init(this)
+    fun setup() = MockKAnnotations.init(this, relaxed = true)
+
+    @Test
+    fun `GIVEN api logout User , WHEN logout, THEN perform repository logout user`() {
+        //GIVEN
+
+        //WHEN
+        runBlocking { repository.logoutUser() }
+
+        //THEN
+        verify {
+            runBlocking { api.logoutUser() }
+        }
+    }
 
     @Test
     fun `GIVEN wrong password, WHEN loginUser, THEN return LoginDomain_Fail`() {
@@ -35,11 +49,19 @@ internal class LoginRepositoryTest {
         val errorDomain = LoginErrorDomain(wrongPassword)
         val expected = LoginDomain.Fail(errorDomain)
         every {
-            runBlocking { api.loginExistingUser(nameDomain.value, passwordDomain.value)} } returns false
-        every {runBlocking { api.createNewUser(nameDomain.value, passwordDomain.value) }} returns false
+            runBlocking { api.loginExistingUser(nameDomain.value, passwordDomain.value) }
+        } returns false
+        every {
+            runBlocking {
+                api.createNewUser(
+                    nameDomain.value,
+                    passwordDomain.value
+                )
+            }
+        } returns false
         //WHEN
 
-        val result =runBlocking { repository.loginUser(nameDomain, passwordDomain)}
+        val result = runBlocking { repository.signInUser(nameDomain, passwordDomain) }
 
         //THEN
         assertEquals(expected, result)
@@ -56,12 +78,19 @@ internal class LoginRepositoryTest {
         val passwordDomain = LoginPasswordDomain(password)
         val noInternetConnectionDomain = LoginErrorDomain(noInternetConnection)
         val expected = LoginDomain.Fail(noInternetConnectionDomain)
-        every { runBlocking {api.loginExistingUser(nameDomain.value, passwordDomain.value) } }throws Exception(
+        every {
+            runBlocking {
+                api.loginExistingUser(
+                    nameDomain.value,
+                    passwordDomain.value
+                )
+            }
+        } throws Exception(
             noInternetConnectionDomain.value
         )
 
         //WHEN
-        val result = runBlocking {repository.loginUser(nameDomain, passwordDomain)}
+        val result = runBlocking { repository.signInUser(nameDomain, passwordDomain) }
 
         //THEN
         assertEquals(expected, result)
@@ -76,10 +105,17 @@ internal class LoginRepositoryTest {
         val nameDomain = LoginNameDomain(name)
         val passwordDomain = LoginPasswordDomain(password)
         val expected = LoginDomain.Success
-        every { runBlocking {api.loginExistingUser(nameDomain.value, passwordDomain.value) }} returns true
+        every {
+            runBlocking {
+                api.loginExistingUser(
+                    nameDomain.value,
+                    passwordDomain.value
+                )
+            }
+        } returns true
 
         //WHEN
-        val result = runBlocking {repository.loginUser(nameDomain, passwordDomain)}
+        val result = runBlocking { repository.signInUser(nameDomain, passwordDomain) }
 
         //THEN
         assertEquals(expected, result)

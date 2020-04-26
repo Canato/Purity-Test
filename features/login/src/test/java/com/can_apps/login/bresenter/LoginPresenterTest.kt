@@ -69,6 +69,19 @@ internal class LoginPresenterTest {
     }
 
     @Test
+    fun `GIVEN a view, WHEN on logoutUser pressed, THEN perform logout user`() {
+        //GIVEN
+
+
+        //WHEN
+        presenter.logoutUser()
+        //THEN
+        verify {
+            runBlocking { interactor.logoutUser() }
+        }
+    }
+
+    @Test
     fun `GIVEN valid password and loginName, WHEN onLoginClicked, THEN show success`() {
         //GIVEN
         val password = "pass"
@@ -80,7 +93,7 @@ internal class LoginPresenterTest {
         every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns true
         every {
             runBlocking {
-                interactor.loginUser(
+                interactor.signInUser(
                     loginDomain,
                     passwordDomain
                 )
@@ -111,7 +124,7 @@ internal class LoginPresenterTest {
         every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns true
         every {
             runBlocking {
-                interactor.loginUser(
+                interactor.signInUser(
                     loginDomain,
                     passwordDomain
                 )
@@ -148,7 +161,7 @@ internal class LoginPresenterTest {
             view.showError(any())
         }
         verify(exactly = 0) {
-            runBlocking { interactor.loginUser(loginDomain, passwordDomain) }
+            runBlocking { interactor.signInUser(loginDomain, passwordDomain) }
             view.showSuccess()
         }
 
@@ -173,7 +186,7 @@ internal class LoginPresenterTest {
             view.showError(any())
         }
         verify(exactly = 0) {
-            runBlocking { interactor.loginUser(loginDomain, passwordDomain) }
+            runBlocking { interactor.signInUser(loginDomain, passwordDomain) }
             view.showSuccess()
         }
     }
@@ -197,7 +210,7 @@ internal class LoginPresenterTest {
             view.showError(any())
         }
         verify(exactly = 0) {
-            runBlocking { interactor.loginUser(loginDomain, passwordDomain) }
+            runBlocking { interactor.signInUser(loginDomain, passwordDomain) }
             view.showSuccess()
         }
     }

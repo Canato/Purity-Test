@@ -26,6 +26,8 @@ internal interface LoginContract {
         fun onLoginClicked(password: String, loginName: String)
 
         fun logoutUser()
+
+        fun currentUser()
     }
 
     interface Interactor {
@@ -34,16 +36,24 @@ internal interface LoginContract {
 
         suspend fun loginNameValidation(loginName: LoginNameDomain): Boolean
 
-        suspend fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
+        suspend fun signInUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
 
-        fun logoutUser()
+        suspend fun createUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
+
+        suspend fun logoutUser()
+
+        suspend fun checkUser(): String?
     }
 
     interface Repository {
 
-        suspend fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
+        suspend fun signInUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
 
-        fun logoutUser()
+        suspend fun createUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
+
+        suspend fun logoutUser()
+
+        suspend fun checkUser() : String?
 
     }
 }

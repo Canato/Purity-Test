@@ -38,11 +38,12 @@ class LoginFragment :
                 loginNameEditText.text.toString()
             )
         }
-        logoutButton.setOnClickListener {
-            presenter.logoutUser()
-        }
-    }
 
+        logoutButton.setOnClickListener { presenter.logoutUser() }
+
+        checkLoggedUser.setOnClickListener { presenter.currentUser() }
+
+    }
 
     override fun showWelcomeMessage() {
         Toast.makeText(activity, "Welcome !", Toast.LENGTH_SHORT).show()

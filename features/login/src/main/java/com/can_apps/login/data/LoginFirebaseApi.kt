@@ -7,18 +7,26 @@ internal interface LoginFirebaseApi {
 
     suspend fun createNewUser(login: String, password: String): Boolean
     suspend fun loginExistingUser(login: String, password: String): Boolean
-    fun logoutUser()
+    suspend fun logoutUser()
+    suspend fun checkUser(): String?
 }
 
 internal class LoginFirebaseApiDefault(private val auth: FirebaseAuth) : LoginFirebaseApi {
 
-    override suspend fun createNewUser(login: String, password: String): Boolean =
-        auth.createUserWithEmailAndPassword(login, password).await().user == null
+    override suspend fun createNewUser(login: String, password: String): Boolean {
+        return auth.createUserWithEmailAndPassword(login, password).await().user == null
+    }
 
-    override suspend fun loginExistingUser(login: String, password: String): Boolean =
-        auth.signInWithEmailAndPassword(login, password).await().user == null
+    override suspend fun loginExistingUser(login: String, password: String): Boolean {
+        return auth.signInWithEmailAndPassword(login, password).await().user == null
+    }
 
-    override fun logoutUser() {
+
+    override suspend fun checkUser(): String? {
+        return auth.currentUser?.email
+    }
+
+    override suspend fun logoutUser() {
         auth.signOut()
     }
 
