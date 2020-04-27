@@ -3,6 +3,7 @@ package com.can_apps.login.bresenter
 import android.content.Context
 import com.can_apps.common.CoroutineDispatcherFactory
 import com.can_apps.common.CoroutineDispatcherFactoryUnconfined
+import com.can_apps.login.R
 import com.can_apps.login.core.*
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -17,7 +18,7 @@ import org.junit.Test
 internal class LoginPresenterTest {
 
     @MockK
-    private lateinit var context: Context
+    private lateinit var stringResource: Context
 
     @MockK
     private lateinit var interactor: LoginContract.Interactor
@@ -108,6 +109,7 @@ internal class LoginPresenterTest {
         val loginDomain = LoginNameDomain(loginName)
         val loginErrorDomain = LoginErrorDomain(error)
 
+        //tomasz change to coEvery and remove run Blocking
         every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns true
         every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns true
         every {
@@ -137,16 +139,17 @@ internal class LoginPresenterTest {
         val loginName = "loginName"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
+        val message = "MidnightGospel"
 
         every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns false
         every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns true
-
+        every { stringResource.getString(R.string.login_error_message) } returns message
         //WHEN
         presenter.onSignClicked(password, loginName)
 
         //THEN
         verify {
-            view.showError(any())
+            view.showError(message)
         }
         verify(exactly = 0) {
             runBlocking { interactor.signInUser(loginDomain, passwordDomain) }
@@ -171,7 +174,7 @@ internal class LoginPresenterTest {
 
         //THEN
         verify {
-            view.showError(any())
+            view.showError(message)
         }
         verify(exactly = 0) {
             runBlocking { interactor.signInUser(loginDomain, passwordDomain) }
@@ -195,7 +198,7 @@ internal class LoginPresenterTest {
 
         //THEN
         verify {
-            view.showError(any())
+            view.showError(message)
         }
         verify(exactly = 0) {
             runBlocking { interactor.signInUser(loginDomain, passwordDomain) }
@@ -280,7 +283,7 @@ internal class LoginPresenterTest {
 
         //THEN
         verify {
-            view.showError(any())
+            view.showError(message)
         }
         verify(exactly = 0) {
             runBlocking { interactor.createUser(loginDomain, passwordDomain) }
@@ -305,7 +308,7 @@ internal class LoginPresenterTest {
 
         //THEN
         verify {
-            view.showError(any())
+            view.showError(message)
         }
         verify(exactly = 0) {
             runBlocking { interactor.createUser(loginDomain, passwordDomain) }
@@ -329,7 +332,7 @@ internal class LoginPresenterTest {
 
         //THEN
         verify {
-            view.showError(any())
+            view.showError(message)
         }
         verify(exactly = 0) {
             runBlocking { interactor.createUser(loginDomain, passwordDomain) }
@@ -369,7 +372,7 @@ internal class LoginPresenterTest {
 
         //THEN
         verify {
-            view.showLogInStatus(any())
+            view.showError(message)
         }
 
         verify(exactly = 0) {

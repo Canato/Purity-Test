@@ -1,10 +1,8 @@
 package com.can_apps.login.core
 
-import io.mockk.MockKAnnotations
-import io.mockk.every
+import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
-import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
 import org.junit.Before
@@ -35,7 +33,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN login with less than four characters , WHEN validate, THEN return false`() {
+    fun `GIVEN login with less than four characters, WHEN validate, THEN return false`() {
         //GIVEN
         val login = "Tom"
         val loginNameDomain = LoginNameDomain(login)
@@ -48,7 +46,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN login with special characters , WHEN validate, THEN return false`() {
+    fun `GIVEN login with special characters, WHEN validate, THEN return false`() {
         //GIVEN
         val login = "Tom!sz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
@@ -61,7 +59,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN login with empty character , WHEN validate, THEN return false`() {
+    fun `GIVEN login with empty character, WHEN validate, THEN return false`() {
         //GIVEN
         val login = "Tom sz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
@@ -188,14 +186,7 @@ internal class LoginInteractorTest {
 
         val expected = LoginDomain.Success
 
-        every {
-            runBlocking {
-                repository.signInUser(
-                    loginNameDomain,
-                    passwordDomain
-                )
-            }
-        } returns expected
+        coEvery { repository.signInUser(loginNameDomain, passwordDomain) } returns expected
 
         //WHEN
         val result = runBlocking { interactor.signInUser(loginNameDomain, passwordDomain) }
@@ -219,14 +210,7 @@ internal class LoginInteractorTest {
 
         val expected = LoginDomain.Fail(errorDomain)
 
-        every {
-            runBlocking {
-                repository.signInUser(
-                    loginNameDomain,
-                    passwordDomain
-                )
-            }
-        } returns expected
+        coEvery { repository.signInUser(loginNameDomain, passwordDomain) } returns expected
 
         //WHEN
         val result = runBlocking { interactor.signInUser(loginNameDomain, passwordDomain) }
@@ -247,14 +231,7 @@ internal class LoginInteractorTest {
 
         val expected = LoginDomain.Success
 
-        every {
-            runBlocking {
-                repository.createUser(
-                    loginNameDomain,
-                    passwordDomain
-                )
-            }
-        } returns expected
+        coEvery { repository.createUser(loginNameDomain, passwordDomain) } returns expected
 
         //WHEN
         val result = runBlocking { interactor.createUser(loginNameDomain, passwordDomain) }
@@ -278,14 +255,7 @@ internal class LoginInteractorTest {
 
         val expected = LoginDomain.Fail(errorDomain)
 
-        every {
-            runBlocking {
-                repository.createUser(
-                    loginNameDomain,
-                    passwordDomain
-                )
-            }
-        } returns expected
+        coEvery { repository.createUser(loginNameDomain, passwordDomain) } returns expected
 
         //WHEN
         val result = runBlocking { interactor.createUser(loginNameDomain, passwordDomain) }
@@ -299,7 +269,7 @@ internal class LoginInteractorTest {
     fun `GIVEN repository success, WHEN checkLogInStatus, THEN return LoginDomain_Success`() {
         //GIVEN
         val expected = LoginDomain.Success
-        every { runBlocking { repository.checkLogInStatus() } } returns LoginDomain.Success
+        coEvery {  repository.checkLogInStatus() } returns expected
 
         //WHEN
         val result = runBlocking { interactor.checkLogInStatus() }
@@ -314,7 +284,7 @@ internal class LoginInteractorTest {
         val error = "flipflops"
         val errorDomain = LoginErrorDomain(error)
         val expected = LoginDomain.Fail(errorDomain)
-        every { runBlocking { repository.checkLogInStatus() } } returns LoginDomain.Fail(errorDomain)
+        coEvery  { repository.checkLogInStatus() } returns expected
 
         //WHEN
         val result = runBlocking { interactor.checkLogInStatus() }
@@ -324,17 +294,13 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN , WHEN logout, THEN perform interactor logout user`() {
-        //GIVEN
-
+    fun `WHEN logout, THEN perform interactor logout user`() {
         //WHEN
         runBlocking { interactor.logoutUser() }
 
         //THEN
-        verify {
-            runBlocking { repository.logoutUser() }
+        coVerify {
+            repository.logoutUser()
         }
     }
-
-
 }

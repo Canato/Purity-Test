@@ -1,6 +1,6 @@
 package com.can_apps.login.bresenter
 
-import android.content.Context
+import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.common.CoroutineDispatcherFactory
 import com.can_apps.login.R
 import com.can_apps.login.core.LoginContract
@@ -15,7 +15,7 @@ import kotlin.coroutines.CoroutineContext
 internal class LoginPresenter(
     private val interactor: LoginContract.Interactor,
     private val dispatcher: CoroutineDispatcherFactory,
-    private val context: Context
+    private val stringResource: CommonStringResourceWrapper
 ) : LoginContract.Presenter, CoroutineScope {
 
     private lateinit var view: LoginContract.View
@@ -71,7 +71,7 @@ internal class LoginPresenter(
                     is LoginDomain.Fail -> showError(result.error.value)
                 }
             } else
-                showError(context.getString(R.string.login_error_message))
+                showError(stringResource.getString(R.string.login_error_message))
         }
 
     private fun CoroutineScope.createUserValidation(password: String, loginName: String) =
@@ -88,7 +88,7 @@ internal class LoginPresenter(
                     is LoginDomain.Fail -> showError(result.error.value)
                 }
             } else
-                showError(context.getString(R.string.login_error_message))
+                showError(stringResource.getString(R.string.login_error_message))
         }
 
     private fun CoroutineScope.showSuccess() = launch(dispatcher.UI) {
@@ -101,7 +101,7 @@ internal class LoginPresenter(
 
     private fun CoroutineScope.checkLogInStatus() = launch(dispatcher.IO) {
         when (val result = interactor.checkLogInStatus()) {
-            LoginDomain.Success -> showLogInStatus(context.getString(R.string.sign_in_true))
+            LoginDomain.Success -> showLogInStatus(stringResource.getString(R.string.sign_in_true))
             is LoginDomain.Fail -> showLogInStatus(result.error.value)
         }
     }

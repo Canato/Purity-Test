@@ -4,7 +4,6 @@ internal class LoginInteractor(
     private val repository: LoginContract.Repository
 ) : LoginContract.Interactor {
 
-
     override suspend fun passwordValidation(password: LoginPasswordDomain): Boolean {
 
         if (password.value.length < 8) return false
