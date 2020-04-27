@@ -1,9 +1,8 @@
-# This is a basic workflow to help you get started with Actions
 
 name: featureCI
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
+# Controls when the action will run. Triggers the workflow on pull request
+# events but only for the feature branch to feature branch
 on:
   pull_request:
     branches: 
@@ -30,5 +29,5 @@ jobs:
       - name: Run assemble to debug
         run: ./gradlew assembleDebug
 
-      - name: Run iint
+      - name: Run lint
         run: ./gradlew lint
