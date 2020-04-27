@@ -5,6 +5,8 @@
     <string name="login_password_hint">Enter password</string>
     <string name="login_error_message">Sorry, your login/password didn\'t passed validation</string>
     <string name="logout_user">Logout User</string>
-    <string name="check_logged_user">check logged user</string>
+    <string name="check_sign_in_user">check sign in status</string>
     <string name="create_new_user">Create new user</string>
+    <string name="toast_success">Success</string>
+    <string name="sign_in_true">Signed in</string>
 </resources>

@@ -10,6 +10,8 @@ internal interface LoginContract {
 
         fun showError(error: String)
 
+        fun showLogInStatus(message: String)
+
         fun showSuccess()
     }
 
@@ -29,7 +31,7 @@ internal interface LoginContract {
 
         fun logoutUser()
 
-        fun currentUser()
+        fun checkLogIn()
     }
 
     interface Interactor {
@@ -44,7 +46,7 @@ internal interface LoginContract {
 
         suspend fun logoutUser()
 
-        suspend fun checkUser(): String?
+        suspend fun checkLogInStatus(): LoginDomain
     }
 
     interface Repository {
@@ -55,7 +57,7 @@ internal interface LoginContract {
 
         suspend fun logoutUser()
 
-        suspend fun checkUser() : String?
+        suspend fun checkLogInStatus() : LoginDomain
 
     }
 }

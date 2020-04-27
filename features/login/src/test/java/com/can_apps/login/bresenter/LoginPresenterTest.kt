@@ -68,17 +68,6 @@ internal class LoginPresenterTest {
         }
     }
 
-    @Test
-    fun `GIVEN a view, WHEN on logoutUser pressed, THEN perform logout user`() {
-        //GIVEN
-
-        //WHEN
-        presenter.logoutUser()
-        //THEN
-        verify {
-            runBlocking { interactor.logoutUser() }
-        }
-    }
 
     @Test
     fun `GIVEN valid password and loginName, WHEN onSignClicked, THEN show success`() {
@@ -345,6 +334,58 @@ internal class LoginPresenterTest {
         verify(exactly = 0) {
             runBlocking { interactor.createUser(loginDomain, passwordDomain) }
             view.showSuccess()
+        }
+    }
+
+    @Test
+    fun `GIVEN interactor fail, WHEN checkLogInStatus, THEN show fail`() {
+        //GIVEN
+        val success = "sandals"
+        val error = "flipflops"
+        val loginErrorDomain = LoginErrorDomain(error)
+        every { runBlocking { interactor.checkLogInStatus() } } returns LoginDomain.Fail(loginErrorDomain)
+
+        //WHEN
+        presenter.checkLogIn()
+
+        //THEN
+        verify {
+            view.showLogInStatus(error)
+        }
+        verify(exactly = 0) {
+            view.showLogInStatus(success)
+        }
+    }
+
+    @Test
+    fun `GIVEN interactor success, WHEN checkLogInStatus, THEN show success`() {
+        //GIVEN
+        val error = "flipflops"
+        val loginErrorDomain = LoginErrorDomain(error)
+        every { runBlocking { interactor.checkLogInStatus() } } returns LoginDomain.Success
+
+        //WHEN
+        presenter.checkLogIn()
+
+        //THEN
+        verify {
+            view.showLogInStatus(any())
+        }
+
+        verify(exactly = 0) {
+            view.showLogInStatus(loginErrorDomain.value)
+        }
+    }
+
+    @Test
+    fun `GIVEN a view, WHEN on logoutUser pressed, THEN perform logout user`() {
+        //GIVEN
+
+        //WHEN
+        presenter.logoutUser()
+        //THEN
+        verify {
+            runBlocking { interactor.logoutUser() }
         }
     }
 }

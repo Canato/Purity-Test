@@ -39,9 +39,8 @@ internal class LoginInteractor(
         password: LoginPasswordDomain
     ): LoginDomain = repository.createUser(loginName, password)
 
+    override suspend fun checkLogInStatus() : LoginDomain = repository.checkLogInStatus()
+
     override suspend fun logoutUser() = repository.logoutUser()
-
-
-    override suspend fun checkUser() : String? = repository.checkUser()
 
 }

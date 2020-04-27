@@ -10,8 +10,7 @@ internal class LoginRepository(private val api: LoginFirebaseApi) : LoginContrac
     ): LoginDomain {
 
         return try {
-            val result = api.loginExistingUser(loginName.value, password.value)
-            if (!result) {
+            if (!api.signInExistingUser(loginName.value, password.value)) {
                 LoginDomain.Fail(LoginErrorDomain("Sorry, login is not available"))
             } else
                 LoginDomain.Success
@@ -26,8 +25,7 @@ internal class LoginRepository(private val api: LoginFirebaseApi) : LoginContrac
     ): LoginDomain {
 
         return try {
-            val result = api.createNewUser(loginName.value, password.value)
-            if (!result) {
+            if (!api.createNewUser(loginName.value, password.value)) {
                 LoginDomain.Fail(LoginErrorDomain("Cannot create new user"))
             } else
                 LoginDomain.Success
@@ -36,11 +34,8 @@ internal class LoginRepository(private val api: LoginFirebaseApi) : LoginContrac
         }
     }
 
-    override suspend fun logoutUser() {
-        api.logoutUser()
-    }
+    override suspend fun logoutUser() = api.logoutUser()
+    
+    override suspend fun checkLogInStatus(): LoginDomain = api.checkLogInStatus()
 
-    override suspend fun checkUser(): String? {
-        return api.checkUser()
-    }
 }

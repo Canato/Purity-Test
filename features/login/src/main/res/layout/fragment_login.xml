@@ -66,11 +66,11 @@
         android:text="@string/logout_user" />
 
     <Button
-        android:id="@+id/checkLoggedUser"
+        android:id="@+id/checkLogInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/check_logged_user" />
+        android:text="@string/check_sign_in_user" />
 
 
 

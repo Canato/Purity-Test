@@ -48,7 +48,7 @@ class LoginFragment :
 
         logoutButton.setOnClickListener { presenter.logoutUser() }
 
-        checkLoggedUser.setOnClickListener { presenter.currentUser() }
+        checkLogInButton.setOnClickListener { presenter.checkLogIn() }
 
     }
 
@@ -64,7 +64,11 @@ class LoginFragment :
         view?.let { Snackbar.make(it, error, Snackbar.LENGTH_SHORT).show() }
     }
 
+    override fun showLogInStatus(message: String) {
+        view?.let { Snackbar.make(it, message, Snackbar.LENGTH_LONG).show() }
+    }
+
     override fun showSuccess() {
-        Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, getString(R.string.toast_success), Toast.LENGTH_SHORT).show()
     }
 }

@@ -53,27 +53,26 @@ internal class LoginPresenter(
         logout()
     }
 
-    override fun currentUser() {
-        checkUser()
+    override fun checkLogIn() {
+        checkLogInStatus()
     }
 
     private fun CoroutineScope.userLoginValidation(password: String, loginName: String) =
-            launch(dispatcher.IO) {
+        launch(dispatcher.IO) {
 
-                val passwordDomain = LoginPasswordDomain(password)
-                val loginNameDomain = LoginNameDomain(loginName)
-                val isPasswordValid = interactor.passwordValidation(passwordDomain)
-                val isLoginValid = interactor.loginNameValidation(loginNameDomain)
+            val passwordDomain = LoginPasswordDomain(password)
+            val loginNameDomain = LoginNameDomain(loginName)
+            val isPasswordValid = interactor.passwordValidation(passwordDomain)
+            val isLoginValid = interactor.loginNameValidation(loginNameDomain)
 
-                if (isLoginValid && isPasswordValid) {
-                    when (val result = interactor.signInUser(loginNameDomain, passwordDomain)) {
-                        LoginDomain.Success -> showSuccess()
-                        is LoginDomain.Fail -> showError(result.error.value)
-
-                    }
-                } else
-                    showError(context.getString(R.string.login_error_message))
-            }
+            if (isLoginValid && isPasswordValid) {
+                when (val result = interactor.signInUser(loginNameDomain, passwordDomain)) {
+                    LoginDomain.Success -> showSuccess()
+                    is LoginDomain.Fail -> showError(result.error.value)
+                }
+            } else
+                showError(context.getString(R.string.login_error_message))
+        }
 
     private fun CoroutineScope.createUserValidation(password: String, loginName: String) =
         launch(dispatcher.IO) {
@@ -84,10 +83,9 @@ internal class LoginPresenter(
             val isLoginValid = interactor.loginNameValidation(loginNameDomain)
 
             if (isLoginValid && isPasswordValid) {
-                when (val result = interactor.createUser(LoginNameDomain(loginName), passwordDomain)) {
+                when (val result = interactor.createUser(loginNameDomain, passwordDomain)) {
                     LoginDomain.Success -> showSuccess()
                     is LoginDomain.Fail -> showError(result.error.value)
-
                 }
             } else
                 showError(context.getString(R.string.login_error_message))
@@ -101,8 +99,15 @@ internal class LoginPresenter(
         view.showError(message)
     }
 
-    private fun CoroutineScope.checkUser() = launch(dispatcher.IO) {
-        view.showError("Currently logged as: " + interactor.checkUser())
+    private fun CoroutineScope.checkLogInStatus() = launch(dispatcher.IO) {
+        when (val result = interactor.checkLogInStatus()) {
+            LoginDomain.Success -> showLogInStatus(context.getString(R.string.sign_in_true))
+            is LoginDomain.Fail -> showLogInStatus(result.error.value)
+        }
+    }
+
+    private fun CoroutineScope.showLogInStatus(message: String) = launch(dispatcher.UI) {
+        view.showLogInStatus(message)
     }
 
     private fun CoroutineScope.logout() = launch(dispatcher.IO) {

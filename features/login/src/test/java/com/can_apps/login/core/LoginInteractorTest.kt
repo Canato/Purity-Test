@@ -22,19 +22,6 @@ internal class LoginInteractorTest {
     fun setup() = MockKAnnotations.init(this, relaxed = true)
 
     @Test
-    fun `GIVEN repository logout User , WHEN logout, THEN perform interactor logout user`() {
-        //GIVEN
-
-        //WHEN
-        runBlocking { interactor.logoutUser() }
-
-        //THEN
-        verify {
-            runBlocking { repository.logoutUser() }
-        }
-    }
-
-    @Test
     fun `GIVEN valid login name, WHEN validate, THEN return true`() {
         //GIVEN
         val login = "Tomasz@gmail.com"
@@ -308,7 +295,46 @@ internal class LoginInteractorTest {
 
     }
 
+    @Test
+    fun `GIVEN repository success, WHEN checkLogInStatus, THEN return LoginDomain_Success`() {
+        //GIVEN
+        val expected = LoginDomain.Success
+        every { runBlocking { repository.checkLogInStatus() } } returns LoginDomain.Success
 
+        //WHEN
+        val result = runBlocking { interactor.checkLogInStatus() }
+
+        //THEN
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun `GIVEN repository fail, WHEN checkLogInStatus, THEN return LoginDomain_Fail`() {
+        //GIVEN
+        val error = "flipflops"
+        val errorDomain = LoginErrorDomain(error)
+        val expected = LoginDomain.Fail(errorDomain)
+        every { runBlocking { repository.checkLogInStatus() } } returns LoginDomain.Fail(errorDomain)
+
+        //WHEN
+        val result = runBlocking { interactor.checkLogInStatus() }
+
+        //THEN
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun `GIVEN , WHEN logout, THEN perform interactor logout user`() {
+        //GIVEN
+
+        //WHEN
+        runBlocking { interactor.logoutUser() }
+
+        //THEN
+        verify {
+            runBlocking { repository.logoutUser() }
+        }
+    }
 
 
 }
