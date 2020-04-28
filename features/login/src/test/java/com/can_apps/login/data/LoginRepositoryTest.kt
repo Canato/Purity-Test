@@ -29,9 +29,10 @@ internal class LoginRepositoryTest {
     fun setup() = MockKAnnotations.init(this, relaxed = true)
 
     //Method                   TRUE/FALSE/EXCEPTION
-    //api.signInExistingUser    ok/ok/EXCEPTION
-    //api.createNewUser         TRUE/FALSE/ok tests
-    //api.checkLogInStatus()    ok/ok/EXCEPTION
+    //api.signInExistingUser    ok/ok/ok
+    //api.createNewUser         ok/no need/ok
+    //api.checkLogInStatus()    ok/ok/ok
+    //api.logout()              ok
 
     @Test
     fun `GIVEN valid parameters, WHEN sign in user, THEN return LoginDomain_Success`() {
@@ -58,7 +59,7 @@ internal class LoginRepositoryTest {
         //GIVEN
         val name = "showTest"
         val password = "sandals"
-        val wrongPassword = "Sorry, login is not available"
+        val wrongPassword = "Sorry, mistaken passport"
         val nameDomain = LoginNameDomain(name)
         val passwordDomain = LoginPasswordDomain(password)
         val errorDomain = LoginErrorDomain(wrongPassword)
@@ -76,7 +77,7 @@ internal class LoginRepositoryTest {
     }
 
     @Test
-    fun `GIVEN exception, WHEN sign in user, THEN return LoginDomain_Fail exception`() {
+    fun `GIVEN exception, WHEN sign in user, THEN return exception`() {
         //GIVEN
         val name = "showTest"
         val password = "sandals"
@@ -87,7 +88,7 @@ internal class LoginRepositoryTest {
         val expected = LoginDomain.Fail(noInternetConnectionDomain)
         val exception = Exception(noInternetConnectionDomain.value)
 
-        coEvery { api.signInExistingUser(name, password) } throws exception //todo
+        coEvery { api.signInExistingUser(name, password) } throws exception
 
         //WHEN
         val result = runBlocking { repository.signInUser(nameDomain, passwordDomain) }
@@ -118,7 +119,7 @@ internal class LoginRepositoryTest {
     }
 
     @Test
-    fun `GIVEN exception, WHEN create user, THEN return LoginDomain_Fail exception`() {
+    fun `GIVEN exception, WHEN create user, THEN return exception`() {
         //GIVEN
         val name = "showTest"
         val password = "sandals"
@@ -129,8 +130,7 @@ internal class LoginRepositoryTest {
         val expected = LoginDomain.Fail(errorDomain)
         val exception = Exception(errorDomain.value)
 
-        //tomasz what is the behaviour you want? false or exception ?
-        coEvery { api.createNewUser(name, password) } throws exception //todo
+        coEvery { api.createNewUser(name, password) } throws exception
 
         //WHEN
         val result = runBlocking { repository.createUser(nameDomain, passwordDomain) }
@@ -175,14 +175,14 @@ internal class LoginRepositoryTest {
     }
 
     @Test
-    fun `GIVEN exception, WHEN checkLogInStatus , THEN return LoginDomain_Fail exception`() {
+    fun `GIVEN exception, WHEN checkLogInStatus , THEN return exception`() {
         //GIVEN
         val wrongLogin = "Wingarium Leviosa"
         val errorDomain = LoginErrorDomain(wrongLogin)
         val expected = LoginDomain.Fail(errorDomain)
         val exception = Exception(errorDomain.value)
 
-        coEvery { api.checkLogInStatus() } throws exception //todo 
+        coEvery { api.checkLogInStatus() } throws exception
 
         //WHEN
         val result = runBlocking { repository.checkLogInStatus() }

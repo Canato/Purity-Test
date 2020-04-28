@@ -6,7 +6,6 @@ import com.can_apps.login.core.LoginDomain
 import com.can_apps.login.core.LoginErrorDomain
 import com.can_apps.login.data.firebase_data_source.FirebaseDto
 
-//todo tomasz crate test for this
 internal interface LoginDtoMapper {
 
     fun toDomain(dto: FirebaseDto): LoginDomain
