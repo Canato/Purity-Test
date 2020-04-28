@@ -36,7 +36,7 @@ internal interface LoginContract {
 
     interface Interactor {
 
-       suspend fun passwordValidation(password: LoginPasswordDomain): Boolean
+        suspend fun passwordValidation(password: LoginPasswordDomain): Boolean
 
         suspend fun loginNameValidation(loginName: LoginNameDomain): Boolean
 
@@ -58,6 +58,5 @@ internal interface LoginContract {
         suspend fun logoutUser()
 
         suspend fun checkLogInStatus() : LoginDomain
-
     }
 }

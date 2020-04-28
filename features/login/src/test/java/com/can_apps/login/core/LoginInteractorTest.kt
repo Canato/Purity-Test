@@ -201,13 +201,10 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tomasz"
         val loginNameDomain = LoginNameDomain(login)
-
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
-
         val error = "flipflops"
         val errorDomain = LoginErrorDomain(error)
-
         val expected = LoginDomain.Fail(errorDomain)
 
         coEvery { repository.signInUser(loginNameDomain, passwordDomain) } returns expected
@@ -225,10 +222,8 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tomasz"
         val loginNameDomain = LoginNameDomain(login)
-
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
-
         val expected = LoginDomain.Success
 
         coEvery { repository.createUser(loginNameDomain, passwordDomain) } returns expected
@@ -246,13 +241,10 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tomasz"
         val loginNameDomain = LoginNameDomain(login)
-
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
-
         val error = "flipflops"
         val errorDomain = LoginErrorDomain(error)
-
         val expected = LoginDomain.Fail(errorDomain)
 
         coEvery { repository.createUser(loginNameDomain, passwordDomain) } returns expected

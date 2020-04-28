@@ -49,11 +49,10 @@ class LoginFragment :
         logoutButton.setOnClickListener { presenter.logoutUser() }
 
         checkLogInButton.setOnClickListener { presenter.checkLogIn() }
-
     }
 
     override fun showWelcomeMessage() {
-        Toast.makeText(activity, "Welcome !", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, getString(R.string.welcome), Toast.LENGTH_SHORT).show()
     }
 
     override fun close() {

@@ -5,6 +5,7 @@ import com.can_apps.login.core.LoginErrorDomain
 import com.can_apps.login.core.LoginNameDomain
 import com.can_apps.login.core.LoginPasswordDomain
 import com.can_apps.login.data.firebase_data_source.FirebaseApi
+import com.can_apps.login.data.firebase_data_source.FirebaseDto
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -18,6 +19,9 @@ internal class LoginRepositoryTest {
     @MockK
     private lateinit var api: FirebaseApi
 
+    @MockK
+    private lateinit var dtoMapper: LoginDtoMapper
+
     @InjectMockKs
     private lateinit var repository: LoginRepository
 
@@ -30,6 +34,26 @@ internal class LoginRepositoryTest {
     //api.checkLogInStatus()    ok/ok/EXCEPTION
 
     @Test
+    fun `GIVEN valid parameters, WHEN sign in user, THEN return LoginDomain_Success`() {
+        //GIVEN
+        val name = "showTest"
+        val password = "sandals"
+        val nameDomain = LoginNameDomain(name)
+        val passwordDomain = LoginPasswordDomain(password)
+        val dto = FirebaseDto.Valid
+        val expected = LoginDomain.Success
+
+        coEvery { api.signInExistingUser(name, password)} returns dto
+        coEvery { dtoMapper.toDomain(dto) } returns expected
+
+        //WHEN
+        val result = runBlocking { repository.signInUser(nameDomain, passwordDomain) }
+
+        //THEN
+        assertEquals(expected, result)
+    }
+
+    @Test
     fun `GIVEN wrong password, WHEN sign in user, THEN return LoginDomain_Fail`() {
         //GIVEN
         val name = "showTest"
@@ -38,22 +62,21 @@ internal class LoginRepositoryTest {
         val nameDomain = LoginNameDomain(name)
         val passwordDomain = LoginPasswordDomain(password)
         val errorDomain = LoginErrorDomain(wrongPassword)
+        val dto = FirebaseDto.Invalid
         val expected = LoginDomain.Fail(errorDomain)
 
-        //todo tomasz fix this
-        coEvery { api.signInExistingUser(name, password) } returns false
-        coEvery { api.signInExistingUser(name, password) } returns false
+        coEvery { api.signInExistingUser(name, password)} returns dto
+        coEvery { dtoMapper.toDomain(dto) } returns expected
 
         //WHEN
         val result = runBlocking { repository.signInUser(nameDomain, passwordDomain) }
 
         //THEN
         assertEquals(expected, result)
-
     }
 
     @Test
-    fun `GIVEN no internet connection, WHEN sign in user, THEN return LoginDomain_Fail`() {
+    fun `GIVEN exception, WHEN sign in user, THEN return LoginDomain_Fail exception`() {
         //GIVEN
         val name = "showTest"
         val password = "sandals"
@@ -64,18 +87,38 @@ internal class LoginRepositoryTest {
         val expected = LoginDomain.Fail(noInternetConnectionDomain)
         val exception = Exception(noInternetConnectionDomain.value)
 
-        coEvery { api.createNewUser(name, password) } throws exception //todo tomasz name of the test don't fit with method called
+        coEvery { api.signInExistingUser(name, password) } throws exception //todo
+
+        //WHEN
+        val result = runBlocking { repository.signInUser(nameDomain, passwordDomain) }
+
+        //THEN
+        assertEquals(expected, result)
+
+    }
+
+    @Test
+    fun `GIVEN valid parameters, WHEN create user , THEN return LoginDomain_Success`() {
+        //GIVEN
+        val name = "showTest"
+        val password = "sandals"
+        val nameDomain = LoginNameDomain(name)
+        val passwordDomain = LoginPasswordDomain(password)
+        val dto = FirebaseDto.Valid
+        val expected = LoginDomain.Success
+
+        coEvery { api.createNewUser(name, password)} returns dto
+        coEvery { dtoMapper.toDomain(dto) } returns expected
 
         //WHEN
         val result = runBlocking { repository.createUser(nameDomain, passwordDomain) }
 
         //THEN
         assertEquals(expected, result)
-
     }
-    //todo tomasz delete above or under test
+
     @Test
-    fun `GIVEN exception, WHEN create user, THEN return LoginDomain_Fail`() {
+    fun `GIVEN exception, WHEN create user, THEN return LoginDomain_Fail exception`() {
         //GIVEN
         val name = "showTest"
         val password = "sandals"
@@ -87,8 +130,7 @@ internal class LoginRepositoryTest {
         val exception = Exception(errorDomain.value)
 
         //tomasz what is the behaviour you want? false or exception ?
-//        coEvery { api.createNewUser(name, password) } returns false <<< DELETE THIS
-        coEvery { api.createNewUser(name, password) } throws exception
+        coEvery { api.createNewUser(name, password) } throws exception //todo
 
         //WHEN
         val result = runBlocking { repository.createUser(nameDomain, passwordDomain) }
@@ -99,50 +141,13 @@ internal class LoginRepositoryTest {
     }
 
     @Test
-    fun `GIVEN valid password, WHEN sign in user, THEN return LoginDomain_Success`() {
-
-        //tomasz  valid password => valid parameters, name is valid too
-
-        //GIVEN
-        val name = "showTest"
-        val password = "sandals"
-        val nameDomain = LoginNameDomain(name)
-        val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginDomain.Success
-
-        coEvery { api.signInExistingUser(name, password) } returns true
-
-        //WHEN
-        val result = runBlocking { repository.signInUser(nameDomain, passwordDomain) }
-
-        //THEN
-        assertEquals(expected, result)
-    }
-
-    @Test
-    fun `GIVEN valid login and password, WHEN create user , THEN return LoginDomain_Success`() {
-        //GIVEN
-        val name = "showTest"
-        val password = "sandals"
-        val nameDomain = LoginNameDomain(name)
-        val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginDomain.Success
-
-        coEvery { api.signInExistingUser(name, password) } returns true //tomasz should be create method
-
-        //WHEN
-        val result = runBlocking { repository.signInUser(nameDomain, passwordDomain) } //tomasz should be create method
-
-        //THEN
-        assertEquals(expected, result)
-    }
-
-    @Test
     fun `GIVEN api currentUser is not null, WHEN checkLogInStatus , THEN return LoginDomain_Success`() {
         //GIVEN
+        val dto = FirebaseDto.Valid
         val expected = LoginDomain.Success
 
-        coEvery { api.checkLogInStatus() } returns LoginDomain.Success
+        coEvery { api.checkLogInStatus()} returns dto
+        coEvery { dtoMapper.toDomain(dto) } returns expected
 
         //WHEN
         val result = runBlocking { repository.checkLogInStatus() }
@@ -156,9 +161,28 @@ internal class LoginRepositoryTest {
         //GIVEN
         val error = "flipflops"
         val errorDomain = LoginErrorDomain(error)
+        val dto = FirebaseDto.Invalid
         val expected = LoginDomain.Fail(errorDomain)
 
-        every { runBlocking { api.checkLogInStatus() } } returns LoginDomain.Fail(errorDomain)
+        coEvery { api.checkLogInStatus()} returns dto
+        coEvery { dtoMapper.toDomain(dto) } returns expected
+
+        //WHEN
+        val result = runBlocking { repository.checkLogInStatus() }
+
+        //THEN
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun `GIVEN exception, WHEN checkLogInStatus , THEN return LoginDomain_Fail exception`() {
+        //GIVEN
+        val wrongLogin = "Wingarium Leviosa"
+        val errorDomain = LoginErrorDomain(wrongLogin)
+        val expected = LoginDomain.Fail(errorDomain)
+        val exception = Exception(errorDomain.value)
+
+        coEvery { api.checkLogInStatus() } throws exception //todo 
 
         //WHEN
         val result = runBlocking { repository.checkLogInStatus() }

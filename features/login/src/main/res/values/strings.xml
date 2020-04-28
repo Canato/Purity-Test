@@ -9,4 +9,6 @@
     <string name="create_new_user">Create new user</string>
     <string name="toast_success">Success</string>
     <string name="sign_in_true">Signed in</string>
+    <string name="welcome">Welcome !</string>
+    <string name="firebase_dto_error">Sorry, something wrong</string>
 </resources>

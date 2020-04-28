@@ -19,18 +19,16 @@ internal class LoginServiceLocator(private val context: Context) {
     fun getPresenter(): LoginContract.Presenter =
         LoginPresenter(getInteractor(), getCoroutineDispatcher(), getStringResource())
 
-    private fun getStringResource(): CommonStringResourceWrapper =
-        CommonStringResourceWrapper(context)
+    private fun getStringResource(): CommonStringResourceWrapper = CommonStringResourceWrapper(context)
 
     private fun getInteractor(): LoginContract.Interactor = LoginInteractor(getRepository())
 
     private fun getRepository(): LoginContract.Repository = LoginRepository(getApi(), getDtoMapper())
 
-    private fun getDtoMapper(): LoginDtoMapper = LoginDtoMapperDefault()
+    private fun getDtoMapper(): LoginDtoMapper = LoginDtoMapperDefault(getStringResource())
 
     private fun getApi(): FirebaseApi = FirebaseApiDefault(FirebaseAuth.getInstance())
 
-    private fun getCoroutineDispatcher(): CoroutineDispatcherFactory =
-        CoroutineDispatcherFactoryDefault()
+    private fun getCoroutineDispatcher(): CoroutineDispatcherFactory = CoroutineDispatcherFactoryDefault()
 
 }

@@ -30,9 +30,6 @@ internal class LoginRepository(
             LoginDomain.Fail(LoginErrorDomain(e.message.toString()))
         }
 
-
-    override suspend fun logoutUser() = api.logoutUser()
-
     override suspend fun checkLogInStatus(): LoginDomain =
         try {
             val dto = api.checkLogInStatus()
@@ -40,4 +37,6 @@ internal class LoginRepository(
         } catch (e: Exception) {
             LoginDomain.Fail(LoginErrorDomain(e.message.toString()))
         }
+
+    override suspend fun logoutUser() = api.logoutUser()
 }
