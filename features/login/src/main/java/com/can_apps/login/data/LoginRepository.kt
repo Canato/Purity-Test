@@ -1,28 +1,42 @@
 package com.can_apps.login.data
 
 import com.can_apps.login.core.*
+import com.can_apps.login.data.firebase_data_source.FirebaseApi
 
-internal class LoginRepository(private val api: LoginFirebaseApi) : LoginContract.Repository {
+internal class LoginRepository(
+    private val api: FirebaseApi,
+    private val dtoMapper: LoginDtoMapper
+) : LoginContract.Repository {
 
-    override suspend fun loginUser(
+    override suspend fun signInUser(
         loginName: LoginNameDomain,
         password: LoginPasswordDomain
-    ): LoginDomain {
+    ): LoginDomain =
         try {
-            val result = api.loginExistingUser(loginName.value, password.value)
-            if (!result) {
-                val result2 = api.createNewUser(loginName.value, password.value)
-                if (!result2) {
-                   return LoginDomain.Fail(LoginErrorDomain("Sorry, login is not available"))
-                }
-            }
-            return LoginDomain.Success
+            val dto = api.signInExistingUser(loginName.value, password.value)
+            dtoMapper.toDomain(dto)
         } catch (e: Exception) {
-            return LoginDomain.Fail(LoginErrorDomain(e.message.toString()))
+            LoginDomain.Fail(LoginErrorDomain(e.message.toString()))
         }
-    }
 
-    override fun logoutUser() {
-        api.logoutUser()
-    }
+    override suspend fun createUser(
+        loginName: LoginNameDomain,
+        password: LoginPasswordDomain
+    ): LoginDomain =
+        try {
+            val dto = api.createNewUser(loginName.value, password.value)
+            dtoMapper.toDomain(dto)
+        } catch (e: Exception) {
+            LoginDomain.Fail(LoginErrorDomain(e.message.toString()))
+        }
+
+    override suspend fun checkLogInStatus(): LoginDomain =
+        try {
+            val dto = api.checkLogInStatus()
+            dtoMapper.toDomain(dto)
+        } catch (e: Exception) {
+            LoginDomain.Fail(LoginErrorDomain(e.message.toString()))
+        }
+
+    override suspend fun logoutUser() = api.logoutUser()
 }

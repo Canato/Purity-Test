@@ -10,6 +10,8 @@ internal interface LoginContract {
 
         fun showError(error: String)
 
+        fun showLogInStatus(message: String)
+
         fun showSuccess()
     }
 
@@ -23,9 +25,13 @@ internal interface LoginContract {
 
         fun onBackPressed()
 
-        fun onLoginClicked(password: String, loginName: String)
+        fun onSignClicked(password: String, loginName: String)
+
+        fun onCreateLoginClicked(password: String, loginName: String)
 
         fun logoutUser()
+
+        fun checkLogIn()
     }
 
     interface Interactor {
@@ -34,16 +40,23 @@ internal interface LoginContract {
 
         suspend fun loginNameValidation(loginName: LoginNameDomain): Boolean
 
-        suspend fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
+        suspend fun signInUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
 
-        fun logoutUser()
+        suspend fun createUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
+
+        suspend fun logoutUser()
+
+        suspend fun checkLogInStatus(): LoginDomain
     }
 
     interface Repository {
 
-        suspend fun loginUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
+        suspend fun signInUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
 
-        fun logoutUser()
+        suspend fun createUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
 
+        suspend fun logoutUser()
+
+        suspend fun checkLogInStatus() : LoginDomain
     }
 }

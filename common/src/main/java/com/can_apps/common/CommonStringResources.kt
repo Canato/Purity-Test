@@ -6,9 +6,9 @@ import androidx.annotation.StringRes
 
 class CommonStringResourceWrapper(private val context: Context) {
 
-    fun getString(@StringRes stringResId: Int): String? = context.getString(stringResId)
+    fun getString(@StringRes stringResId: Int): String = context.getString(stringResId)
 
-    fun getString(@StringRes stringResId: Int, vararg formatArgs: Any?): String? =
+    fun getString(@StringRes stringResId: Int, vararg formatArgs: Any?): String =
         context.getString(stringResId, *formatArgs)
 
     fun getStringArray(stringArrayResId: Int): List<String> =
@@ -21,5 +21,4 @@ class CommonStringResourceWrapper(private val context: Context) {
         @PluralsRes quantityStringResId: Int, count: Int,
         vararg formatArgs: Any?
     ): String? = context.resources?.getQuantityString(quantityStringResId, count, *formatArgs)
-
 }

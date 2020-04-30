@@ -1,7 +1,6 @@
 package com.can_apps.login.core
 
-import io.mockk.MockKAnnotations
-import io.mockk.every
+import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.runBlocking
@@ -18,7 +17,7 @@ internal class LoginInteractorTest {
     private lateinit var interactor: LoginInteractor
 
     @Before
-    fun setup() = MockKAnnotations.init(this)
+    fun setup() = MockKAnnotations.init(this, relaxed = true)
 
     @Test
     fun `GIVEN valid login name, WHEN validate, THEN return true`() {
@@ -34,7 +33,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN login with less than four characters , WHEN validate, THEN return false`() {
+    fun `GIVEN login with less than four characters, WHEN validate, THEN return false`() {
         //GIVEN
         val login = "Tom"
         val loginNameDomain = LoginNameDomain(login)
@@ -47,7 +46,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN login with special characters , WHEN validate, THEN return false`() {
+    fun `GIVEN login with special characters, WHEN validate, THEN return false`() {
         //GIVEN
         val login = "Tom!sz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
@@ -60,7 +59,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN login with empty character , WHEN validate, THEN return false`() {
+    fun `GIVEN login with empty character, WHEN validate, THEN return false`() {
         //GIVEN
         val login = "Tom sz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
@@ -177,7 +176,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN repository success, WHEN loginUser, THEN return LoginDomain Success`() {
+    fun `GIVEN repository success, WHEN sign in user, THEN return LoginDomain Success`() {
         //GIVEN
         val login = "Tomasz"
         val loginNameDomain = LoginNameDomain(login)
@@ -187,17 +186,10 @@ internal class LoginInteractorTest {
 
         val expected = LoginDomain.Success
 
-        every {
-            runBlocking {
-                repository.loginUser(
-                    loginNameDomain,
-                    passwordDomain
-                )
-            }
-        } returns expected
+        coEvery { repository.signInUser(loginNameDomain, passwordDomain) } returns expected
 
         //WHEN
-        val result = runBlocking { interactor.loginUser(loginNameDomain, passwordDomain) }
+        val result = runBlocking { interactor.signInUser(loginNameDomain, passwordDomain) }
 
         //THEN
         assertEquals(expected, result)
@@ -205,35 +197,102 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN repository fail, WHEN loginUser, THEN return LoginDomain Fail`() {
+    fun `GIVEN repository fail, WHEN sign in user, THEN return LoginDomain Fail`() {
         //GIVEN
         val login = "Tomasz"
         val loginNameDomain = LoginNameDomain(login)
-
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
-
         val error = "flipflops"
         val errorDomain = LoginErrorDomain(error)
-
         val expected = LoginDomain.Fail(errorDomain)
 
-        every {
-            runBlocking {
-                repository.loginUser(
-                    loginNameDomain,
-                    passwordDomain
-                )
-            }
-        } returns expected
+        coEvery { repository.signInUser(loginNameDomain, passwordDomain) } returns expected
 
         //WHEN
-        val result = runBlocking { interactor.loginUser(loginNameDomain, passwordDomain) }
+        val result = runBlocking { interactor.signInUser(loginNameDomain, passwordDomain) }
 
         //THEN
         assertEquals(expected, result)
 
     }
 
+    @Test
+    fun `GIVEN repository success, WHEN create new user, THEN return LoginDomain Success`() {
+        //GIVEN
+        val login = "Tomasz"
+        val loginNameDomain = LoginNameDomain(login)
+        val password = "passWORD1"
+        val passwordDomain = LoginPasswordDomain(password)
+        val expected = LoginDomain.Success
 
+        coEvery { repository.createUser(loginNameDomain, passwordDomain) } returns expected
+
+        //WHEN
+        val result = runBlocking { interactor.createUser(loginNameDomain, passwordDomain) }
+
+        //THEN
+        assertEquals(expected, result)
+
+    }
+
+    @Test
+    fun `GIVEN repository fail, WHEN create new user, THEN return LoginDomain Fail`() {
+        //GIVEN
+        val login = "Tomasz"
+        val loginNameDomain = LoginNameDomain(login)
+        val password = "passWORD1"
+        val passwordDomain = LoginPasswordDomain(password)
+        val error = "flipflops"
+        val errorDomain = LoginErrorDomain(error)
+        val expected = LoginDomain.Fail(errorDomain)
+
+        coEvery { repository.createUser(loginNameDomain, passwordDomain) } returns expected
+
+        //WHEN
+        val result = runBlocking { interactor.createUser(loginNameDomain, passwordDomain) }
+
+        //THEN
+        assertEquals(expected, result)
+
+    }
+
+    @Test
+    fun `GIVEN repository success, WHEN checkLogInStatus, THEN return LoginDomain_Success`() {
+        //GIVEN
+        val expected = LoginDomain.Success
+        coEvery {  repository.checkLogInStatus() } returns expected
+
+        //WHEN
+        val result = runBlocking { interactor.checkLogInStatus() }
+
+        //THEN
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun `GIVEN repository fail, WHEN checkLogInStatus, THEN return LoginDomain_Fail`() {
+        //GIVEN
+        val error = "flipflops"
+        val errorDomain = LoginErrorDomain(error)
+        val expected = LoginDomain.Fail(errorDomain)
+        coEvery  { repository.checkLogInStatus() } returns expected
+
+        //WHEN
+        val result = runBlocking { interactor.checkLogInStatus() }
+
+        //THEN
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun `WHEN logout, THEN perform interactor logout user`() {
+        //WHEN
+        runBlocking { interactor.logoutUser() }
+
+        //THEN
+        coVerify {
+            repository.logoutUser()
+        }
+    }
 }

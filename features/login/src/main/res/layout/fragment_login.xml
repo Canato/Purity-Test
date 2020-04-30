@@ -35,21 +35,44 @@
             android:inputType="text|textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
     <Button
-        android:id="@+id/loginSubmitButton"
+        android:id="@+id/signInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center|center_horizontal"
         android:layout_marginTop="16dp"
         android:gravity="center|center_horizontal"
-        android:text="@string/login_button_text" />
+        android:text="@string/login_sign_in_text" />
 
+    <Button
+        android:layout_marginLeft="16dp"
+        android:id="@+id/createUserButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center|center_horizontal"
+        android:text="@string/create_new_user" />
+    </LinearLayout>
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="@string/logout_user" />
+
+    <Button
+        android:id="@+id/checkLogInButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/check_sign_in_user" />
+
+
 
 
 </LinearLayout>

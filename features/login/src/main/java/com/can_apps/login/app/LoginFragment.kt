@@ -32,20 +32,27 @@ class LoginFragment :
 
         presenter.bind(this)
         presenter.onViewCreated()
-        loginSubmitButton.setOnClickListener {
-            presenter.onLoginClicked(
+        signInButton.setOnClickListener {
+            presenter.onSignClicked(
                 loginPasswordEditText.text.toString(),
                 loginNameEditText.text.toString()
             )
         }
-        logoutButton.setOnClickListener {
-            presenter.logoutUser()
+
+        createUserButton.setOnClickListener {
+            presenter.onCreateLoginClicked(
+                loginPasswordEditText.text.toString(),
+                loginNameEditText.text.toString()
+            )
         }
+
+        logoutButton.setOnClickListener { presenter.logoutUser() }
+
+        checkLogInButton.setOnClickListener { presenter.checkLogIn() }
     }
 
-
     override fun showWelcomeMessage() {
-        Toast.makeText(activity, "Welcome !", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, getString(R.string.welcome), Toast.LENGTH_SHORT).show()
     }
 
     override fun close() {
@@ -56,7 +63,11 @@ class LoginFragment :
         view?.let { Snackbar.make(it, error, Snackbar.LENGTH_SHORT).show() }
     }
 
+    override fun showLogInStatus(message: String) {
+        view?.let { Snackbar.make(it, message, Snackbar.LENGTH_LONG).show() }
+    }
+
     override fun showSuccess() {
-        Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, getString(R.string.toast_success), Toast.LENGTH_SHORT).show()
     }
 }
