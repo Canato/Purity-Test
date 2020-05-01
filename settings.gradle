@@ -3,4 +3,5 @@ include ':app',
 
         // Features Module
         ':features',
+        ':features:login',
         ':features:questions'

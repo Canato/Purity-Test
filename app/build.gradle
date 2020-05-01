@@ -41,4 +41,5 @@ dependencies {
 
     implementation project(':common')
     implementation project(':features:questions')
+    implementation project(':features:login')
 }
