@@ -42,20 +42,7 @@ internal class LoginPresenterTest {
         presenter.bind(view)
     }
 
-    @Test
-    fun `GIVEN a view, WHEN on create view, THEN show welcome message`() {
-        //GIVEN
-
-        //WHEN
-        presenter.onViewCreated()
-        //THEN
-        verify {
-            view.showWelcomeMessage()
-        }
-
-    }
-
-    @Test
+      @Test
     fun `GIVEN a view, WHEN on back pressed, THEN view close`() {
         //GIVEN
 
@@ -64,6 +51,56 @@ internal class LoginPresenterTest {
         //THEN
         verify {
             view.close()
+        }
+    }
+
+    @Test
+    fun `GIVEN interactor check login status success, WHEN on show login status, view disable login buttons`() {
+        //GIVEN
+        val message = "flipflops"
+        val userMail = "HarryPota"
+        val userEmailDomain = LoginUserEmailDomain(userMail)
+        val expected = LoginDomain.UserEmail(userEmailDomain)
+
+        coEvery { interactor.checkLogInStatus() } returns expected
+        every { stringResource.getString(R.string.update_login_success) } returns message
+
+        //WHEN
+        presenter.updateLoginStatus()
+        //THEN
+        verify {
+            view.loginStatus(message)
+        }
+    }
+
+    @Test
+    fun `GIVEN interactor check login status fail, WHEN on show login status, view enable login buttons`() {
+        //GIVEN
+        val error = "flipflops"
+        val message = "Hoquartz"
+        val errorDomain = LoginErrorDomain(error)
+        val expected = LoginDomain.Fail(errorDomain)
+        coEvery { interactor.checkLogInStatus() } returns expected
+        every { stringResource.getString(R.string.update_login_fail) } returns message
+
+        //WHEN
+        presenter.updateLoginStatus()
+        //THEN
+        verify {
+            view.loginStatus(message)
+        }
+    }
+
+    @Test
+    fun `GIVEN boolean value true, WHEN disable login buttons, view update login buttons with value`() {
+        //GIVEN
+        val boolean = true
+
+        //WHEN
+        presenter.disableLoginFunction(boolean)
+        //THEN
+        verify {
+            view.updateLoginButtons(boolean)
         }
     }
 
@@ -310,50 +347,6 @@ internal class LoginPresenterTest {
         verify(exactly = 0) {
             runBlocking { interactor.createUser(loginDomain, passwordDomain) }
             view.showSuccess()
-        }
-    }
-
-    @Test
-    fun `GIVEN interactor success, WHEN checkLogInStatus, THEN show success`() {
-        //GIVEN
-        val error = "flipflops"
-        val loginErrorDomain = LoginErrorDomain(error)
-        val message = "MidnightGospel"
-
-        coEvery { interactor.checkLogInStatus() } returns LoginDomain.Success
-        every { stringResource.getString(R.string.sign_in_true) } returns message
-
-        //WHEN
-        presenter.checkLogIn()
-
-        //THEN
-        verify {
-            view.showLogInStatus(message)
-        }
-
-        verify(exactly = 0) {
-            view.showLogInStatus(loginErrorDomain.value)
-        }
-    }
-
-    @Test
-    fun `GIVEN interactor fail, WHEN checkLogInStatus, THEN show fail`() {
-        //GIVEN
-        val message = "sandals"
-        val error = "flipflops"
-        val loginErrorDomain = LoginErrorDomain(error)
-        coEvery { interactor.checkLogInStatus() } returns LoginDomain.Fail(loginErrorDomain)
-        every { stringResource.getString(R.string.sign_in_true) } returns message
-
-        //WHEN
-        presenter.checkLogIn()
-
-        //THEN
-        verify {
-            view.showLogInStatus(error)
-        }
-        verify(exactly = 0) {
-            view.showLogInStatus(message)
         }
     }
 

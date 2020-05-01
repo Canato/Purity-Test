@@ -11,4 +11,6 @@
     <string name="sign_in_true">Signed in</string>
     <string name="welcome">Welcome !</string>
     <string name="firebase_dto_error">Sorry, something wrong</string>
+    <string name="update_login_success">Currently logged as: %s </string>
+    <string name="update_login_fail">Please sign in ;)</string>
 </resources>

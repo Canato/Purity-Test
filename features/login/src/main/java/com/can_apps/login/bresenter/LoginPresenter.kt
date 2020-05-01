@@ -33,8 +33,8 @@ internal class LoginPresenter(
         job.cancel()
     }
 
-    override fun onViewCreated() {
-        view.showWelcomeMessage()
+    override fun updateLoginStatus() {
+        updateLogin()
     }
 
     override fun onBackPressed() {
@@ -49,12 +49,12 @@ internal class LoginPresenter(
         createUserValidation(password, loginName)
     }
 
-    override fun logoutUser() {
-        logout()
+    override fun disableLoginFunction(disableLogin: Boolean) {
+        updateButtonsFunction(disableLogin)
     }
 
-    override fun checkLogIn() {
-        checkLogInStatus()
+    override fun logoutUser() {
+        logout()
     }
 
     private fun CoroutineScope.userLoginValidation(password: String, loginName: String) =
@@ -91,6 +91,20 @@ internal class LoginPresenter(
                 showError(stringResource.getString(R.string.login_error_message))
         }
 
+    private fun CoroutineScope.updateLogin()= launch(dispatcher.IO) {
+        when (val result = interactor.checkLogInStatus()) {
+            is LoginDomain.UserEmail ->
+                showLoginStatus(String.format(
+                    stringResource.getString(R.string.update_login_success), result.email.value))
+            is LoginDomain.Fail -> {
+                showLoginStatus(stringResource.getString(R.string.update_login_fail)) }
+        }
+    }
+
+    private fun CoroutineScope.logout() = launch(dispatcher.IO) {
+        interactor.logoutUser()
+    }
+
     private fun CoroutineScope.showSuccess() = launch(dispatcher.UI) {
         view.showSuccess()
     }
@@ -99,19 +113,15 @@ internal class LoginPresenter(
         view.showError(message)
     }
 
-    private fun CoroutineScope.checkLogInStatus() = launch(dispatcher.IO) {
-        when (val result = interactor.checkLogInStatus()) {
-            LoginDomain.Success -> showLogInStatus(stringResource.getString(R.string.sign_in_true))
-            is LoginDomain.Fail -> showLogInStatus(result.error.value)
-        }
+    private fun CoroutineScope.showLoginStatus(message: String) = launch(dispatcher.UI) {
+            when(message){
+                stringResource.getString(R.string.update_login_fail) ->  view.loginStatus(message)
+                else -> view.loginStatus(message)
+            }
     }
 
-    private fun CoroutineScope.showLogInStatus(message: String) = launch(dispatcher.UI) {
-        view.showLogInStatus(message)
-    }
-
-    private fun CoroutineScope.logout() = launch(dispatcher.IO) {
-        interactor.logoutUser()
+    private fun CoroutineScope.updateButtonsFunction(update: Boolean)  = launch(dispatcher.UI){
+        view.updateLoginButtons(update)
     }
 
 }

@@ -4,15 +4,15 @@ internal interface LoginContract {
 
     interface View {
 
-        fun showWelcomeMessage()
-
         fun close()
 
         fun showError(error: String)
 
-        fun showLogInStatus(message: String)
+        fun loginStatus(message: String)
 
         fun showSuccess()
+
+        fun updateLoginButtons(disableButtons: Boolean)
     }
 
     interface Presenter {
@@ -21,17 +21,17 @@ internal interface LoginContract {
 
         fun unbind()
 
-        fun onViewCreated()
-
         fun onBackPressed()
 
         fun onSignClicked(password: String, loginName: String)
 
         fun onCreateLoginClicked(password: String, loginName: String)
 
-        fun logoutUser()
+        fun updateLoginStatus()
 
-        fun checkLogIn()
+        fun disableLoginFunction(disableLogin: Boolean)
+
+        fun logoutUser()
     }
 
     interface Interactor {
