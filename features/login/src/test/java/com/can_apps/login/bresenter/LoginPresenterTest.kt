@@ -22,6 +22,9 @@ internal class LoginPresenterTest {
     private lateinit var interactor: LoginContract.Interactor
 
     @MockK
+    private lateinit var mapper: LoginModelMapper
+
+    @MockK
     private lateinit var dispatcherFactory: CoroutineDispatcherFactory
 
     @MockK

@@ -14,6 +14,7 @@ import kotlin.coroutines.CoroutineContext
 
 internal class LoginPresenter(
     private val interactor: LoginContract.Interactor,
+    private val mapper: LoginModelMapper,
     private val dispatcher: CoroutineDispatcherFactory,
     private val stringResource: CommonStringResourceWrapper
 ) : LoginContract.Presenter, CoroutineScope {
@@ -93,9 +94,10 @@ internal class LoginPresenter(
 
     private fun CoroutineScope.updateLogin()= launch(dispatcher.IO) {
         when (val result = interactor.checkLogInStatus()) {
-            is LoginDomain.UserEmail ->
-                showLoginStatus(String.format(
-                    stringResource.getString(R.string.update_login_success), result.email.value))
+            is LoginDomain.UserEmail -> {
+                val model = mapper.toModel(result)
+                showLoginStatus(
+                    String.format(stringResource.getString(R.string.update_login_success), model.email.value)) }
             is LoginDomain.Fail -> {
                 showLoginStatus(stringResource.getString(R.string.update_login_fail)) }
         }
