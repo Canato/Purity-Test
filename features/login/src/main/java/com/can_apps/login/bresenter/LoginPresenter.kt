@@ -15,7 +15,8 @@ import kotlin.coroutines.CoroutineContext
 internal class LoginPresenter(
     private val interactor: LoginContract.Interactor,
     private val dispatcher: CoroutineDispatcherFactory,
-    private val stringResource: CommonStringResourceWrapper
+    private val stringResource: CommonStringResourceWrapper,
+    private val modelMapper: LoginModelMapper
 ) : LoginContract.Presenter, CoroutineScope {
 
     private lateinit var view: LoginContract.View
@@ -41,6 +42,10 @@ internal class LoginPresenter(
         view.close()
     }
 
+    override fun onPasswordChange(password: String) {
+        verifyPassword(password)
+    }
+
     override fun onSignClicked(password: String, loginName: String) {
         userLoginValidation(password, loginName)
     }
@@ -55,6 +60,15 @@ internal class LoginPresenter(
 
     override fun checkLogIn() {
         checkLogInStatus()
+    }
+
+    private fun verifyPassword(password: String) {
+        val domain = interactor.passwordValidation(password)
+        val model = modelMapper.toModel(domain)
+        when(model) {
+            Valid -> showValidPassword()
+            Invalid -> showInvalidPassword(model.errorMessage)
+        }
     }
 
     private fun CoroutineScope.userLoginValidation(password: String, loginName: String) =

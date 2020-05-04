@@ -1,10 +1,17 @@
 package com.can_apps.login.core
 
+import android.util.Log
+
 internal class LoginInteractor(
     private val repository: LoginContract.Repository
 ) : LoginContract.Interactor {
 
-    override suspend fun loginNameValidation(loginName: LoginNameDomain): Boolean {
+    override fun loginNameValidation(loginName: LoginNameDomain): Boolean {
+        var i = 0
+        while (i < 10000) {
+            Log.i("Delay old school", i.toString())
+            i++
+        }
 
         if (loginName.value.length < 4) return false
         val pattern = Regex("[a-z0-9._]+[@][a-z0-9]+[.][a-z]+")
@@ -12,19 +19,30 @@ internal class LoginInteractor(
         return (pattern.matches(loginName.value.toLowerCase()))
     }
 
-    override suspend fun passwordValidation(password: LoginPasswordDomain): Boolean {
+    override fun passwordValidation(
+        password: LoginPasswordDomain
+    ): LoginPasswordValidationDomain {
+        var i = 0
+        while (i < 10000) {
+            Log.i("Delay old school", i.toString())
+            i++
+        }
 
-        if (password.value.length < 8) return false
+        if (password.value.length < 8) return LoginPasswordValidationDomain.ToSmall
+
+        if (!Regex(pattern = "[A-Z]").containsMatchIn(password.value)){
+            return LoginPasswordValidationDomain.NoUpperCase
+        }
 
         val patternLowerCase = Regex(pattern = "[a-z]")
-        val patternUpperCase = Regex(pattern = "[A-Z]")
+
         val patternDigit = Regex(pattern = "[0-9]")
         val pattern = Regex(pattern = "[a-zA-Z0-9]+")
 
-        return (patternLowerCase.containsMatchIn(password.value) &&
-                patternUpperCase.containsMatchIn(password.value) &&
-                patternDigit.containsMatchIn(password.value) &&
-                pattern.matches(password.value))
+//        return (patternLowerCase.containsMatchIn(password.value) &&
+//                patternDigit.containsMatchIn(password.value) &&
+//                pattern.matches(password.value))
+        return LoginPasswordValidationDomain.Valid
     }
 
     override suspend fun signInUser(

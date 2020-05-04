@@ -5,6 +5,12 @@ internal sealed class LoginDomain {
     data class Fail(val error: LoginErrorDomain) : LoginDomain()
 }
 
+internal sealed class LoginPasswordValidationDomain {
+    object Valid : LoginPasswordValidationDomain()
+    object ToSmall : LoginPasswordValidationDomain()
+    object NoUpperCase : LoginPasswordValidationDomain()
+}
+
 internal inline class LoginErrorDomain(val value: String)
 internal inline class LoginPasswordDomain(val value: String)
 internal inline class LoginNameDomain(val value: String)
