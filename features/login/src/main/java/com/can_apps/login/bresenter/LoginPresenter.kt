@@ -99,7 +99,7 @@ internal class LoginPresenter(
             is LoginDomain.Success -> {
                 val model = mapper.toModel(result)
                 updateLoginStatusView(
-                    stringResource.getString(R.string.update_login_success, result.email.value))
+                    stringResource.getString(R.string.update_login_success, model.email.value))
                 updateButtonsFunction(true)
             }
             is LoginDomain.Fail -> {
