@@ -1,12 +1,12 @@
 package com.can_apps.login.data.firebase_data_source
 
-sealed class FirebaseDto {
+import androidx.annotation.Nullable
 
-    object Valid: FirebaseDto()
+sealed class FirebaseDto {
 
     object Invalid: FirebaseDto()
 
-    data class UserEmail(val userEmail: FireBaseUserEmail): FirebaseDto()
+    data class Valid(@Nullable val userEmail: FireBaseUserEmail): FirebaseDto()
 }
 
-inline class FireBaseUserEmail(val value: String)
+inline class FireBaseUserEmail(val value: String?)

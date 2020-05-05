@@ -34,8 +34,8 @@ internal class LoginPresenter(
         job.cancel()
     }
 
-    override fun updateLoginStatus() {
-        updateLogin()
+    override fun onViewCreated() {
+        updateLoginStatus()
     }
 
     override fun onBackPressed() {
@@ -48,10 +48,6 @@ internal class LoginPresenter(
 
     override fun onCreateLoginClicked(password: String, loginName: String) {
         createUserValidation(password, loginName)
-    }
-
-    override fun disableLoginFunction(disableLogin: Boolean) {
-        updateButtonsFunction(disableLogin)
     }
 
     override fun logoutUser() {
@@ -68,7 +64,10 @@ internal class LoginPresenter(
 
             if (isLoginValid && isPasswordValid) {
                 when (val result = interactor.signInUser(loginNameDomain, passwordDomain)) {
-                    LoginDomain.Success -> showSuccess()
+                    is LoginDomain.Success -> {
+                        showSuccess()
+                        updateLoginStatus()
+                    }
                     is LoginDomain.Fail -> showError(result.error.value)
                 }
             } else
@@ -85,26 +84,34 @@ internal class LoginPresenter(
 
             if (isLoginValid && isPasswordValid) {
                 when (val result = interactor.createUser(loginNameDomain, passwordDomain)) {
-                    LoginDomain.Success -> showSuccess()
+                    is LoginDomain.Success -> {
+                        showSuccess()
+                        updateLoginStatus()
+                    }
                     is LoginDomain.Fail -> showError(result.error.value)
                 }
             } else
                 showError(stringResource.getString(R.string.login_error_message))
         }
 
-    private fun CoroutineScope.updateLogin()= launch(dispatcher.IO) {
+    private fun CoroutineScope.updateLoginStatus()= launch(dispatcher.IO) {
         when (val result = interactor.checkLogInStatus()) {
-            is LoginDomain.UserEmail -> {
+            is LoginDomain.Success -> {
                 val model = mapper.toModel(result)
-                showLoginStatus(
-                    String.format(stringResource.getString(R.string.update_login_success), model.email.value)) }
+                updateLoginStatusView(
+                    stringResource.getString(R.string.update_login_success, result.email.value))
+                updateButtonsFunction(true)
+            }
             is LoginDomain.Fail -> {
-                showLoginStatus(stringResource.getString(R.string.update_login_fail)) }
+                updateLoginStatusView(stringResource.getString(R.string.update_login_fail))
+                updateButtonsFunction(false)
+            }
         }
     }
 
     private fun CoroutineScope.logout() = launch(dispatcher.IO) {
         interactor.logoutUser()
+        updateLoginStatus()
     }
 
     private fun CoroutineScope.showSuccess() = launch(dispatcher.UI) {
@@ -115,15 +122,15 @@ internal class LoginPresenter(
         view.showError(message)
     }
 
-    private fun CoroutineScope.showLoginStatus(message: String) = launch(dispatcher.UI) {
-            when(message){
-                stringResource.getString(R.string.update_login_fail) ->  view.loginStatus(message)
-                else -> view.loginStatus(message)
-            }
+    private fun CoroutineScope.updateLoginStatusView(message: String) = launch(dispatcher.UI) {
+        view.showLoginStatus(message)
     }
 
-    private fun CoroutineScope.updateButtonsFunction(update: Boolean)  = launch(dispatcher.UI){
-        view.updateLoginButtons(update)
+    private fun CoroutineScope.updateButtonsFunction(disable: Boolean)  = launch(dispatcher.UI){
+        when(disable){
+            true -> view.disableLoginButtons()
+            false -> view.enableLoginButtons()
+        }
     }
 
 }

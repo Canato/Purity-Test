@@ -32,7 +32,7 @@ class LoginFragment :
         super.onViewCreated(view, savedInstanceState)
 
         presenter.bind(this)
-        presenter.updateLoginStatus()
+        presenter.onViewCreated()
         signInButton.setOnClickListener {
             presenter.onSignClicked(
                 loginPasswordEditText.text.toString(),
@@ -47,47 +47,33 @@ class LoginFragment :
             )
         }
 
-        logoutButton.setOnClickListener {
-            try {
-                presenter.logoutUser()
-            } finally {
-                presenter.updateLoginStatus()
-            }
-        }
+        logoutButton.setOnClickListener { presenter.logoutUser() }
     }
 
     override fun close() {
         activity?.finish()
     }
 
-    override fun loginStatus(message: String) {
+    override fun showLoginStatus(message: String) {
         loginStatus.text = message
-        when (message) {
-            context?.getString(R.string.update_login_fail) -> presenter.disableLoginFunction(false)
-            else -> presenter.disableLoginFunction(true)
-        }
     }
 
     override fun showSuccess() {
         Toast.makeText(activity, getString(R.string.toast_success), Toast.LENGTH_SHORT).show()
-        presenter.updateLoginStatus()
     }
 
     override fun showError(error: String) {
         view?.let { Snackbar.make(it, error, Snackbar.LENGTH_SHORT).show() }
     }
 
-    override fun updateLoginButtons(disableButtons: Boolean) {
-        when (disableButtons) {
-            true -> {
-                signInButton.disableLogin()
-                createUserButton.disableLogin()
-            }
-            false -> {
-                signInButton.enableLogin()
-                createUserButton.enableLogin()
-            }
-        }
+    override fun disableLoginButtons() {
+        signInButton.disableLogin()
+        createUserButton.disableLogin()
+    }
+
+    override fun enableLoginButtons() {
+        signInButton.enableLogin()
+        createUserButton.enableLogin()
     }
 
     private fun Button.disableLogin(): Button {

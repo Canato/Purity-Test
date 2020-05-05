@@ -63,16 +63,16 @@ internal class LoginPresenterTest {
         val message = "flipflops"
         val userMail = "HarryPota"
         val userEmailDomain = LoginUserEmailDomain(userMail)
-        val expected = LoginDomain.UserEmail(userEmailDomain)
+        val expected = LoginDomain.Success(userEmailDomain)
 
         coEvery { interactor.checkLogInStatus() } returns expected
-        every { stringResource.getString(R.string.update_login_success) } returns message
+        every { stringResource.getString(R.string.update_login_success, expected.email.value) } returns message
 
         //WHEN
-        presenter.updateLoginStatus()
+        presenter.onViewCreated()
         //THEN
         verify {
-            view.loginStatus(message)
+            view.showLoginStatus(message)
         }
     }
 
@@ -87,37 +87,27 @@ internal class LoginPresenterTest {
         every { stringResource.getString(R.string.update_login_fail) } returns message
 
         //WHEN
-        presenter.updateLoginStatus()
+        presenter.onViewCreated()
         //THEN
         verify {
-            view.loginStatus(message)
+            view.showLoginStatus(message)
         }
     }
 
-    @Test
-    fun `GIVEN boolean value true, WHEN disable login buttons, view update login buttons with value`() {
-        //GIVEN
-        val boolean = true
-
-        //WHEN
-        presenter.disableLoginFunction(boolean)
-        //THEN
-        verify {
-            view.updateLoginButtons(boolean)
-        }
-    }
-
-    @Test
+     @Test
     fun `GIVEN valid parameters, WHEN onSignClicked, THEN show success`() {
         //GIVEN
         val password = "pass"
         val loginName = "loginName"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
+        val email = null
+        val userEmailDomain = LoginUserEmailDomain(email)
+        val expected = LoginDomain.Success(userEmailDomain)
 
         coEvery { interactor.loginNameValidation(loginDomain) }  returns true
         coEvery { interactor.passwordValidation(passwordDomain) }  returns true
-        coEvery { interactor.signInUser(loginDomain, passwordDomain) }  returns LoginDomain.Success
+        coEvery { interactor.signInUser(loginDomain, passwordDomain) }  returns expected
 
         //WHEN
         presenter.onSignClicked(password, loginName)
@@ -237,10 +227,13 @@ internal class LoginPresenterTest {
         val loginName = "loginName"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
+        val email = null
+        val userEmailDomain = LoginUserEmailDomain(email)
+        val expected = LoginDomain.Success(userEmailDomain)
 
         coEvery { interactor.loginNameValidation(loginDomain) } returns true
         coEvery { interactor.passwordValidation(passwordDomain) } returns true
-        coEvery { interactor.createUser(loginDomain, passwordDomain) } returns LoginDomain.Success
+        coEvery { interactor.createUser(loginDomain, passwordDomain) } returns expected
 
         //WHEN
         presenter.onCreateLoginClicked(password, loginName)

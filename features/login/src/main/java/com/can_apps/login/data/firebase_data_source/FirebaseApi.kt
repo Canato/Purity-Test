@@ -19,19 +19,19 @@ internal class FirebaseApiDefault(private val auth: FirebaseAuth) : FirebaseApi 
     override suspend fun signInExistingUser(login: String, password: String): FirebaseDto =
         when (auth.signInWithEmailAndPassword(login, password).await().user) {
             null -> FirebaseDto.Invalid
-            else -> FirebaseDto.Valid
+            else -> FirebaseDto.Valid(FireBaseUserEmail(null))
         }
 
     override suspend fun createNewUser(login: String, password: String): FirebaseDto =
         when (auth.createUserWithEmailAndPassword(login, password).await().user) {
             null -> FirebaseDto.Invalid
-            else -> FirebaseDto.Valid
+            else -> FirebaseDto.Valid(FireBaseUserEmail(null))
         }
 
     override suspend fun checkLogInStatus(): FirebaseDto =
         when (val result = auth.currentUser?.email) {
             null -> FirebaseDto.Invalid
-            else -> FirebaseDto.UserEmail(FireBaseUserEmail(result))
+            else -> FirebaseDto.Valid(FireBaseUserEmail(result))
         }
 
     override suspend fun logoutUser() = auth.signOut()

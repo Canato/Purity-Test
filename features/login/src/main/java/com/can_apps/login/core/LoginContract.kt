@@ -8,11 +8,13 @@ internal interface LoginContract {
 
         fun showError(error: String)
 
-        fun loginStatus(message: String)
+        fun showLoginStatus(message: String)
 
         fun showSuccess()
 
-        fun updateLoginButtons(disableButtons: Boolean)
+        fun disableLoginButtons()
+
+        fun enableLoginButtons()
     }
 
     interface Presenter {
@@ -27,9 +29,7 @@ internal interface LoginContract {
 
         fun onCreateLoginClicked(password: String, loginName: String)
 
-        fun updateLoginStatus()
-
-        fun disableLoginFunction(disableLogin: Boolean)
+        fun onViewCreated()
 
         fun logoutUser()
     }

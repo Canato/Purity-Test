@@ -19,7 +19,6 @@ internal class LoginDtoMapperDefault(
     override fun toDomain(dto: FirebaseDto): LoginDomain =
         when (dto) {
             FirebaseDto.Invalid -> LoginDomain.Fail(LoginErrorDomain(stringResource.getString(R.string.firebase_dto_error)))
-            FirebaseDto.Valid -> LoginDomain.Success
-            is FirebaseDto.UserEmail -> LoginDomain.UserEmail(LoginUserEmailDomain(dto.userEmail.value))
+           is FirebaseDto.Valid -> LoginDomain.Success(LoginUserEmailDomain(dto.userEmail.value))
         }
 }
