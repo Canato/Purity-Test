@@ -1,5 +1,6 @@
 package com.can_apps.login.core
 
+import android.util.Log
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -9,6 +10,7 @@ import org.junit.Before
 import org.junit.Test
 
 internal class LoginInteractorTest {
+
 
     @MockK
     private lateinit var repository: LoginContract.Repository
@@ -24,12 +26,27 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tomasz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
+        val expected = LoginNameValidationDomain.Valid
 
         //WHEN
         val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
 
         //THEN
-        assertTrue(result)
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun `GIVEN login with double dot domain after AT symbol , WHEN validate, THEN return true`() {
+        //GIVEN
+        val login = "Tomasz@gmail.co.uk"
+        val loginNameDomain = LoginNameDomain(login)
+        val expected = LoginNameValidationDomain.Valid
+
+        //WHEN
+        val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
+
+        //THEN
+        assertEquals(expected, result)
     }
 
     @Test
@@ -37,12 +54,13 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tom"
         val loginNameDomain = LoginNameDomain(login)
+        val expected = LoginNameValidationDomain.ToSmall
 
         //WHEN
         val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
 
         //THEN
-        assertFalse(result)
+        assertEquals(expected, result)
     }
 
     @Test
@@ -50,12 +68,13 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tom!sz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
+        val expected = LoginNameValidationDomain.WrongCharacters
 
         //WHEN
         val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
 
         //THEN
-        assertFalse(result)
+        assertEquals(expected, result)
     }
 
     @Test
@@ -63,12 +82,13 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tom sz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
+        val expected = LoginNameValidationDomain.WrongCharacters
 
         //WHEN
         val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
 
         //THEN
-        assertFalse(result)
+        assertEquals(expected, result)
     }
 
     @Test
@@ -76,12 +96,13 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "TomaszATgmail.com"
         val loginNameDomain = LoginNameDomain(login)
+        val expected = LoginNameValidationDomain.MissingAtSign
 
         //WHEN
         val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
 
         //THEN
-        assertFalse(result)
+        assertEquals(expected, result)
     }
 
     @Test
@@ -89,25 +110,28 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tomasz@gmailDOTcom"
         val loginNameDomain = LoginNameDomain(login)
+        val expected = LoginNameValidationDomain.MissingDotDomainFinish
 
         //WHEN
         val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
 
         //THEN
-        assertFalse(result)
+        assertEquals(expected, result)
     }
+
 
     @Test
     fun `GIVEN password, WHEN validate, THEN return true`() {
         //GIVEN
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
+        val expected = LoginPasswordValidationDomain.Valid
 
         //WHEN
         val result = runBlocking { interactor.passwordValidation(passwordDomain) }
 
         //THEN
-        assertTrue(result)
+        assertEquals(expected, result)
     }
 
     @Test
@@ -115,12 +139,13 @@ internal class LoginInteractorTest {
         //GIVEN
         val password = "passWORD1 @!"
         val passwordDomain = LoginPasswordDomain(password)
+        val expected = LoginPasswordValidationDomain.WrongCharacters
 
         //WHEN
         val result = runBlocking { interactor.passwordValidation(passwordDomain) }
 
         //THEN
-        assertFalse(result)
+        assertEquals(expected, result)
     }
 
     @Test
@@ -128,12 +153,13 @@ internal class LoginInteractorTest {
         //GIVEN
         val password = "passWO9"
         val passwordDomain = LoginPasswordDomain(password)
+        val expected = LoginPasswordValidationDomain.ToSmall
 
         //WHEN
         val result = runBlocking { interactor.passwordValidation(passwordDomain) }
 
         //THEN
-        assertFalse(result)
+        assertEquals(expected, result)
     }
 
     @Test
@@ -141,12 +167,13 @@ internal class LoginInteractorTest {
         //GIVEN
         val password = "passWORD"
         val passwordDomain = LoginPasswordDomain(password)
+        val expected = LoginPasswordValidationDomain.NoDigit
 
         //WHEN
         val result = runBlocking { interactor.passwordValidation(passwordDomain) }
 
         //THEN
-        assertFalse(result)
+        assertEquals(expected, result)
     }
 
     @Test
@@ -154,12 +181,13 @@ internal class LoginInteractorTest {
         //GIVEN
         val password = "PASSWORD1"
         val passwordDomain = LoginPasswordDomain(password)
+        val expected = LoginPasswordValidationDomain.NoLowerCase
 
         //WHEN
         val result = runBlocking { interactor.passwordValidation(passwordDomain) }
 
         //THEN
-        assertFalse(result)
+        assertEquals(expected, result)
     }
 
     @Test
@@ -167,12 +195,13 @@ internal class LoginInteractorTest {
         //GIVEN
         val password = "password1"
         val passwordDomain = LoginPasswordDomain(password)
+        val expected = LoginPasswordValidationDomain.NoUpperCase
 
         //WHEN
         val result = runBlocking { interactor.passwordValidation(passwordDomain) }
 
         //THEN
-        assertFalse(result)
+        assertEquals(expected, result)
     }
 
     @Test

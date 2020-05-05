@@ -42,16 +42,12 @@ internal class LoginPresenter(
         view.close()
     }
 
-    override fun onPasswordChange(password: String) {
-        verifyPassword(password)
-    }
-
     override fun onSignClicked(password: String, loginName: String) {
-        userLoginValidation(password, loginName)
+        signInUser(password, loginName)
     }
 
     override fun onCreateLoginClicked(password: String, loginName: String) {
-        createUserValidation(password, loginName)
+        createNewUser(password, loginName)
     }
 
     override fun logoutUser() {
@@ -62,47 +58,49 @@ internal class LoginPresenter(
         checkLogInStatus()
     }
 
-    private fun verifyPassword(password: String) {
-        val domain = interactor.passwordValidation(password)
-        val model = modelMapper.toModel(domain)
-        when(model) {
-            Valid -> showValidPassword()
-            Invalid -> showInvalidPassword(model.errorMessage)
-        }
+    override fun onLoginChanged(login: String) = verifyLogin(login)
+
+    override fun onPasswordChanged(password: String) = verifyPassword(password)
+
+    private fun verifyLogin(login: String) {
+        val domain = interactor.loginNameValidation(LoginNameDomain(login))
+
+
     }
 
-    private fun CoroutineScope.userLoginValidation(password: String, loginName: String) =
+    private fun verifyPassword(password: String) {
+        val domain = interactor.passwordValidation(LoginPasswordDomain(password))
+//        when(val model = modelMapper.toModel(domain)) {
+//            Valid -> showValidPassword()
+//            Invalid -> showInvalidPassword(model.errorMessage)
+    }
+
+
+
+
+    private fun CoroutineScope.signInUser(password: String, loginName: String) =
         launch(dispatcher.IO) {
 
             val passwordDomain = LoginPasswordDomain(password)
             val loginNameDomain = LoginNameDomain(loginName)
-            val isPasswordValid = interactor.passwordValidation(passwordDomain)
-            val isLoginValid = interactor.loginNameValidation(loginNameDomain)
 
-            if (isLoginValid && isPasswordValid) {
-                when (val result = interactor.signInUser(loginNameDomain, passwordDomain)) {
-                    LoginDomain.Success -> showSuccess()
-                    is LoginDomain.Fail -> showError(result.error.value)
-                }
-            } else
-                showError(stringResource.getString(R.string.login_error_message))
+            when (val result = interactor.signInUser(loginNameDomain, passwordDomain)) {
+                LoginDomain.Success -> showSuccess()
+                is LoginDomain.Fail -> showError(result.error.value)
+                else -> showError(stringResource.getString(R.string.login_error_message))
+            }
         }
 
-    private fun CoroutineScope.createUserValidation(password: String, loginName: String) =
+    private fun CoroutineScope.createNewUser(password: String, loginName: String) =
         launch(dispatcher.IO) {
 
             val passwordDomain = LoginPasswordDomain(password)
             val loginNameDomain = LoginNameDomain(loginName)
-            val isPasswordValid = interactor.passwordValidation(passwordDomain)
-            val isLoginValid = interactor.loginNameValidation(loginNameDomain)
-
-            if (isLoginValid && isPasswordValid) {
-                when (val result = interactor.createUser(loginNameDomain, passwordDomain)) {
-                    LoginDomain.Success -> showSuccess()
-                    is LoginDomain.Fail -> showError(result.error.value)
-                }
-            } else
-                showError(stringResource.getString(R.string.login_error_message))
+            when (val result = interactor.createUser(loginNameDomain, passwordDomain)) {
+                LoginDomain.Success -> showSuccess()
+                is LoginDomain.Fail -> showError(result.error.value)
+                else -> showError(stringResource.getString(R.string.login_error_message))
+            }
         }
 
     private fun CoroutineScope.showSuccess() = launch(dispatcher.UI) {

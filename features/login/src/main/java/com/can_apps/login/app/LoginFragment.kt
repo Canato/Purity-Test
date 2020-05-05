@@ -2,6 +2,7 @@ package com.can_apps.login.app
 
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -32,6 +33,7 @@ class LoginFragment :
 
         presenter.bind(this)
         presenter.onViewCreated()
+
         signInButton.setOnClickListener {
             presenter.onSignClicked(
                 loginPasswordEditText.text.toString(),

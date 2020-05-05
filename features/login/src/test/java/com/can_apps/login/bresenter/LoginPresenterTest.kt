@@ -27,6 +27,9 @@ internal class LoginPresenterTest {
     @MockK
     private lateinit var stringResource: CommonStringResourceWrapper
 
+    @MockK
+    private lateinit var modelMapper: LoginModelMapper
+
     @InjectMockKs
     private lateinit var presenter: LoginPresenter
 
@@ -74,9 +77,11 @@ internal class LoginPresenterTest {
         val loginName = "loginName"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
+        val nameValExpected = LoginNameValidationDomain.Valid
+        val passwordValExpected = LoginPasswordValidationDomain.Valid
 
-        coEvery { interactor.loginNameValidation(loginDomain) }  returns true
-        coEvery { interactor.passwordValidation(passwordDomain) }  returns true
+        coEvery { interactor.loginNameValidation(loginDomain) }  returns nameValExpected
+        coEvery { interactor.passwordValidation(passwordDomain) }  returns passwordValExpected
         coEvery { interactor.signInUser(loginDomain, passwordDomain) }  returns LoginDomain.Success
 
         //WHEN
@@ -97,9 +102,11 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val loginErrorDomain = LoginErrorDomain(error)
+        val nameValExpected = LoginNameValidationDomain.Valid
+        val passwordValExpected = LoginPasswordValidationDomain.Valid
 
-        coEvery { interactor.loginNameValidation(loginDomain) } returns true
-        coEvery { interactor.passwordValidation(passwordDomain) } returns true
+        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
+        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
         coEvery { interactor.signInUser(loginDomain, passwordDomain) } returns LoginDomain.Fail(loginErrorDomain)
 
         //WHEN
@@ -119,9 +126,11 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val message = "MidnightGospel"
+        val nameValExpected = LoginNameValidationDomain.ToSmall
+        val passwordValExpected = LoginPasswordValidationDomain.Valid
 
-        coEvery { interactor.loginNameValidation(loginDomain) } returns false
-        coEvery { interactor.passwordValidation(passwordDomain) } returns true
+        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
+        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
         every { stringResource.getString(R.string.login_error_message) } returns message
 
         //WHEN
@@ -146,9 +155,11 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val message = "MidnightGospel"
+        val nameValExpected = LoginNameValidationDomain.Valid
+        val passwordValExpected = LoginPasswordValidationDomain.ToSmall
 
-        coEvery { interactor.loginNameValidation(loginDomain) } returns true
-        coEvery { interactor.passwordValidation(passwordDomain) } returns false
+        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
+        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
         every { stringResource.getString(R.string.login_error_message) } returns message
 
         //WHEN
@@ -172,9 +183,11 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val message = "MidnightGospel"
+        val nameValExpected = LoginNameValidationDomain.ToSmall
+        val passwordValExpected = LoginPasswordValidationDomain.ToSmall
 
-        coEvery { interactor.loginNameValidation(loginDomain) } returns false
-        coEvery { interactor.passwordValidation(passwordDomain) } returns false
+        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
+        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
         every { stringResource.getString(R.string.login_error_message) } returns message
 
         //WHEN
@@ -197,9 +210,11 @@ internal class LoginPresenterTest {
         val loginName = "loginName"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
+        val nameValExpected = LoginNameValidationDomain.Valid
+        val passwordValExpected = LoginPasswordValidationDomain.Valid
 
-        coEvery { interactor.loginNameValidation(loginDomain) } returns true
-        coEvery { interactor.passwordValidation(passwordDomain) } returns true
+        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
+        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
         coEvery { interactor.createUser(loginDomain, passwordDomain) } returns LoginDomain.Success
 
         //WHEN
@@ -220,9 +235,11 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val loginErrorDomain = LoginErrorDomain(error)
+        val nameValExpected = LoginNameValidationDomain.Valid
+        val passwordValExpected = LoginPasswordValidationDomain.Valid
 
-        coEvery { interactor.loginNameValidation(loginDomain) } returns true
-        coEvery { interactor.passwordValidation(passwordDomain) } returns true
+        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
+        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
         coEvery { interactor.createUser(loginDomain, passwordDomain) } returns LoginDomain.Fail(loginErrorDomain)
 
         //WHEN
@@ -242,9 +259,11 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val message = "MidnightGospel"
+        val nameValExpected = LoginNameValidationDomain.ToSmall
+        val passwordValExpected = LoginPasswordValidationDomain.Valid
 
-        coEvery { interactor.loginNameValidation(loginDomain) } returns false
-        coEvery { interactor.passwordValidation(passwordDomain) } returns true
+        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
+        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
         every { stringResource.getString(R.string.login_error_message) } returns message
 
         //WHEN
@@ -269,9 +288,11 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val message = "MidnightGospel"
+        val nameValExpected = LoginNameValidationDomain.Valid
+        val passwordValExpected = LoginPasswordValidationDomain.ToSmall
 
-        every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns true
-        every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns false
+        every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns nameValExpected
+        every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns passwordValExpected
         every { stringResource.getString(R.string.login_error_message) } returns message
 
         //WHEN
@@ -295,9 +316,11 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val message = "MidnightGospel"
+        val nameValExpected = LoginNameValidationDomain.ToSmall
+        val passwordValExpected = LoginPasswordValidationDomain.ToSmall
 
-        coEvery { interactor.loginNameValidation(loginDomain) } returns false
-        coEvery { interactor.passwordValidation(passwordDomain) } returns false
+        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
+        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
         every { stringResource.getString(R.string.login_error_message) } returns message
 
         //WHEN

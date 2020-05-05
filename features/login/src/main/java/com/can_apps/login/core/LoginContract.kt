@@ -32,13 +32,17 @@ internal interface LoginContract {
         fun logoutUser()
 
         fun checkLogIn()
+
+        fun onLoginChanged(login: String)
+
+        fun onPasswordChanged(password: String)
     }
 
     interface Interactor {
 
         fun passwordValidation(password: LoginPasswordDomain): LoginPasswordValidationDomain
 
-        fun loginNameValidation(loginName: LoginNameDomain): Boolean
+        fun loginNameValidation(loginName: LoginNameDomain): LoginNameValidationDomain
 
         suspend fun signInUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
 
