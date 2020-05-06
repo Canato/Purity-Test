@@ -1,6 +1,5 @@
 package com.can_apps.login.core
 
-import android.util.Log
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -26,7 +25,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tomasz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.Valid
+        val expected = LoginNameValidationDomain.Valid(loginNameDomain)
 
         //WHEN
         val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
@@ -40,7 +39,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tomasz@gmail.co.uk"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.Valid
+        val expected = LoginNameValidationDomain.Valid(loginNameDomain)
 
         //WHEN
         val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
@@ -110,7 +109,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tomasz@gmailDOTcom"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.MissingDotDomainFinish
+        val expected = LoginNameValidationDomain.WrongEmailDomainUsage
 
         //WHEN
         val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
@@ -119,13 +118,26 @@ internal class LoginInteractorTest {
         assertEquals(expected, result)
     }
 
+    @Test
+    fun `GIVEN login with one symbol after email domain dot, WHEN validate, THEN return false`() {
+        //GIVEN
+        val login = "Tomasz@gmail.c"
+        val loginNameDomain = LoginNameDomain(login)
+        val expected = LoginNameValidationDomain.WrongEmailDomainUsage
+
+        //WHEN
+        val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
+
+        //THEN
+        assertEquals(expected, result)
+    }
 
     @Test
     fun `GIVEN password, WHEN validate, THEN return true`() {
         //GIVEN
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.Valid
+        val expected = LoginPasswordValidationDomain.Valid(passwordDomain)
 
         //WHEN
         val result = runBlocking { interactor.passwordValidation(passwordDomain) }
@@ -213,7 +225,10 @@ internal class LoginInteractorTest {
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
 
-        val expected = LoginDomain.Success
+        val email = null
+        val loginUserEmailDomain = LoginUserEmailDomain(email)
+
+        val expected = LoginDomain.Success(loginUserEmailDomain)
 
         coEvery { repository.signInUser(loginNameDomain, passwordDomain) } returns expected
 
@@ -253,7 +268,10 @@ internal class LoginInteractorTest {
         val loginNameDomain = LoginNameDomain(login)
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginDomain.Success
+        val email = null
+        val loginUserEmailDomain = LoginUserEmailDomain(email)
+
+        val expected = LoginDomain.Success(loginUserEmailDomain)
 
         coEvery { repository.createUser(loginNameDomain, passwordDomain) } returns expected
 
@@ -289,7 +307,10 @@ internal class LoginInteractorTest {
     @Test
     fun `GIVEN repository success, WHEN checkLogInStatus, THEN return LoginDomain_Success`() {
         //GIVEN
-        val expected = LoginDomain.Success
+        val email = "Britney"
+        val loginUserEmailDomain = LoginUserEmailDomain(email)
+        val expected = LoginDomain.Success(loginUserEmailDomain)
+
         coEvery {  repository.checkLogInStatus() } returns expected
 
         //WHEN

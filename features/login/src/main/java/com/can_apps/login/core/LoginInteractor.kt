@@ -1,7 +1,5 @@
 package com.can_apps.login.core
 
-import android.util.Log
-
 internal class LoginInteractor(
     private val repository: LoginContract.Repository
 ) : LoginContract.Interactor {
@@ -13,13 +11,14 @@ internal class LoginInteractor(
             i++
         }
 
-        if (loginName.value.length < 4) return LoginNameValidationDomain.ToSmall
+        if (loginName.value == "") return LoginNameValidationDomain.EmptyLogin
+        else if (loginName.value.length < 4) return LoginNameValidationDomain.ToSmall
         else if (!Regex("[@]").containsMatchIn(loginName.value)) return LoginNameValidationDomain.MissingAtSign
-        else if (!Regex("[.][a-z]+$").containsMatchIn(loginName.value)) return LoginNameValidationDomain.MissingDotDomainFinish
-        else if (Regex("[a-z0-9._]+[@][a-z0-9]+[.][a-z]+$").matches(loginName.value.toLowerCase()))
-            return LoginNameValidationDomain.Valid
-        else if (Regex("[a-z0-9._]+[@][a-z0-9]+[.][a-z]+[.][a-z]+$").matches(loginName.value.toLowerCase()))
-            return LoginNameValidationDomain.Valid
+        else if (!Regex("[.][a-z]{2,}+$").containsMatchIn(loginName.value)) return LoginNameValidationDomain.WrongEmailDomainUsage
+        else if (Regex("[a-z0-9._]+[@][a-z0-9]+[.][a-z]{2,}+$").matches(loginName.value.toLowerCase()))
+            return LoginNameValidationDomain.Valid(loginName)
+        else if (Regex("[a-z0-9._]+[@][a-z0-9]+[.][a-z]{2,}+[.][a-z]{2,}+$").matches(loginName.value.toLowerCase()))
+            return LoginNameValidationDomain.Valid(loginName)
         return LoginNameValidationDomain.WrongCharacters
     }
 
@@ -32,7 +31,8 @@ internal class LoginInteractor(
             i++
         }
 
-        if (password.value.length < 8) return LoginPasswordValidationDomain.ToSmall
+        if (password.value == "") return LoginPasswordValidationDomain.EmptyPassword
+        else if (password.value.length < 8) return LoginPasswordValidationDomain.ToSmall
         else if (!Regex(pattern = "[A-Z]").containsMatchIn(password.value)) {
             return LoginPasswordValidationDomain.NoUpperCase
         } else if (!Regex(pattern = "[a-z]").containsMatchIn(password.value)) {
@@ -40,7 +40,7 @@ internal class LoginInteractor(
         } else if (!Regex(pattern = "[0-9]").containsMatchIn(password.value)) {
             return LoginPasswordValidationDomain.NoDigit
         } else if (Regex(pattern = "[a-zA-Z0-9]+").matches(password.value))
-            return LoginPasswordValidationDomain.Valid
+            return LoginPasswordValidationDomain.Valid(password)
 
         return LoginPasswordValidationDomain.WrongCharacters
     }

@@ -77,12 +77,11 @@ internal class LoginPresenterTest {
         val loginName = "loginName"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
-        val nameValExpected = LoginNameValidationDomain.Valid
-        val passwordValExpected = LoginPasswordValidationDomain.Valid
+        val authUser = null
+        val loginUserEmailDomain = LoginUserEmailDomain(authUser)
+        val expected = LoginDomain.Success(loginUserEmailDomain)
 
-        coEvery { interactor.loginNameValidation(loginDomain) }  returns nameValExpected
-        coEvery { interactor.passwordValidation(passwordDomain) }  returns passwordValExpected
-        coEvery { interactor.signInUser(loginDomain, passwordDomain) }  returns LoginDomain.Success
+        coEvery { interactor.signInUser(loginDomain, passwordDomain) }  returns expected
 
         //WHEN
         presenter.onSignClicked(password, loginName)
@@ -102,11 +101,7 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val loginErrorDomain = LoginErrorDomain(error)
-        val nameValExpected = LoginNameValidationDomain.Valid
-        val passwordValExpected = LoginPasswordValidationDomain.Valid
 
-        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
-        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
         coEvery { interactor.signInUser(loginDomain, passwordDomain) } returns LoginDomain.Fail(loginErrorDomain)
 
         //WHEN
@@ -118,90 +113,63 @@ internal class LoginPresenterTest {
         }
     }
 
-    @Test
-    fun `GIVEN valid password and invalid loginName, WHEN onSignClicked, THEN show fail`() {
-        //GIVEN
-        val password = "pass"
-        val loginName = "loginName"
-        val passwordDomain = LoginPasswordDomain(password)
-        val loginDomain = LoginNameDomain(loginName)
-        val message = "MidnightGospel"
-        val nameValExpected = LoginNameValidationDomain.ToSmall
-        val passwordValExpected = LoginPasswordValidationDomain.Valid
-
-        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
-        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
-        every { stringResource.getString(R.string.login_error_message) } returns message
-
-        //WHEN
-        presenter.onSignClicked(password, loginName)
-
-        //THEN
-        verify {
-            view.showError(message)
-        }
-        coVerify(exactly = 0) {
-            interactor.signInUser(loginDomain, passwordDomain)
-            view.showSuccess()
-        }
-
-    }
-
-    @Test
-    fun `GIVEN invalid password and valid loginName, WHEN onSignClicked, THEN show fail`() {
-        //GIVEN
-        val password = "pass"
-        val loginName = "loginName"
-        val passwordDomain = LoginPasswordDomain(password)
-        val loginDomain = LoginNameDomain(loginName)
-        val message = "MidnightGospel"
-        val nameValExpected = LoginNameValidationDomain.Valid
-        val passwordValExpected = LoginPasswordValidationDomain.ToSmall
-
-        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
-        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
-        every { stringResource.getString(R.string.login_error_message) } returns message
-
-        //WHEN
-        presenter.onSignClicked(password, loginName)
-
-        //THEN
-        verify {
-            view.showError(message)
-        }
-        verify(exactly = 0) {
-            runBlocking { interactor.signInUser(loginDomain, passwordDomain) }
-            view.showSuccess()
-        }
-    }
-
-    @Test
-    fun `GIVEN invalid parameters, WHEN onSignClicked, THEN show fail`() {
-        //GIVEN
-        val password = "pass"
-        val loginName = "loginName"
-        val passwordDomain = LoginPasswordDomain(password)
-        val loginDomain = LoginNameDomain(loginName)
-        val message = "MidnightGospel"
-        val nameValExpected = LoginNameValidationDomain.ToSmall
-        val passwordValExpected = LoginPasswordValidationDomain.ToSmall
-
-        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
-        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
-        every { stringResource.getString(R.string.login_error_message) } returns message
-
-        //WHEN
-        presenter.onSignClicked(password, loginName)
-
-        //THEN
-        verify {
-            view.showError(message)
-        }
-        verify(exactly = 0) {
-            runBlocking { interactor.signInUser(loginDomain, passwordDomain) }
-            view.showSuccess()
-        }
-    }
+//    @Test
+//    fun `GIVEN valid password and invalid loginName, WHEN onSignClicked, THEN show fail`() {
+//        //GIVEN
+//        val password = "pass"
+//        val loginName = "loginName"
+//        val message = "MidnightGospel"
+//
+//        //WHEN
+//        presenter.onSignClicked(password, loginName)
+//
+//        //THEN
+//        verify {
+//            view.showError(message)
+//        }
+//        coVerify(exactly = 0) {
+//            view.showSuccess()
+//        }
+//
+//    }
+//
+//    @Test
+//    fun `GIVEN invalid password and valid loginName, WHEN onSignClicked, THEN show fail`() {
+//        //GIVEN
+//        val password = "pass"
+//        val loginName = "loginName"
+//        val message = "MidnightGospel"
+//
+//        //WHEN
+//        presenter.onSignClicked(password, loginName)
+//
+//        //THEN
+//        verify {
+//            view.showError(message)
+//        }
+//        verify(exactly = 0) {
+//            view.showSuccess()
+//        }
+//    }
+//
+//    @Test
+//    fun `GIVEN invalid parameters, WHEN onSignClicked, THEN show fail`() {
+//        //GIVEN
+//        val password = "pass"
+//        val loginName = "loginName"
+//        val message = "MidnightGospel"
+//
+//        //WHEN
+//        presenter.onSignClicked(password, loginName)
+//
+//        //THEN
+//        verify {
+//            view.showError(message)
+//        }
+//        verify(exactly = 0) {
+//            view.showSuccess()
+//        }
+//    }
 
     @Test
     fun `GIVEN valid parameters, WHEN onCreateUserClicked, THEN show success`() {
@@ -210,12 +178,12 @@ internal class LoginPresenterTest {
         val loginName = "loginName"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
-        val nameValExpected = LoginNameValidationDomain.Valid
-        val passwordValExpected = LoginPasswordValidationDomain.Valid
 
-        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
-        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
-        coEvery { interactor.createUser(loginDomain, passwordDomain) } returns LoginDomain.Success
+        val authUser = null
+        val loginUserEmailDomain = LoginUserEmailDomain(authUser)
+        val expected = LoginDomain.Success(loginUserEmailDomain)
+
+        coEvery { interactor.createUser(loginDomain, passwordDomain) }  returns expected
 
         //WHEN
         presenter.onCreateLoginClicked(password, loginName)
@@ -232,15 +200,13 @@ internal class LoginPresenterTest {
         val password = "pass"
         val loginName = "loginName"
         val error = "flipflops"
+
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val loginErrorDomain = LoginErrorDomain(error)
-        val nameValExpected = LoginNameValidationDomain.Valid
-        val passwordValExpected = LoginPasswordValidationDomain.Valid
+        val expected = LoginDomain.Fail(loginErrorDomain)
 
-        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
-        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
-        coEvery { interactor.createUser(loginDomain, passwordDomain) } returns LoginDomain.Fail(loginErrorDomain)
+        coEvery { interactor.createUser(loginDomain, passwordDomain) } returns expected
 
         //WHEN
         presenter.onCreateLoginClicked(password, loginName)
@@ -251,90 +217,82 @@ internal class LoginPresenterTest {
         }
     }
 
-    @Test
-    fun `GIVEN valid password and invalid loginName, WHEN onCreateUserClicked, THEN show fail`() {
-        //GIVEN
-        val password = "pass"
-        val loginName = "loginName"
-        val passwordDomain = LoginPasswordDomain(password)
-        val loginDomain = LoginNameDomain(loginName)
-        val message = "MidnightGospel"
-        val nameValExpected = LoginNameValidationDomain.ToSmall
-        val passwordValExpected = LoginPasswordValidationDomain.Valid
-
-        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
-        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
-        every { stringResource.getString(R.string.login_error_message) } returns message
-
-        //WHEN
-        presenter.onCreateLoginClicked(password, loginName)
-
-        //THEN
-        verify {
-            view.showError(message)
-        }
-        verify(exactly = 0) {
-            runBlocking { interactor.createUser(loginDomain, passwordDomain) }
-            view.showSuccess()
-        }
-
-    }
-
-    @Test
-    fun `GIVEN invalid password and valid loginName, WHEN onCreateUserClicked, THEN show fail`() {
-        //GIVEN
-        val password = "pass"
-        val loginName = "loginName"
-        val passwordDomain = LoginPasswordDomain(password)
-        val loginDomain = LoginNameDomain(loginName)
-        val message = "MidnightGospel"
-        val nameValExpected = LoginNameValidationDomain.Valid
-        val passwordValExpected = LoginPasswordValidationDomain.ToSmall
-
-        every { runBlocking { interactor.loginNameValidation(loginDomain) } } returns nameValExpected
-        every { runBlocking { interactor.passwordValidation(passwordDomain) } } returns passwordValExpected
-        every { stringResource.getString(R.string.login_error_message) } returns message
-
-        //WHEN
-        presenter.onCreateLoginClicked(password, loginName)
-
-        //THEN
-        verify {
-            view.showError(message)
-        }
-        verify(exactly = 0) {
-            runBlocking { interactor.createUser(loginDomain, passwordDomain) }
-            view.showSuccess()
-        }
-    }
-
-    @Test
-    fun `GIVEN invalid parameters, WHEN onCreateUserClicked, THEN show fail`() {
-        //GIVEN
-        val password = "pass"
-        val loginName = "loginName"
-        val passwordDomain = LoginPasswordDomain(password)
-        val loginDomain = LoginNameDomain(loginName)
-        val message = "MidnightGospel"
-        val nameValExpected = LoginNameValidationDomain.ToSmall
-        val passwordValExpected = LoginPasswordValidationDomain.ToSmall
-
-        coEvery { interactor.loginNameValidation(loginDomain) } returns nameValExpected
-        coEvery { interactor.passwordValidation(passwordDomain) } returns passwordValExpected
-        every { stringResource.getString(R.string.login_error_message) } returns message
-
-        //WHEN
-        presenter.onCreateLoginClicked(password, loginName)
-
-        //THEN
-        verify {
-            view.showError(message)
-        }
-        verify(exactly = 0) {
-            runBlocking { interactor.createUser(loginDomain, passwordDomain) }
-            view.showSuccess()
-        }
-    }
+//    @Test
+//    fun `GIVEN valid password and invalid loginName, WHEN onCreateUserClicked, THEN show fail`() {
+//        //GIVEN
+//        val password = "pass"
+//        val loginName = "loginName"
+//        val passwordDomain = LoginPasswordDomain(password)
+//        val loginDomain = LoginNameDomain(loginName)
+//
+//        val error = "flipflops"
+//        val loginErrorDomain = LoginErrorDomain(error)
+//        val expected = LoginDomain.Fail(loginErrorDomain)
+//
+//        coEvery { interactor.createUser(loginDomain, passwordDomain) } returns expected
+//
+//        //WHEN
+//        presenter.onCreateLoginClicked(password, loginName)
+//
+//        //THEN
+//        verify {
+//            view.showError(error)
+//        }
+//        verify(exactly = 0) {
+//            view.showSuccess()
+//        }
+//
+//    }
+//
+//    @Test
+//    fun `GIVEN invalid password and valid loginName, WHEN onCreateUserClicked, THEN show fail`() {
+//        //GIVEN
+//        val password = "pass"
+//        val loginName = "loginName"
+//        val passwordDomain = LoginPasswordDomain(password)
+//        val loginDomain = LoginNameDomain(loginName)
+//
+//        val error = "flipflops"
+//        val loginErrorDomain = LoginErrorDomain(error)
+//        val expected = LoginDomain.Fail(loginErrorDomain)
+//
+//        coEvery { interactor.createUser(loginDomain, passwordDomain) } returns expected
+//
+//        //WHEN
+//        presenter.onCreateLoginClicked(password, loginName)
+//
+//
+//        //THEN
+//        verify {
+//            view.showError(error)
+//        }
+//        verify(exactly = 0) {
+//            view.showSuccess()
+//        }
+//    }
+//
+//    @Test
+//    fun `GIVEN invalid parameters, WHEN onCreateUserClicked, THEN show fail`() {
+//        //GIVEN
+//        val password = "pass"
+//        val loginName = "loginName"
+//        val passwordDomain = LoginPasswordDomain(password)
+//        val loginDomain = LoginNameDomain(loginName)
+//
+//        val error = "flipflops"
+//        val loginErrorDomain = LoginErrorDomain(error)
+//        val expected = LoginDomain.Fail(loginErrorDomain)
+//
+//        coEvery { interactor.createUser(loginDomain, passwordDomain) } returns expected
+//
+//        //THEN
+//        verify {
+//            view.showError(error)
+//        }
+//        verify(exactly = 0) {
+//            view.showSuccess()
+//        }
+//    }
 
     @Test
     fun `GIVEN interactor success, WHEN checkLogInStatus, THEN show success`() {
@@ -343,7 +301,11 @@ internal class LoginPresenterTest {
         val loginErrorDomain = LoginErrorDomain(error)
         val message = "MidnightGospel"
 
-        coEvery { interactor.checkLogInStatus() } returns LoginDomain.Success
+        val authUser = "Mr. A"
+        val loginUserEmailDomain = LoginUserEmailDomain(authUser)
+        val expected = LoginDomain.Success(loginUserEmailDomain)
+
+        coEvery { interactor.checkLogInStatus() }  returns expected
         every { stringResource.getString(R.string.sign_in_true) } returns message
 
         //WHEN

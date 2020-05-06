@@ -13,6 +13,19 @@ internal interface LoginContract {
         fun showLogInStatus(message: String)
 
         fun showSuccess()
+
+        fun checkLoginBox()
+
+        fun unCheckLoginBox()
+
+        fun checkPasswordBox()
+
+        fun unCheckPasswordBox()
+
+        fun updateLoginViewMessage(message: String)
+
+        fun updatePasswordViewMessage(message: String)
+
     }
 
     interface Presenter {

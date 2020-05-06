@@ -1,12 +1,11 @@
 package com.can_apps.login.bresenter
 
-import androidx.annotation.Nullable
-
-internal sealed class LoginModel
-{
-    data class Name(val value: String) : LoginModel()
-    data class Password(val value: String) : LoginModel()
-    data class Fail(val value: LoginErrorModel) : LoginModel()
+internal sealed class LoginModel {
+    data class Name(val value: LoginModelName) : LoginModel()
+    data class Password(val value: LoginModelPassword) : LoginModel()
+    data class Fail(val error: LoginErrorModel) : LoginModel()
 }
 
 internal inline class LoginErrorModel(val value: String)
+internal inline class LoginModelName(val value: String)
+internal inline class LoginModelPassword(val value: String)
