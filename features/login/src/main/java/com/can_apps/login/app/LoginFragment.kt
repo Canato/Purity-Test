@@ -98,26 +98,26 @@ class LoginFragment :
         Toast.makeText(activity, getString(R.string.toast_success), Toast.LENGTH_SHORT).show()
     }
 
-    override fun checkLoginBox() {
+    override fun setLoginCheckBoxAsTrue() {
         loginCheckBox.isChecked = true
     }
 
-    override fun unCheckLoginBox() {
+    override fun setLoginCheckBoxAsFalse() {
         loginCheckBox.isChecked = false
     }
 
-    override fun checkPasswordBox() {
+    override fun setPasswordCheckBoxAsTrue() {
         passwordCheckBox.isChecked = true
     }
-    override fun unCheckPasswordBox() {
+    override fun setPasswordCheckBoxAsFalse() {
         passwordCheckBox.isChecked = false
     }
 
-    override fun updateLoginViewMessage(message: String) {
+    override fun updateLoginTextViewErrorMessage(message: String) {
         loginNameInputLayout.error = message
     }
 
-    override fun updatePasswordViewMessage(message: String) {
+    override fun updatePasswordTextViewErrorMessage(message: String) {
         loginPassworInputLayout.error = message
     }
 

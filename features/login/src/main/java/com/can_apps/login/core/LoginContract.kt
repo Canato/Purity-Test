@@ -14,17 +14,17 @@ internal interface LoginContract {
 
         fun showSuccess()
 
-        fun checkLoginBox()
+        fun setLoginCheckBoxAsTrue()
 
-        fun unCheckLoginBox()
+        fun setLoginCheckBoxAsFalse()
 
-        fun checkPasswordBox()
+        fun setPasswordCheckBoxAsTrue()
 
-        fun unCheckPasswordBox()
+        fun setPasswordCheckBoxAsFalse()
 
-        fun updateLoginViewMessage(message: String)
+        fun updateLoginTextViewErrorMessage(message: String)
 
-        fun updatePasswordViewMessage(message: String)
+        fun updatePasswordTextViewErrorMessage(message: String)
 
     }
 

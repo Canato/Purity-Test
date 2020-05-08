@@ -117,24 +117,24 @@ internal class LoginPresenter(
 
     private fun CoroutineScope.checkLoginBox(checkBox: Boolean) = launch(dispatcher.UI) {
         when (checkBox) {
-            true -> view.checkLoginBox()
-            false -> view.unCheckLoginBox()
+            true -> view.setLoginCheckBoxAsTrue()
+            false -> view.setLoginCheckBoxAsFalse()
         }
     }
 
     private fun CoroutineScope.checkPasswordBox(checkBox: Boolean) = launch(dispatcher.UI) {
         when (checkBox) {
-            true -> view.checkPasswordBox()
-            false -> view.unCheckPasswordBox()
+            true -> view.setPasswordCheckBoxAsTrue()
+            false -> view.setPasswordCheckBoxAsFalse()
         }
     }
 
     private fun CoroutineScope.updateLoginView(message: String) = launch(dispatcher.UI) {
-        view.updateLoginViewMessage(message)
+        view.updateLoginTextViewErrorMessage(message)
     }
 
     private fun CoroutineScope.updatePasswordView(message: String) = launch(dispatcher.UI) {
-        view.updatePasswordViewMessage(message)
+        view.updatePasswordTextViewErrorMessage(message)
     }
 
     private fun CoroutineScope.logout() = launch(dispatcher.IO) {
