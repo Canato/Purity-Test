@@ -46,7 +46,6 @@ internal class LoginPresenter(
         when (val domain = interactor.loginNameValidation(LoginNameDomain(login))) {
             is LoginNameValidationDomain.Valid -> {
                 checkLoginBox(true)
-                val model = modelMapper.loginToModel(domain) as LoginModel.Name
                 updateLoginView("")
             }
             else -> {
@@ -61,10 +60,8 @@ internal class LoginPresenter(
     private fun CoroutineScope.verifyPassword(password: String) = launch(dispatcher.IO) {
         when (val domain = interactor.passwordValidation(LoginPasswordDomain(password))) {
             is LoginPasswordValidationDomain.Valid -> {
-                val model = modelMapper.passwordToModel(domain) as LoginModel.Password
                 checkPasswordBox(true)
                 updatePasswordView("")
-
             }
             else -> {
                 val model = modelMapper.passwordToModel(domain) as LoginModel.Fail
