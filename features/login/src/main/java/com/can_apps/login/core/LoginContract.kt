@@ -8,13 +8,17 @@ internal interface LoginContract {
 
         fun showError(error: String)
 
-        fun showLoginStatus(message: String)
+        fun showLogInStatus(message: String)
 
         fun showSuccess()
 
-        fun disableLoginButtons()
+        fun disableSignInButton()
 
-        fun enableLoginButtons()
+        fun enableSignInButton()
+
+        fun disableCreateUserButton()
+
+        fun enableCreateUserButton()
     }
 
     interface Presenter {

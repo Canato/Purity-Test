@@ -54,7 +54,7 @@ class LoginFragment :
         activity?.finish()
     }
 
-    override fun showLoginStatus(message: String) {
+    override fun showLogInStatus(message: String) {
         loginStatus.text = message
     }
 
@@ -66,13 +66,17 @@ class LoginFragment :
         view?.let { Snackbar.make(it, error, Snackbar.LENGTH_SHORT).show() }
     }
 
-    override fun disableLoginButtons() {
-        signInButton.disableLogin()
+    override fun disableSignInButton() {
+        signInButton.disableLogin()}
+
+    override fun disableCreateUserButton() {
         createUserButton.disableLogin()
     }
 
-    override fun enableLoginButtons() {
-        signInButton.enableLogin()
+    override fun enableSignInButton() {
+        signInButton.enableLogin()}
+
+    override fun enableCreateUserButton() {
         createUserButton.enableLogin()
     }
 

@@ -4,7 +4,7 @@ import androidx.annotation.Nullable
 
 internal sealed class LoginDomain {
     data class Fail(val error: LoginErrorDomain) : LoginDomain()
-    data class Success(@Nullable val email: LoginUserEmailDomain) : LoginDomain()
+    data class Success(val email: LoginUserEmailDomain?) : LoginDomain()
 }
 
 internal inline class LoginErrorDomain(val value: String)

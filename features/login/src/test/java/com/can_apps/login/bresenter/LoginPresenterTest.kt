@@ -64,15 +64,19 @@ internal class LoginPresenterTest {
         val userMail = "HarryPota"
         val userEmailDomain = LoginUserEmailDomain(userMail)
         val expected = LoginDomain.Success(userEmailDomain)
+        val loginModel = mapper.toModel(expected)
+        val modelEmail = loginModel.email?.value
+
 
         coEvery { interactor.checkLogInStatus() } returns expected
-        every { stringResource.getString(R.string.update_login_success, expected.email.value) } returns message
+
+        every { stringResource.getString(R.string.update_login_success, modelEmail) } returns message
 
         //WHEN
         presenter.onViewCreated()
         //THEN
         verify {
-            view.showLoginStatus(message)
+            view.showLogInStatus(message)
         }
     }
 
@@ -90,7 +94,7 @@ internal class LoginPresenterTest {
         presenter.onViewCreated()
         //THEN
         verify {
-            view.showLoginStatus(message)
+            view.showLogInStatus(message)
         }
     }
 
@@ -101,7 +105,7 @@ internal class LoginPresenterTest {
         val loginName = "loginName"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
-        val email = null
+        val email = "just@do.it"
         val userEmailDomain = LoginUserEmailDomain(email)
         val expected = LoginDomain.Success(userEmailDomain)
 
@@ -227,7 +231,7 @@ internal class LoginPresenterTest {
         val loginName = "loginName"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
-        val email = null
+        val email = "just@do.it"
         val userEmailDomain = LoginUserEmailDomain(email)
         val expected = LoginDomain.Success(userEmailDomain)
 
