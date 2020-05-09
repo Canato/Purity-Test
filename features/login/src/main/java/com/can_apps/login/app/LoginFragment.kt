@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.can_apps.login.R
@@ -36,19 +37,9 @@ class LoginFragment :
         presenter.bind(this)
         presenter.onViewCreated()
 
-        signInButton.setOnClickListener {
-            presenter.onSignClicked(
-                loginPasswordEditText.text.toString(),
-                loginNameEditText.text.toString()
-            )
-        }
+        signInButton.setOnClickListener { presenter.onSignClicked() }
 
-        createUserButton.setOnClickListener {
-            presenter.onCreateLoginClicked(
-                loginPasswordEditText.text.toString(),
-                loginNameEditText.text.toString()
-            )
-        }
+        createUserButton.setOnClickListener { presenter.onCreateLoginClicked() }
 
 
         loginNameEditText.addTextChangedListener(object : TextWatcher{
@@ -119,6 +110,32 @@ class LoginFragment :
 
     override fun updatePasswordTextViewErrorMessage(message: String) {
         loginPassworInputLayout.error = message
+    }
+
+    override fun disableSignInButton() {
+        signInButton.disableLogin()}
+
+    override fun disableCreateUserButton() {
+        createUserButton.disableLogin()
+    }
+
+    override fun enableSignInButton() {
+        signInButton.enableLogin()}
+
+    override fun enableCreateUserButton() {
+        createUserButton.enableLogin()
+    }
+
+    private fun Button.disableLogin(): Button {
+        this.isClickable = false
+        this.alpha = 0.3f
+        return this
+    }
+
+    private fun Button.enableLogin(): Button {
+        this.isClickable = true
+        this.alpha = 1f
+        return this
     }
 
 }

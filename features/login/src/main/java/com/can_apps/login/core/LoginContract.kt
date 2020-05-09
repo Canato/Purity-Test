@@ -26,6 +26,14 @@ internal interface LoginContract {
 
         fun updatePasswordTextViewErrorMessage(message: String)
 
+        fun disableSignInButton()
+
+        fun enableSignInButton()
+
+        fun disableCreateUserButton()
+
+        fun enableCreateUserButton()
+
     }
 
     interface Presenter {
@@ -38,9 +46,9 @@ internal interface LoginContract {
 
         fun onBackPressed()
 
-        fun onSignClicked(password: String, loginName: String)
+        fun onSignClicked()
 
-        fun onCreateLoginClicked(password: String, loginName: String)
+        fun onCreateLoginClicked()
 
         fun logoutUser()
 
@@ -49,6 +57,8 @@ internal interface LoginContract {
         fun onLoginChanged(login: String)
 
         fun onPasswordChanged(password: String)
+
+
     }
 
     interface Interactor {

@@ -19,6 +19,12 @@ import org.junit.Test
 internal class LoginPresenterTest {
 
     @MockK
+    private lateinit var loginPasswordModel: LoginModel.Password
+
+    @MockK
+    private lateinit var loginNameModel: LoginModel.Name
+
+    @MockK
     private lateinit var view: LoginContract.View
 
     @MockK
@@ -76,6 +82,7 @@ internal class LoginPresenterTest {
     @Test
     fun `GIVEN valid parameters, WHEN onSignClicked, THEN show success`() {
         //GIVEN
+
         val password = "pass"
         val loginName = "loginName"
         val passwordDomain = LoginPasswordDomain(password)
@@ -87,7 +94,7 @@ internal class LoginPresenterTest {
         coEvery { interactor.signInUser(loginDomain, passwordDomain) } returns expected
 
         //WHEN
-        presenter.onSignClicked(password, loginName)
+        presenter.onSignClicked()
 
         //THEN
         verify {
@@ -104,76 +111,18 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val loginErrorDomain = LoginErrorDomain(error)
+        val lo = loginNameModel
         val expected = LoginDomain.Fail(loginErrorDomain)
 
         coEvery { interactor.signInUser(loginDomain, passwordDomain) } returns expected
-
         //WHEN
-        presenter.onSignClicked(password, loginName)
+        presenter.onSignClicked()
 
         //THEN
         verify {
             view.showError(error)
         }
     }
-
-//    @Test
-//    fun `GIVEN valid password and invalid loginName, WHEN onSignClicked, THEN show fail`() {
-//        //GIVEN
-//        val password = "pass"
-//        val loginName = "loginName"
-//        val message = "MidnightGospel"
-//
-//        //WHEN
-//        presenter.onSignClicked(password, loginName)
-//
-//        //THEN
-//        verify {
-//            view.showError(message)
-//        }
-//        coVerify(exactly = 0) {
-//            view.showSuccess()
-//        }
-//
-//    }
-//
-//    @Test
-//    fun `GIVEN invalid password and valid loginName, WHEN onSignClicked, THEN show fail`() {
-//        //GIVEN
-//        val password = "pass"
-//        val loginName = "loginName"
-//        val message = "MidnightGospel"
-//
-//        //WHEN
-//        presenter.onSignClicked(password, loginName)
-//
-//        //THEN
-//        verify {
-//            view.showError(message)
-//        }
-//        verify(exactly = 0) {
-//            view.showSuccess()
-//        }
-//    }
-//
-//    @Test
-//    fun `GIVEN invalid parameters, WHEN onSignClicked, THEN show fail`() {
-//        //GIVEN
-//        val password = "pass"
-//        val loginName = "loginName"
-//        val message = "MidnightGospel"
-//
-//        //WHEN
-//        presenter.onSignClicked(password, loginName)
-//
-//        //THEN
-//        verify {
-//            view.showError(message)
-//        }
-//        verify(exactly = 0) {
-//            view.showSuccess()
-//        }
-//    }
 
     @Test
     fun `GIVEN valid parameters, WHEN onCreateUserClicked, THEN show success`() {
@@ -190,7 +139,7 @@ internal class LoginPresenterTest {
         coEvery { interactor.createUser(loginDomain, passwordDomain) } returns expected
 
         //WHEN
-        presenter.onCreateLoginClicked(password, loginName)
+        presenter.onCreateLoginClicked()
 
         //THEN
         verify {
@@ -213,7 +162,7 @@ internal class LoginPresenterTest {
         coEvery { interactor.createUser(loginDomain, passwordDomain) } returns expected
 
         //WHEN
-        presenter.onCreateLoginClicked(password, loginName)
+        presenter.onCreateLoginClicked()
 
         //THEN
         verify {
@@ -227,6 +176,7 @@ internal class LoginPresenterTest {
         val login = "Spyro"
         val loginNameDomain = LoginNameDomain(login)
         val expected = LoginNameValidationDomain.Valid(loginNameDomain)
+
 
         coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
         //WHEN

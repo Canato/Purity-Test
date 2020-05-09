@@ -17,6 +17,11 @@ internal class LoginPresenter(
 ) : LoginContract.Presenter, CoroutineScope {
 
     private lateinit var view: LoginContract.View
+    private lateinit var loginPasswordModel: LoginModel.Password
+    private lateinit var loginNameModel: LoginModel.Name
+
+    private var loginValid = false
+    private var passwordValid = false
 
     private val job = Job()
     override val coroutineContext: CoroutineContext
@@ -26,13 +31,16 @@ internal class LoginPresenter(
 
     override fun unbind() { job.cancel() }
 
-    override fun onViewCreated() { view.showWelcomeMessage() }
+    override fun onViewCreated() {
+                view.showWelcomeMessage()
+                checkFunction()
+    }
 
     override fun onBackPressed() { view.close() }
 
-    override fun onSignClicked(password: String, loginName: String) { signInUser(password, loginName) }
+    override fun onSignClicked() { signInUser() }
 
-    override fun onCreateLoginClicked(password: String, loginName: String) { createNewUser(password, loginName) }
+    override fun onCreateLoginClicked() { createNewUser() }
 
     override fun logoutUser() { logout() }
 
@@ -47,11 +55,17 @@ internal class LoginPresenter(
             is LoginNameValidationDomain.Valid -> {
                 checkLoginBox(true)
                 updateLoginView("")
+                //TODO test - only mapper block the test
+//                loginNameModel = modelMapper.loginToModel(domain) as LoginModel.Name
+                loginValid = true
+                checkFunction()
             }
             else -> {
                 checkLoginBox(false)
                 val model = modelMapper.loginToModel(domain) as LoginModel.Fail
                 updateLoginView(model.error.value)
+                loginValid = false
+                checkFunction()
             }
         }
     }
@@ -62,30 +76,41 @@ internal class LoginPresenter(
             is LoginPasswordValidationDomain.Valid -> {
                 checkPasswordBox(true)
                 updatePasswordView("")
+                loginPasswordModel = modelMapper.passwordToModel(domain) as LoginModel.Password
+                passwordValid = true
+                checkFunction()
             }
             else -> {
-                val model = modelMapper.passwordToModel(domain) as LoginModel.Fail
                 checkPasswordBox(false)
+                val model = modelMapper.passwordToModel(domain) as LoginModel.Fail
                 updatePasswordView(model.error.value)
+                passwordValid = false
+                checkFunction()
             }
         }
     }
 
-    private fun CoroutineScope.signInUser(password: String, loginName: String) =
+    private fun checkFunction() = updateButtonsFunction(loginValid && passwordValid)
+
+    private fun CoroutineScope.signInUser() =
         launch(dispatcher.IO) {
 
+            val login = loginNameModel.loginName.value
+            val password = loginPasswordModel.password.value
+            val loginNameDomain = LoginNameDomain(login)
             val passwordDomain = LoginPasswordDomain(password)
-            val loginNameDomain = LoginNameDomain(loginName)
             when (val result = interactor.signInUser(loginNameDomain, passwordDomain)) {
                 is LoginDomain.Success -> showSuccess()
                 is LoginDomain.Fail -> showError(result.error.value)
             }
         }
 
-    private fun CoroutineScope.createNewUser(password: String, loginName: String) =
+    private fun CoroutineScope.createNewUser() =
         launch(dispatcher.IO) {
 
-            val loginNameDomain = LoginNameDomain(loginName)
+            val login = loginNameModel.loginName.value
+            val password = loginPasswordModel.password.value
+            val loginNameDomain = LoginNameDomain(login)
             val passwordDomain = LoginPasswordDomain(password)
             when (val result = interactor.createUser(loginNameDomain, passwordDomain)) {
                 is LoginDomain.Success -> showSuccess()
@@ -132,6 +157,19 @@ internal class LoginPresenter(
 
     private fun CoroutineScope.updatePasswordView(message: String) = launch(dispatcher.UI) {
         view.updatePasswordTextViewErrorMessage(message)
+    }
+
+    private fun CoroutineScope.updateButtonsFunction(enable: Boolean) = launch(dispatcher.UI) {
+        when (enable) {
+            false -> {
+                view.disableSignInButton()
+                view.disableCreateUserButton()
+            }
+            true -> {
+                view.enableSignInButton()
+                view.enableCreateUserButton()
+            }
+        }
     }
 
     private fun CoroutineScope.logout() = launch(dispatcher.IO) {
