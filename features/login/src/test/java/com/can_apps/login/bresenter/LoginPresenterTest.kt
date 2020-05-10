@@ -45,7 +45,7 @@ internal class LoginPresenterTest {
         presenter.bind(view)
     }
 
-      @Test
+    @Test
     fun `GIVEN a view, WHEN on back pressed, THEN view close`() {
         //GIVEN
 
@@ -58,7 +58,7 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN interactor check login status success, WHEN on show login status, view disable login buttons`() {
+    fun `GIVEN interactor check login status success, WHEN on show login status, THEN view disable login buttons`() {
         //GIVEN
         val message = "flipflops"
         val userMail = "HarryPota"
@@ -81,7 +81,7 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN interactor check login status fail, WHEN on show login status, view enable login buttons`() {
+    fun `GIVEN interactor check login status fail, WHEN on show login status, THEN view enable login buttons`() {
         //GIVEN
         val error = "flipflops"
         val message = "Hoquartz"

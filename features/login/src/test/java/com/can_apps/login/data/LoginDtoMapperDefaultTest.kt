@@ -28,11 +28,10 @@ internal class LoginDtoMapperDefaultTest {
     @Test
     fun `GIVEN firebase_dto_valid, WHEN dto_toDomain, THEN return LoginDomain_Success`() {
         //GIVEN
-        val userEmail = null
+        val userEmail = "some@mail"
         val fireBaseUserEmail = FireBaseUserEmail(userEmail)
 
-        val email = null
-        val loginUserEmailDomain = LoginUserEmailDomain(email)
+        val loginUserEmailDomain = LoginUserEmailDomain(userEmail)
 
         val firebaseDto = FirebaseDto.Valid(fireBaseUserEmail)
         val expected = LoginDomain.Success(loginUserEmailDomain)

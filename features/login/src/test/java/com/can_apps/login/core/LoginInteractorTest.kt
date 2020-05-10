@@ -184,7 +184,7 @@ internal class LoginInteractorTest {
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
 
-        val email = null
+        val email = "Mac@Wheels.Pro"
         val loginUserEmailDomain = LoginUserEmailDomain(email)
 
         val expected = LoginDomain.Success(loginUserEmailDomain)
@@ -227,7 +227,7 @@ internal class LoginInteractorTest {
         val loginNameDomain = LoginNameDomain(login)
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
-        val email = null
+        val email = "Mac@Wheels.Pro"
         val loginUserEmailDomain = LoginUserEmailDomain(email)
 
         val expected = LoginDomain.Success(loginUserEmailDomain)
@@ -266,7 +266,7 @@ internal class LoginInteractorTest {
     @Test
     fun `GIVEN repository success, WHEN checkLogInStatus, THEN return LoginDomain_Success`() {
         //GIVEN
-        val email = null
+        val email = "Mac@Wheels.Pro"
         val loginUserEmailDomain = LoginUserEmailDomain(email)
 
         val expected = LoginDomain.Success(loginUserEmailDomain)

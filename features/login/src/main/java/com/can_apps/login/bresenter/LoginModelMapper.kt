@@ -10,5 +10,5 @@ internal interface LoginModelMapper {
 internal class LoginModelMapperDefault : LoginModelMapper {
 
     override fun toModel(domain: LoginDomain.Success): LoginModel =
-        LoginModel(LoginEmailModel(domain.email?.value))
+        LoginModel(domain.email?.value?.let { LoginEmailModel(it) })
 }

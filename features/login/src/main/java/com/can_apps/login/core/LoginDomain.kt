@@ -8,6 +8,6 @@ internal sealed class LoginDomain {
 }
 
 internal inline class LoginErrorDomain(val value: String)
-internal inline class LoginUserEmailDomain(val value: String?)
+internal inline class LoginUserEmailDomain(val value: String)
 internal inline class LoginPasswordDomain(val value: String)
 internal inline class LoginNameDomain(val value: String)

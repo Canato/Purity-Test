@@ -7,4 +7,4 @@ sealed class FirebaseDto {
     data class Valid(val userEmail: FireBaseUserEmail?): FirebaseDto()
 }
 
-inline class FireBaseUserEmail(val value: String?)
+inline class FireBaseUserEmail(val value: String)
