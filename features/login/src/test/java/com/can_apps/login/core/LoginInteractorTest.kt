@@ -225,7 +225,7 @@ internal class LoginInteractorTest {
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
 
-        val email = null
+        val email = "null"
         val loginUserEmailDomain = LoginUserEmailDomain(email)
 
         val expected = LoginDomain.Success(loginUserEmailDomain)
@@ -268,7 +268,7 @@ internal class LoginInteractorTest {
         val loginNameDomain = LoginNameDomain(login)
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
-        val email = null
+        val email = "null"
         val loginUserEmailDomain = LoginUserEmailDomain(email)
 
         val expected = LoginDomain.Success(loginUserEmailDomain)

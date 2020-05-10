@@ -87,7 +87,7 @@ internal class LoginPresenterTest {
         val loginName = "loginName"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
-        val authUser = null
+        val authUser = "null"
         val loginUserEmailDomain = LoginUserEmailDomain(authUser)
         val expected = LoginDomain.Success(loginUserEmailDomain)
 
@@ -132,7 +132,7 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
 
-        val authUser = null
+        val authUser = "null"
         val loginUserEmailDomain = LoginUserEmailDomain(authUser)
         val expected = LoginDomain.Success(loginUserEmailDomain)
 
