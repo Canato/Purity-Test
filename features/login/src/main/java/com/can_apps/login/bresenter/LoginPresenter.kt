@@ -17,8 +17,8 @@ internal class LoginPresenter(
 ) : LoginContract.Presenter, CoroutineScope {
 
     private lateinit var view: LoginContract.View
-    private lateinit var loginPasswordModel: LoginModel.Password
     private lateinit var loginNameModel: LoginModel.Name
+    private lateinit var loginPasswordModel: LoginModel.Password
 
     private var loginValid = false
     private var passwordValid = false
@@ -69,7 +69,6 @@ internal class LoginPresenter(
         }
     }
 
-
     private fun CoroutineScope.verifyPassword(password: String) = launch(dispatcher.IO) {
         when (val domain = interactor.passwordValidation(LoginPasswordDomain(password))) {
             is LoginPasswordValidationDomain.Valid -> {
@@ -99,8 +98,11 @@ internal class LoginPresenter(
             val loginNameDomain = LoginNameDomain(login)
             val passwordDomain = LoginPasswordDomain(password)
             when (val result = interactor.signInUser(loginNameDomain, passwordDomain)) {
-                is LoginDomain.Success -> showSuccess()
-                is LoginDomain.Fail -> showError(result.error.value)
+                is LoginDomain.Success -> {
+                    showSuccess()
+                    cleanInputViews()
+                }
+                is LoginDomain.Fail -> {showError(result.error.value)}
             }
         }
 
@@ -112,7 +114,10 @@ internal class LoginPresenter(
             val loginNameDomain = LoginNameDomain(login)
             val passwordDomain = LoginPasswordDomain(password)
             when (val result = interactor.createUser(loginNameDomain, passwordDomain)) {
-                is LoginDomain.Success -> showSuccess()
+                is LoginDomain.Success -> {
+                    showSuccess()
+                    cleanInputViews()
+                }
                 is LoginDomain.Fail -> showError(result.error.value)
             }
         }
@@ -127,7 +132,7 @@ internal class LoginPresenter(
 
     private fun CoroutineScope.checkLogInStatus() = launch(dispatcher.IO) {
         when (val result = interactor.checkLogInStatus()) {
-            is LoginDomain.Success -> showLogInStatus(stringResource.getString(R.string.sign_in_true))
+            is LoginDomain.Success -> {showLogInStatus(stringResource.getString(R.string.sign_in_true)) }
             is LoginDomain.Fail -> showLogInStatus(result.error.value)
         }
     }
@@ -169,6 +174,11 @@ internal class LoginPresenter(
                 view.enableCreateUserButton()
             }
         }
+    }
+
+    private fun CoroutineScope.cleanInputViews() = launch(dispatcher.UI) {
+        view.cleanLoginTextView()
+        view.cleanPasswordTextView()
     }
 
     private fun CoroutineScope.logout() = launch(dispatcher.IO) {

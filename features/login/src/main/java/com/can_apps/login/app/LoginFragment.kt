@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -42,7 +41,7 @@ class LoginFragment :
         createUserButton.setOnClickListener { presenter.onCreateLoginClicked() }
 
 
-        loginNameEditText.addTextChangedListener(object : TextWatcher{
+        loginNameEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -53,7 +52,7 @@ class LoginFragment :
             }
         })
 
-        loginPasswordEditText.addTextChangedListener(object : TextWatcher{
+        loginPasswordEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -100,6 +99,7 @@ class LoginFragment :
     override fun setPasswordCheckBoxAsTrue() {
         passwordCheckBox.isChecked = true
     }
+
     override fun setPasswordCheckBoxAsFalse() {
         passwordCheckBox.isChecked = false
     }
@@ -113,17 +113,28 @@ class LoginFragment :
     }
 
     override fun disableSignInButton() {
-        signInButton.disableLogin()}
+        signInButton.disableLogin()
+    }
 
     override fun disableCreateUserButton() {
         createUserButton.disableLogin()
     }
 
     override fun enableSignInButton() {
-        signInButton.enableLogin()}
+        signInButton.enableLogin()
+    }
 
     override fun enableCreateUserButton() {
         createUserButton.enableLogin()
+    }
+
+    override fun cleanLoginTextView() {
+        loginNameEditText.text = null
+    }
+
+    override fun cleanPasswordTextView() {
+        loginPasswordEditText.text = null
+
     }
 
     private fun Button.disableLogin(): Button {

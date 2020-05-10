@@ -34,6 +34,10 @@ internal interface LoginContract {
 
         fun enableCreateUserButton()
 
+        fun cleanLoginTextView()
+
+        fun cleanPasswordTextView()
+
     }
 
     interface Presenter {
