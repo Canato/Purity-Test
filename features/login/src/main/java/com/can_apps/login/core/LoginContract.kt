@@ -63,17 +63,17 @@ internal interface LoginContract {
 
     interface Interactor {
 
-        fun passwordValidation(password: LoginPasswordDomain): LoginPasswordValidationDomain
-
         fun loginNameValidation(loginName: LoginNameDomain): LoginNameValidationDomain
+
+        fun passwordValidation(password: LoginPasswordDomain): LoginPasswordValidationDomain
 
         suspend fun signInUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
 
         suspend fun createUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
 
-        suspend fun logoutUser()
-
         suspend fun checkLogInStatus(): LoginDomain
+
+        suspend fun logoutUser()
     }
 
     interface Repository {

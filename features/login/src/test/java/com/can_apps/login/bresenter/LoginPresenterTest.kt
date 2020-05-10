@@ -83,8 +83,8 @@ internal class LoginPresenterTest {
     fun `GIVEN valid parameters, WHEN onSignClicked, THEN show success`() {
         //GIVEN
 
-        val password = "pass"
-        val loginName = "loginName"
+        val password = loginPasswordModel.password.value
+        val loginName = loginNameModel.loginName.value
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val authUser = "null"
@@ -105,13 +105,12 @@ internal class LoginPresenterTest {
     @Test
     fun `GIVEN sign in user fail, WHEN onSignClicked, THEN show fail`() {
         //GIVEN
-        val password = "pass"
-        val loginName = "loginName"
+        val password = loginPasswordModel.password.value
+        val loginName = loginNameModel.loginName.value
         val error = "flipflops"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val loginErrorDomain = LoginErrorDomain(error)
-        val lo = loginNameModel
         val expected = LoginDomain.Fail(loginErrorDomain)
 
         coEvery { interactor.signInUser(loginDomain, passwordDomain) } returns expected
@@ -127,8 +126,8 @@ internal class LoginPresenterTest {
     @Test
     fun `GIVEN valid parameters, WHEN onCreateUserClicked, THEN show success`() {
         //GIVEN
-        val password = "pass"
-        val loginName = "loginName"
+        val password = loginPasswordModel.password.value
+        val loginName = loginNameModel.loginName.value
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
 
@@ -150,8 +149,8 @@ internal class LoginPresenterTest {
     @Test
     fun `GIVEN create user fail, WHEN onCreateUserClicked, THEN show fail`() {
         //GIVEN
-        val password = "pass"
-        val loginName = "loginName"
+        val password = loginPasswordModel.password.value
+        val loginName = loginNameModel.loginName.value
         val error = "flipflops"
 
         val passwordDomain = LoginPasswordDomain(password)
@@ -177,7 +176,10 @@ internal class LoginPresenterTest {
         val loginNameDomain = LoginNameDomain(login)
         val expected = LoginNameValidationDomain.Valid(loginNameDomain)
 
+        val loginModel = LoginModelName(login)
+        val expectedModel = LoginModel.Name(loginModel)
 
+        coEvery { modelMapper.loginToModel(expected) } returns expectedModel
         coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
         //WHEN
         presenter.onLoginChanged(login)
@@ -310,7 +312,10 @@ internal class LoginPresenterTest {
         val password = "Flame on"
         val passwordDomain = LoginPasswordDomain(password)
         val expected = LoginPasswordValidationDomain.Valid(passwordDomain)
+        val passwordModel = LoginModelPassword(password)
+        val expectedModel = LoginModel.Password(passwordModel)
 
+        coEvery { modelMapper.passwordToModel(expected) } returns expectedModel
         coEvery { interactor.passwordValidation(passwordDomain) } returns expected
         //WHEN
         presenter.onPasswordChanged(password)

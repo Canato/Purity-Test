@@ -55,8 +55,7 @@ internal class LoginPresenter(
             is LoginNameValidationDomain.Valid -> {
                 checkLoginBox(true)
                 updateLoginView("")
-                //TODO test - only mapper block the test
-//                loginNameModel = modelMapper.loginToModel(domain) as LoginModel.Name
+                loginNameModel = modelMapper.loginToModel(domain) as LoginModel.Name
                 loginValid = true
                 checkFunction()
             }
