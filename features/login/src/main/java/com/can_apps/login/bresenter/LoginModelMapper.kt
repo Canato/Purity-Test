@@ -1,6 +1,5 @@
 package com.can_apps.login.bresenter
 
-import com.can_apps.login.core.LoginNameDomain
 import com.can_apps.login.core.LoginNameValidationDomain
 import com.can_apps.login.core.LoginPasswordValidationDomain
 
@@ -23,14 +22,15 @@ internal class LoginModelMapperDefault : LoginModelMapper {
 
 
     override fun loginToModel(domain: LoginNameValidationDomain): LoginModel =
-            when (domain) {
-                is LoginNameValidationDomain.Valid -> LoginModel.Name(LoginModelName(domain.loginName.value))
-                 LoginNameValidationDomain.ToSmall -> LoginModel.Fail(LoginErrorModel("to short login"))
-                 LoginNameValidationDomain.MissingAtSign -> LoginModel.Fail(LoginErrorModel("missing @ sign"))
-                 LoginNameValidationDomain.WrongCharacters -> LoginModel.Fail(LoginErrorModel("wrong characters"))
-                 LoginNameValidationDomain.WrongEmailDomainUsage -> LoginModel.Fail(LoginErrorModel("wrong user email domain"))
-                 LoginNameValidationDomain.EmptyLogin -> LoginModel.Fail(LoginErrorModel(""))
-            }
+        when (domain) {
+            is LoginNameValidationDomain.Valid -> LoginModel.Name(LoginModelName(domain.loginName.value))
+            LoginNameValidationDomain.ToSmall -> LoginModel.Fail(LoginErrorModel("to short login"))
+            LoginNameValidationDomain.MissingAtSign -> LoginModel.Fail(LoginErrorModel("missing @ sign"))
+            LoginNameValidationDomain.WrongCharacters -> LoginModel.Fail(LoginErrorModel("wrong characters"))
+            LoginNameValidationDomain.WrongEmailDomainUsage -> LoginModel.Fail(LoginErrorModel("wrong user email domain"))
+            LoginNameValidationDomain.TooLongDomain -> LoginModel.Fail(LoginErrorModel("login domain is too long"))
+            LoginNameValidationDomain.EmptyLogin -> LoginModel.Fail(LoginErrorModel(""))
+        }
 
-    }
+}
 

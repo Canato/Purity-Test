@@ -47,7 +47,7 @@ class LoginFragment :
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                presenter.onLoginChanged(loginNameEditText.text.toString())
+                presenter.fetchLoginInput(loginNameEditText.text.toString())
 
             }
         })
@@ -58,7 +58,7 @@ class LoginFragment :
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                presenter.onPasswordChanged(loginPasswordEditText.text.toString())
+                presenter.fetchPasswordInput(loginPasswordEditText.text.toString())
             }
 
         })

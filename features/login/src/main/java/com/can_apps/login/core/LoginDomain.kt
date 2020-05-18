@@ -3,7 +3,7 @@ package com.can_apps.login.core
 import androidx.annotation.Nullable
 
 internal sealed class LoginDomain {
-    data class Success(@Nullable val email: LoginUserEmailDomain?) : LoginDomain()
+    data class Success(val email: LoginUserEmailDomain?) : LoginDomain()
     data class Fail(val error: LoginErrorDomain) : LoginDomain()
 }
 
@@ -24,6 +24,7 @@ internal sealed class LoginNameValidationDomain {
     object WrongCharacters : LoginNameValidationDomain()
     object MissingAtSign : LoginNameValidationDomain()
     object WrongEmailDomainUsage : LoginNameValidationDomain()
+    object TooLongDomain : LoginNameValidationDomain()
 }
 
 internal inline class LoginErrorDomain(val value: String)

@@ -15,6 +15,8 @@ internal class LoginInteractor(
         else if (loginName.value.length < 4) return LoginNameValidationDomain.ToSmall
         else if (!Regex("[@]").containsMatchIn(loginName.value)) return LoginNameValidationDomain.MissingAtSign
         else if (!Regex("[.][a-z]{2,}+$").containsMatchIn(loginName.value)) return LoginNameValidationDomain.WrongEmailDomainUsage
+        else if (Regex("[a-z0-9._]+[@][a-z0-9]+[.][a-z]{2,}+[.][a-z]{2,}+[.][a-zA-Z0-9.]+").matches(loginName.value.toLowerCase()))
+            return LoginNameValidationDomain.TooLongDomain
         else if (Regex("[a-z0-9._]+[@][a-z0-9]+[.][a-z]{2,}+$").matches(loginName.value.toLowerCase()))
             return LoginNameValidationDomain.Valid(loginName)
         else if (Regex("[a-z0-9._]+[@][a-z0-9]+[.][a-z]{2,}+[.][a-z]{2,}+$").matches(loginName.value.toLowerCase()))
@@ -58,5 +60,9 @@ internal class LoginInteractor(
     override suspend fun checkLogInStatus(): LoginDomain = repository.checkLogInStatus()
 
     override suspend fun logoutUser() = repository.logoutUser()
+
+    override fun checkFunction(loginValid: Boolean, passwordValid: Boolean): Boolean {
+        return (loginValid && passwordValid)
+    }
 
 }

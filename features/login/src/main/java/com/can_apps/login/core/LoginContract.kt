@@ -58,9 +58,9 @@ internal interface LoginContract {
 
         fun checkLogIn()
 
-        fun onLoginChanged(login: String)
+        fun fetchLoginInput(login: String)
 
-        fun onPasswordChanged(password: String)
+        fun fetchPasswordInput(password: String)
 
 
     }
@@ -77,7 +77,10 @@ internal interface LoginContract {
 
         suspend fun checkLogInStatus(): LoginDomain
 
+        fun checkFunction(loginValid: Boolean, passwordValid: Boolean): Boolean
+
         suspend fun logoutUser()
+
     }
 
     interface Repository {

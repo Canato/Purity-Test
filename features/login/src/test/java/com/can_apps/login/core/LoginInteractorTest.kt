@@ -21,7 +21,7 @@ internal class LoginInteractorTest {
     fun setup() = MockKAnnotations.init(this, relaxed = true)
 
     @Test
-    fun `GIVEN valid login name, WHEN validate, THEN return true`() {
+    fun `GIVEN valid login name with single, WHEN validate, THEN return true`() {
         //GIVEN
         val login = "Tomasz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
@@ -35,7 +35,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN login with double dot domain after AT symbol , WHEN validate, THEN return true`() {
+    fun `GIVEN valid login with double domain after AT symbol , WHEN validate, THEN return true`() {
         //GIVEN
         val login = "Tomasz@gmail.co.uk"
         val loginNameDomain = LoginNameDomain(login)
@@ -119,7 +119,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN login with one symbol after email domain dot, WHEN validate, THEN return false`() {
+    fun `GIVEN login with one symbol in domain after AT symbol, WHEN validate, THEN return false`() {
         //GIVEN
         val login = "Tomasz@gmail.c"
         val loginNameDomain = LoginNameDomain(login)
@@ -133,7 +133,21 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN password, WHEN validate, THEN return true`() {
+    fun `GIVEN login with triple domain after AT symbol , WHEN validate, THEN return false`() {
+        //GIVEN
+        val login = "Tomasz@gmail.co.uk.com"
+        val loginNameDomain = LoginNameDomain(login)
+        val expected = LoginNameValidationDomain.TooLongDomain
+
+        //WHEN
+        val result = runBlocking { interactor.loginNameValidation(loginNameDomain) }
+
+        //THEN
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun `GIVEN valid password, WHEN validate, THEN return true`() {
         //GIVEN
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
@@ -147,9 +161,23 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN valid password with non valid extra characters, WHEN validate, THEN return false`() {
+    fun `GIVEN password with non valid extra characters, WHEN validate, THEN return false`() {
         //GIVEN
-        val password = "passWORD1 @!"
+        val password = "passWORD1@!"
+        val passwordDomain = LoginPasswordDomain(password)
+        val expected = LoginPasswordValidationDomain.WrongCharacters
+
+        //WHEN
+        val result = runBlocking { interactor.passwordValidation(passwordDomain) }
+
+        //THEN
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun `GIVEN password with empty space, WHEN validate, THEN return false`() {
+        //GIVEN
+        val password = "passWO  RD1"
         val passwordDomain = LoginPasswordDomain(password)
         val expected = LoginPasswordValidationDomain.WrongCharacters
 
@@ -175,7 +203,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN no digit password, WHEN validate, THEN return false`() {
+    fun `GIVEN password with no digit, WHEN validate, THEN return false`() {
         //GIVEN
         val password = "passWORD"
         val passwordDomain = LoginPasswordDomain(password)
@@ -189,7 +217,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN no lowerCase password, WHEN validate, THEN return false`() {
+    fun `GIVEN password with no lowerCase , WHEN validate, THEN return false`() {
         //GIVEN
         val password = "PASSWORD1"
         val passwordDomain = LoginPasswordDomain(password)
@@ -203,7 +231,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN no upperCase password, WHEN validate, THEN return false`() {
+    fun `GIVEN password with no upperCase, WHEN validate, THEN return false`() {
         //GIVEN
         val password = "password1"
         val passwordDomain = LoginPasswordDomain(password)
@@ -217,15 +245,13 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN repository success, WHEN sign in user, THEN return LoginDomain Success`() {
+    fun `GIVEN non null email domain from repository, WHEN sign in user, THEN return LoginDomain Success`() {
         //GIVEN
         val login = "Tomasz"
         val loginNameDomain = LoginNameDomain(login)
-
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
-
-        val email = "null"
+        val email = "any@valid.email"
         val loginUserEmailDomain = LoginUserEmailDomain(email)
 
         val expected = LoginDomain.Success(loginUserEmailDomain)
@@ -237,11 +263,30 @@ internal class LoginInteractorTest {
 
         //THEN
         assertEquals(expected, result)
-
     }
 
     @Test
-    fun `GIVEN repository fail, WHEN sign in user, THEN return LoginDomain Fail`() {
+    fun `GIVEN null email domain from repository, WHEN sign in user, THEN return LoginDomain Success`() {
+        //GIVEN
+        val login = "Tomasz"
+        val loginNameDomain = LoginNameDomain(login)
+        val password = "passWORD1"
+        val passwordDomain = LoginPasswordDomain(password)
+        val loginUserEmailDomain = null
+
+        val expected = LoginDomain.Success(loginUserEmailDomain)
+
+        coEvery { repository.signInUser(loginNameDomain, passwordDomain) } returns expected
+
+        //WHEN
+        val result = runBlocking { interactor.signInUser(loginNameDomain, passwordDomain) }
+
+        //THEN
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun `GIVEN error message from repository, WHEN sign in user, THEN return LoginDomain Fail`() {
         //GIVEN
         val login = "Tomasz"
         val loginNameDomain = LoginNameDomain(login)
@@ -262,13 +307,13 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN repository success, WHEN create new user, THEN return LoginDomain Success`() {
+    fun `GIVEN non null email domain from repository, WHEN create new user, THEN return LoginDomain Success`() {
         //GIVEN
         val login = "Tomasz"
         val loginNameDomain = LoginNameDomain(login)
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
-        val email = "null"
+        val email = "any@valid.email"
         val loginUserEmailDomain = LoginUserEmailDomain(email)
 
         val expected = LoginDomain.Success(loginUserEmailDomain)
@@ -284,7 +329,29 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN repository fail, WHEN create new user, THEN return LoginDomain Fail`() {
+    fun `GIVEN null email domain from repository, WHEN create new user, THEN return LoginDomain Success`() {
+        //GIVEN
+        val login = "Tomasz"
+        val loginNameDomain = LoginNameDomain(login)
+        val password = "passWORD1"
+        val passwordDomain = LoginPasswordDomain(password)
+
+        val loginUserEmailDomain = null
+
+        val expected = LoginDomain.Success(loginUserEmailDomain)
+
+        coEvery { repository.createUser(loginNameDomain, passwordDomain) } returns expected
+
+        //WHEN
+        val result = runBlocking { interactor.createUser(loginNameDomain, passwordDomain) }
+
+        //THEN
+        assertEquals(expected, result)
+
+    }
+
+    @Test
+    fun `GIVEN error message from repository, WHEN create new user, THEN return LoginDomain Fail`() {
         //GIVEN
         val login = "Tomasz"
         val loginNameDomain = LoginNameDomain(login)
@@ -305,7 +372,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN repository success, WHEN checkLogInStatus, THEN return LoginDomain_Success`() {
+    fun `GIVEN email domain from repository, WHEN checkLogInStatus, THEN return LoginDomain_Success`() {
         //GIVEN
         val email = "Britney"
         val loginUserEmailDomain = LoginUserEmailDomain(email)
@@ -321,7 +388,7 @@ internal class LoginInteractorTest {
     }
 
     @Test
-    fun `GIVEN repository fail, WHEN checkLogInStatus, THEN return LoginDomain_Fail`() {
+    fun `GIVEN error message from repository, WHEN checkLogInStatus, THEN return LoginDomain_Fail`() {
         //GIVEN
         val error = "flipflops"
         val errorDomain = LoginErrorDomain(error)

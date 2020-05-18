@@ -16,7 +16,7 @@ internal class LoginPresenter(
     private val modelMapper: LoginModelMapper
 ) : LoginContract.Presenter, CoroutineScope {
 
-    private lateinit var view: LoginContract.View
+    private var view: LoginContract.View? = null
     private lateinit var loginNameModel: LoginModel.Name
     private lateinit var loginPasswordModel: LoginModel.Password
 
@@ -29,14 +29,17 @@ internal class LoginPresenter(
 
     override fun bind(view: LoginContract.View) { this.view = view }
 
-    override fun unbind() { job.cancel() }
-
-    override fun onViewCreated() {
-                view.showWelcomeMessage()
-                checkFunction()
+    override fun unbind() {
+        job.cancel()
+        view = null
     }
 
-    override fun onBackPressed() { view.close() }
+    override fun onViewCreated() {
+        view?.showWelcomeMessage()
+        checkFunction()
+    }
+
+    override fun onBackPressed() { view?.close() }
 
     override fun onSignClicked() { signInUser() }
 
@@ -46,9 +49,9 @@ internal class LoginPresenter(
 
     override fun checkLogIn() { checkLogInStatus() }
 
-    override fun onLoginChanged(login: String) { verifyLogin(login) }
+    override fun fetchLoginInput(login: String) { verifyLogin(login) }
 
-    override fun onPasswordChanged(password: String) { verifyPassword(password) }
+    override fun fetchPasswordInput(password: String) { verifyPassword(password) }
 
     private fun CoroutineScope.verifyLogin(login: String) = launch(dispatcher.IO) {
         when (val domain = interactor.loginNameValidation(LoginNameDomain(login))) {
@@ -88,7 +91,7 @@ internal class LoginPresenter(
         }
     }
 
-    private fun checkFunction() = updateButtonsFunction(loginValid && passwordValid)
+    private fun checkFunction() = updateButtonsFunction(interactor.checkFunction(loginValid, passwordValid))
 
     private fun CoroutineScope.signInUser() =
         launch(dispatcher.IO) {
@@ -123,11 +126,11 @@ internal class LoginPresenter(
         }
 
     private fun CoroutineScope.showSuccess() = launch(dispatcher.UI) {
-        view.showSuccess()
+        view?.showSuccess()
     }
 
     private fun CoroutineScope.showError(message: String) = launch(dispatcher.UI) {
-        view.showError(message)
+        view?.showError(message)
     }
 
     private fun CoroutineScope.checkLogInStatus() = launch(dispatcher.IO) {
@@ -138,47 +141,47 @@ internal class LoginPresenter(
     }
 
     private fun CoroutineScope.showLogInStatus(message: String) = launch(dispatcher.UI) {
-        view.showLogInStatus(message)
+        view?.showLogInStatus(message)
     }
 
     private fun CoroutineScope.checkLoginBox(checkBox: Boolean) = launch(dispatcher.UI) {
         when (checkBox) {
-            true -> view.setLoginCheckBoxAsTrue()
-            false -> view.setLoginCheckBoxAsFalse()
+            true -> view?.setLoginCheckBoxAsTrue()
+            false -> view?.setLoginCheckBoxAsFalse()
         }
     }
 
     private fun CoroutineScope.checkPasswordBox(checkBox: Boolean) = launch(dispatcher.UI) {
         when (checkBox) {
-            true -> view.setPasswordCheckBoxAsTrue()
-            false -> view.setPasswordCheckBoxAsFalse()
+            true -> view?.setPasswordCheckBoxAsTrue()
+            false -> view?.setPasswordCheckBoxAsFalse()
         }
     }
 
     private fun CoroutineScope.updateLoginView(message: String) = launch(dispatcher.UI) {
-        view.updateLoginTextViewErrorMessage(message)
+        view?.updateLoginTextViewErrorMessage(message)
     }
 
     private fun CoroutineScope.updatePasswordView(message: String) = launch(dispatcher.UI) {
-        view.updatePasswordTextViewErrorMessage(message)
+        view?.updatePasswordTextViewErrorMessage(message)
     }
 
     private fun CoroutineScope.updateButtonsFunction(enable: Boolean) = launch(dispatcher.UI) {
         when (enable) {
             false -> {
-                view.disableSignInButton()
-                view.disableCreateUserButton()
+                view?.disableSignInButton()
+                view?.disableCreateUserButton()
             }
             true -> {
-                view.enableSignInButton()
-                view.enableCreateUserButton()
+                view?.enableSignInButton()
+                view?.enableCreateUserButton()
             }
         }
     }
 
     private fun CoroutineScope.cleanInputViews() = launch(dispatcher.UI) {
-        view.cleanLoginTextView()
-        view.cleanPasswordTextView()
+        view?.cleanLoginTextView()
+        view?.cleanPasswordTextView()
     }
 
     private fun CoroutineScope.logout() = launch(dispatcher.IO) {

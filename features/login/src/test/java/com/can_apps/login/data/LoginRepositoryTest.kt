@@ -40,11 +40,11 @@ internal class LoginRepositoryTest {
         val nameDomain = LoginNameDomain(name)
         val passwordDomain = LoginPasswordDomain(password)
 
-        val email = "null"
+        val email = "any given email"
         val userEmailDomain = LoginUserEmailDomain(email)
         val expected = LoginDomain.Success(userEmailDomain)
 
-        val firebaseEmail = "null"
+        val firebaseEmail = "any given email"
         val firebaseEmailDomain = FireBaseUserEmail(firebaseEmail)
 
         val dto = FirebaseDto.Valid(firebaseEmailDomain)
@@ -110,11 +110,11 @@ internal class LoginRepositoryTest {
         val password = "sandals"
         val nameDomain = LoginNameDomain(name)
         val passwordDomain = LoginPasswordDomain(password)
-        val email = "null"
+        val email = "any given email"
         val userEmailDomain = LoginUserEmailDomain(email)
         val expected = LoginDomain.Success(userEmailDomain)
 
-        val firebaseEmail = "null"
+        val firebaseEmail = "any given email"
         val firebaseEmailDomain = FireBaseUserEmail(firebaseEmail)
 
         val dto = FirebaseDto.Valid(firebaseEmailDomain)
