@@ -15,8 +15,6 @@ import org.junit.Test
 
 internal class LoginPresenterTest {
 
-
-
     @MockK
     private lateinit var loginPasswordModel: LoginModel.Password
 
@@ -54,34 +52,19 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN a view, WHEN on create view, THEN show welcome message`() {
-        //GIVEN
-
-        //WHEN
-        presenter.onViewCreated()
-        //THEN
-        verify {
-            view.showWelcomeMessage()
-        }
-    }
-
-    @Test
-    fun `GIVEN a view, WHEN on create view, THEN disable buttons`() {
-        //GIVEN
-
+    fun `WHEN on create view, THEN show welcome message`() {
         //WHEN
         presenter.onViewCreated()
         //THEN
         verify {
             view.disableCreateUserButton()
             view.disableSignInButton()
+            view.showWelcomeMessage()
         }
     }
 
     @Test
-    fun `GIVEN a view, WHEN on back pressed, THEN view close`() {
-        //GIVEN
-
+    fun `WHEN on back pressed, THEN view close`() {
         //WHEN
         presenter.onBackPressed()
         //THEN
@@ -91,96 +74,120 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN login name valid and invalid password, WHEN fetched login input, THEN update login message error view as null AND set login check box as true AND disable buttons`() {
+    fun `GIVEN valid name and valid password, WHEN values change, THEN enable buttons`() {
         //GIVEN
-        val login = "Spyro"
-        val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.Valid(loginNameDomain)
+        val loginName = "Heyhoy"
+        val password = "Tomboy"
+        val loginNameDomain = LoginNameDomain(loginName)
+        val loginPasswordDomain = LoginPasswordDomain(password)
+        val loginNameValidationDomain = LoginNameValidationDomain.Valid(loginNameDomain)
+        val loginPasswordValidationDomain = LoginPasswordValidationDomain.Valid(loginPasswordDomain)
 
-        val loginValid = true
-        val passwordValid = false
+        every { interactor.loginNameValidation(loginNameDomain) } returns loginNameValidationDomain
+        every { interactor.passwordValidation(loginPasswordDomain)} returns loginPasswordValidationDomain
 
-        val loginModel = LoginModelName(login)
-        val expectedModel = LoginModel.Name(loginModel)
-
-        coEvery { modelMapper.loginToModel(expected) } returns expectedModel
-        coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
-        coEvery { interactor.checkFunction(loginValid, passwordValid) } returns false
         //WHEN
-        presenter.onLoginInputChanged(login)
+        presenter.onLoginInputChanged(loginName)
+        presenter.onPasswordInputChanged(password)
 
         //THEN
-        verify {
-            view.setLoginCheckBoxAsTrue()
-            view.updateLoginTextViewErrorMessage("")
+        verify(exactly = 1) {
             view.disableCreateUserButton()
             view.disableSignInButton()
-        }
-    }
-
-    @Test
-    fun `GIVEN login name valid and valid password, WHEN fetched login input, THEN update login message error view as null AND set login check box as true AND enable buttons`() {
-        //GIVEN
-        val login = "Spyro"
-        val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.Valid(loginNameDomain)
-
-        val loginValid = true
-        val pass = false
-
-        val loginModel = LoginModelName(login)
-        val expectedModel = LoginModel.Name(loginModel)
-
-        coEvery { interactor.checkFunction(loginValid, pass) } returns true
-        coEvery { modelMapper.loginToModel(expected) } returns expectedModel
-        coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
-
-        //WHEN
-        presenter.onLoginInputChanged(login)
-
-        //THEN
-        verify {
-            view.setLoginCheckBoxAsTrue()
-            view.updateLoginTextViewErrorMessage("")
+            view.updateLoginTextViewErrorMessage(null)
+            view.updatePasswordTextViewErrorMessage(null)
             view.enableCreateUserButton()
             view.enableSignInButton()
         }
     }
 
     @Test
-    fun `GIVEN login validation fail with too short login, WHEN on login changed, THEN update error message view with error AND set login check box as false AND disable buttons`() {
+    fun `GIVEN valid name and invalid password, WHEN values change, THEN disable buttons`() {
         //GIVEN
-        val error = "what?"
-        val errorModel = LoginErrorModel(error)
-        val login = "spy"
-        val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.ToSmall
-        val expectedError = LoginModel.Fail(errorModel)
+        val loginName = "Heyhoy"
+        val password = "Tomboy"
+        val loginNameDomain = LoginNameDomain(loginName)
+        val loginPasswordDomain = LoginPasswordDomain(password)
+        val loginNameValidationDomain = LoginNameValidationDomain.Valid(loginNameDomain)
+        val loginPasswordValidationDomain = LoginPasswordValidationDomain.ToSmall
 
-        coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
-        coEvery { modelMapper.loginToModel(expected) } returns expectedError
+        every { interactor.loginNameValidation(loginNameDomain) } returns loginNameValidationDomain
+        every { interactor.passwordValidation(loginPasswordDomain)} returns loginPasswordValidationDomain
 
         //WHEN
-        presenter.onLoginInputChanged(login)
+        presenter.onLoginInputChanged(loginName)
+        presenter.onPasswordInputChanged(password)
 
         //THEN
-        verify {
-            view.setLoginCheckBoxAsFalse()
-            view.updateLoginTextViewErrorMessage(expectedError.error.value)
+        verify(exactly = 2) {
+            view.disableCreateUserButton()
+            view.disableSignInButton()
+        }
+        verify(exactly = 1) {
+            view.updateLoginTextViewErrorMessage(null)
+        }
+    }
+
+    @Test
+    fun `GIVEN invalid name and valid password, WHEN values change, THEN disable buttons`() {
+        //GIVEN
+        val loginName = "Heyhoy"
+        val password = "Tomboy"
+        val loginNameDomain = LoginNameDomain(loginName)
+        val loginPasswordDomain = LoginPasswordDomain(password)
+        val loginNameValidationDomain = LoginNameValidationDomain.TooLongDomain
+        val loginPasswordValidationDomain = LoginPasswordValidationDomain.Valid(loginPasswordDomain)
+
+        every { interactor.loginNameValidation(loginNameDomain) } returns loginNameValidationDomain
+        every { interactor.passwordValidation(loginPasswordDomain)} returns loginPasswordValidationDomain
+
+        //WHEN
+        presenter.onLoginInputChanged(loginName)
+        presenter.onPasswordInputChanged(password)
+
+        //THEN
+        verify(exactly = 2) {
+            view.disableCreateUserButton()
+            view.disableSignInButton()
+        }
+        verify(exactly = 1) {
+            view.updatePasswordTextViewErrorMessage(null)
+        }
+    }
+
+    @Test
+    fun `GIVEN invalid name and invalid password, WHEN values change, THEN disable buttons`() {
+        //GIVEN
+        val loginName = "Heyhoy"
+        val password = "Tomboy"
+        val loginNameDomain = LoginNameDomain(loginName)
+        val loginPasswordDomain = LoginPasswordDomain(password)
+        val loginNameValidationDomain = LoginNameValidationDomain.WrongCharacters
+        val loginPasswordValidationDomain = LoginPasswordValidationDomain.ToSmall
+
+        every { interactor.loginNameValidation(loginNameDomain) } returns loginNameValidationDomain
+        every { interactor.passwordValidation(loginPasswordDomain)} returns loginPasswordValidationDomain
+
+        //WHEN
+        presenter.onLoginInputChanged(loginName)
+        presenter.onPasswordInputChanged(password)
+
+        //THEN
+        verify(exactly = 2) {
             view.disableCreateUserButton()
             view.disableSignInButton()
         }
     }
 
     @Test
-    fun `GIVEN login validation fail with empty login, WHEN on login changed, THEN update error message view with error AND set login check box as false AND disable buttons`() {
+    fun `GIVEN EmptyLogin name, WHEN name changed, THEN update message view with error`() {
         //GIVEN
         val error = "what?"
         val errorModel = LoginErrorModel(error)
         val login = ""
         val loginNameDomain = LoginNameDomain(login)
         val expected = LoginNameValidationDomain.EmptyLogin
-        val expectedError = LoginModel.Fail(errorModel)
+        val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
         coEvery { modelMapper.loginToModel(expected) } returns expectedError
@@ -191,21 +198,19 @@ internal class LoginPresenterTest {
         //THEN
         verify {
             view.setLoginCheckBoxAsFalse()
-            view.updateLoginTextViewErrorMessage(expectedError.error.value)
-            view.disableCreateUserButton()
-            view.disableSignInButton()
+            view.updateLoginTextViewErrorMessage(expectedError)
         }
     }
 
     @Test
-    fun `GIVEN login validation fail with wrong domain, WHEN on login changed, THEN update error message view with error AND set login check box as false AND disable buttons`() {
+    fun `GIVEN WrongEmailDomainUsage name, WHEN name changed, THEN update message view with error`() {
         //GIVEN
         val error = "what?"
         val errorModel = LoginErrorModel(error)
         val login = "Spyro@a@"
         val loginNameDomain = LoginNameDomain(login)
         val expected = LoginNameValidationDomain.WrongEmailDomainUsage
-        val expectedError = LoginModel.Fail(errorModel)
+        val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
         coEvery { modelMapper.loginToModel(expected) } returns expectedError
@@ -216,21 +221,19 @@ internal class LoginPresenterTest {
         //THEN
         verify {
             view.setLoginCheckBoxAsFalse()
-            view.updateLoginTextViewErrorMessage(expectedError.error.value)
-            view.disableCreateUserButton()
-            view.disableSignInButton()
+            view.updateLoginTextViewErrorMessage(expectedError)
         }
     }
 
     @Test
-    fun `GIVEN login validation fail with missing AT sign, WHEN on login changed, TTHEN update error message view with error AND set login check box as false AND disable buttons`() {
+    fun `GIVEN MissingAtSign name, WHEN name changed, THEN update message view with error`() {
         //GIVEN
         val error = "what?"
         val errorModel = LoginErrorModel(error)
         val login = "SpyroAtgmail.com"
         val loginNameDomain = LoginNameDomain(login)
         val expected = LoginNameValidationDomain.MissingAtSign
-        val expectedError = LoginModel.Fail(errorModel)
+        val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
         coEvery { modelMapper.loginToModel(expected) } returns expectedError
@@ -241,21 +244,19 @@ internal class LoginPresenterTest {
         //THEN
         verify {
             view.setLoginCheckBoxAsFalse()
-            view.updateLoginTextViewErrorMessage(expectedError.error.value)
-            view.disableCreateUserButton()
-            view.disableSignInButton()
+            view.updateLoginTextViewErrorMessage(expectedError)
         }
     }
 
     @Test
-    fun `GIVEN login validation fail with wrong input characters, WHEN on login changed, THEN update error message view with error AND set login check box as false AND disable buttons`() {
+    fun `GIVEN WrongCharacters name, WHEN name changed, THEN update message view with error`() {
         //GIVEN
         val error = "what?"
         val errorModel = LoginErrorModel(error)
         val login = "__++!!!"
         val loginNameDomain = LoginNameDomain(login)
         val expected = LoginNameValidationDomain.WrongCharacters
-        val expectedError = LoginModel.Fail(errorModel)
+        val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
         coEvery { modelMapper.loginToModel(expected) } returns expectedError
@@ -266,77 +267,19 @@ internal class LoginPresenterTest {
         //THEN
         verify {
             view.setLoginCheckBoxAsFalse()
-            view.updateLoginTextViewErrorMessage(expectedError.error.value)
-            view.disableCreateUserButton()
-            view.disableSignInButton()
+            view.updateLoginTextViewErrorMessage(expectedError)
         }
     }
 
     @Test
-    fun `GIVEN valid password and invalid login name, WHEN fetched password input, THEN update error message view as null AND set login check box as true AND disable buttons `() {
-        //GIVEN
-        val password = "Flame on"
-        val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.Valid(passwordDomain)
-
-        val loginValid = false
-        val passwordValid = true
-
-        val passwordModel = LoginModelPassword(password)
-        val expectedModel = LoginModel.Password(passwordModel)
-
-        coEvery { interactor.checkFunction(loginValid, passwordValid) } returns false
-        coEvery { modelMapper.passwordToModel(expected) } returns expectedModel
-        coEvery { interactor.passwordValidation(passwordDomain) } returns expected
-        //WHEN
-        presenter.onPasswordInputChanged(password)
-
-        //THEN
-        verify {
-            view.setPasswordCheckBoxAsTrue()
-            view.updatePasswordTextViewErrorMessage("")
-            view.disableCreateUserButton()
-            view.disableSignInButton()
-        }
-    }
-
-    @Test
-    fun `GIVEN valid password and valid login name, WHEN fetched password input, THEN update error message view as null AND set login check box as true AND enable buttons `() {
-        //GIVEN
-        val password = "Flame on"
-        val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.Valid(passwordDomain)
-
-        val loginValid = false
-        val passwordValid = true
-
-        val passwordModel = LoginModelPassword(password)
-        val expectedModel = LoginModel.Password(passwordModel)
-
-        coEvery { interactor.checkFunction(loginValid, passwordValid) } returns true
-        coEvery { modelMapper.passwordToModel(expected) } returns expectedModel
-        coEvery { interactor.passwordValidation(passwordDomain) } returns expected
-        //WHEN
-        presenter.onPasswordInputChanged(password)
-
-        //THEN
-        verify {
-            view.setPasswordCheckBoxAsTrue()
-            view.updatePasswordTextViewErrorMessage("")
-            view.enableCreateUserButton()
-            view.enableSignInButton()
-        }
-    }
-
-    @Test
-    fun `GIVEN password validation fail with to short password, WHEN fetched password input, THEN update message view with error`() {
+    fun `GIVEN ToSmall password, WHEN password changed, THEN update message view with error`() {
         //GIVEN
         val error = "what?"
         val errorModel = LoginErrorModel(error)
         val password = "Spy"
         val passwordDomain = LoginPasswordDomain(password)
         val expected = LoginPasswordValidationDomain.ToSmall
-        val expectedError = LoginModel.Fail(errorModel)
+        val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.passwordValidation(passwordDomain) } returns expected
         coEvery { modelMapper.passwordToModel(expected) } returns expectedError
@@ -347,24 +290,22 @@ internal class LoginPresenterTest {
         //THEN
         verify {
             view.setPasswordCheckBoxAsFalse()
-            view.updatePasswordTextViewErrorMessage(expectedError.error.value)
-            view.disableCreateUserButton()
-            view.disableSignInButton()
+            view.updatePasswordTextViewErrorMessage(expectedError)
         }
     }
 
     @Test
-    fun `GIVEN password validation fail with empty password, WHEN fetched password input, THEN update message view with error`() {
+    fun `GIVEN empty password, WHEN password changed, THEN update message view with error`() {
         //GIVEN
         val error = "what?"
         val errorModel = LoginErrorModel(error)
         val password = ""
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.EmptyPassword
-        val expectedError = LoginModel.Fail(errorModel)
+        val loginPasswordValidationDomain = LoginPasswordValidationDomain.EmptyPassword
+        val expectedError = LoginModel.Error(errorModel)
 
-        coEvery { interactor.passwordValidation(passwordDomain) } returns expected
-        coEvery { modelMapper.passwordToModel(expected) } returns expectedError
+        coEvery { interactor.passwordValidation(passwordDomain) } returns loginPasswordValidationDomain
+        coEvery { modelMapper.passwordToModel(loginPasswordValidationDomain) } returns expectedError
 
         //WHEN
         presenter.onPasswordInputChanged(password)
@@ -372,21 +313,19 @@ internal class LoginPresenterTest {
         //THEN
         verify {
             view.setPasswordCheckBoxAsFalse()
-            view.updatePasswordTextViewErrorMessage(expectedError.error.value)
-            view.disableCreateUserButton()
-            view.disableSignInButton()
+            view.updatePasswordTextViewErrorMessage(expectedError)
         }
     }
 
     @Test
-    fun `GIVEN password validation fail with no digit password, WHEN fetched password input, THEN update message view with error`() {
+    fun `GIVEN NoDigit password, WHEN password changed, THEN update message view with error`() {
         //GIVEN
         val error = "what?"
         val errorModel = LoginErrorModel(error)
         val password = "aaaaaaAA"
         val passwordDomain = LoginPasswordDomain(password)
         val expected = LoginPasswordValidationDomain.NoDigit
-        val expectedError = LoginModel.Fail(errorModel)
+        val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.passwordValidation(passwordDomain) } returns expected
         coEvery { modelMapper.passwordToModel(expected) } returns expectedError
@@ -397,21 +336,19 @@ internal class LoginPresenterTest {
         //THEN
         verify {
             view.setPasswordCheckBoxAsFalse()
-            view.updatePasswordTextViewErrorMessage(expectedError.error.value)
-            view.disableCreateUserButton()
-            view.disableSignInButton()
+            view.updatePasswordTextViewErrorMessage(expectedError)
         }
     }
 
     @Test
-    fun `GIVEN password validation fail with with no lower case password, WHEN fetched password input, THEN update message view with error`() {
+    fun `GIVEN NoLowerCase password, WHEN password changed, THEN update message view with error`() {
         //GIVEN
         val error = "what?"
         val errorModel = LoginErrorModel(error)
         val password = "EXPLOSIONS123"
         val passwordDomain = LoginPasswordDomain(password)
         val expected = LoginPasswordValidationDomain.NoLowerCase
-        val expectedError = LoginModel.Fail(errorModel)
+        val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.passwordValidation(passwordDomain) } returns expected
         coEvery { modelMapper.passwordToModel(expected) } returns expectedError
@@ -422,21 +359,19 @@ internal class LoginPresenterTest {
         //THEN
         verify {
             view.setPasswordCheckBoxAsFalse()
-            view.updatePasswordTextViewErrorMessage(expectedError.error.value)
-            view.disableCreateUserButton()
-            view.disableSignInButton()
+            view.updatePasswordTextViewErrorMessage(expectedError)
         }
     }
 
     @Test
-    fun `GIVEN password validation fail with no upper case password, WHEN fetched password input, THEN update message view with error`() {
+    fun `GIVEN NoUpperCase password, WHEN password changed, THEN update message view with error`() {
         //GIVEN
         val error = "what?"
         val errorModel = LoginErrorModel(error)
         val password = "thatslow123"
         val passwordDomain = LoginPasswordDomain(password)
         val expected = LoginPasswordValidationDomain.NoUpperCase
-        val expectedError = LoginModel.Fail(errorModel)
+        val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.passwordValidation(passwordDomain) } returns expected
         coEvery { modelMapper.passwordToModel(expected) } returns expectedError
@@ -447,24 +382,22 @@ internal class LoginPresenterTest {
         //THEN
         verify {
             view.setPasswordCheckBoxAsFalse()
-            view.updatePasswordTextViewErrorMessage(expectedError.error.value)
-            view.disableCreateUserButton()
-            view.disableSignInButton()
+            view.updatePasswordTextViewErrorMessage(expectedError)
         }
     }
 
     @Test
-    fun `GIVEN password validation fail with with wrong characters password, WHEN fetched password input, THEN update message view with error`() {
+    fun `GIVEN wrong character, WHEN password changed, THEN update message view with error AND checkbox false`() {
         //GIVEN
         val error = "what?"
         val errorModel = LoginErrorModel(error)
-        val password = "no@||ow3d"
+        val password = "abc"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.WrongCharacters
-        val expectedError = LoginModel.Fail(errorModel)
+        val loginPasswordValidationDomain = LoginPasswordValidationDomain.WrongCharacters
+        val errorMessage = LoginModel.Error(errorModel)
 
-        coEvery { interactor.passwordValidation(passwordDomain) } returns expected
-        coEvery { modelMapper.passwordToModel(expected) } returns expectedError
+        coEvery { interactor.passwordValidation(passwordDomain) } returns loginPasswordValidationDomain
+        coEvery { modelMapper.passwordToModel(loginPasswordValidationDomain) } returns errorMessage
 
         //WHEN
         presenter.onPasswordInputChanged(password)
@@ -472,28 +405,23 @@ internal class LoginPresenterTest {
         //THEN
         verify {
             view.setPasswordCheckBoxAsFalse()
-            view.updatePasswordTextViewErrorMessage(expectedError.error.value)
-            view.disableCreateUserButton()
-            view.disableSignInButton()
+            view.updatePasswordTextViewErrorMessage(errorMessage)
         }
     }
 
     @Test
-    fun `GIVEN valid parameters, WHEN onSignClicked, THEN show success AND clear both text inputs`() {
+    fun `GIVEN Success, WHEN onSignClicked, THEN show success AND clear both text inputs`() {
         //GIVEN
+        val domain = LoginDomain.Success
+        val loginName = "Mehmet"
+        val password = "invitation"
 
-        val password = loginPasswordModel.password.value
-        val loginName = loginNameModel.loginName.value
-        val passwordDomain = LoginPasswordDomain(password)
-        val loginDomain = LoginNameDomain(loginName)
-        val authUser = "any other string"
-        val loginUserEmailDomain = LoginUserEmailDomain(authUser)
-        val expected = LoginDomain.Success(loginUserEmailDomain)
-
-        coEvery { interactor.signInUser(loginDomain, passwordDomain) } returns expected
+        coEvery {
+            interactor.signInUser(LoginNameDomain(loginName), LoginPasswordDomain(password))
+        } returns domain
 
         //WHEN
-        presenter.onSignClicked()
+        presenter.onSignClicked(loginName, password)
 
         //THEN
         verify {
@@ -504,19 +432,20 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN sign in user fail, WHEN onSignClicked, THEN show fail`() {
+    fun `GIVEN fail, WHEN onSignClicked, THEN show fail`() {
         //GIVEN
         val password = loginPasswordModel.password.value
         val loginName = loginNameModel.loginName.value
-        val error = "flipflops"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
+        val error = "flipflops"
         val loginErrorDomain = LoginErrorDomain(error)
-        val expected = LoginDomain.Fail(loginErrorDomain)
+        val domain = LoginDomain.Fail(loginErrorDomain)
 
-        coEvery { interactor.signInUser(loginDomain, passwordDomain) } returns expected
+        coEvery { interactor.signInUser(loginDomain, passwordDomain) } returns domain
+
         //WHEN
-        presenter.onSignClicked()
+        presenter.onSignClicked(loginName, password)
 
         //THEN
         verify {
@@ -525,21 +454,19 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN valid parameters, WHEN onCreateUserClicked, THEN show success AND clear both text inputs`() {
+    fun `GIVEN success, WHEN onCreateUserClicked, THEN show success AND clear both text inputs`() {
         //GIVEN
         val password = loginPasswordModel.password.value
         val loginName = loginNameModel.loginName.value
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
 
-        val authUser = "any other user"
-        val loginUserEmailDomain = LoginUserEmailDomain(authUser)
-        val expected = LoginDomain.Success(loginUserEmailDomain)
+        val domain = LoginDomain.Success
 
-        coEvery { interactor.createUser(loginDomain, passwordDomain) } returns expected
+        coEvery { interactor.createUser(loginDomain, passwordDomain) } returns domain
 
         //WHEN
-        presenter.onCreateLoginClicked()
+        presenter.onCreateLoginClicked(loginName, password)
 
         //THEN
         verify {
@@ -550,7 +477,7 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN create user fail, WHEN onCreateUserClicked, THEN show fail`() {
+    fun `GIVEN fail, WHEN onCreateUserClicked, THEN show fail`() {
         //GIVEN
         val password = loginPasswordModel.password.value
         val loginName = loginNameModel.loginName.value
@@ -559,19 +486,18 @@ internal class LoginPresenterTest {
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val loginErrorDomain = LoginErrorDomain(error)
-        val expected = LoginDomain.Fail(loginErrorDomain)
+        val domain = LoginDomain.Fail(loginErrorDomain)
 
-        coEvery { interactor.createUser(loginDomain, passwordDomain) } returns expected
+        coEvery { interactor.createUser(loginDomain, passwordDomain) } returns domain
 
         //WHEN
-        presenter.onCreateLoginClicked()
+        presenter.onCreateLoginClicked(loginName, password)
 
         //THEN
         verify {
             view.showError(error)
         }
     }
-
 
     @Test
     fun `GIVEN interactor success, WHEN checkLogInStatus, THEN show success`() {
@@ -579,10 +505,7 @@ internal class LoginPresenterTest {
         val error = "flipflops"
         val loginErrorDomain = LoginErrorDomain(error)
         val message = "MidnightGospel"
-
-        val authUser = "Mr. A"
-        val loginUserEmailDomain = LoginUserEmailDomain(authUser)
-        val expected = LoginDomain.Success(loginUserEmailDomain)
+        val expected = LoginDomain.Success
 
         coEvery { interactor.checkLogInStatus() } returns expected
         every { stringResource.getString(R.string.sign_in_true) } returns message

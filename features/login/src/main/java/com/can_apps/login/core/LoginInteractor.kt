@@ -1,5 +1,7 @@
 package com.can_apps.login.core
 
+import android.util.Log
+
 internal class LoginInteractor(
     private val repository: LoginContract.Repository
 ) : LoginContract.Interactor {
@@ -7,7 +9,7 @@ internal class LoginInteractor(
     override fun loginNameValidation(loginName: LoginNameDomain): LoginNameValidationDomain {
         var i = 0
         while (i < 10000) {
-//            Log.i("Delay old school", i.toString())
+            Log.i("Delay old school", i.toString())
             i++
         }
 
@@ -29,7 +31,7 @@ internal class LoginInteractor(
     ): LoginPasswordValidationDomain {
         var i = 0
         while (i < 10000) {
-//            Log.i("Delay old school", i.toString())
+            Log.i("Delay old school", i.toString())
             i++
         }
 
@@ -60,9 +62,4 @@ internal class LoginInteractor(
     override suspend fun checkLogInStatus(): LoginDomain = repository.checkLogInStatus()
 
     override suspend fun logoutUser() = repository.logoutUser()
-
-    override fun checkFunction(loginValid: Boolean, passwordValid: Boolean): Boolean {
-        return (loginValid && passwordValid)
-    }
-
 }

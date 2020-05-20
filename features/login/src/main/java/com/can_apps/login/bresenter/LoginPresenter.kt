@@ -36,14 +36,13 @@ internal class LoginPresenter(
 
     override fun onViewCreated() {
         view?.showWelcomeMessage()
-        checkFunction()
     }
 
     override fun onBackPressed() { view?.close() }
 
-    override fun onSignClicked() { signInUser() }
+    override fun onSignClicked(loginName: String, password: String) { signInUser() }
 
-    override fun onCreateLoginClicked() { createNewUser() }
+    override fun onCreateLoginClicked(loginName: String, password: String) { createNewUser(loginName, password) }
 
     override fun logoutUser() { logout() }
 
@@ -60,14 +59,12 @@ internal class LoginPresenter(
                 updateLoginView("")
                 loginNameModel = modelMapper.loginToModel(domain) as LoginModel.Name
                 loginValid = true
-                checkFunction()
             }
             else -> {
                 checkLoginBox(false)
                 val model = modelMapper.loginToModel(domain) as LoginModel.Fail
                 updateLoginView(model.error.value)
                 loginValid = false
-                checkFunction()
             }
         }
     }
@@ -79,19 +76,15 @@ internal class LoginPresenter(
                 updatePasswordView("")
                 loginPasswordModel = modelMapper.passwordToModel(domain) as LoginModel.Password
                 passwordValid = true
-                checkFunction()
             }
             else -> {
                 checkPasswordBox(false)
                 val model = modelMapper.passwordToModel(domain) as LoginModel.Fail
                 updatePasswordView(model.error.value)
                 passwordValid = false
-                checkFunction()
             }
         }
     }
-
-    private fun checkFunction() = updateButtonsFunction(interactor.checkFunction(loginValid, passwordValid))
 
     private fun CoroutineScope.signInUser() =
         launch(dispatcher.IO) {
@@ -109,12 +102,10 @@ internal class LoginPresenter(
             }
         }
 
-    private fun CoroutineScope.createNewUser() =
+    private fun CoroutineScope.createNewUser(loginName: String, password: String) =
         launch(dispatcher.IO) {
 
-            val login = loginNameModel.loginName.value
-            val password = loginPasswordModel.password.value
-            val loginNameDomain = LoginNameDomain(login)
+            val loginNameDomain = LoginNameDomain(loginName)
             val passwordDomain = LoginPasswordDomain(password)
             when (val result = interactor.createUser(loginNameDomain, passwordDomain)) {
                 is LoginDomain.Success -> {

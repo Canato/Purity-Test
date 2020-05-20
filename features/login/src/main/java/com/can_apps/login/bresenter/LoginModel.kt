@@ -3,7 +3,7 @@ package com.can_apps.login.bresenter
 internal sealed class LoginModel {
     data class Name(val loginName: LoginModelName) : LoginModel()
     data class Password(val password: LoginModelPassword) : LoginModel()
-    data class Fail(val error: LoginErrorModel) : LoginModel()
+    data class Error(val message: LoginErrorModel) : LoginModel()
 }
 
 internal inline class LoginErrorModel(val value: String)

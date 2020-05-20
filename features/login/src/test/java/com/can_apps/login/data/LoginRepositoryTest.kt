@@ -26,12 +26,6 @@ internal class LoginRepositoryTest {
     @Before
     fun setup() = MockKAnnotations.init(this, relaxed = true)
 
-    //Method                   TRUE/FALSE/EXCEPTION
-    //api.signInExistingUser    ok/ok/ok
-    //api.createNewUser         ok/no need/ok
-    //api.checkLogInStatus()    ok/ok/ok
-    //api.logout()              ok
-
     @Test
     fun `GIVEN valid parameters, WHEN sign in user, THEN return LoginDomain_Success`() {
         //GIVEN
@@ -39,10 +33,7 @@ internal class LoginRepositoryTest {
         val password = "sandals"
         val nameDomain = LoginNameDomain(name)
         val passwordDomain = LoginPasswordDomain(password)
-
-        val email = "any given email"
-        val userEmailDomain = LoginUserEmailDomain(email)
-        val expected = LoginDomain.Success(userEmailDomain)
+        val expected = LoginDomain.Success
 
         val firebaseEmail = "any given email"
         val firebaseEmailDomain = FireBaseUserEmail(firebaseEmail)
@@ -110,9 +101,7 @@ internal class LoginRepositoryTest {
         val password = "sandals"
         val nameDomain = LoginNameDomain(name)
         val passwordDomain = LoginPasswordDomain(password)
-        val email = "any given email"
-        val userEmailDomain = LoginUserEmailDomain(email)
-        val expected = LoginDomain.Success(userEmailDomain)
+        val expected = LoginDomain.Success
 
         val firebaseEmail = "any given email"
         val firebaseEmailDomain = FireBaseUserEmail(firebaseEmail)
@@ -154,9 +143,7 @@ internal class LoginRepositoryTest {
     @Test
     fun `GIVEN api currentUser is not null, WHEN checkLogInStatus , THEN return LoginDomain_Success`() {
         //GIVEN
-        val email = "James@Bond.co.uk"
-        val userEmailDomain = LoginUserEmailDomain(email)
-        val expected = LoginDomain.Success(userEmailDomain)
+        val expected = LoginDomain.Success
 
         val firebaseEmail = "Sherlock@Holmes.au"
         val firebaseEmailDomain = FireBaseUserEmail(firebaseEmail)

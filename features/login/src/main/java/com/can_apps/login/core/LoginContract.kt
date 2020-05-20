@@ -1,5 +1,7 @@
 package com.can_apps.login.core
 
+import com.can_apps.login.bresenter.LoginModel
+
 internal interface LoginContract {
 
     interface View {
@@ -13,7 +15,7 @@ internal interface LoginContract {
         fun showLogInStatus(message: String)
 
         fun showSuccess()
-
+//
         fun setLoginCheckBoxAsTrue()
 
         fun setLoginCheckBoxAsFalse()
@@ -22,9 +24,9 @@ internal interface LoginContract {
 
         fun setPasswordCheckBoxAsFalse()
 
-        fun updateLoginTextViewErrorMessage(message: String)
+        fun updateLoginTextViewErrorMessage(message: LoginModel.Error?)
 
-        fun updatePasswordTextViewErrorMessage(message: String)
+        fun updatePasswordTextViewErrorMessage(message: LoginModel.Error?)
 
         fun disableSignInButton()
 
@@ -37,7 +39,6 @@ internal interface LoginContract {
         fun cleanLoginTextView()
 
         fun cleanPasswordTextView()
-
     }
 
     interface Presenter {
@@ -50,19 +51,17 @@ internal interface LoginContract {
 
         fun onBackPressed()
 
-        fun onSignClicked()
+        fun onSignClicked(loginName: String, password: String)
 
-        fun onCreateLoginClicked()
+        fun onCreateLoginClicked(loginName: String, password: String)
 
         fun logoutUser()
 
         fun checkLogIn()
 
-        fun onLoginInputChanged(login: String)
+        fun onLoginInputChanged(login: String)//
 
-        fun onPasswordInputChanged(password: String)
-
-
+        fun onPasswordInputChanged(password: String)//
     }
 
     interface Interactor {
@@ -77,10 +76,7 @@ internal interface LoginContract {
 
         suspend fun checkLogInStatus(): LoginDomain
 
-        fun checkFunction(loginValid: Boolean, passwordValid: Boolean): Boolean
-
         suspend fun logoutUser()
-
     }
 
     interface Repository {

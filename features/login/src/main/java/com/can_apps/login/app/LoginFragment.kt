@@ -9,11 +9,12 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.can_apps.login.R
+import com.can_apps.login.bresenter.LoginModel
 import com.can_apps.login.core.LoginContract
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_login.*
 
-class LoginFragment :
+internal class LoginFragment :
     Fragment(R.layout.fragment_login),
     LoginContract.View {
 
@@ -35,10 +36,10 @@ class LoginFragment :
 
         presenter.bind(this)
         presenter.onViewCreated()
-
-        signInButton.setOnClickListener { presenter.onSignClicked() }
-
-        createUserButton.setOnClickListener { presenter.onCreateLoginClicked() }
+//
+//        signInButton.setOnClickListener { presenter.onSignClicked(loginName, password) }
+//
+//        createUserButton.setOnClickListener { presenter.onCreateLoginClicked(loginName, password) }
 
 
         loginNameEditText.addTextChangedListener(object : TextWatcher {
@@ -104,12 +105,12 @@ class LoginFragment :
         passwordCheckBox.isChecked = false
     }
 
-    override fun updateLoginTextViewErrorMessage(message: String) {
-        loginNameInputLayout.error = message
+    override fun updateLoginTextViewErrorMessage(message: LoginModel.Error?) {
+        loginNameInputLayout.error = message?.message?.value
     }
 
-    override fun updatePasswordTextViewErrorMessage(message: String) {
-        loginPassworInputLayout.error = message
+    override fun updatePasswordTextViewErrorMessage(message: LoginModel.Error?) {
+        loginPassworInputLayout.error = message?.message?.value
     }
 
     override fun disableSignInButton() {

@@ -1,14 +1,20 @@
 package com.can_apps.login.bresenter
 
+import com.can_apps.common.CommonStringResourceWrapper
+import com.can_apps.login.R
 import com.can_apps.login.core.LoginNameValidationDomain
 import com.can_apps.login.core.LoginPasswordValidationDomain
 
 internal interface LoginModelMapper {
+
     fun passwordToModel(domain: LoginPasswordValidationDomain): LoginModel
+
     fun loginToModel(domain: LoginNameValidationDomain): LoginModel
 }
 
-internal class LoginModelMapperDefault : LoginModelMapper {
+internal class LoginModelMapperDefault(
+    private val stringResource: CommonStringResourceWrapper //todo tomasz
+) : LoginModelMapper {
     override fun passwordToModel(domain: LoginPasswordValidationDomain): LoginModel =
         when (domain) {
             is LoginPasswordValidationDomain.Valid -> LoginModel.Password(LoginModelPassword(domain.password.value))
@@ -17,7 +23,7 @@ internal class LoginModelMapperDefault : LoginModelMapper {
             LoginPasswordValidationDomain.NoUpperCase -> LoginModel.Fail(LoginErrorModel("no uppercase"))
             LoginPasswordValidationDomain.NoLowerCase -> LoginModel.Fail(LoginErrorModel("no lowercase"))
             LoginPasswordValidationDomain.NoDigit -> LoginModel.Fail(LoginErrorModel("no digit"))
-            LoginPasswordValidationDomain.EmptyPassword -> LoginModel.Fail(LoginErrorModel(""))
+            LoginPasswordValidationDomain.EmptyPassword -> LoginModel.Error(LoginErrorModel("")) OR null
         }
 
 
