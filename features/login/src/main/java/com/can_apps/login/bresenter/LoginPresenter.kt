@@ -49,9 +49,9 @@ internal class LoginPresenter(
 
     override fun checkLogIn() { checkLogInStatus() }
 
-    override fun fetchLoginInput(login: String) { verifyLogin(login) }
+    override fun onLoginInputChanged(login: String) { verifyLogin(login) }
 
-    override fun fetchPasswordInput(password: String) { verifyPassword(password) }
+    override fun onPasswordInputChanged(password: String) { verifyPassword(password) }
 
     private fun CoroutineScope.verifyLogin(login: String) = launch(dispatcher.IO) {
         when (val domain = interactor.loginNameValidation(LoginNameDomain(login))) {

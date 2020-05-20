@@ -53,11 +53,6 @@ internal class LoginPresenterTest {
         presenter.bind(view)
     }
 
-    //    TODO
-    //    presenter
-    //    fun bind(view: View)
-    //    fun unbind()
-
     @Test
     fun `GIVEN a view, WHEN on create view, THEN show welcome message`() {
         //GIVEN
@@ -112,7 +107,7 @@ internal class LoginPresenterTest {
         coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
         coEvery { interactor.checkFunction(loginValid, passwordValid) } returns false
         //WHEN
-        presenter.fetchLoginInput(login)
+        presenter.onLoginInputChanged(login)
 
         //THEN
         verify {
@@ -131,17 +126,17 @@ internal class LoginPresenterTest {
         val expected = LoginNameValidationDomain.Valid(loginNameDomain)
 
         val loginValid = true
-        val passwordValid = false
+        val pass = false
 
         val loginModel = LoginModelName(login)
         val expectedModel = LoginModel.Name(loginModel)
 
-        coEvery { interactor.checkFunction(loginValid, passwordValid) } returns true
+        coEvery { interactor.checkFunction(loginValid, pass) } returns true
         coEvery { modelMapper.loginToModel(expected) } returns expectedModel
         coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
 
         //WHEN
-        presenter.fetchLoginInput(login)
+        presenter.onLoginInputChanged(login)
 
         //THEN
         verify {
@@ -166,7 +161,7 @@ internal class LoginPresenterTest {
         coEvery { modelMapper.loginToModel(expected) } returns expectedError
 
         //WHEN
-        presenter.fetchLoginInput(login)
+        presenter.onLoginInputChanged(login)
 
         //THEN
         verify {
@@ -191,7 +186,7 @@ internal class LoginPresenterTest {
         coEvery { modelMapper.loginToModel(expected) } returns expectedError
 
         //WHEN
-        presenter.fetchLoginInput(login)
+        presenter.onLoginInputChanged(login)
 
         //THEN
         verify {
@@ -216,7 +211,7 @@ internal class LoginPresenterTest {
         coEvery { modelMapper.loginToModel(expected) } returns expectedError
 
         //WHEN
-        presenter.fetchLoginInput(login)
+        presenter.onLoginInputChanged(login)
 
         //THEN
         verify {
@@ -241,7 +236,7 @@ internal class LoginPresenterTest {
         coEvery { modelMapper.loginToModel(expected) } returns expectedError
 
         //WHEN
-        presenter.fetchLoginInput(login)
+        presenter.onLoginInputChanged(login)
 
         //THEN
         verify {
@@ -266,7 +261,7 @@ internal class LoginPresenterTest {
         coEvery { modelMapper.loginToModel(expected) } returns expectedError
 
         //WHEN
-        presenter.fetchLoginInput(login)
+        presenter.onLoginInputChanged(login)
 
         //THEN
         verify {
@@ -294,7 +289,7 @@ internal class LoginPresenterTest {
         coEvery { modelMapper.passwordToModel(expected) } returns expectedModel
         coEvery { interactor.passwordValidation(passwordDomain) } returns expected
         //WHEN
-        presenter.fetchPasswordInput(password)
+        presenter.onPasswordInputChanged(password)
 
         //THEN
         verify {
@@ -322,7 +317,7 @@ internal class LoginPresenterTest {
         coEvery { modelMapper.passwordToModel(expected) } returns expectedModel
         coEvery { interactor.passwordValidation(passwordDomain) } returns expected
         //WHEN
-        presenter.fetchPasswordInput(password)
+        presenter.onPasswordInputChanged(password)
 
         //THEN
         verify {
@@ -347,7 +342,7 @@ internal class LoginPresenterTest {
         coEvery { modelMapper.passwordToModel(expected) } returns expectedError
 
         //WHEN
-        presenter.fetchPasswordInput(password)
+        presenter.onPasswordInputChanged(password)
 
         //THEN
         verify {
@@ -372,7 +367,7 @@ internal class LoginPresenterTest {
         coEvery { modelMapper.passwordToModel(expected) } returns expectedError
 
         //WHEN
-        presenter.fetchPasswordInput(password)
+        presenter.onPasswordInputChanged(password)
 
         //THEN
         verify {
@@ -397,7 +392,7 @@ internal class LoginPresenterTest {
         coEvery { modelMapper.passwordToModel(expected) } returns expectedError
 
         //WHEN
-        presenter.fetchPasswordInput(password)
+        presenter.onPasswordInputChanged(password)
 
         //THEN
         verify {
@@ -422,7 +417,7 @@ internal class LoginPresenterTest {
         coEvery { modelMapper.passwordToModel(expected) } returns expectedError
 
         //WHEN
-        presenter.fetchPasswordInput(password)
+        presenter.onPasswordInputChanged(password)
 
         //THEN
         verify {
@@ -447,7 +442,7 @@ internal class LoginPresenterTest {
         coEvery { modelMapper.passwordToModel(expected) } returns expectedError
 
         //WHEN
-        presenter.fetchPasswordInput(password)
+        presenter.onPasswordInputChanged(password)
 
         //THEN
         verify {
@@ -472,7 +467,7 @@ internal class LoginPresenterTest {
         coEvery { modelMapper.passwordToModel(expected) } returns expectedError
 
         //WHEN
-        presenter.fetchPasswordInput(password)
+        presenter.onPasswordInputChanged(password)
 
         //THEN
         verify {

@@ -58,9 +58,9 @@ internal interface LoginContract {
 
         fun checkLogIn()
 
-        fun fetchLoginInput(login: String)
+        fun onLoginInputChanged(login: String)
 
-        fun fetchPasswordInput(password: String)
+        fun onPasswordInputChanged(password: String)
 
 
     }
