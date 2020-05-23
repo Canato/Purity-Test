@@ -19,7 +19,7 @@ internal class LoginModelMapperDefault(
         when (domain) {
             is LoginPasswordValidationDomain.Valid -> LoginModel.Password(LoginModelPassword(domain.password.value))
             LoginPasswordValidationDomain.ToSmall -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_to_small)))
-            LoginPasswordValidationDomain.WrongCharacters -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_wrong_characters)))
+            LoginPasswordValidationDomain.WrongCharacters -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_wrong_characters)))
             LoginPasswordValidationDomain.NoUpperCase -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_no_upper_case)))
             LoginPasswordValidationDomain.NoLowerCase -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_no_lower_case)))
             LoginPasswordValidationDomain.NoDigit -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_no_digit)))
