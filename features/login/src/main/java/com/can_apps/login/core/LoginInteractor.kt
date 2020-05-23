@@ -9,7 +9,7 @@ internal class LoginInteractor(
     override fun loginNameValidation(loginName: LoginNameDomain): LoginNameValidationDomain {
         var i = 0
         while (i < 10000) {
-            Log.i("Delay old school", i.toString())
+//            Log.i("Delay old school", i.toString())
             i++
         }
 
@@ -31,7 +31,7 @@ internal class LoginInteractor(
     ): LoginPasswordValidationDomain {
         var i = 0
         while (i < 10000) {
-            Log.i("Delay old school", i.toString())
+//            Log.i("Delay old school", i.toString())
             i++
         }
 

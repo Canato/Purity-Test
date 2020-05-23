@@ -29,7 +29,7 @@ internal class LoginServiceLocator(private val context: Context) {
 
     private fun getDtoMapper(): LoginDtoMapper = LoginDtoMapperDefault(getStringResource())
 
-    private fun getModelMapper(): LoginModelMapper = LoginModelMapperDefault()
+    private fun getModelMapper(): LoginModelMapper = LoginModelMapperDefault(getStringResource())
 
     private fun getApi(): FirebaseApi = FirebaseApiDefault(FirebaseAuth.getInstance())
 

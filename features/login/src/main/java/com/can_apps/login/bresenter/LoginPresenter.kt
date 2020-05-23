@@ -56,14 +56,14 @@ internal class LoginPresenter(
         when (val domain = interactor.loginNameValidation(LoginNameDomain(login))) {
             is LoginNameValidationDomain.Valid -> {
                 checkLoginBox(true)
-                updateLoginView("")
+                updateLoginView(null)
                 loginNameModel = modelMapper.loginToModel(domain) as LoginModel.Name
                 loginValid = true
             }
             else -> {
                 checkLoginBox(false)
-                val model = modelMapper.loginToModel(domain) as LoginModel.Fail
-                updateLoginView(model.error.value)
+                val model = modelMapper.loginToModel(domain) as LoginModel.Error
+                updateLoginView(model)
                 loginValid = false
             }
         }
@@ -73,14 +73,14 @@ internal class LoginPresenter(
         when (val domain = interactor.passwordValidation(LoginPasswordDomain(password))) {
             is LoginPasswordValidationDomain.Valid -> {
                 checkPasswordBox(true)
-                updatePasswordView("")
+                updatePasswordView(null)
                 loginPasswordModel = modelMapper.passwordToModel(domain) as LoginModel.Password
                 passwordValid = true
             }
             else -> {
                 checkPasswordBox(false)
-                val model = modelMapper.passwordToModel(domain) as LoginModel.Fail
-                updatePasswordView(model.error.value)
+                val model = modelMapper.passwordToModel(domain) as LoginModel.Error
+                updatePasswordView(model)
                 passwordValid = false
             }
         }
@@ -149,11 +149,11 @@ internal class LoginPresenter(
         }
     }
 
-    private fun CoroutineScope.updateLoginView(message: String) = launch(dispatcher.UI) {
+    private fun CoroutineScope.updateLoginView(message: LoginModel.Error?) = launch(dispatcher.UI) {
         view?.updateLoginTextViewErrorMessage(message)
     }
 
-    private fun CoroutineScope.updatePasswordView(message: String) = launch(dispatcher.UI) {
+    private fun CoroutineScope.updatePasswordView(message: LoginModel.Error?) = launch(dispatcher.UI) {
         view?.updatePasswordTextViewErrorMessage(message)
     }
 

@@ -13,29 +13,29 @@ internal interface LoginModelMapper {
 }
 
 internal class LoginModelMapperDefault(
-    private val stringResource: CommonStringResourceWrapper //todo tomasz
+    private val stringResource: CommonStringResourceWrapper
 ) : LoginModelMapper {
     override fun passwordToModel(domain: LoginPasswordValidationDomain): LoginModel =
         when (domain) {
             is LoginPasswordValidationDomain.Valid -> LoginModel.Password(LoginModelPassword(domain.password.value))
-            LoginPasswordValidationDomain.ToSmall -> LoginModel.Fail(LoginErrorModel("to short password"))
-            LoginPasswordValidationDomain.WrongCharacters -> LoginModel.Fail(LoginErrorModel("wrong characters"))
-            LoginPasswordValidationDomain.NoUpperCase -> LoginModel.Fail(LoginErrorModel("no uppercase"))
-            LoginPasswordValidationDomain.NoLowerCase -> LoginModel.Fail(LoginErrorModel("no lowercase"))
-            LoginPasswordValidationDomain.NoDigit -> LoginModel.Fail(LoginErrorModel("no digit"))
-            LoginPasswordValidationDomain.EmptyPassword -> LoginModel.Error(LoginErrorModel("")) OR null
+            LoginPasswordValidationDomain.ToSmall -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_to_small)))
+            LoginPasswordValidationDomain.WrongCharacters -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_wrong_characters)))
+            LoginPasswordValidationDomain.NoUpperCase -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_no_upper_case)))
+            LoginPasswordValidationDomain.NoLowerCase -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_no_lower_case)))
+            LoginPasswordValidationDomain.NoDigit -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_no_digit)))
+            LoginPasswordValidationDomain.EmptyPassword -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_empty_password)))
         }
 
 
     override fun loginToModel(domain: LoginNameValidationDomain): LoginModel =
         when (domain) {
             is LoginNameValidationDomain.Valid -> LoginModel.Name(LoginModelName(domain.loginName.value))
-            LoginNameValidationDomain.ToSmall -> LoginModel.Fail(LoginErrorModel("to short login"))
-            LoginNameValidationDomain.MissingAtSign -> LoginModel.Fail(LoginErrorModel("missing @ sign"))
-            LoginNameValidationDomain.WrongCharacters -> LoginModel.Fail(LoginErrorModel("wrong characters"))
-            LoginNameValidationDomain.WrongEmailDomainUsage -> LoginModel.Fail(LoginErrorModel("wrong user email domain"))
-            LoginNameValidationDomain.TooLongDomain -> LoginModel.Fail(LoginErrorModel("login domain is too long"))
-            LoginNameValidationDomain.EmptyLogin -> LoginModel.Fail(LoginErrorModel(""))
+            LoginNameValidationDomain.ToSmall -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_to_small)))
+            LoginNameValidationDomain.MissingAtSign -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_missing_at_sign)))
+            LoginNameValidationDomain.WrongCharacters -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_wrong_characters)))
+            LoginNameValidationDomain.WrongEmailDomainUsage -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_wrong_email_domain_usage)))
+            LoginNameValidationDomain.TooLongDomain -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_too_long_domain)))
+            LoginNameValidationDomain.EmptyLogin -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_empty_login)))
         }
 
 }

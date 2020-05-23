@@ -1,5 +1,6 @@
 package com.can_apps.login.core
 
+import android.util.Log
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -39,6 +40,20 @@ internal class LoginInteractorTest {
         val login = "Tomasz@gmail.co.uk"
         val loginNameDomain = LoginNameDomain(login)
         val expected = LoginNameValidationDomain.Valid(loginNameDomain)
+
+        //WHEN
+        val result = interactor.loginNameValidation(loginNameDomain)
+
+        //THEN
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun `GIVEN empty login , WHEN validate, THEN return false`() {
+        //GIVEN
+        val login = ""
+        val loginNameDomain = LoginNameDomain(login)
+        val expected = LoginNameValidationDomain.EmptyLogin
 
         //WHEN
         val result = interactor.loginNameValidation(loginNameDomain)
@@ -179,6 +194,20 @@ internal class LoginInteractorTest {
         val password = "passWO  RD1"
         val passwordDomain = LoginPasswordDomain(password)
         val expected = LoginPasswordValidationDomain.WrongCharacters
+
+        //WHEN
+        val result = interactor.passwordValidation(passwordDomain)
+
+        //THEN
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun `GIVEN empty password , WHEN validate, THEN return false`() {
+        //GIVEN
+        val password = ""
+        val passwordDomain = LoginPasswordDomain(password)
+        val expected = LoginPasswordValidationDomain.EmptyPassword
 
         //WHEN
         val result = interactor.passwordValidation(passwordDomain)

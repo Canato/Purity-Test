@@ -4,7 +4,6 @@ import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.login.R
 import com.can_apps.login.core.LoginDomain
 import com.can_apps.login.core.LoginErrorDomain
-import com.can_apps.login.core.LoginUserEmailDomain
 import com.can_apps.login.data.firebase_data_source.FirebaseDto
 
 internal interface LoginDtoMapper {

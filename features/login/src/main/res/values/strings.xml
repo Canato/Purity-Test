@@ -11,4 +11,18 @@
     <string name="sign_in_true">Signed in</string>
     <string name="welcome">Welcome !</string>
     <string name="firebase_dto_error">Sorry, something wrong</string>
+
+    <string name="validation_password_to_small">to short password</string>
+    <string name="validation_password_wrong_characters">wrong characters</string>
+    <string name="validation_password_no_upper_case">no uppercase</string>
+    <string name="validation_password_no_lower_case">no lowercase</string>
+    <string name="validation_password_no_digit">no digit</string>
+    <string name="validation_password_empty_password">password cannot be empty</string>
+
+    <string name="validation_login_to_small">to short login</string>
+    <string name="validation_login_wrong_characters">wrong characters</string>
+    <string name="validation_login_missing_at_sign">missing @ sign</string>
+    <string name="validation_login_wrong_email_domain_usage">wrong user email domain</string>
+    <string name="validation_login_too_long_domain">login domain is too long</string>
+    <string name="validation_login_empty_login">login cannot be empty</string>
 </resources>
