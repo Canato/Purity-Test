@@ -14,7 +14,7 @@ import com.can_apps.login.core.LoginContract
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_login.*
 
-internal class LoginFragment :
+ class LoginFragment :
     Fragment(R.layout.fragment_login),
     LoginContract.View {
 
