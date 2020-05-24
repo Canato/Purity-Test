@@ -40,8 +40,6 @@ class LoginModelMapperDefaultTest {
         assertEquals(expected, result)
     }
 
-//    LoginPasswordValidationDomain.ToSmall -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_to_small)))
-
     @Test
     fun `GIVEN login domain to small, WHEN map to model, THEN return login model_error with message`() {
         //GIVEN

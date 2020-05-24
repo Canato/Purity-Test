@@ -36,10 +36,18 @@ internal class LoginFragment :
 
         presenter.bind(this)
         presenter.onViewCreated()
-//
-//        signInButton.setOnClickListener { presenter.onSignClicked(loginName, password) }
-//
-//        createUserButton.setOnClickListener { presenter.onCreateLoginClicked(loginName, password) }
+
+        signInButton.setOnClickListener { presenter.onSignClicked(
+                loginNameEditText.text.toString(),
+                loginPasswordEditText.text.toString()
+            )
+        }
+
+        createUserButton.setOnClickListener { presenter.onCreateLoginClicked(
+                loginNameEditText.text.toString(),
+                loginPasswordEditText.text.toString()
+            )
+        }
 
 
         loginNameEditText.addTextChangedListener(object : TextWatcher {
