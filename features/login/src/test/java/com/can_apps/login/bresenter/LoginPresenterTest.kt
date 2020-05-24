@@ -80,8 +80,8 @@ internal class LoginPresenterTest {
         val password = "Tomboy"
         val loginNameDomain = LoginNameDomain(loginName)
         val loginPasswordDomain = LoginPasswordDomain(password)
-        val loginNameValidationDomain = LoginNameValidationDomain.Valid(loginNameDomain)
-        val loginPasswordValidationDomain = LoginPasswordValidationDomain.Valid(loginPasswordDomain)
+        val loginNameValidationDomain = LoginNameValidationDomain.Valid
+        val loginPasswordValidationDomain = LoginPasswordValidationDomain.Valid
 
         every { interactor.loginNameValidation(loginNameDomain) } returns loginNameValidationDomain
         every { interactor.passwordValidation(loginPasswordDomain)} returns loginPasswordValidationDomain
@@ -108,8 +108,8 @@ internal class LoginPresenterTest {
         val password = "Tomboy"
         val loginNameDomain = LoginNameDomain(loginName)
         val loginPasswordDomain = LoginPasswordDomain(password)
-        val loginNameValidationDomain = LoginNameValidationDomain.Valid(loginNameDomain)
-        val loginPasswordValidationDomain = LoginPasswordValidationDomain.ToSmall
+        val loginNameValidationDomain = LoginNameValidationDomain.Valid
+        val loginPasswordValidationDomain = LoginPasswordValidationDomain.Invalid(PasswordValidationError.ToSmall)
 
         every { interactor.loginNameValidation(loginNameDomain) } returns loginNameValidationDomain
         every { interactor.passwordValidation(loginPasswordDomain)} returns loginPasswordValidationDomain
@@ -135,8 +135,8 @@ internal class LoginPresenterTest {
         val password = "Tomboy"
         val loginNameDomain = LoginNameDomain(loginName)
         val loginPasswordDomain = LoginPasswordDomain(password)
-        val loginNameValidationDomain = LoginNameValidationDomain.TooLongDomain
-        val loginPasswordValidationDomain = LoginPasswordValidationDomain.Valid(loginPasswordDomain)
+        val loginNameValidationDomain = LoginNameValidationDomain.Invalid(LoginValidationError.TooLongDomain)
+        val loginPasswordValidationDomain = LoginPasswordValidationDomain.Valid
 
         every { interactor.loginNameValidation(loginNameDomain) } returns loginNameValidationDomain
         every { interactor.passwordValidation(loginPasswordDomain)} returns loginPasswordValidationDomain
@@ -162,8 +162,8 @@ internal class LoginPresenterTest {
         val password = "Tomboy"
         val loginNameDomain = LoginNameDomain(loginName)
         val loginPasswordDomain = LoginPasswordDomain(password)
-        val loginNameValidationDomain = LoginNameValidationDomain.WrongCharacters
-        val loginPasswordValidationDomain = LoginPasswordValidationDomain.ToSmall
+        val loginNameValidationDomain = LoginNameValidationDomain.Invalid(LoginValidationError.WrongCharacters)
+        val loginPasswordValidationDomain = LoginPasswordValidationDomain.Invalid(PasswordValidationError.ToSmall)
 
         every { interactor.loginNameValidation(loginNameDomain) } returns loginNameValidationDomain
         every { interactor.passwordValidation(loginPasswordDomain)} returns loginPasswordValidationDomain
@@ -186,11 +186,11 @@ internal class LoginPresenterTest {
         val errorModel = LoginErrorModel(error)
         val login = ""
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.EmptyLogin
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.EmptyLogin)
         val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
-        coEvery { modelMapper.loginToModel(expected) } returns expectedError
+        coEvery { modelMapper.loginErrorToModel(expected) } returns expectedError
 
         //WHEN
         presenter.onLoginInputChanged(login)
@@ -209,11 +209,11 @@ internal class LoginPresenterTest {
         val errorModel = LoginErrorModel(error)
         val login = "Spyro@a@"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.WrongEmailDomainUsage
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.WrongEmailDomainUsage)
         val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
-        coEvery { modelMapper.loginToModel(expected) } returns expectedError
+        coEvery { modelMapper.loginErrorToModel(expected) } returns expectedError
 
         //WHEN
         presenter.onLoginInputChanged(login)
@@ -232,11 +232,11 @@ internal class LoginPresenterTest {
         val errorModel = LoginErrorModel(error)
         val login = "SpyroAtgmail.com"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.MissingAtSign
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.MissingAtSign)
         val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
-        coEvery { modelMapper.loginToModel(expected) } returns expectedError
+        coEvery { modelMapper.loginErrorToModel(expected) } returns expectedError
 
         //WHEN
         presenter.onLoginInputChanged(login)
@@ -255,11 +255,11 @@ internal class LoginPresenterTest {
         val errorModel = LoginErrorModel(error)
         val login = "__++!!!"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.WrongCharacters
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.WrongCharacters)
         val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
-        coEvery { modelMapper.loginToModel(expected) } returns expectedError
+        coEvery { modelMapper.loginErrorToModel(expected) } returns expectedError
 
         //WHEN
         presenter.onLoginInputChanged(login)
@@ -278,11 +278,11 @@ internal class LoginPresenterTest {
         val errorModel = LoginErrorModel(error)
         val password = "Spy"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.ToSmall
+        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.ToSmall)
         val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.passwordValidation(passwordDomain) } returns expected
-        coEvery { modelMapper.passwordToModel(expected) } returns expectedError
+        coEvery { modelMapper.passwordErrorToModel(expected) } returns expectedError
 
         //WHEN
         presenter.onPasswordInputChanged(password)
@@ -301,11 +301,11 @@ internal class LoginPresenterTest {
         val errorModel = LoginErrorModel(error)
         val password = ""
         val passwordDomain = LoginPasswordDomain(password)
-        val loginPasswordValidationDomain = LoginPasswordValidationDomain.EmptyPassword
+        val loginPasswordValidationDomain = LoginPasswordValidationDomain.Invalid(PasswordValidationError.EmptyPassword)
         val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.passwordValidation(passwordDomain) } returns loginPasswordValidationDomain
-        coEvery { modelMapper.passwordToModel(loginPasswordValidationDomain) } returns expectedError
+        coEvery { modelMapper.passwordErrorToModel(loginPasswordValidationDomain) } returns expectedError
 
         //WHEN
         presenter.onPasswordInputChanged(password)
@@ -324,11 +324,11 @@ internal class LoginPresenterTest {
         val errorModel = LoginErrorModel(error)
         val password = "aaaaaaAA"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.NoDigit
+        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoDigit)
         val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.passwordValidation(passwordDomain) } returns expected
-        coEvery { modelMapper.passwordToModel(expected) } returns expectedError
+        coEvery { modelMapper.passwordErrorToModel(expected) } returns expectedError
 
         //WHEN
         presenter.onPasswordInputChanged(password)
@@ -347,11 +347,11 @@ internal class LoginPresenterTest {
         val errorModel = LoginErrorModel(error)
         val password = "EXPLOSIONS123"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.NoLowerCase
+        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoLowerCase)
         val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.passwordValidation(passwordDomain) } returns expected
-        coEvery { modelMapper.passwordToModel(expected) } returns expectedError
+        coEvery { modelMapper.passwordErrorToModel(expected) } returns expectedError
 
         //WHEN
         presenter.onPasswordInputChanged(password)
@@ -370,11 +370,11 @@ internal class LoginPresenterTest {
         val errorModel = LoginErrorModel(error)
         val password = "thatslow123"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.NoUpperCase
+        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoUpperCase)
         val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.passwordValidation(passwordDomain) } returns expected
-        coEvery { modelMapper.passwordToModel(expected) } returns expectedError
+        coEvery { modelMapper.passwordErrorToModel(expected) } returns expectedError
 
         //WHEN
         presenter.onPasswordInputChanged(password)
@@ -393,11 +393,11 @@ internal class LoginPresenterTest {
         val errorModel = LoginErrorModel(error)
         val password = "abc"
         val passwordDomain = LoginPasswordDomain(password)
-        val loginPasswordValidationDomain = LoginPasswordValidationDomain.WrongCharacters
+        val loginPasswordValidationDomain = LoginPasswordValidationDomain.Invalid(PasswordValidationError.WrongCharacters)
         val errorMessage = LoginModel.Error(errorModel)
 
         coEvery { interactor.passwordValidation(passwordDomain) } returns loginPasswordValidationDomain
-        coEvery { modelMapper.passwordToModel(loginPasswordValidationDomain) } returns errorMessage
+        coEvery { modelMapper.passwordErrorToModel(loginPasswordValidationDomain) } returns errorMessage
 
         //WHEN
         presenter.onPasswordInputChanged(password)
@@ -434,8 +434,8 @@ internal class LoginPresenterTest {
     @Test
     fun `GIVEN fail, WHEN onSignClicked, THEN show fail`() {
         //GIVEN
-        val password = loginPasswordModel.password.value
-        val loginName = loginNameModel.loginName.value
+        val password = "accessPoint"
+        val loginName = "monarch"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
         val error = "flipflops"
@@ -456,8 +456,8 @@ internal class LoginPresenterTest {
     @Test
     fun `GIVEN success, WHEN onCreateUserClicked, THEN show success AND clear both text inputs`() {
         //GIVEN
-        val password = loginPasswordModel.password.value
-        val loginName = loginNameModel.loginName.value
+        val password = "accessPoint"
+        val loginName = "monarch"
         val passwordDomain = LoginPasswordDomain(password)
         val loginDomain = LoginNameDomain(loginName)
 
@@ -479,8 +479,8 @@ internal class LoginPresenterTest {
     @Test
     fun `GIVEN fail, WHEN onCreateUserClicked, THEN show fail`() {
         //GIVEN
-        val password = loginPasswordModel.password.value
-        val loginName = loginNameModel.loginName.value
+        val password = "accessPoint"
+        val loginName = "monarch"
         val error = "flipflops"
 
         val passwordDomain = LoginPasswordDomain(password)

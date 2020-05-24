@@ -9,26 +9,36 @@ internal sealed class LoginDomain {
 
 internal sealed class LoginPasswordValidationDomain {
 
-    data class Valid(val password: LoginPasswordDomain) : LoginPasswordValidationDomain()
+    object Valid : LoginPasswordValidationDomain()
 
-    object ToSmall : LoginPasswordValidationDomain()
-    object NoDigit : LoginPasswordValidationDomain()
-    object NoUpperCase : LoginPasswordValidationDomain()
-    object NoLowerCase : LoginPasswordValidationDomain()
-    object EmptyPassword : LoginPasswordValidationDomain()
-    object WrongCharacters : LoginPasswordValidationDomain()
+    data class Invalid(val error: PasswordValidationError) : LoginPasswordValidationDomain()
+
 }
 
 internal sealed class LoginNameValidationDomain {
 
-    data class Valid(val loginName: LoginNameDomain) : LoginNameValidationDomain()
+    object Valid : LoginNameValidationDomain()
 
-    object ToSmall : LoginNameValidationDomain()
-    object EmptyLogin : LoginNameValidationDomain()
-    object TooLongDomain : LoginNameValidationDomain()
-    object MissingAtSign : LoginNameValidationDomain()
-    object WrongCharacters : LoginNameValidationDomain()
-    object WrongEmailDomainUsage : LoginNameValidationDomain()
+    data class Invalid(val error: LoginValidationError) : LoginNameValidationDomain()
+
+}
+
+internal sealed class LoginValidationError{
+    object ToSmall : LoginValidationError()
+    object EmptyLogin : LoginValidationError()
+    object TooLongDomain : LoginValidationError()
+    object MissingAtSign : LoginValidationError()
+    object WrongCharacters : LoginValidationError()
+    object WrongEmailDomainUsage : LoginValidationError()
+}
+
+internal sealed class PasswordValidationError{
+    object ToSmall : PasswordValidationError()
+    object NoDigit : PasswordValidationError()
+    object NoUpperCase : PasswordValidationError()
+    object NoLowerCase : PasswordValidationError()
+    object EmptyPassword : PasswordValidationError()
+    object WrongCharacters : PasswordValidationError()
 }
 
 internal inline class LoginErrorDomain(val value: String)

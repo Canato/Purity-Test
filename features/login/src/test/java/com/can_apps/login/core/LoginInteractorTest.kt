@@ -1,6 +1,5 @@
 package com.can_apps.login.core
 
-import android.util.Log
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
@@ -25,7 +24,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tomasz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.Valid(loginNameDomain)
+        val expected = LoginNameValidationDomain.Valid
 
         //WHEN
         val result = interactor.loginNameValidation(loginNameDomain)
@@ -39,7 +38,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tomasz@gmail.co.uk"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.Valid(loginNameDomain)
+        val expected = LoginNameValidationDomain.Valid
 
         //WHEN
         val result = interactor.loginNameValidation(loginNameDomain)
@@ -53,7 +52,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = ""
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.EmptyLogin
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.EmptyLogin)
 
         //WHEN
         val result = interactor.loginNameValidation(loginNameDomain)
@@ -67,7 +66,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tom"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.ToSmall
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.ToSmall)
 
         //WHEN
         val result = interactor.loginNameValidation(loginNameDomain)
@@ -81,7 +80,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tom!sz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.WrongCharacters
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.WrongCharacters)
 
         //WHEN
         val result = interactor.loginNameValidation(loginNameDomain)
@@ -95,7 +94,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tom sz@gmail.com"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.WrongCharacters
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.WrongCharacters)
 
         //WHEN
         val result = interactor.loginNameValidation(loginNameDomain)
@@ -109,7 +108,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tomaszgmail.com"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.MissingAtSign
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.MissingAtSign)
 
         //WHEN
         val result = interactor.loginNameValidation(loginNameDomain)
@@ -123,7 +122,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tomasz@gmailcom"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.WrongEmailDomainUsage
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.WrongEmailDomainUsage)
 
         //WHEN
         val result = interactor.loginNameValidation(loginNameDomain)
@@ -137,7 +136,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tomasz@gmail.c"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.WrongEmailDomainUsage
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.WrongEmailDomainUsage)
 
         //WHEN
         val result = interactor.loginNameValidation(loginNameDomain)
@@ -151,7 +150,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val login = "Tomasz@gmail.co.uk.com"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.TooLongDomain
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.TooLongDomain)
 
         //WHEN
         val result = interactor.loginNameValidation(loginNameDomain)
@@ -165,7 +164,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val password = "passWORD1"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.Valid(passwordDomain)
+        val expected = LoginPasswordValidationDomain.Valid
 
         //WHEN
         val result = interactor.passwordValidation(passwordDomain)
@@ -179,7 +178,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val password = "passWORD1@!"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.WrongCharacters
+        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.WrongCharacters)
 
         //WHEN
         val result = interactor.passwordValidation(passwordDomain)
@@ -193,7 +192,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val password = "passWO  RD1"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.WrongCharacters
+        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.WrongCharacters)
 
         //WHEN
         val result = interactor.passwordValidation(passwordDomain)
@@ -207,7 +206,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val password = ""
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.EmptyPassword
+        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.EmptyPassword)
 
         //WHEN
         val result = interactor.passwordValidation(passwordDomain)
@@ -221,7 +220,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val password = "passWO9"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.ToSmall
+        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.ToSmall)
 
         //WHEN
         val result = interactor.passwordValidation(passwordDomain)
@@ -235,7 +234,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val password = "passWORD"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.NoDigit
+        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoDigit)
 
         //WHEN
         val result = interactor.passwordValidation(passwordDomain)
@@ -249,7 +248,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val password = "PASSWORD1"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.NoLowerCase
+        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoLowerCase)
 
         //WHEN
         val result = interactor.passwordValidation(passwordDomain)
@@ -263,7 +262,7 @@ internal class LoginInteractorTest {
         //GIVEN
         val password = "password1"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.NoUpperCase
+        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoUpperCase)
 
         //WHEN
         val result = interactor.passwordValidation(passwordDomain)

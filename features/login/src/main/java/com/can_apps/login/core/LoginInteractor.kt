@@ -1,7 +1,5 @@
 package com.can_apps.login.core
 
-import android.util.Log
-
 internal class LoginInteractor(
     private val repository: LoginContract.Repository
 ) : LoginContract.Interactor {
@@ -13,17 +11,17 @@ internal class LoginInteractor(
             i++
         }
 
-        if (loginName.value == "") return LoginNameValidationDomain.EmptyLogin
-        else if (loginName.value.length < 4) return LoginNameValidationDomain.ToSmall
-        else if (!Regex("[@]").containsMatchIn(loginName.value)) return LoginNameValidationDomain.MissingAtSign
-        else if (!Regex("[.][a-z]{2,}+$").containsMatchIn(loginName.value)) return LoginNameValidationDomain.WrongEmailDomainUsage
+        if (loginName.value == "") return LoginNameValidationDomain.Invalid(LoginValidationError.EmptyLogin)
+        else if (loginName.value.length < 4) return LoginNameValidationDomain.Invalid(LoginValidationError.ToSmall)
+        else if (!Regex("[@]").containsMatchIn(loginName.value)) return LoginNameValidationDomain.Invalid(LoginValidationError.MissingAtSign)
+        else if (!Regex("[.][a-z]{2,}+$").containsMatchIn(loginName.value)) return LoginNameValidationDomain.Invalid(LoginValidationError.WrongEmailDomainUsage)
         else if (Regex("[a-z0-9._]+[@][a-z0-9]+[.][a-z]{2,}+[.][a-z]{2,}+[.][a-zA-Z0-9.]+").matches(loginName.value.toLowerCase()))
-            return LoginNameValidationDomain.TooLongDomain
+            return LoginNameValidationDomain.Invalid(LoginValidationError.TooLongDomain)
         else if (Regex("[a-z0-9._]+[@][a-z0-9]+[.][a-z]{2,}+$").matches(loginName.value.toLowerCase()))
-            return LoginNameValidationDomain.Valid(loginName)
+            return LoginNameValidationDomain.Valid
         else if (Regex("[a-z0-9._]+[@][a-z0-9]+[.][a-z]{2,}+[.][a-z]{2,}+$").matches(loginName.value.toLowerCase()))
-            return LoginNameValidationDomain.Valid(loginName)
-        return LoginNameValidationDomain.WrongCharacters
+            return LoginNameValidationDomain.Valid
+        return LoginNameValidationDomain.Invalid(LoginValidationError.WrongCharacters)
     }
 
     override fun passwordValidation(
@@ -35,18 +33,18 @@ internal class LoginInteractor(
             i++
         }
 
-        if (password.value == "") return LoginPasswordValidationDomain.EmptyPassword
-        else if (password.value.length < 8) return LoginPasswordValidationDomain.ToSmall
+        if (password.value == "") return LoginPasswordValidationDomain.Invalid(PasswordValidationError.EmptyPassword)
+        else if (password.value.length < 8) return LoginPasswordValidationDomain.Invalid(PasswordValidationError.ToSmall)
         else if (!Regex(pattern = "[A-Z]").containsMatchIn(password.value)) {
-            return LoginPasswordValidationDomain.NoUpperCase
+            return LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoUpperCase)
         } else if (!Regex(pattern = "[a-z]").containsMatchIn(password.value)) {
-            return LoginPasswordValidationDomain.NoLowerCase
+            return LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoLowerCase)
         } else if (!Regex(pattern = "[0-9]").containsMatchIn(password.value)) {
-            return LoginPasswordValidationDomain.NoDigit
+            return LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoDigit)
         } else if (Regex(pattern = "[a-zA-Z0-9]+").matches(password.value))
-            return LoginPasswordValidationDomain.Valid(password)
+            return LoginPasswordValidationDomain.Valid
 
-        return LoginPasswordValidationDomain.WrongCharacters
+        return LoginPasswordValidationDomain.Invalid(PasswordValidationError.WrongCharacters)
     }
 
     override suspend fun signInUser(
