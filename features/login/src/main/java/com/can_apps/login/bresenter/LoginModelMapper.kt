@@ -9,22 +9,14 @@ import com.can_apps.login.core.PasswordValidationError
 
 internal interface LoginModelMapper {
 
-    fun passwordToModel(domain: LoginPasswordValidationDomain.Valid): LoginModel.Password
-    fun loginToModel(domain: LoginNameValidationDomain.Valid): LoginModel.Name
-
     fun passwordErrorToModel(domain: LoginPasswordValidationDomain.Invalid): LoginModel.Error
     fun loginErrorToModel(domain: LoginNameValidationDomain.Invalid): LoginModel.Error
+
 }
 
 internal class LoginModelMapperDefault(
     private val stringResource: CommonStringResourceWrapper
 ) : LoginModelMapper {
-    override fun passwordToModel(domain: LoginPasswordValidationDomain.Valid): LoginModel.Password
-      =   LoginModel.Password(null)
-
-
-    override fun loginToModel(domain: LoginNameValidationDomain.Valid): LoginModel.Name
-     = LoginModel.Name(null)
 
     override fun passwordErrorToModel(domain: LoginPasswordValidationDomain.Invalid): LoginModel.Error =
         when (domain) {

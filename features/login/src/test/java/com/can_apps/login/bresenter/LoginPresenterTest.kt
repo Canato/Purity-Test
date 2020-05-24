@@ -14,13 +14,7 @@ import org.junit.Before
 import org.junit.Test
 
 internal class LoginPresenterTest {
-
-    @MockK
-    private lateinit var loginPasswordModel: LoginModel.Password
-
-    @MockK
-    private lateinit var loginNameModel: LoginModel.Name
-
+    
     @MockK
     private lateinit var view: LoginContract.View
 
