@@ -59,9 +59,9 @@ internal class LoginPresenter(
                 loginValid = true
                 updateButtonsFunction(loginValid && passwordValid)
             }
-            else -> {
+            is LoginNameValidationDomain.Invalid -> {
                 checkLoginBox(false)
-                val model = modelMapper.loginToModel(domain) as LoginModel.Error
+                val model = modelMapper.loginErrorToModel(domain)
                 updateLoginView(model)
                 loginValid = false
                 updateButtonsFunction(loginValid && passwordValid)
@@ -77,9 +77,9 @@ internal class LoginPresenter(
                 passwordValid = true
                 updateButtonsFunction(loginValid && passwordValid)
             }
-            else -> {
+            is LoginPasswordValidationDomain.Invalid -> {
                 checkPasswordBox(false)
-                val model = modelMapper.passwordToModel(domain) as LoginModel.Error
+                val model = modelMapper.passwordErrorToModel(domain)
                 updatePasswordView(model)
                 passwordValid = false
                 updateButtonsFunction(loginValid && passwordValid)

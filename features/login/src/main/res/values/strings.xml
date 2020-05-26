@@ -25,4 +25,5 @@
     <string name="validation_login_wrong_email_domain_usage">wrong user email domain</string>
     <string name="validation_login_too_long_domain">login domain is too long</string>
     <string name="validation_login_empty_login">login cannot be empty</string>
+    <string name="unknown_error">Unknown error</string>
 </resources>
