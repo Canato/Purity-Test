@@ -90,6 +90,8 @@ internal class LoginPresenterTest {
             view.disableSignInButton()
             view.updateLoginTextViewErrorMessage(null)
             view.updatePasswordTextViewErrorMessage(null)
+            view.setLoginCheckBoxAsTrue()
+            view.setPasswordCheckBoxAsTrue()
             view.enableCreateUserButton()
             view.enableSignInButton()
         }
@@ -119,6 +121,7 @@ internal class LoginPresenterTest {
         }
         verify(exactly = 1) {
             view.updateLoginTextViewErrorMessage(null)
+            view.setLoginCheckBoxAsTrue()
         }
     }
 
@@ -146,6 +149,7 @@ internal class LoginPresenterTest {
         }
         verify(exactly = 1) {
             view.updatePasswordTextViewErrorMessage(null)
+            view.setPasswordCheckBoxAsTrue()
         }
     }
 
