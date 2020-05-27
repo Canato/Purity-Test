@@ -119,6 +119,22 @@ internal class LoginModelMapperDefaultTest {
     }
 
     @Test
+    fun `GIVEN password domain to small, WHEN map to model, THEN return login model_error with message`() {
+        //GIVEN
+        val message = "monarch"
+        val loginPasswordValidationDomain = LoginPasswordValidationDomain.Invalid(PasswordValidationError.ToSmall)
+        val expected = LoginModel.Error(LoginErrorModel(message))
+
+        coEvery { stringResource.getString(R.string.validation_password_to_small) } returns message
+
+        //WHEN
+        val result = model.passwordErrorToModel(loginPasswordValidationDomain)
+
+        //THEN
+        assertEquals(expected, result)
+    }
+
+    @Test
     fun `GIVEN password domain with wrong characters, WHEN map to model, THEN return login model_error with message`() {
         //GIVEN
         val message = "monarch"
