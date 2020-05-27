@@ -15,7 +15,7 @@ internal interface LoginContract {
         fun showLogInStatus(message: String)
 
         fun showSuccess()
-//
+
         fun setLoginCheckBoxAsTrue()
 
         fun setLoginCheckBoxAsFalse()
@@ -59,9 +59,9 @@ internal interface LoginContract {
 
         fun checkLogIn()
 
-        fun onLoginInputChanged(login: String)//
+        fun onLoginInputChanged(login: String)
 
-        fun onPasswordInputChanged(password: String)//
+        fun onPasswordInputChanged(password: String)
     }
 
     interface Interactor {

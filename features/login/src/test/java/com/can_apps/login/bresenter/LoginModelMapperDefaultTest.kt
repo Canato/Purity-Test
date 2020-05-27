@@ -11,7 +11,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class LoginModelMapperDefaultTest {
+internal class LoginModelMapperDefaultTest {
 
     @MockK
     private lateinit var stringResource: CommonStringResourceWrapper
