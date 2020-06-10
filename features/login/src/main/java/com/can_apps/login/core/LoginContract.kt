@@ -1,5 +1,7 @@
 package com.can_apps.login.core
 
+import com.can_apps.login.bresenter.LoginModel
+
 internal interface LoginContract {
 
     interface View {
@@ -13,6 +15,30 @@ internal interface LoginContract {
         fun showLogInStatus(message: String)
 
         fun showSuccess()
+
+        fun setLoginCheckBoxAsTrue()
+
+        fun setLoginCheckBoxAsFalse()
+
+        fun setPasswordCheckBoxAsTrue()
+
+        fun setPasswordCheckBoxAsFalse()
+
+        fun updateLoginTextViewErrorMessage(message: LoginModel.Error?)
+
+        fun updatePasswordTextViewErrorMessage(message: LoginModel.Error?)
+
+        fun disableSignInButton()
+
+        fun enableSignInButton()
+
+        fun disableCreateUserButton()
+
+        fun enableCreateUserButton()
+
+        fun cleanLoginTextView()
+
+        fun cleanPasswordTextView()
     }
 
     interface Presenter {
@@ -25,28 +51,32 @@ internal interface LoginContract {
 
         fun onBackPressed()
 
-        fun onSignClicked(password: String, loginName: String)
+        fun onSignClicked(loginName: String, password: String)
 
-        fun onCreateLoginClicked(password: String, loginName: String)
+        fun onCreateLoginClicked(loginName: String, password: String)
 
         fun logoutUser()
 
         fun checkLogIn()
+
+        fun onLoginInputChanged(login: String)
+
+        fun onPasswordInputChanged(password: String)
     }
 
     interface Interactor {
 
-        fun passwordValidation(password: LoginPasswordDomain): LoginPasswordValidationDomain
+        fun loginNameValidation(loginName: LoginNameDomain): LoginNameValidationDomain
 
-        fun loginNameValidation(loginName: LoginNameDomain): Boolean
+        fun passwordValidation(password: LoginPasswordDomain): LoginPasswordValidationDomain
 
         suspend fun signInUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
 
         suspend fun createUser(loginName: LoginNameDomain, password: LoginPasswordDomain): LoginDomain
 
-        suspend fun logoutUser()
-
         suspend fun checkLogInStatus(): LoginDomain
+
+        suspend fun logoutUser()
     }
 
     interface Repository {

@@ -4,6 +4,7 @@ import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.login.R
 import com.can_apps.login.core.LoginDomain
 import com.can_apps.login.core.LoginErrorDomain
+import com.can_apps.login.data.firebase_data_source.FireBaseUserEmail
 import com.can_apps.login.data.firebase_data_source.FirebaseDto
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -26,7 +27,10 @@ internal class LoginDtoMapperDefaultTest {
     @Test
     fun `GIVEN firebase_dto_valid, WHEN dto_toDomain, THEN return LoginDomain_Success`() {
         //GIVEN
-        val firebaseDto = FirebaseDto.Valid
+        val email = "JamesBond"
+        val fireBaseUserEmail = FireBaseUserEmail(email)
+
+        val firebaseDto = FirebaseDto.Valid(fireBaseUserEmail)
         val expected = LoginDomain.Success
 
         //WHEN
