@@ -28,7 +28,7 @@ internal class LoginPresenter(
         get() = dispatcher.UI + job
 
     private val passwordChannel = Channel<OnPasswordChangedEvent>(Channel.CONFLATED)
-    //todo tomaz, create the same behaviour for LoginName with Flow
+    //todo tomasz, create the same behaviour for LoginName with Flow
 
     override fun bind(view: LoginContract.View) {
         this.view = view

@@ -33,4 +33,3 @@ jobs:
     
     - name: Run iint
       run: ./gradlew lint
-     
