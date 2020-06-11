@@ -14,7 +14,7 @@ import org.junit.Before
 import org.junit.Test
 
 internal class LoginPresenterTest {
-    
+
     @MockK
     private lateinit var view: LoginContract.View
 
@@ -201,13 +201,13 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN WrongEmailDomainUsage name, WHEN name changed, THEN update message view with error`() {
+    fun `GIVEN ToSmall name, WHEN name changed, THEN update message view with error`() {
         //GIVEN
         val error = "what?"
         val errorModel = LoginErrorModel(error)
-        val login = "Spyro@a@"
+        val login = "abc"
         val loginNameDomain = LoginNameDomain(login)
-        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.WrongEmailDomainUsage)
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.ToSmall)
         val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
@@ -247,6 +247,52 @@ internal class LoginPresenterTest {
     }
 
     @Test
+    fun `GIVEN WrongEmailDomainUsage name, WHEN name changed, THEN update message view with error`() {
+        //GIVEN
+        val error = "what?"
+        val errorModel = LoginErrorModel(error)
+        val login = "Spyro@a@"
+        val loginNameDomain = LoginNameDomain(login)
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.WrongEmailDomainUsage)
+        val expectedError = LoginModel.Error(errorModel)
+
+        coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
+        coEvery { modelMapper.loginErrorToModel(expected) } returns expectedError
+
+        //WHEN
+        presenter.onLoginInputChanged(login)
+
+        //THEN
+        verify {
+            view.setLoginCheckBoxAsFalse()
+            view.updateLoginTextViewErrorMessage(expectedError)
+        }
+    }
+
+    @Test
+    fun `GIVEN TooLongDomain name, WHEN name changed, THEN update message view with error`() {
+        //GIVEN
+        val error = "what?"
+        val errorModel = LoginErrorModel(error)
+        val login = "Spyro@as.com.uk.pl.br.toolong"
+        val loginNameDomain = LoginNameDomain(login)
+        val expected = LoginNameValidationDomain.Invalid(LoginValidationError.TooLongDomain)
+        val expectedError = LoginModel.Error(errorModel)
+
+        coEvery { interactor.loginNameValidation(loginNameDomain) } returns expected
+        coEvery { modelMapper.loginErrorToModel(expected) } returns expectedError
+
+        //WHEN
+        presenter.onLoginInputChanged(login)
+
+        //THEN
+        verify {
+            view.setLoginCheckBoxAsFalse()
+            view.updateLoginTextViewErrorMessage(expectedError)
+        }
+    }
+
+    @Test
     fun `GIVEN WrongCharacters name, WHEN name changed, THEN update message view with error`() {
         //GIVEN
         val error = "what?"
@@ -266,29 +312,6 @@ internal class LoginPresenterTest {
         verify {
             view.setLoginCheckBoxAsFalse()
             view.updateLoginTextViewErrorMessage(expectedError)
-        }
-    }
-
-    @Test
-    fun `GIVEN ToSmall password, WHEN password changed, THEN update message view with error`() {
-        //GIVEN
-        val error = "what?"
-        val errorModel = LoginErrorModel(error)
-        val password = "Spy"
-        val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.ToSmall)
-        val expectedError = LoginModel.Error(errorModel)
-
-        coEvery { interactor.passwordValidation(passwordDomain) } returns expected
-        coEvery { modelMapper.passwordErrorToModel(expected) } returns expectedError
-
-        //WHEN
-        presenter.onPasswordInputChanged(password)
-
-        //THEN
-        verify {
-            view.setPasswordCheckBoxAsFalse()
-            view.updatePasswordTextViewErrorMessage(expectedError)
         }
     }
 
@@ -316,13 +339,13 @@ internal class LoginPresenterTest {
     }
 
     @Test
-    fun `GIVEN NoDigit password, WHEN password changed, THEN update message view with error`() {
+    fun `GIVEN ToSmall password, WHEN password changed, THEN update message view with error`() {
         //GIVEN
         val error = "what?"
         val errorModel = LoginErrorModel(error)
-        val password = "aaaaaaAA"
+        val password = "Spy"
         val passwordDomain = LoginPasswordDomain(password)
-        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoDigit)
+        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.ToSmall)
         val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.passwordValidation(passwordDomain) } returns expected
@@ -369,6 +392,29 @@ internal class LoginPresenterTest {
         val password = "thatslow123"
         val passwordDomain = LoginPasswordDomain(password)
         val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoUpperCase)
+        val expectedError = LoginModel.Error(errorModel)
+
+        coEvery { interactor.passwordValidation(passwordDomain) } returns expected
+        coEvery { modelMapper.passwordErrorToModel(expected) } returns expectedError
+
+        //WHEN
+        presenter.onPasswordInputChanged(password)
+
+        //THEN
+        verify {
+            view.setPasswordCheckBoxAsFalse()
+            view.updatePasswordTextViewErrorMessage(expectedError)
+        }
+    }
+
+    @Test
+    fun `GIVEN NoDigit password, WHEN password changed, THEN update message view with error`() {
+        //GIVEN
+        val error = "what?"
+        val errorModel = LoginErrorModel(error)
+        val password = "aaaaaaAA"
+        val passwordDomain = LoginPasswordDomain(password)
+        val expected = LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoDigit)
         val expectedError = LoginModel.Error(errorModel)
 
         coEvery { interactor.passwordValidation(passwordDomain) } returns expected
