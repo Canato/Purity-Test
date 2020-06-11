@@ -20,24 +20,22 @@ internal class LoginModelMapperDefault(
 
     override fun passwordErrorToModel(domain: LoginPasswordValidationDomain.Invalid): LoginModel.Error =
         when (domain) {
+            LoginPasswordValidationDomain.Invalid(PasswordValidationError.EmptyPassword) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_empty_password)))
             LoginPasswordValidationDomain.Invalid(PasswordValidationError.ToSmall) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_to_small)))
-            LoginPasswordValidationDomain.Invalid(PasswordValidationError.WrongCharacters) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_wrong_characters)))
             LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoUpperCase) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_no_upper_case)))
             LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoLowerCase) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_no_lower_case)))
             LoginPasswordValidationDomain.Invalid(PasswordValidationError.NoDigit) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_no_digit)))
-            LoginPasswordValidationDomain.Invalid(PasswordValidationError.EmptyPassword) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_empty_password)))
-            else -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.unknown_error)))
+            else -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_password_wrong_characters)))
         }
 
     override fun loginErrorToModel(domain: LoginNameValidationDomain.Invalid): LoginModel.Error =
         when (domain) {
+            LoginNameValidationDomain.Invalid(LoginValidationError.EmptyLogin) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_empty_login)))
             LoginNameValidationDomain.Invalid(LoginValidationError.ToSmall) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_to_small)))
             LoginNameValidationDomain.Invalid(LoginValidationError.MissingAtSign) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_missing_at_sign)))
-            LoginNameValidationDomain.Invalid(LoginValidationError.WrongCharacters) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_wrong_characters)))
             LoginNameValidationDomain.Invalid(LoginValidationError.WrongEmailDomainUsage) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_wrong_email_domain_usage)))
             LoginNameValidationDomain.Invalid(LoginValidationError.TooLongDomain) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_too_long_domain)))
-            LoginNameValidationDomain.Invalid(LoginValidationError.EmptyLogin) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_empty_login)))
-            else -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.unknown_error)))
+            else -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_wrong_characters)))
         }
 
 }
