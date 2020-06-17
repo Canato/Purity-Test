@@ -13,6 +13,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
+@ExperimentalCoroutinesApi
 internal class LoginPresenterTest {
 
     @MockK
@@ -33,7 +34,6 @@ internal class LoginPresenterTest {
     @InjectMockKs
     private lateinit var presenter: LoginPresenter
 
-    @ExperimentalCoroutinesApi
     @Before
     fun setup() {
         MockKAnnotations.init(this, relaxed = true)

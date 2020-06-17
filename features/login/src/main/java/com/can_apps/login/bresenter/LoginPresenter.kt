@@ -5,14 +5,15 @@ import com.can_apps.common.CoroutineDispatcherFactory
 import com.can_apps.login.R
 import com.can_apps.login.core.*
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
+@ExperimentalCoroutinesApi
 internal class LoginPresenter(
     private val interactor: LoginContract.Interactor,
     private val dispatcher: CoroutineDispatcherFactory,
@@ -31,9 +32,15 @@ internal class LoginPresenter(
 
     private val passwordChannel = Channel<OnPasswordChangedEvent>(Channel.CONFLATED)
 
+    //TODO discuss the issue with Canato
+    private val _loginFlow: MutableStateFlow<OnLoginChangedEvent> = MutableStateFlow(OnLoginChangedEvent(" "))
+    private val loginFlow: StateFlow<OnLoginChangedEvent>
+        get() = _loginFlow
+
     override fun bind(view: LoginContract.View) {
         this.view = view
         verifyPassword(passwordChannel)
+        verifyLogin(loginFlow)
     }
 
     override fun unbind() {
@@ -67,34 +74,34 @@ internal class LoginPresenter(
     }
 
     override fun onLoginInputChanged(login: String) {
-        verifyLogin(generateFlow(login))
+        _loginFlow.value = OnLoginChangedEvent(login)
     }
 
     override fun onPasswordInputChanged(password: String) {
         passwordChannel.offer(OnPasswordChangedEvent(password))
     }
 
-    private fun generateFlow(login: String): Flow<OnLoginChangedEvent>
-        = flow { emit(OnLoginChangedEvent(login)) }
-
-    private fun CoroutineScope.verifyLogin(flow: Flow<OnLoginChangedEvent>) = launch(dispatcher.IO) {
-        flow.conflate().collect{
-        when (val domain = interactor.loginNameValidation(LoginNameDomain(it.value))) {
-            is LoginNameValidationDomain.Valid -> {
-                checkLoginBox(true)
-                updateLoginView(null)
-                loginValid = true
-                updateButtonsFunction(loginValid && passwordValid)
-            }
-            is LoginNameValidationDomain.Invalid -> {
-                checkLoginBox(false)
-                val model = modelMapper.loginErrorToModel(domain)
-                updateLoginView(model)
-                loginValid = false
-                updateButtonsFunction(loginValid && passwordValid)
+    private fun CoroutineScope.verifyLogin(flow: StateFlow<OnLoginChangedEvent>) =
+        launch(dispatcher.IO) {
+            flow.collect {
+                val login = it.value
+                when (val domain = interactor.loginNameValidation(LoginNameDomain(login))) {
+                    is LoginNameValidationDomain.Valid -> {
+                        checkLoginBox(true)
+                        updateLoginView(null)
+                        loginValid = true
+                        updateButtonsFunction(loginValid && passwordValid)
+                    }
+                    is LoginNameValidationDomain.Invalid -> {
+                        checkLoginBox(false)
+                        val model = modelMapper.loginErrorToModel(domain)
+                        updateLoginView(model)
+                        loginValid = false
+                        updateButtonsFunction(loginValid && passwordValid)
+                    }
+                }
             }
         }
-    }}
 
     private fun CoroutineScope.verifyPassword(
         receiveChannel: ReceiveChannel<OnPasswordChangedEvent>
