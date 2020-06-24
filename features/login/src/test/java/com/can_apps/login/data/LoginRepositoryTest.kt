@@ -1,9 +1,7 @@
 package com.can_apps.login.data
 
-import com.can_apps.login.core.LoginDomain
-import com.can_apps.login.core.LoginErrorDomain
-import com.can_apps.login.core.LoginNameDomain
-import com.can_apps.login.core.LoginPasswordDomain
+import com.can_apps.login.core.*
+import com.can_apps.login.data.firebase_data_source.FireBaseUserEmail
 import com.can_apps.login.data.firebase_data_source.FirebaseApi
 import com.can_apps.login.data.firebase_data_source.FirebaseDto
 import io.mockk.*
@@ -28,12 +26,6 @@ internal class LoginRepositoryTest {
     @Before
     fun setup() = MockKAnnotations.init(this, relaxed = true)
 
-    //Method                   TRUE/FALSE/EXCEPTION
-    //api.signInExistingUser    ok/ok/ok
-    //api.createNewUser         ok/no need/ok
-    //api.checkLogInStatus()    ok/ok/ok
-    //api.logout()              ok
-
     @Test
     fun `GIVEN valid parameters, WHEN sign in user, THEN return LoginDomain_Success`() {
         //GIVEN
@@ -41,8 +33,12 @@ internal class LoginRepositoryTest {
         val password = "sandals"
         val nameDomain = LoginNameDomain(name)
         val passwordDomain = LoginPasswordDomain(password)
-        val dto = FirebaseDto.Valid
         val expected = LoginDomain.Success
+
+        val firebaseEmail = "any given email"
+        val firebaseEmailDomain = FireBaseUserEmail(firebaseEmail)
+
+        val dto = FirebaseDto.Valid(firebaseEmailDomain)
 
         coEvery { api.signInExistingUser(name, password)} returns dto
         coEvery { dtoMapper.toDomain(dto) } returns expected
@@ -105,8 +101,12 @@ internal class LoginRepositoryTest {
         val password = "sandals"
         val nameDomain = LoginNameDomain(name)
         val passwordDomain = LoginPasswordDomain(password)
-        val dto = FirebaseDto.Valid
         val expected = LoginDomain.Success
+
+        val firebaseEmail = "any given email"
+        val firebaseEmailDomain = FireBaseUserEmail(firebaseEmail)
+
+        val dto = FirebaseDto.Valid(firebaseEmailDomain)
 
         coEvery { api.createNewUser(name, password)} returns dto
         coEvery { dtoMapper.toDomain(dto) } returns expected
@@ -143,8 +143,12 @@ internal class LoginRepositoryTest {
     @Test
     fun `GIVEN api currentUser is not null, WHEN checkLogInStatus , THEN return LoginDomain_Success`() {
         //GIVEN
-        val dto = FirebaseDto.Valid
         val expected = LoginDomain.Success
+
+        val firebaseEmail = "Sherlock@Holmes.au"
+        val firebaseEmailDomain = FireBaseUserEmail(firebaseEmail)
+
+        val dto = FirebaseDto.Valid(firebaseEmailDomain)
 
         coEvery { api.checkLogInStatus()} returns dto
         coEvery { dtoMapper.toDomain(dto) } returns expected
