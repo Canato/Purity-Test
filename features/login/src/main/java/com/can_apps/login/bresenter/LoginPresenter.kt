@@ -33,14 +33,13 @@ internal class LoginPresenter(
     private val passwordChannel = Channel<OnPasswordChangedEvent>(Channel.CONFLATED)
 
     //TODO discuss the issue with Canato
-    private val _loginFlow: MutableStateFlow<OnLoginChangedEvent> = MutableStateFlow(OnLoginChangedEvent(" "))
+    private val _loginFlow: MutableStateFlow<OnLoginChangedEvent> = MutableStateFlow(OnLoginChangedEvent(""))
     private val loginFlow: StateFlow<OnLoginChangedEvent>
         get() = _loginFlow
 
     override fun bind(view: LoginContract.View) {
         this.view = view
         verifyPassword(passwordChannel)
-        verifyLogin(loginFlow)
     }
 
     override fun unbind() {
@@ -75,6 +74,7 @@ internal class LoginPresenter(
 
     override fun onLoginInputChanged(login: String) {
         _loginFlow.value = OnLoginChangedEvent(login)
+        verifyLogin(loginFlow)
     }
 
     override fun onPasswordInputChanged(password: String) {
