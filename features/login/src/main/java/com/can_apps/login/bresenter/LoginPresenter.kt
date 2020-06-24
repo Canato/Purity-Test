@@ -6,6 +6,8 @@ import com.can_apps.login.R
 import com.can_apps.login.core.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
@@ -25,7 +27,13 @@ internal class LoginPresenter(
     override val coroutineContext: CoroutineContext
         get() = dispatcher.UI + job
 
-    override fun bind(view: LoginContract.View) { this.view = view }
+    private val passwordChannel = Channel<OnPasswordChangedEvent>(Channel.CONFLATED)
+    //todo tomasz, create the same behaviour for LoginName with Flow
+
+    override fun bind(view: LoginContract.View) {
+        this.view = view
+        verifyPassword(passwordChannel)
+    }
 
     override fun unbind() {
         job.cancel()
@@ -39,9 +47,13 @@ internal class LoginPresenter(
 
     override fun onBackPressed() { view?.close() }
 
-    override fun onSignClicked(loginName: String, password: String) { signInUser(loginName, password) }
+    override fun onSignClicked(loginName: String, password: String) {
+        signInUser(loginName, password)
+    }
 
-    override fun onCreateLoginClicked(loginName: String, password: String) { createNewUser(loginName, password) }
+    override fun onCreateLoginClicked(loginName: String, password: String) {
+        createNewUser(loginName, password)
+    }
 
     override fun logoutUser() { logout() }
 
@@ -49,7 +61,9 @@ internal class LoginPresenter(
 
     override fun onLoginInputChanged(login: String) { verifyLogin(login) }
 
-    override fun onPasswordInputChanged(password: String) { verifyPassword(password) }
+    override fun onPasswordInputChanged(password: String) {
+        passwordChannel.offer(OnPasswordChangedEvent(password))
+    }
 
     private fun CoroutineScope.verifyLogin(login: String) = launch(dispatcher.IO) {
         when (val domain = interactor.loginNameValidation(LoginNameDomain(login))) {
@@ -69,20 +83,29 @@ internal class LoginPresenter(
         }
     }
 
-    private fun CoroutineScope.verifyPassword(password: String) = launch(dispatcher.IO) {
-        when (val domain = interactor.passwordValidation(LoginPasswordDomain(password))) {
-            is LoginPasswordValidationDomain.Valid -> {
-                checkPasswordBox(true)
-                updatePasswordView(null)
-                passwordValid = true
-                updateButtonsFunction(loginValid && passwordValid)
-            }
-            is LoginPasswordValidationDomain.Invalid -> {
-                checkPasswordBox(false)
-                val model = modelMapper.passwordErrorToModel(domain)
-                updatePasswordView(model)
-                passwordValid = false
-                updateButtonsFunction(loginValid && passwordValid)
+    private fun CoroutineScope.verifyPassword(
+        receiveChannel: ReceiveChannel<OnPasswordChangedEvent>
+    ) = launch(dispatcher.IO) {
+        for (event in receiveChannel) {
+            when(event) {
+                is OnPasswordChangedEvent -> {
+                    when (val domain = interactor.passwordValidation(LoginPasswordDomain(event.value))) {
+                        is LoginPasswordValidationDomain.Valid -> {
+                            checkPasswordBox(true)
+                            updatePasswordView(null)
+                            passwordValid = true
+                            updateButtonsFunction(loginValid && passwordValid)
+                        }
+                        is LoginPasswordValidationDomain.Invalid -> {
+                            checkPasswordBox(false)
+                            val model = modelMapper.passwordErrorToModel(domain)
+                            updatePasswordView(model)
+                            passwordValid = false
+                            updateButtonsFunction(loginValid && passwordValid)
+                        }
+                    }
+                }
+                else -> { } //do nothing
             }
         }
     }
