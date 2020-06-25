@@ -1,8 +1,8 @@
-include ':features:questions_data_source'
 include ':app',
         ':common',
 
         // Features Module
         ':features',
         ':features:login',
-        ':features:questions'
+        ':features:questions',
+        ':features:questions_data_source'
