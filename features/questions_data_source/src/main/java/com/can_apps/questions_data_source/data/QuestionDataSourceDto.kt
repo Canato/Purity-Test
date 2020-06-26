@@ -1,15 +1,22 @@
 package com.can_apps.questions_data_source.data
 
-import com.can_apps.questions_data_source.data.model.Question
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class QuestionDataSourceDto(
+internal class QuestionDataSourceDto(
     @SerializedName("category_name")
-    @Expose
     var categoryName: String,
 
     @SerializedName("questions")
-    @Expose
-    var questions: List<Question>
+    var questions: Set<Question>
+)
+
+internal data class Question(
+    @SerializedName("id")
+    var id: Int,
+
+    @SerializedName("question")
+    var questionResourceNumber: Int,
+
+    @SerializedName("isSelected")
+    var isSelected: Boolean
 )
