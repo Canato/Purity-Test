@@ -14,9 +14,6 @@ internal data class Question(
     @SerializedName("id")
     var id: Int,
 
-    @SerializedName("question")
-    var questionResourceNumber: Int,
-
-    @SerializedName("isSelected")
-    var isSelected: Boolean
+    @SerializedName("weight")
+    var weight: Int
 )
