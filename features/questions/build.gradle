@@ -34,6 +34,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':common')
+    implementation project(':features:questions_data_source')
 
     implementation "androidx.appcompat:appcompat:$appcompact_version"
     implementation "androidx.core:core-ktx:$core_version"

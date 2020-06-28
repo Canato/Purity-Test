@@ -13,13 +13,15 @@ internal class QuestionsModelMapperTest {
         //GIVEN
         val questionId = 42UL
         val question = "Nice question to answer"
+        val questionCategory = "sexlife"
 
         val domain = QuestionsDomain.Valid(
-            listOf(QuestionDetailsDomain(
+            setOf(QuestionDetailsDomain(
                 QuestionIdDomain(questionId),
                 QuestionDomain(question),
                 false,
-                QuestionWeightDomain(9)
+                QuestionWeightDomain(9),
+                QuestionCategoryDomain(questionCategory)
             ))
         )
 

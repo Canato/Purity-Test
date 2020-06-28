@@ -15,5 +15,5 @@ internal class QuestionsModelMapperDefault : QuestionsModelMapper {
                 QuestionModel(it.question.value),
                 QuestionIdModel(it.id.value)
             )
-        }
+        }.toList()
 }
