@@ -3,13 +3,14 @@ package com.can_apps.questions.app
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.questions.R
 import com.can_apps.questions.bresenter.QuestionIdModel
 import com.can_apps.questions.bresenter.QuestionsModel
 
 internal class QuestionsRecyclerViewAdapter(
     private val listener: Listener
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<QuestionItemViewHolder>() {
 
     interface Listener {
         fun onItemSelected(questionId: QuestionIdModel)
@@ -17,23 +18,25 @@ internal class QuestionsRecyclerViewAdapter(
 
     private var questions = emptyList<QuestionsModel>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionItemViewHolder =
         QuestionItemViewHolder(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.item_question_item,
                 parent,
                 false
             ),
-            listener
+            listener,
+            CommonStringResourceWrapper(parent.context)
         )
 
     override fun getItemCount(): Int = questions.size
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        questions[position].let { (holder as QuestionItemViewHolder).bindView(it) }
+    override fun onBindViewHolder(holder: QuestionItemViewHolder, position: Int) {
+        holder.bindView(questions[position])
     }
 
     fun updateList(model: List<QuestionsModel>) {
         questions = model
+        notifyDataSetChanged()
     }
 }

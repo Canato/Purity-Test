@@ -42,7 +42,7 @@ internal class QuestionsPresenter(
                 showList(model)
             }
             is QuestionsDomain.Error -> {
-                showError(domain.message)
+                showError(domain.message.value)
             }
         }
     }

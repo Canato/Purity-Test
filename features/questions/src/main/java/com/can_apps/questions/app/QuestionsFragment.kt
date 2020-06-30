@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.questions.R
 import com.can_apps.questions.bresenter.QuestionIdModel
 import com.can_apps.questions.bresenter.QuestionsModel
@@ -41,6 +43,10 @@ internal class QuestionsFragment :
         presenter.bind(this)
         setOnBackPressedCallback()
         presenter.onViewCreated()
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            recyclerView.adapter = recyclerViewAdapter
+        }
     }
 
     private fun setOnBackPressedCallback() {

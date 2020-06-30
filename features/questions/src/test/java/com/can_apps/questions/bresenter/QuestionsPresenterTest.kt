@@ -2,6 +2,7 @@ package com.can_apps.questions.bresenter
 
 import com.can_apps.common.CoroutineDispatcherFactory
 import com.can_apps.common.CoroutineDispatcherFactoryUnconfined
+import com.can_apps.questions.core.QuestionErrorDomain
 import com.can_apps.questions.core.QuestionsContract
 import com.can_apps.questions.core.QuestionsDomain
 import io.mockk.*
@@ -62,7 +63,8 @@ internal class QuestionsPresenterTest {
     fun `GIVEN invalid data, WHEN on create view, THEN show error` () {
         //GIVEN
         val message = "ErrorCheck"
-        val domain = QuestionsDomain.Error(message)
+        val questionErrorDomain = QuestionErrorDomain(message)
+        val domain = QuestionsDomain.Error(questionErrorDomain)
 
         coEvery { interactor.retrieveList() } returns domain
 

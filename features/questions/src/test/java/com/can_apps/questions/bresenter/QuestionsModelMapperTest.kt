@@ -11,24 +11,30 @@ internal class QuestionsModelMapperTest {
     @Test
     fun `GIVEN domain, WHEN map, THEN return model`() {
         //GIVEN
-        val questionId = 42UL
-        val question = "Nice question to answer"
+        val questionId = 0
         val questionCategory = "sexlife"
+        val questionWeight = 0
+        val questionIsSelected = false
 
         val domain = QuestionsDomain.Valid(
-            setOf(QuestionDetailsDomain(
-                QuestionIdDomain(questionId),
-                QuestionDomain(question),
-                false,
-                QuestionWeightDomain(9),
-                QuestionCategoryDomain(questionCategory)
-            ))
+            setOf(
+                QuestionDetailsDomain(
+                    QuestionCategoryDomain(questionCategory),
+                    QuestionIdDomain(questionId),
+                    QuestionWeightDomain(questionWeight),
+                    QuestionSelectedDomain(questionIsSelected)
+                )
+            )
         )
 
-        val expected = listOf(QuestionsModel(
-            QuestionModel(question),
-            QuestionIdModel(questionId)
-        ))
+        val expected = listOf(
+            QuestionsModel(
+                QuestionCategoryModel(questionCategory),
+                QuestionIdModel(questionId),
+                QuestionWeightModel(questionWeight),
+                QuestionSelectedModel(questionIsSelected)
+            )
+        )
 
         //WHEN
         val result = mapper.toModel(domain)

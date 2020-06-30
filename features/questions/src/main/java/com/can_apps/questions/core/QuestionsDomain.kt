@@ -7,19 +7,19 @@ internal sealed class QuestionsDomain {
     ) : QuestionsDomain()
 
     data class Error(
-        val message: String
+        val message: QuestionErrorDomain
     ) : QuestionsDomain()
 }
 
 internal data class QuestionDetailsDomain (
+    val category: QuestionCategoryDomain,
     val id: QuestionIdDomain,
-    val question: QuestionDomain,
-    val isSelected: Boolean,
     val weight: QuestionWeightDomain,
-    val category: QuestionCategoryDomain
+    val isSelected: QuestionSelectedDomain
     )
 
-internal inline class QuestionDomain(val value: String)
-internal inline class QuestionIdDomain(val value: ULong)
+internal inline class QuestionIdDomain(val value: Int)
 internal inline class QuestionWeightDomain(val value: Int)
 internal inline class QuestionCategoryDomain(val value: String)
+internal inline class QuestionSelectedDomain(val value: Boolean)
+internal inline class QuestionErrorDomain(val value: String)

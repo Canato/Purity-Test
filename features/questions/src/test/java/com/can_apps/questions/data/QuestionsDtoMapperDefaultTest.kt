@@ -32,17 +32,17 @@ internal class QuestionsDtoMapperDefaultTest {
         //GIVEN
         val questionId = mockk<Int>(relaxed = true)
         val questionWeight = mockk<Int>(relaxed = true)
+        val questionSelected =  mockk<Boolean>(relaxed = true)
         val questionSet = setOf(Question(questionId,questionWeight))
         val questionCategoryName = "some fancy category"
         val questionDataSourceSet = setOf(QuestionsDataSourceDto(questionCategoryName, questionSet))
         val questionsDto = QuestionsDto.Valid(questionDataSourceSet)
 
         val questionDetailsDomain = QuestionDetailsDomain(
-            QuestionIdDomain(0u),
-            QuestionDomain(questionId.toString()),
-            false,
+            QuestionCategoryDomain(questionCategoryName),
+            QuestionIdDomain(questionId),
             QuestionWeightDomain(questionWeight),
-            QuestionCategoryDomain(questionCategoryName)
+            QuestionSelectedDomain(questionSelected)
         )
 
         val questionDomainSet = setOf(questionDetailsDomain)
@@ -61,7 +61,8 @@ internal class QuestionsDtoMapperDefaultTest {
         //GIVEN
         val message = "iOS sucks"
         val questionsDto = QuestionsDto.Invalid
-        val expected = QuestionsDomain.Error(message)
+        val questionErrorDomain = QuestionErrorDomain(message)
+        val expected = QuestionsDomain.Error(questionErrorDomain)
 
         coEvery { stringResource.getString(R.string.questions_dto_error) } returns message
 
