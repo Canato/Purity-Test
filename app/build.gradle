@@ -4,13 +4,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion Versions.compileSDK
 
     defaultConfig {
-        applicationId "com.can_apps.purity_test"
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion Versions.minSDK
+        targetSdkVersion Versions.targetSDK
         versionCode 1
         versionName "1.0"
 
@@ -19,7 +17,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -28,18 +26,18 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
-    // add the Firebase SDK for Google Analytics
-    implementation 'com.google.firebase:firebase-analytics:17.3.0'
 
     implementation project(':common')
     implementation project(':features:questions')
     implementation project(':features:login')
+
+    implementation Deps.kotlinStdLib
+    implementation Deps.appcompat
+    implementation Deps.coreKtx
+    implementation Deps.constraintLayout
+
+    implementation Deps.firebaseAuth
+
+    testImplementation DepsTest.junit
+    testImplementation DepsTest.espressoCore
 }
