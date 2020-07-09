@@ -10,6 +10,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
+import io.mockk.verify
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -28,7 +29,7 @@ internal class QuestionsIdAssetMapperDefaultTest {
     @Test
     fun `GIVEN drugs category, WHEN mapAssetId, THEN return QuestionIdDomainEnum`() {
         //GIVEN
-        val id = mockk<Int>()
+        val id = mockk<Int>(relaxed = true)
         val category = QuestionCategoryDomainEnum.DRUGS
         val expected = mockk<QuestionIdDomainEnum>()
 
@@ -38,13 +39,16 @@ internal class QuestionsIdAssetMapperDefaultTest {
         val result = assetIdMapper.mapAssetId(category, id)
 
         //THEN
+        verify {
+            idDomainMapper.mapIdToDrugsDomain(id)
+        }
         Assert.assertEquals(expected, result)
     }
 
     @Test
     fun `GIVEN sex category, WHEN mapAssetId, THEN return QuestionIdDomainEnum`() {
         //GIVEN
-        val id = mockk<Int>()
+        val id = mockk<Int>(relaxed = true)
         val category = QuestionCategoryDomainEnum.SEX
         val expected = mockk<QuestionIdDomainEnum>()
 
@@ -54,13 +58,16 @@ internal class QuestionsIdAssetMapperDefaultTest {
         val result = assetIdMapper.mapAssetId(category, id)
 
         //THEN
+        verify {
+            idDomainMapper.mapIdToSexDomain(id)
+        }
         Assert.assertEquals(expected, result)
     }
 
     @Test
     fun `GIVEN religion category, WHEN mapAssetId, THEN return QuestionIdDomainEnum`() {
         //GIVEN
-        val id = mockk<Int>()
+        val id = mockk<Int>(relaxed = true)
         val category = QuestionCategoryDomainEnum.RELIGION
         val expected = mockk<QuestionIdDomainEnum>()
 
@@ -70,6 +77,9 @@ internal class QuestionsIdAssetMapperDefaultTest {
         val result = assetIdMapper.mapAssetId(category, id)
 
         //THEN
+        verify {
+            idDomainMapper.mapIdToReligionDomain(id)
+        }
         Assert.assertEquals(expected, result)
     }
 }
