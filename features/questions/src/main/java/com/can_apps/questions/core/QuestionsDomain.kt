@@ -12,14 +12,25 @@ internal sealed class QuestionsDomain {
 }
 
 internal data class QuestionDetailsDomain (
-    val category: QuestionCategoryDomain,
-    val id: QuestionIdDomain,
+    val category: QuestionCategoryDomainEnum,
+    val id: QuestionIdDomainEnum,
     val weight: QuestionWeightDomain,
     val isSelected: QuestionSelectedDomain
     )
 
-internal inline class QuestionIdDomain(val value: Int)
+internal enum class QuestionCategoryDomainEnum {
+    DRUGS, SEX, RELIGION
+}
+
+internal enum class QuestionIdDomainEnum {
+    DRUGS_SMOKE,
+    DRUGS_USAGE,
+    DRUGS_QUANTITY,
+    DRUGS_JAIL,
+    SEX_SAME,
+    RELIGION_ANTI
+}
+
 internal inline class QuestionWeightDomain(val value: Int)
-internal inline class QuestionCategoryDomain(val value: String)
 internal inline class QuestionSelectedDomain(val value: Boolean)
 internal inline class QuestionErrorDomain(val value: String)

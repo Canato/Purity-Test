@@ -3,9 +3,8 @@ package com.can_apps.questions.data
 import com.can_apps.questions.core.QuestionDetailsDomain
 import com.can_apps.questions.core.QuestionErrorDomain
 import com.can_apps.questions.core.QuestionsDomain
-import com.can_apps.questions.data.questions_data_source.QuestionsApi
-import com.can_apps.questions.data.questions_data_source.QuestionsDto
 import com.can_apps.questions.data.questions_data_source.QuestionsDtoMapper
+import com.can_apps.questions_data_source.data.QuestionsDataSourceAssets
 import com.can_apps.questions_data_source.data.QuestionsDataSourceDto
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -13,14 +12,14 @@ import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class QuestionsRepositoryTest{
+class QuestionsRepositoryTest {
 
     @MockK
-    private lateinit var api: QuestionsApi
+    private lateinit var asset: QuestionsDataSourceAssets
 
     @MockK
     private lateinit var dtoMapper: QuestionsDtoMapper
@@ -39,10 +38,9 @@ class QuestionsRepositoryTest{
         val expected = QuestionsDomain.Valid(setQuestionDetailsDomain)
 
         val setQuestionsDataSourceDto = setOf(mockk<QuestionsDataSourceDto>(relaxed = true))
-        val dto = QuestionsDto.Valid(setQuestionsDataSourceDto)
 
-        coEvery { api.fetchAsset()} returns dto
-        coEvery { dtoMapper.dtoToDomain(dto) } returns expected
+        coEvery { asset.getQuestions() } returns setQuestionsDataSourceDto
+        coEvery { dtoMapper.assetToDomain(setQuestionsDataSourceDto) } returns expected
 
         //WHEN
         val result = runBlocking { repository.retrieveList() }
@@ -56,12 +54,12 @@ class QuestionsRepositoryTest{
         //GIVEN
         val message = "you shall not pass"
         val errorDomain = QuestionErrorDomain(message)
+        val emptySet = emptySet<QuestionsDataSourceDto>()
         val expected = QuestionsDomain.Error(errorDomain)
 
-        val dto = QuestionsDto.Invalid
 
-        coEvery { api.fetchAsset()} returns dto
-        coEvery { dtoMapper.dtoToDomain(dto) } returns expected
+        coEvery { asset.getQuestions() } returns emptySet
+        coEvery { dtoMapper.assetToDomain(emptySet) } returns expected
 
         //WHEN
         val result = runBlocking { repository.retrieveList() }
