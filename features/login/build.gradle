@@ -3,12 +3,11 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion Versions.compileSDK
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion Versions.minSDK
+        targetSdkVersion Versions.targetSDK
         versionCode 1
         versionName "1.0"
 
@@ -18,7 +17,6 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -34,28 +32,26 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation "androidx.appcompat:appcompat:$appcompact_version"
-    implementation "androidx.core:core-ktx:$core_version"
+    implementation project(':common')
+
+    implementation Deps.appcompat
+    implementation Deps.coreKtx
 
     //layout
-    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+    implementation Deps.recyclerView
 
     //snackbar
-    implementation "com.google.android.material:material:$material_design_version"
+    implementation Deps.materialDesign
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutine_services_version"
+    implementation Deps.kotlinStdLib
+    implementation Deps.coroutinesPlayService
+    implementation Deps.ktCoroutineAndroid
+    implementation Deps.coroutinesPlayService
 
     //Test
-    testImplementation "junit:junit:$junit_version"
-    testImplementation "io.mockk:mockk:$mockk_version"
-    androidTestImplementation "androidx.test.ext:junit:$junit_android_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_android_version"
+    testImplementation DepsTest.junit
+    testImplementation DepsTest.mockk
 
     // Firebase Auth
-    implementation "com.google.firebase:firebase-auth:$firebase_version"
-
-    implementation project(':common')
+    implementation Deps.firebaseAuth
 }
