@@ -1,0 +1,1 @@
+/Users/victorcanato/StudioProjects/vcanato/purity_test/buildSrc/build/classes/kotlin/main/Deps.class:/Users/victorcanato/StudioProjects/vcanato/purity_test/buildSrc/build/classes/kotlin/main/DepsTest.class:/Users/victorcanato/StudioProjects/vcanato/purity_test/buildSrc/build/classes/kotlin/main/Versions.class
