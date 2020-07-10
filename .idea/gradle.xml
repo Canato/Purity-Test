@@ -17,7 +17,8 @@
             <option value="$PROJECT_DIR$/features" />
             <option value="$PROJECT_DIR$/features/login" />
             <option value="$PROJECT_DIR$/features/questions" />
-            <option value="$PROJECT_DIR$/features/questions_data_source" />
+            <option value="$PROJECT_DIR$/services" />
+            <option value="$PROJECT_DIR$/services/questions_data_source" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

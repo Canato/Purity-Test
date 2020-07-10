@@ -1,0 +1,453 @@
+{
+  "object": [
+    {
+      "subjectName": "banditry",
+      "subjectId": 10,
+      "questions": [
+        {
+          "id": 1001,
+          "score": 1,
+          "question": "Be inspected by police?"
+        },
+        {
+          "id": 1002,
+          "score": 1,
+          "question": "Get a fee for drive drunk?"
+        },
+        {
+          "id": 1003,
+          "score": 1,
+          "question": "Lost the drivers license in a blitz?"
+        },
+        {
+          "id": 1004,
+          "score": 1,
+          "question": "Already go to police office as accused?"
+        },
+        {
+          "id": 1005,
+          "score": 1,
+          "question": "Have some problem with juvenile court?"
+        },
+        {
+          "id": 1006,
+          "score": 1,
+          "question": "Already stole?"
+        },
+        {
+          "id": 1007,
+          "score": 1,
+          "question": "Sold something stolen?"
+        },
+        {
+          "id": 1008,
+          "score": 1,
+          "question": "Have you bought anything stolen?"
+        },
+        {
+          "id": 1009,
+          "score": 1,
+          "question": "Lost the notion when lying?"
+        },
+        {
+          "id": 1010,
+          "score": 3,
+          "question": "Have you ever get/tried to get/ or be close to have sex without the other person want it?"
+        },
+        {
+          "id": 1011,
+          "score": 2,
+          "question": "Already make someone pregnant or got pregnant?"
+        },
+        {
+          "id": 1012,
+          "score": 3,
+          "question": "Have you ever aborted or provided an abortion?"
+        }
+      ]
+    },
+    {
+      "subjectName": "make_out",
+      "subjectId": 20,
+      "questions": [
+        {
+          "id": 2001,
+          "score": 1,
+          "question": "Already go for a night party?"
+        },
+        {
+          "id": 2002,
+          "score": 1,
+          "question": "Already stayed with a person in the party?"
+        },
+        {
+          "id": 2003,
+          "score": 2,
+          "question": "a Man/woman"
+        },
+        {
+          "id": 2004,
+          "score": 1,
+          "question": "One unknown?"
+        },
+        {
+          "id": 2005,
+          "score": 1,
+          "question": "Already got three or more the same night?"
+        },
+        {
+          "id": 2006,
+          "score": 1,
+          "question": "Already catch really hard with a woman? || Already catch really hard with a man?"
+        },
+        {
+          "id": 2007,
+          "score": 2,
+          "question": "While driving?"
+        },
+        {
+          "id": 2008,
+          "score": 1,
+          "question": "Have you ever had a hand in that, that in your hand?"
+        },
+        {
+          "id": 2009,
+          "score": 1,
+          "question": "Have happens your mouth into that, that in your mouth?"
+        },
+        {
+          "id": 2010,
+          "score": 1,
+          "question": "Tchaca tchaca in butchaca? (a.k.a: rub, seduce, vamp, bait, scrubbing)"
+        },
+        {
+          "id": 2011,
+          "score": 1,
+          "question": "You have already touched a breast?"
+        },
+        {
+          "id": 2012,
+          "score": 1,
+          "question": "&#8230;An Ass?"
+        },
+        {
+          "id": 2013,
+          "score": 1,
+          "question": "&#8230;Genital Organs?"
+        }
+      ]
+    },
+    {
+      "subjectName": "",
+      "subjectId": 99,
+      "questions": [
+        {
+          "id": 9901,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9902,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9903,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9904,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9905,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9906,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9907,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9908,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9909,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9910,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9911,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9912,
+          "score": 0,
+          "question": ""
+        }
+      ]
+    },
+    {
+      "subjectName": "",
+      "subjectId": 99,
+      "questions": [
+        {
+          "id": 9901,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9902,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9903,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9904,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9905,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9906,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9907,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9908,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9909,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9910,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9911,
+          "score": 0,
+          "question": ""
+        },
+        {
+          "id": 9912,
+          "score": 0,
+          "question": ""
+        }
+      ]
+    }
+  ]
+}
+
+
+progresso    Progress
+pr_ximo    Next
+voc_j    Have you ever&#8230;
+avareza    Greed
+gula    Gluttony
+inveja    Envy
+ira    Wrath
+lux_ria    Lust
+pecados    Sins
+pregui_a    Sloth
+quais_pecados_voc_pratica    What sins do you practice?
+soberba    Pride
+de_um_evento_sexual    &#8230;from a sexual event?
+at_cair    Until you falls?
+at_desmaiar    Until you faint?
+at_entrar_em_coma    Until get in coma?
+at_parar_no_hospital    Go to hospital?
+at_se_mijar_cagar    Until you pee yourself?
+at_vomitar    Until throw up?
+de_palha    Organic?
+drogas_legalizadas    Legalized Drugs
+e_tarja_preta    Black stripe remedy?
+j_dormiu_no_seu_pr_prio_v_mito    Already slept in own vomit?
+j_embebedou_algu_m_com_finalidades_sexuais    Already make someone drunk someone for sexual purposes?
+j_fez_body_shot    Make body-shot?
+j_foi_embebedado_com_finalidades_sexuais    Ever been drunk for sexual purposes?
+j_fumou_narguil    Already smoke Shisha?
+j_fumou_um_cigarro    Already smoke cigarette?
+j_manufaturou_sua_pr_pria_bebida_destilou_fermentou_sua_pr_pria_bebida    Already manufactured his own drink (distilled / fermented his own drink))?
+j_perdeu_a_mem_ria_por_estar_b_bado    Have a blackout because you was drunk?
+j_tomou_bebida_do_ch_o    Already drink somthing from the floor?
+j_tomou_uns_bons_drinque    Already drank a lot of good drinks?
+j_usou_rem_dios_de_tarja_vermelha_pra_ficar_doid_o    Already use some medicine to be high?
+mais_de_tr_s_no_mesmo_dia    More than 3 on the same day?
+mais_de_tr_s_tipos_de_bebidas_alco_licas_juntas    More than 3 differents types of drinks together?
+mais_de_uma_cartela_20_cigarros_por_dia    More than one pack per day?
+pra_dar_pt    To throw up?
+pra_esquecer_algu_m    To forget someone
+pra_ficar_louco    To be crazy?
+amar_a_deus_sobre_todas_as_coisas    Love God above everything
+bonus_round    Bonus Round
+guardar_domingos_e_dias_santos    Rest on sundays and holidays
+honrar_pai_e_m_e    Honor mother and father
+n_o_cobi_ar_as_coisas_alheias    Do not covet other peoples things
+n_o_desejar_a_mulher_do_pr_ximo    Do not wish the wife of the other
+n_o_levantar_falso_testemunho    Do not bear false witness
+n_o_matar    Not kill
+n_o_pecar_contra_a_castidade    Do not sin against chastity
+n_o_roubar    Do not steal
+n_o_tomar_seu_santo_nome_em_v_o    Do not speak the name of God in vain
+quais_dos_dez_mandamentos_j_profanou    Which of the ten commandments have you profaned?
+testes_de_pureza_existem_desde_sempre_n_com_o_avan_o_das_tecnologias_eles_foram_para_os_sites_o_respons_vel_mais_famoso_por_isso_o_john_dubois_com_o_site_http_www_armory_com_tests_purity_html_n_o_brasileiro_mais_famoso_que_fez_a_tradu_o_de_um_dos_testes_o_lond_www_lond_com_br_n_agora_junto_com_alguns_amigos_n_mineira_paracatu_thotas_babi_stifa_b_rbara_anna_carla_tchellows_saul_o_jesine_luci_pikachu_n_pude_trazer_nossa_vers_o_para_o_aplicativo_n_n_aplicativo_e_adapta_o_victor_canato_vcanato_gmail_com_n_designer_algu_m_descubra_n_n_aten_o_algumas_perguntas_foram_adaptadas    Purity tests have been around forever. \nWith the advancement of technologies have gone to the sites, the most famous responsible for this is John DuBois with the website http: //www.armory.com./tests/purity.html. \nThe most famous Brazilian who did the translation of one of the tests is Lond (www.lond.com.br) \n\nNow with some friends: Mineira, Paracatu, Thotas, Babi, Stifa, Barbara, Anna Carla, Tchellows, Saulão, Jesine , Luci, Pikachu. \nI was able to bring our version to the application. \n\nApplication and adaptation Victor Canato (vcanato@gmail.com) \nDesigner Someone (#descubra) \n\n* Attention, some questions have been adapted
+pega_o    FLIRTING
+de_roupas_ntimas    With only underware?
+j_dan_ou_na_mesa_em_um_happy_hour    Already dance on a table in a party?
+j_fez_sexo_na_universidade_faculdade    Already make sex in university?
+string_j_fez_sexo_na_universidade_faculdade" />
+j_foi_pra_um_encontro_universit_rio_n_o_congresso    Already go to a weekend of university partys(travel)?
+na_biblioteca    At the library?
+na_sala_principal_do_ca_da    In the main room of the student center?
+no_centro_acad_mico_diret_rio_acad_mico    In the student center?
+no_laborat_rio    In the lab?
+no_refeit_rio    In the cafeteria/University restaurant?
+pra_cinco_ou_mais    For five or more?
+pra_mais_de_dois    More than two?
+universidade_feelings    University Feelings
+com_quem_voc_estava_fazendo_sexo    &#8230;with someone which you are making sex?
+ja_beijou_uma_prostituta_gogoboy    Already kissed a prostitute/gogoboy?
+j_dan_ou_com_um_a_stripper    Already dance with a stripper?
+j_dan_ou_num_pole_dance    Already use a pole dance?
+j_dormiu_com_mais_de_cinco_pessoas_na_mesma_cama    Sleept with more than five peoples on the same bad?
+j_escondeu_algu_m_em_casa    Already hide someone in home (or be hided)?
+j_pagou_por_sexo    Already pay for sex?
+j_foi_um_a_stripper_ganhou_dinheiro    Already win money as stripper?
+j_pagou_alguma_coisa_com_seu_corpo    Already pay something with your body?
+j_teve_um_orgasmo_e_comemorou_de_forma_n_o_convencional    Ever had an orgasm and celebrated in an unconventional way?
+j_tomou_um_jigllypuf_dar_pt_e_ser_rasbicado_pelos_amiguinhos    Already got a Jigllypuf? (Pass out and people draw in your face)
+j_traiu    Already cheat?
+vida_loka    Crazy Life
+t_usando_isso_aqui_como_check_list    Are you using this as check-list?
+quest_o_final    Last Question
+em_meio_aquoso_piscina_banheira_mar_rio_bacia_do_tanque    In aqueous place(pool, bath, sea, river, tank basin)?
+com_um_animal_como_estimulante    With an animal as a stimulant?
+com_um_vegetal_planta_como_apoio    With a plat as support?
+em_um_piscina_recipiente_com_l_quido_n_o_newtoniano_gua_misturado_com_algo_que_deixe_mais_denso_ex_chocolate    In a pool/container with non-Newtonian liquid? (Water mixed with something that leaves more dense..ex. Chocolate)
+filmou_fotografou_uma_atividade_sexual    Filmed / photographed a sexual activity?
+j_comeu_comendo    Have you eaten in the middle of sex?
+j_deu_ou_recebeu_uma_escorregada_surpresa_tava_num_buraco_quando_eu_vi_tava_no_outro    Have you given or received a slip of surprise?(I was in a hole, when I saw&#8230; it was in the other)
+j_fez_ou_fez_algu_m_fazer_a_chuca    Have you ever done or made someone do the Butt Washer/Anal Cleaning?
+j_fez_ou_fizeram_em_voc_o_bozo_sexo_oral_com_a_mulher_menstruada    Have you done or did some done in you the clown? (Oral sex with menstruating woman)
+j_fez_sexo_com_fantasia_usando_ou_n_o    Have you ever had sex with Fantasy (Using or not)
+j_fez_sexo_com_requintes_escatol_gicos    Has had sex with excreta refinements
+j_fez_sexo_durante_a_menstrua_o    Have had sex during menstruation?
+j_fez_sexo_em_cinco_posi_es_diferentes_em_menos_de_vinte_minutos    Have you ever had sex in five different positions in less than twenty minutes?
+j_fez_sexo_na_rede    Ever had sex on the rest net?
+j_fez_um_69    Already make a 69?
+j_fez_uma_colonoscopia_digital_vulgo_fio_terra    Have you ever had a manual colonoscopy?(a.k.a. finger in asshole)
+no_cinema    On movie theater?
+no_shopping    On a shopping?
+no_telhado_laje_afins    On roof or similar?
+para_o_p_blico_sexo_exibicionista    To the public? (Exhibitionist sex)
+sem_consentimento_dos_demais_envolvidos    Without the consent of others involved?
+sexo_em_lugares_p_blicos    Sex in public places?
+sexo    Sex
+anal    &#8230;Anal?
+com_alguma_das_pessoas_envolvidas_dormindo    With any of the people involved sleeping?
+com_algu_m_da_mesma_fam_lia_at_primo_de_segundo_grau    With someone from the same family? (Up to second cousin)
+com_algu_m_dormindo_na_mesma_cama    With someone sleeping in the same bed?
+com_algu_m_dormindo_no_mesmo_quarto_barraca_no_beco_ou_no_carro    With someone sleeping in the same room / tent (in the alley, or in the car)?
+com_algu_m_que_voc_conheceu_a_menos_de_12_horas    With someone you met less than 12 hours?
+com_mais_de_dez_pessoas_na_vida    With more than 10 people in life?
+com_mais_de_tr_s_pessoas_na_vida    With more than 3 people in life?
+com_sex_toys    With sex toys?
+de_cabe_a_pra_baixo    Upside down?
+durante_gr_videz    During pregnancy?
+fez_sexo_mais_de_tr_s_vezes_na_mesma_noite_sem_transa_es_comerciais    Did you have sex more than three times the same night without any business transactions?
+j_fez_sexo_com_um_menor_de_idade_sendo_maior    Have you ever had sex with a minor, being older?
+j_fez_sexo_oral    Have you ever had oral sex?
+j_fez_sexo    Have you had sex?
+j_fez_um_m_nage    Have you done a ménage?
+sexo_sem_camisinha    Sex without condom?
+s_porque_n_o_tava_comendo_nada_fazendo_ningu_m    Just because I was not eating anything, doing nobody?
+tirou_a_virgindade_de_algu_m    Did you take someones virginity?
+um_swing    A swing?
+uma_orgia    A orgy?
+ao_telefone    On telephone?
+com_mais_duas_pessoas_juntas    With two more people together?
+em_uma_chamada_com_v_deo    On a video call?
+foi_pego_se_masturbando    Was you caught masturbating?
+j_foi_masturbado_por_algu_m    Ever been masturbated by someone?
+j_masturbou_algu_m    Have you ever masturbated anyone?
+j_se_masturbou    Ever masturbated?
+masturba_o    masturbation
+um_g_nero_aliment_cio    A foodstuff?
+usando_um_objeto_n_o_sexual    Using a non-sexual object?
+qu_druplo    &#8230;Quadruple?
+abaixo_da_linha_da_cintura    Below waistline?
+abaixo_da_linha_do_equador    Below the equator line?
+abaixo_da_linha_do_ombro    Below shoulder line?
+boca_nervosa    NERVOUS MOUTH
+de_l_ngua    With tongue
+de_selinho    Without tongue?
+deu_recebeu_um_beijo_franco_grego_atente_se_para_o_que_um_beijo_franc_s_e_um_beijo_grego    Did you receive a Franco-Greek kiss? (Watch out for what a French kiss is, and a Greek kiss)
+j_deu_um_beijo_triplo    Have you ever had a triple kiss?
+j_deu_recebeu_um_beijo_grego    Have you given / received a Greek kiss?
+j_pegou_algu_m_por_estar_em_um_jogo    Have you ever gotten someone because as in a game?
+mais_de_quatro_pessoas_ao_mesmo_tempo    More than four people at once?
+na_orelha    In the ear?
+no_pesco_o    In the neck?
+nos_rg_os_genitais    In the genitals?
+voc_j_beijou    You already kissed&#8230;
+mais_de_uma_pessoa_ao_mesmo_tempo    More than one person at a time?
+cinco_ou_mais_diferentes_na_mesma_noite    Five or more different on the same night?
+comercializou    Did you sell it?
+comprou_do_dealer    Buy from dealer?
+drogas_ilegais    Illegal Drugs
+j_anulou_o_efeito_de_uma_droga_com_outra_bala_com_macoha_per_exemplo    Already canceled the effect of one drug with another? (ecstasy with weed, for example)
+j_compartilhou_drogas_com_amigos    Have you ever shared drugs with friends?
+j_cozinhou_com_drogas    Have you ever cooked with drugs?
+j_cultivou    Already cultivated?
+j_esqueceu_que_estava_sob_o_efeito_de_drogas    Have you forgotten you were under the influence of drugs?
+j_pegou_do_p    Already got off the plant?
+j_teve_black_out    Already have a black-out?
+j_usou_coca_na_ou_hero_na    Have you ever used cocaine or heroin?
+j_usou_droga_sint_tica_uma_vez_por_dia_durante_4_dias    Have you used synthetic drug once a day for 4 days?
+j_usou_drogas_sint_ticas    Have you ever used synthetic drugs?
+j_usou_uma_droga_il_cita    Have you ever used an illicit drug?
+mais_de_duas_diferentes_na_mesma_noite    More than two different ones on the same night?
+mais_de_uma_na_mesma_noite    More than one on the same night?
+language    Language: flagaboutthelanguage    FlagAboutTheLanguage
+
+NotImplement    Not implement yet, sorry&#8230;
+AnyMan    A man?
+AnyWoman    A woman?
+BothWomans    Both persons womans?
+BothMans    Both persons mans?
+MILF    Already make sex with a MILF?
+DILF    Already make sex with a DILF?

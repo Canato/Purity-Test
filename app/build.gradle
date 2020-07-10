@@ -31,6 +31,8 @@ dependencies {
     implementation project(':features:questions')
     implementation project(':features:login')
 
+    implementation project(':services:questions_data_source')
+
     implementation Deps.kotlinStdLib
     implementation Deps.appcompat
     implementation Deps.coreKtx
