@@ -138,134 +138,633 @@
       ]
     },
     {
-      "subjectName": "",
-      "subjectId": 99,
+      "subjectName": "NERVOUS MOUTH",
+      "subjectId": 30,
       "questions": [
         {
-          "id": 9901,
-          "score": 0,
+          "id": 3001,
+          "score": 1,
+          "question": "Without tongue?"
+        },
+        {
+          "id": 3002,
+          "score": 1,
+          "question": "With tongue"
+        },
+        {
+          "id": 3003,
+          "score": 1,
+          "question": "A MSO"
+        },
+        {
+          "id": 3004,
+          "score": 3,
+          "question": "A MMS"
+        },
+        {
+          "id": 3005,
+          "score": 1,
+          "question": "More than one person at a time?"
+        },
+        {
+          "id": 3006,
+          "score": 1,
+          "question": "Both persons MSO"
+        },
+        {
+          "id": 3007,
+          "score": 1,
+          "question": "In the ear?"
+        },
+        {
+          "id": 3008,
+          "score": 1,
+          "question": "In the neck?"
+        },
+        {
+          "id": 3009,
+          "score": 1,
+          "question": "Below shoulder line?"
+        },
+        {
+          "id": 3010,
+          "score": 1,
+          "question": "Below waistline?"
+        },
+        {
+          "id": 3011,
+          "score": 1,
+          "question": "Below the equator line?"
+        },
+        {
+          "id": 3012,
+          "score": 2,
+          "question": "In the genitals?"
+        },
+        {
+          "id": 3013,
+          "score": 1,
+          "question": "Have you ever gotten someone because as in a game?"
+        },
+        {
+          "id": 3014,
+          "score": 1,
+          "question": "Have you ever had a triple kiss?"
+        },
+        {
+          "id": 3015,
+          "score": 2,
+          "question": "&#8230;Quadruple?"
+        },
+        {
+          "id": 3016,
+          "score": 3,
+          "question": "More than four people at once?"
+        },
+        {
+          "id": 3017,
+          "score": 2,
+          "question": "Have you given / received a Greek kiss?"
+        },
+        {
+          "id": 3018,
+          "score": 3,
+          "question": "Did you receive a Franco-Greek kiss? (Watch out for what a French kiss is, and a Greek kiss)"
+        }
+      ]
+    },
+    {
+      "subjectName": "masturbation",
+      "subjectId": 40,
+      "questions": [
+        {
+          "id": 4001,
+          "score": 1,
+          "question": "Ever masturbated?"
+        },
+        {
+          "id": 4002,
+          "score": 1,
+          "question": "With two more people together?"
+        },
+        {
+          "id": 4003,
+          "score": 1,
+          "question": "On telephone?"
+        },
+        {
+          "id": 4004,
+          "score": 1,
+          "question": "On a video call?"
+        },
+        {
+          "id": 4005,
+          "score": 1,
+          "question": "Using a non-sexual object?"
+        },
+        {
+          "id": 4006,
+          "score": 2,
+          "question": "A foodstuff?"
+        },
+        {
+          "id": 4007,
+          "score": 1,
+          "question": "Have you ever masturbated anyone?"
+        },
+        {
+          "id": 4008,
+          "score": 1,
+          "question": "Ever been masturbated by someone?"
+        },
+        {
+          "id": 4009,
+          "score": 1,
+          "question": "Was you caught masturbating?"
+        }
+      ]
+    },
+    {
+      "subjectName": "Sins",
+      "subjectId": 50,
+      "questions": [
+        {
+          "id": 5001,
+          "score": 1,
+          "question": "Gluttony"
+        },
+        {
+          "id": 5002,
+          "score": 1,
+          "question": "Greed"
+        },
+        {
+          "id": 5003,
+          "score": 3,
+          "question": "Lust"
+        },
+        {
+          "id": 5004,
+          "score": 1,
+          "question": "Wrath"
+        },
+        {
+          "id": 5005,
+          "score": 1,
+          "question": "Envy"
+        },
+        {
+          "id": 5006,
+          "score": 2,
+          "question": "Sloth"
+        },
+        {
+          "id": 5007,
+          "score": 1,
+          "question": "Pride"
+        }
+      ]
+    },
+    {
+      "subjectName": "Exhibitionism",
+      "subjectId": 60,
+      "questions": [
+        {
+          "id": 6001,
+          "score": 1,
+          "question": "Was got on sexual action?"
+        },
+        {
+          "id": 6002,
+          "score": 1,
+          "question": "Swim naked?"
+        },
+        {
+          "id": 6003,
+          "score": 1,
+          "question": "Run naked?"
+        },
+        {
+          "id": 6004,
+          "score": 1,
+          "question": "Take xerox of your genitals?"
+        },
+        {
+          "id": 6005,
+          "score": 1,
+          "question": "Use the other sex clothes for pleasure?"
+        },
+        {
+          "id": 6006,
+          "score": 1,
+          "question": "Show your genitals in public?"
+        }
+      ]
+    },
+    {
+      "subjectName": "Crazy Life",
+      "subjectId": 70,
+      "questions": [
+        {
+          "id": 7001,
+          "score": 1,
+          "question": "Sleept with more than five peoples on the same bad?"
+        },
+        {
+          "id": 7002,
+          "score": 1,
+          "question": "Ever had an orgasm and celebrated in an unconventional way?"
+        },
+        {
+          "id": 7003,
+          "score": 1,
+          "question": "Already hide someone in home (or be hided)?"
+        },
+        {
+          "id": 7004,
+          "score": 1,
+          "question": "&#8230;with someone which you are making sex?"
+        },
+        {
+          "id": 7005,
+          "score": 1,
+          "question": "Already kissed a prostitute/gogoboy?"
+        },
+        {
+          "id": 7006,
+          "score": 1,
+          "question": "Already use a pole dance?"
+        },
+        {
+          "id": 7007,
+          "score": 1,
+          "question": "Already dance with a stripper?"
+        },
+        {
+          "id": 7008,
+          "score": 1,
+          "question": "Already win money as stripper?"
+        },
+        {
+          "id": 7009,
+          "score": 1,
+          "question": "Already pay for sex?"
+        },
+        {
+          "id": 7010,
+          "score": 2,
+          "question": "Already pay something with your body?"
+        },
+        {
+          "id": 7011,
+          "score": 1,
+          "question": "Already cheat?"
+        },
+        {
+          "id": 7012,
+          "score": 1,
+          "question": "Already got a Jigllypuf? (Pass out and people draw in your face)"
+        }
+      ]
+    },
+    {
+      "subjectName": "",
+      "subjectId": 80,
+      "questions": [
+        {
+          "id": 8001,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9902,
-          "score": 0,
+          "id": 8002,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9903,
-          "score": 0,
+          "id": 8003,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9904,
-          "score": 0,
+          "id": 8004,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9905,
-          "score": 0,
+          "id": 8005,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9906,
-          "score": 0,
+          "id": 8006,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9907,
-          "score": 0,
+          "id": 8007,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9908,
-          "score": 0,
+          "id": 8008,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9909,
-          "score": 0,
+          "id": 8009,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9910,
-          "score": 0,
+          "id": 8010,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9911,
-          "score": 0,
+          "id": 8011,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9912,
-          "score": 0,
+          "id": 8012,
+          "score": 1,
           "question": ""
         }
       ]
     },
     {
       "subjectName": "",
-      "subjectId": 99,
+      "subjectId": 90,
       "questions": [
         {
-          "id": 9901,
-          "score": 0,
+          "id": 9001,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9902,
-          "score": 0,
+          "id": 9002,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9903,
-          "score": 0,
+          "id": 9003,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9904,
-          "score": 0,
+          "id": 9004,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9905,
-          "score": 0,
+          "id": 9005,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9906,
-          "score": 0,
+          "id": 9006,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9907,
-          "score": 0,
+          "id": 9007,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9908,
-          "score": 0,
+          "id": 9008,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9909,
-          "score": 0,
+          "id": 9009,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9910,
-          "score": 0,
+          "id": 9010,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9911,
-          "score": 0,
+          "id": 9011,
+          "score": 1,
           "question": ""
         },
         {
-          "id": 9912,
-          "score": 0,
+          "id": 9012,
+          "score": 1,
           "question": ""
+        }
+      ]
+    },
+    {
+      "subjectName": "",
+      "subjectId": 100,
+      "questions": [
+        {
+          "id": 10001,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 10002,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 10003,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 10004,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 10005,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 10006,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 10007,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 10008,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 10009,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 10010,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 10011,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 10012,
+          "score": 1,
+          "question": ""
+        }
+      ]
+    },
+    {
+      "subjectName": "",
+      "subjectId": 110,
+      "questions": [
+        {
+          "id": 11001,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 11002,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 11003,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 11004,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 11005,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 11006,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 11007,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 11008,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 11009,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 11010,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 11011,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 11012,
+          "score": 1,
+          "question": ""
+        }
+      ]
+    },
+    {
+      "subjectName": "",
+      "subjectId": 120,
+      "questions": [
+        {
+          "id": 12001,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 12002,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 12003,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 12004,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 12005,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 12006,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 12007,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 12008,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 12009,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 12010,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 12011,
+          "score": 1,
+          "question": ""
+        },
+        {
+          "id": 12012,
+          "score": 1,
+          "question": ""
+        }
+      ]
+    },
+    {
+      "subjectName": "purity_seeker",
+      "subjectId": 999,
+      "questions": [
+        {
+          "id": 99901,
+          "score": 1,
+          "question": "Are you using this as To Do List?"
         }
       ]
     }
@@ -276,15 +775,7 @@
 progresso    Progress
 pr_ximo    Next
 voc_j    Have you ever&#8230;
-avareza    Greed
-gula    Gluttony
-inveja    Envy
-ira    Wrath
-lux_ria    Lust
-pecados    Sins
-pregui_a    Sloth
 quais_pecados_voc_pratica    What sins do you practice?
-soberba    Pride
 de_um_evento_sexual    &#8230;from a sexual event?
 at_cair    Until you falls?
 at_desmaiar    Until you faint?
@@ -339,20 +830,7 @@ no_refeit_rio    In the cafeteria/University restaurant?
 pra_cinco_ou_mais    For five or more?
 pra_mais_de_dois    More than two?
 universidade_feelings    University Feelings
-com_quem_voc_estava_fazendo_sexo    &#8230;with someone which you are making sex?
-ja_beijou_uma_prostituta_gogoboy    Already kissed a prostitute/gogoboy?
-j_dan_ou_com_um_a_stripper    Already dance with a stripper?
-j_dan_ou_num_pole_dance    Already use a pole dance?
-j_dormiu_com_mais_de_cinco_pessoas_na_mesma_cama    Sleept with more than five peoples on the same bad?
-j_escondeu_algu_m_em_casa    Already hide someone in home (or be hided)?
-j_pagou_por_sexo    Already pay for sex?
-j_foi_um_a_stripper_ganhou_dinheiro    Already win money as stripper?
-j_pagou_alguma_coisa_com_seu_corpo    Already pay something with your body?
-j_teve_um_orgasmo_e_comemorou_de_forma_n_o_convencional    Ever had an orgasm and celebrated in an unconventional way?
-j_tomou_um_jigllypuf_dar_pt_e_ser_rasbicado_pelos_amiguinhos    Already got a Jigllypuf? (Pass out and people draw in your face)
-j_traiu    Already cheat?
 vida_loka    Crazy Life
-t_usando_isso_aqui_como_check_list    Are you using this as check-list?
 quest_o_final    Last Question
 em_meio_aquoso_piscina_banheira_mar_rio_bacia_do_tanque    In aqueous place(pool, bath, sea, river, tank basin)?
 com_um_animal_como_estimulante    With an animal as a stimulant?
@@ -398,33 +876,7 @@ s_porque_n_o_tava_comendo_nada_fazendo_ningu_m    Just because I was not eating 
 tirou_a_virgindade_de_algu_m    Did you take someones virginity?
 um_swing    A swing?
 uma_orgia    A orgy?
-ao_telefone    On telephone?
-com_mais_duas_pessoas_juntas    With two more people together?
-em_uma_chamada_com_v_deo    On a video call?
-foi_pego_se_masturbando    Was you caught masturbating?
-j_foi_masturbado_por_algu_m    Ever been masturbated by someone?
-j_masturbou_algu_m    Have you ever masturbated anyone?
-j_se_masturbou    Ever masturbated?
-masturba_o    masturbation
-um_g_nero_aliment_cio    A foodstuff?
-usando_um_objeto_n_o_sexual    Using a non-sexual object?
-qu_druplo    &#8230;Quadruple?
-abaixo_da_linha_da_cintura    Below waistline?
-abaixo_da_linha_do_equador    Below the equator line?
-abaixo_da_linha_do_ombro    Below shoulder line?
-boca_nervosa    NERVOUS MOUTH
-de_l_ngua    With tongue
-de_selinho    Without tongue?
-deu_recebeu_um_beijo_franco_grego_atente_se_para_o_que_um_beijo_franc_s_e_um_beijo_grego    Did you receive a Franco-Greek kiss? (Watch out for what a French kiss is, and a Greek kiss)
-j_deu_um_beijo_triplo    Have you ever had a triple kiss?
-j_deu_recebeu_um_beijo_grego    Have you given / received a Greek kiss?
-j_pegou_algu_m_por_estar_em_um_jogo    Have you ever gotten someone because as in a game?
-mais_de_quatro_pessoas_ao_mesmo_tempo    More than four people at once?
-na_orelha    In the ear?
-no_pesco_o    In the neck?
-nos_rg_os_genitais    In the genitals?
 voc_j_beijou    You already kissed&#8230;
-mais_de_uma_pessoa_ao_mesmo_tempo    More than one person at a time?
 cinco_ou_mais_diferentes_na_mesma_noite    Five or more different on the same night?
 comercializou    Did you sell it?
 comprou_do_dealer    Buy from dealer?
