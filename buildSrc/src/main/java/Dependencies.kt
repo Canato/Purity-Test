@@ -13,6 +13,7 @@ object Versions {
     const val gradle = "4.0.0"
 
     // Kotlin
+    const val ktLint = "9.2.1"
     const val kotlin = "1.3.70"
     const val coroutine = "1.3.7"
     const val coroutineServices = "1.1.1"
@@ -40,6 +41,8 @@ object Versions {
 }
 
 object Deps {
+
+    const val ktlint = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktLint}"
 
     const val gradle = "com.android.tools.build:gradle:${Versions.gradle}"
     const val googleServices = "com.google.gms:google-services:${Versions.kotlinGradlePlugin}"

@@ -8,8 +8,8 @@ internal interface QuestionsDataSourceAssets {
     fun getQuestions(): Set<QuestionDataSourceDto>
 }
 
-internal class QuestionsDataSourceAssetsDefault(private val context: Context)
-    : QuestionsDataSourceAssets {
+internal class QuestionsDataSourceAssetsDefault(private val context: Context) :
+    QuestionsDataSourceAssets {
 
     override fun getQuestions(): Set<QuestionDataSourceDto> {
         val gson = Gson()

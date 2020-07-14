@@ -2,16 +2,15 @@ package com.can_apps.login.bresenter
 
 import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.login.R
-import com.can_apps.login.core.LoginValidationError
 import com.can_apps.login.core.LoginNameValidationDomain
 import com.can_apps.login.core.LoginPasswordValidationDomain
+import com.can_apps.login.core.LoginValidationError
 import com.can_apps.login.core.PasswordValidationError
 
 internal interface LoginModelMapper {
 
     fun passwordErrorToModel(domain: LoginPasswordValidationDomain.Invalid): LoginModel.Error
     fun loginErrorToModel(domain: LoginNameValidationDomain.Invalid): LoginModel.Error
-
 }
 
 internal class LoginModelMapperDefault(
@@ -37,6 +36,4 @@ internal class LoginModelMapperDefault(
             LoginNameValidationDomain.Invalid(LoginValidationError.TooLongDomain) -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_too_long_domain)))
             else -> LoginModel.Error(LoginErrorModel(stringResource.getString(R.string.validation_login_wrong_characters)))
         }
-
 }
-
