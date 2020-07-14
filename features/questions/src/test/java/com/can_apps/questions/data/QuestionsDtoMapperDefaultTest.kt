@@ -2,8 +2,8 @@ package com.can_apps.questions.data
 
 import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.questions.R
-import com.can_apps.questions.core.QuestionDetailsDomain
 import com.can_apps.questions.core.QuestionErrorDomain
+import com.can_apps.questions.core.QuestionValidDomain
 import com.can_apps.questions.core.QuestionsDomain
 import com.can_apps.questions.data.questions_data_source.QuestionsDtoMapperDefault
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsMapperDomainValid
@@ -36,7 +36,7 @@ internal class QuestionsDtoMapperDefaultTest {
     fun `GIVEN questions_dto_valid, WHEN assetToDomain, THEN return questionsdomain_valid`() {
         //GIVEN
         val questionDataSourceSet = mockk<Set<QuestionsDataSourceDto>>()
-        val questionDomainSet = mockk<Set<QuestionDetailsDomain>>()
+        val questionDomainSet = mockk<Set<QuestionValidDomain>>()
         val expected = QuestionsDomain.Valid(questionDomainSet)
 
         every { assetMapper.mapToDomainValid(questionDataSourceSet) } returns expected

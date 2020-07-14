@@ -3,7 +3,7 @@ package com.can_apps.questions.core
 internal sealed class QuestionsDomain {
 
     data class Valid(
-        val questions: Set<QuestionDetailsDomain>
+        val validSet: Set<QuestionValidDomain>
     ) : QuestionsDomain()
 
     data class Error(
@@ -11,12 +11,15 @@ internal sealed class QuestionsDomain {
     ) : QuestionsDomain()
 }
 
-internal data class QuestionDetailsDomain (
+internal data class QuestionValidDomain(
     val category: QuestionCategoryDomainEnum,
+    val questions: Set<QuestionDetailsDomain>
+)
+
+internal data class QuestionDetailsDomain(
     val id: QuestionIdDomainEnum,
-    val weight: QuestionWeightDomain,
-    val isSelected: QuestionSelectedDomain
-    )
+    val weight: QuestionWeightDomain
+)
 
 internal enum class QuestionCategoryDomainEnum {
     DRUGS, SEX, RELIGION
@@ -32,5 +35,4 @@ internal enum class QuestionIdDomainEnum {
 }
 
 internal inline class QuestionWeightDomain(val value: Int)
-internal inline class QuestionSelectedDomain(val value: Boolean)
 internal inline class QuestionErrorDomain(val value: String)

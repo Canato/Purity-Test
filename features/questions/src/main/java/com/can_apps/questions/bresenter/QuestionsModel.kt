@@ -2,7 +2,7 @@ package com.can_apps.questions.bresenter
 
 internal data class QuestionsModel(
     val questionCategory: QuestionCategoryModel,
-    val questionId: QuestionIdModel,
+    val questionId: QuestionIdModel, //TODO() tomasz QuestionIdModelEnum
     val questionText: QuestionTextModel,
     val questionWeight: QuestionWeightModel,
     val isSelected: QuestionSelectedModel

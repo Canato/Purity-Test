@@ -1,7 +1,7 @@
 package com.can_apps.questions.data
 
-import com.can_apps.questions.core.QuestionDetailsDomain
 import com.can_apps.questions.core.QuestionErrorDomain
+import com.can_apps.questions.core.QuestionValidDomain
 import com.can_apps.questions.core.QuestionsDomain
 import com.can_apps.questions.data.questions_data_source.QuestionsDtoMapper
 import com.can_apps.questions_data_source.data.QuestionsDataSourceAssets
@@ -16,7 +16,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
-class QuestionsRepositoryTest {
+internal class QuestionsRepositoryTest {
 
     @MockK
     private lateinit var asset: QuestionsDataSourceAssets
@@ -34,8 +34,8 @@ class QuestionsRepositoryTest {
     fun `GIVEN api with set, WHEN retrieveList, THEN return questionsdomain_valid`() {
         //GIVEN
 
-        val setQuestionDetailsDomain = setOf(mockk<QuestionDetailsDomain>(relaxed = true))
-        val expected = QuestionsDomain.Valid(setQuestionDetailsDomain)
+        val setQuestionValidDomain = setOf(mockk<QuestionValidDomain>(relaxed = true))
+        val expected = QuestionsDomain.Valid(setQuestionValidDomain)
 
         val setQuestionsDataSourceDto = setOf(mockk<QuestionsDataSourceDto>(relaxed = true))
 
@@ -50,9 +50,9 @@ class QuestionsRepositoryTest {
     }
 
     @Test
-    fun `GIVEN exception, WHEN retrieveList, THEN return questionsdomain_error`() {
+    fun `GIVEN empty set, WHEN retrieveList, THEN return questionsdomain_error`() {
         //GIVEN
-        val message = "you shall not pass"
+        val message = "something is missing here"
         val errorDomain = QuestionErrorDomain(message)
         val emptySet = emptySet<QuestionsDataSourceDto>()
         val expected = QuestionsDomain.Error(errorDomain)
@@ -60,6 +60,25 @@ class QuestionsRepositoryTest {
 
         coEvery { asset.getQuestions() } returns emptySet
         coEvery { dtoMapper.assetToDomain(emptySet) } returns expected
+
+        //WHEN
+        val result = runBlocking { repository.retrieveList() }
+
+        //THEN
+        assertEquals(expected, result)
+
+    }
+
+    @Test
+    fun `GIVEN exception, WHEN retrieveList, THEN return questionsdomain_error`() {
+        //GIVEN
+        val emptySet = emptySet<QuestionsDataSourceDto>()
+        val message = "expect unexpected"
+        val errorDomain = QuestionErrorDomain(message)
+        val exception = Exception(errorDomain.value)
+        val expected = QuestionsDomain.Error(errorDomain)
+
+        coEvery { asset.getQuestions() } throws exception
 
         //WHEN
         val result = runBlocking { repository.retrieveList() }

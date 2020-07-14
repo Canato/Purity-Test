@@ -1,7 +1,7 @@
 package com.can_apps.questions.data.questions_data_source.mappers
 
 import com.can_apps.questions.core.QuestionDetailsDomain
-import com.can_apps.questions.core.QuestionSelectedDomain
+import com.can_apps.questions.core.QuestionValidDomain
 import com.can_apps.questions.core.QuestionWeightDomain
 import com.can_apps.questions.core.QuestionsDomain
 import com.can_apps.questions_data_source.data.QuestionsDataSourceDto
@@ -16,22 +16,31 @@ internal class QuestionsMapperDomainValidDefault(
 ) : QuestionsMapperDomainValid {
 
     override fun mapToDomainValid(asset: Set<QuestionsDataSourceDto>): QuestionsDomain.Valid {
-        val set = mutableSetOf<QuestionDetailsDomain>()
+        val validDomainSet = mutableSetOf<QuestionValidDomain>()
+        val questionDetailsDomainSet = mutableSetOf<QuestionDetailsDomain>()
+
         asset.forEach { questionDto ->
+
+            val categoryDomainEnum =
+                assetCategoryMapper.mapCategoryToDomain(questionDto.categoryName)
+
             questionDto.questions.forEach { question ->
-                val categoryDomainEnum =
-                    assetCategoryMapper.mapCategoryToDomain(questionDto.categoryName)
-                set.add(
+                questionDetailsDomainSet.add(
                     QuestionDetailsDomain(
-                        categoryDomainEnum,
                         assetIdMapper.mapAssetId(categoryDomainEnum, question.id),
-                        QuestionWeightDomain(question.weight),
-                        QuestionSelectedDomain(false)
+                        QuestionWeightDomain(question.weight)
+                    )
+                )
+
+                validDomainSet.add(
+                    QuestionValidDomain(
+                        categoryDomainEnum,
+                        questionDetailsDomainSet
                     )
                 )
             }
         }
 
-        return QuestionsDomain.Valid(set.toSet())
+        return QuestionsDomain.Valid(validDomainSet.toSet())
     }
 }

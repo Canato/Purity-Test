@@ -4,6 +4,7 @@ import com.can_apps.questions.core.*
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsCategoryAssetMapper
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdAssetMapper
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsMapperDomainValidDefault
+import com.can_apps.questions_data_source.data.Question
 import com.can_apps.questions_data_source.data.QuestionsDataSourceDto
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -31,30 +32,35 @@ internal class QuestionsMapperDomainValidDefaultTest {
     @Test
     fun `GIVEN asset, WHEN asset_mapToDomainValid, THEN return questionsdomain_valid`() {
         //GIVEN
-        val questionId = mockk<Int>()
+        val questionId = mockk<Int>(relaxed = true)
         val questionCategory = "some fancy category"
         val questionCategoryDomainEnum = mockk<QuestionCategoryDomainEnum>()
         val questionIdDomainEnum = mockk<QuestionIdDomainEnum>()
-        val questionDataSourceSet = mockk<Set<QuestionsDataSourceDto>>()
-        val questionWeightValue = mockk<Int>()
+        val questionWeightValue = mockk<Int>(relaxed = true)
         val questionWeightDomain = QuestionWeightDomain(questionWeightValue)
-        val questionSelectedValue = mockk<Boolean>()
-        val questionSelectedDomain = QuestionSelectedDomain(questionSelectedValue)
+        val questionDataSourceSet =
+            setOf(
+                QuestionsDataSourceDto(
+                    questionCategory,
+                    setOf(Question(questionId, questionWeightValue)
+                    )))
 
         val questionDomainSet = setOf(
             QuestionDetailsDomain(
-                questionCategoryDomainEnum,
                 questionIdDomainEnum,
-                questionWeightDomain,
-                questionSelectedDomain
-            )
-        )
-        val expected = QuestionsDomain.Valid(questionDomainSet)
+                questionWeightDomain))
 
-        every { assetCategoryMapper.mapCategoryToDomain(questionCategory)
+        val questionValidDomain =
+            setOf(QuestionValidDomain(questionCategoryDomainEnum, questionDomainSet))
+
+        val expected = QuestionsDomain.Valid(questionValidDomain)
+
+        every {
+            assetCategoryMapper.mapCategoryToDomain(questionCategory)
         } returns questionCategoryDomainEnum
 
-        every { assetIdMapper.mapAssetId(questionCategoryDomainEnum, questionId)
+        every {
+            assetIdMapper.mapAssetId(questionCategoryDomainEnum, questionId)
         } returns questionIdDomainEnum
 
         //WHEN
