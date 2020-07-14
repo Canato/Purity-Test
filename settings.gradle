@@ -5,4 +5,7 @@ include ':app',
         ':features',
         ':features:login',
         ':features:questions',
-        ':features:questions_data_source'
+
+        // Services Module
+        ':services',
+        ':services:questions_data_source'
