@@ -428,134 +428,224 @@
       ]
     },
     {
-      "subjectName": "",
+      "subjectName": "Illegal Drugs",
       "subjectId": 80,
       "questions": [
         {
           "id": 8001,
           "score": 1,
-          "question": ""
+          "question": "Have you ever used an illicit drug?"
         },
         {
           "id": 8002,
           "score": 1,
-          "question": ""
+          "question": "More than one on the same night?"
         },
         {
           "id": 8003,
-          "score": 1,
-          "question": ""
+          "score": 2,
+          "question": "More than two different ones on the same night?"
         },
         {
           "id": 8004,
-          "score": 1,
-          "question": ""
+          "score": 3,
+          "question": "Five or more different on the same night?"
         },
         {
           "id": 8005,
           "score": 1,
-          "question": ""
+          "question": "Have you ever used synthetic drugs?"
         },
         {
           "id": 8006,
           "score": 1,
-          "question": ""
+          "question": "Have you ever shared drugs with friends?"
         },
         {
           "id": 8007,
           "score": 1,
-          "question": ""
+          "question": "Did you sell it?"
         },
         {
           "id": 8008,
-          "score": 1,
-          "question": ""
+          "score": 2,
+          "question": "Buy from dealer?"
         },
         {
           "id": 8009,
           "score": 1,
-          "question": ""
+          "question": "Already cultivated?"
         },
         {
           "id": 8010,
           "score": 1,
-          "question": ""
+          "question": "Already got off the plant?"
         },
         {
           "id": 8011,
-          "score": 1,
-          "question": ""
+          "score": 3,
+          "question": "Have you ever used cocaine or heroin?"
         },
         {
           "id": 8012,
+          "score": 2,
+          "question": "Already have a black-out?"
+        },
+        {
+          "id": 8013,
+          "score": 3,
+          "question": "Have you used synthetic drug once a day for 4 days?"
+        },
+        {
+          "id": 8014,
           "score": 1,
-          "question": ""
+          "question": "Already canceled the effect of one drug with another? (ecstasy with weed, for example)"
+        },
+        {
+          "id": 8015,
+          "score": 1,
+          "question": "Have you ever cooked with drugs?"
+        },
+        {
+          "id": 8016,
+          "score": 1,
+          "question": "Have you forgotten you were under the influence of drugs?"
         }
       ]
     },
     {
-      "subjectName": "",
+      "subjectName": "Legalized Drugs",
       "subjectId": 90,
       "questions": [
         {
           "id": 9001,
           "score": 1,
-          "question": ""
+          "question": "Already drank a lot of good drinks?"
         },
         {
           "id": 9002,
           "score": 1,
-          "question": ""
+          "question": "More than 3 differents types of drinks together?"
         },
         {
           "id": 9003,
           "score": 1,
-          "question": ""
+          "question": "Until throw up?"
         },
         {
           "id": 9004,
           "score": 1,
-          "question": ""
+          "question": "Until you falls?"
         },
         {
           "id": 9005,
           "score": 1,
-          "question": ""
+          "question": "Until you pee yourself?"
         },
         {
           "id": 9006,
-          "score": 1,
-          "question": ""
+          "score": 2,
+          "question": "Until you faint?"
         },
         {
           "id": 9007,
-          "score": 1,
-          "question": ""
+          "score": 2,
+          "question": "Go to hospital?"
         },
         {
           "id": 9008,
-          "score": 1,
-          "question": ""
+          "score": 3,
+          "question": "Until get in coma?"
         },
         {
           "id": 9009,
           "score": 1,
-          "question": ""
+          "question": "To be crazy?"
         },
         {
           "id": 9010,
           "score": 1,
-          "question": ""
+          "question": "To forget someone"
         },
         {
           "id": 9011,
-          "score": 1,
-          "question": ""
+          "score": 2,
+          "question": "To throw up?"
         },
         {
           "id": 9012,
           "score": 1,
-          "question": ""
+          "question": "Already make someone drunk someone for sexual purposes?"
+        },
+        {
+          "id": 9013,
+          "score": 1,
+          "question": "Ever been drunk for sexual purposes?"
+        },
+        {
+          "id": 9014,
+          "score": 1,
+          "question": "Have a blackout because you was drunk?"
+        },
+        {
+          "id": 9015,
+          "score": 2,
+          "question": "&#8230;from a sexual event?"
+        },
+        {
+          "id": 9016,
+          "score": 1,
+          "question": "Already smoke cigarette?"
+        },
+        {
+          "id": 9017,
+          "score": 1,
+          "question": "More than 3 on the same day?"
+        },
+        {
+          "id": 9018,
+          "score": 2,
+          "question": "More than one pack per day?"
+        },
+        {
+          "id": 9019,
+          "score": 1,
+          "question": "Organic?"
+        },
+        {
+          "id": 9020,
+          "score": 1,
+          "question": "Already smoke Shisha?"
+        },
+        {
+          "id": 9021,
+          "score": 1,
+          "question": "Already use some medicine to be high?"
+        },
+        {
+          "id": 9022,
+          "score": 2,
+          "question": "Black stripe remedy?"
+        },
+        {
+          "id": 9023,
+          "score": 3,
+          "question": "Already manufactured his own drink (distilled / fermented his own drink))?"
+        },
+        {
+          "id": 9024,
+          "score": 1,
+          "question": "Make body-shot?"
+        },
+        {
+          "id": 9025,
+          "score": 2,
+          "question": "Already drink somthing from the floor?"
+        },
+        {
+          "id": 9026,
+          "score": 3,
+          "question": "Already slept in own vomit?"
         }
       ]
     },
@@ -776,33 +866,6 @@ progresso    Progress
 pr_ximo    Next
 voc_j    Have you ever&#8230;
 quais_pecados_voc_pratica    What sins do you practice?
-de_um_evento_sexual    &#8230;from a sexual event?
-at_cair    Until you falls?
-at_desmaiar    Until you faint?
-at_entrar_em_coma    Until get in coma?
-at_parar_no_hospital    Go to hospital?
-at_se_mijar_cagar    Until you pee yourself?
-at_vomitar    Until throw up?
-de_palha    Organic?
-drogas_legalizadas    Legalized Drugs
-e_tarja_preta    Black stripe remedy?
-j_dormiu_no_seu_pr_prio_v_mito    Already slept in own vomit?
-j_embebedou_algu_m_com_finalidades_sexuais    Already make someone drunk someone for sexual purposes?
-j_fez_body_shot    Make body-shot?
-j_foi_embebedado_com_finalidades_sexuais    Ever been drunk for sexual purposes?
-j_fumou_narguil    Already smoke Shisha?
-j_fumou_um_cigarro    Already smoke cigarette?
-j_manufaturou_sua_pr_pria_bebida_destilou_fermentou_sua_pr_pria_bebida    Already manufactured his own drink (distilled / fermented his own drink))?
-j_perdeu_a_mem_ria_por_estar_b_bado    Have a blackout because you was drunk?
-j_tomou_bebida_do_ch_o    Already drink somthing from the floor?
-j_tomou_uns_bons_drinque    Already drank a lot of good drinks?
-j_usou_rem_dios_de_tarja_vermelha_pra_ficar_doid_o    Already use some medicine to be high?
-mais_de_tr_s_no_mesmo_dia    More than 3 on the same day?
-mais_de_tr_s_tipos_de_bebidas_alco_licas_juntas    More than 3 differents types of drinks together?
-mais_de_uma_cartela_20_cigarros_por_dia    More than one pack per day?
-pra_dar_pt    To throw up?
-pra_esquecer_algu_m    To forget someone
-pra_ficar_louco    To be crazy?
 amar_a_deus_sobre_todas_as_coisas    Love God above everything
 bonus_round    Bonus Round
 guardar_domingos_e_dias_santos    Rest on sundays and holidays
@@ -877,23 +940,6 @@ tirou_a_virgindade_de_algu_m    Did you take someones virginity?
 um_swing    A swing?
 uma_orgia    A orgy?
 voc_j_beijou    You already kissed&#8230;
-cinco_ou_mais_diferentes_na_mesma_noite    Five or more different on the same night?
-comercializou    Did you sell it?
-comprou_do_dealer    Buy from dealer?
-drogas_ilegais    Illegal Drugs
-j_anulou_o_efeito_de_uma_droga_com_outra_bala_com_macoha_per_exemplo    Already canceled the effect of one drug with another? (ecstasy with weed, for example)
-j_compartilhou_drogas_com_amigos    Have you ever shared drugs with friends?
-j_cozinhou_com_drogas    Have you ever cooked with drugs?
-j_cultivou    Already cultivated?
-j_esqueceu_que_estava_sob_o_efeito_de_drogas    Have you forgotten you were under the influence of drugs?
-j_pegou_do_p    Already got off the plant?
-j_teve_black_out    Already have a black-out?
-j_usou_coca_na_ou_hero_na    Have you ever used cocaine or heroin?
-j_usou_droga_sint_tica_uma_vez_por_dia_durante_4_dias    Have you used synthetic drug once a day for 4 days?
-j_usou_drogas_sint_ticas    Have you ever used synthetic drugs?
-j_usou_uma_droga_il_cita    Have you ever used an illicit drug?
-mais_de_duas_diferentes_na_mesma_noite    More than two different ones on the same night?
-mais_de_uma_na_mesma_noite    More than one on the same night?
 language    Language: flagaboutthelanguage    FlagAboutTheLanguage
 
 NotImplement    Not implement yet, sorry&#8230;
