@@ -32,7 +32,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':common')
-    implementation project(':features:questions_data_source')
+    implementation project(':services:questions_data_source')
 
     implementation Deps.appcompat
     implementation Deps.coreKtx

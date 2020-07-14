@@ -23,6 +23,6 @@ class QuestionsDataSourceAssetsDefault(private val context: Context)
     }
 
     companion object {
-        private const val QUESTIONS_FILENAME = "question.json"
+        private const val QUESTIONS_FILENAME = "questions.json"
     }
 }
