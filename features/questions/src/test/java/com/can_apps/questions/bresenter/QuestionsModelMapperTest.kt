@@ -1,6 +1,10 @@
 package com.can_apps.questions.bresenter
 
-import com.can_apps.questions.core.*
+import com.can_apps.questions.core.QuestionDetailsDomain
+import com.can_apps.questions.core.QuestionDomain
+import com.can_apps.questions.core.QuestionIdDomain
+import com.can_apps.questions.core.QuestionWeightDomain
+import com.can_apps.questions.core.QuestionsDomain
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -10,28 +14,32 @@ internal class QuestionsModelMapperTest {
 
     @Test
     fun `GIVEN domain, WHEN map, THEN return model`() {
-        //GIVEN
+        // GIVEN
         val questionId = 42UL
         val question = "Nice question to answer"
 
         val domain = QuestionsDomain.Valid(
-            listOf(QuestionDetailsDomain(
-                QuestionIdDomain(questionId),
-                QuestionDomain(question),
-                false,
-                QuestionWeightDomain(9)
-            ))
+            listOf(
+                QuestionDetailsDomain(
+                    QuestionIdDomain(questionId),
+                    QuestionDomain(question),
+                    false,
+                    QuestionWeightDomain(9)
+                )
+            )
         )
 
-        val expected = listOf(QuestionsModel(
-            QuestionModel(question),
-            QuestionIdModel(questionId)
-        ))
+        val expected = listOf(
+            QuestionsModel(
+                QuestionModel(question),
+                QuestionIdModel(questionId)
+            )
+        )
 
-        //WHEN
+        // WHEN
         val result = mapper.toModel(domain)
 
-        //THEN
+        // THEN
         assertEquals(expected, result)
     }
 }

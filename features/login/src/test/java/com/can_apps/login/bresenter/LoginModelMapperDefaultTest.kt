@@ -2,7 +2,6 @@ package com.can_apps.login.bresenter
 
 import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.login.R
-import com.can_apps.login.core.*
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.InjectMockKs

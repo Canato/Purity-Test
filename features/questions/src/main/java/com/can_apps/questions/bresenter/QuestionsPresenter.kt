@@ -3,8 +3,10 @@ package com.can_apps.questions.bresenter
 import com.can_apps.common.CoroutineDispatcherFactory
 import com.can_apps.questions.core.QuestionsContract
 import com.can_apps.questions.core.QuestionsDomain
-import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 internal class QuestionsPresenter(
     private val interactor: QuestionsContract.Interactor,
@@ -36,7 +38,7 @@ internal class QuestionsPresenter(
     }
 
     private fun CoroutineScope.retrieveData() = launch(dispatcher.IO) {
-        when(val domain = interactor.retrieveList()) {
+        when (val domain = interactor.retrieveList()) {
             is QuestionsDomain.Valid -> {
                 val model = mapper.toModel(domain)
                 showList(model)
@@ -56,6 +58,4 @@ internal class QuestionsPresenter(
         view.hideLoading()
         view.showList(model)
     }
-
-
 }

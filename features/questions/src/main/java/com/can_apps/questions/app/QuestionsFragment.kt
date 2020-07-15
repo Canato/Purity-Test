@@ -52,7 +52,7 @@ internal class QuestionsFragment :
     }
 
     override fun onItemSelected(questionId: QuestionIdModel) {
-        //todo presenter.onItemSelected
+        // todo presenter.onItemSelected
     }
 
     override fun showLoading() {
