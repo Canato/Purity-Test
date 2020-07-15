@@ -11,7 +11,7 @@ internal sealed class QuestionsDomain {
     ) : QuestionsDomain()
 }
 
-internal data class QuestionDetailsDomain (
+internal data class QuestionDetailsDomain(
     val id: QuestionIdDomain,
     val question: QuestionDomain,
     val isSelected: Boolean,

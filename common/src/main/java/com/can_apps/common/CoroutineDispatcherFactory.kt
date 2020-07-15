@@ -1,16 +1,15 @@
 package com.can_apps.common
 
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Unconfined
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlin.coroutines.CoroutineContext
 
 interface CoroutineDispatcherFactory {
 
     val IO: CoroutineContext
 
     val UI: CoroutineContext
-
 }
 
 class CoroutineDispatcherFactoryDefault : CoroutineDispatcherFactory {
@@ -19,7 +18,6 @@ class CoroutineDispatcherFactoryDefault : CoroutineDispatcherFactory {
 
     override val UI: CoroutineContext
         get() = Dispatchers.Main
-
 }
 
 @ExperimentalCoroutinesApi

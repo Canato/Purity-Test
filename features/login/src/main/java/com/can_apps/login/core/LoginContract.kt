@@ -87,6 +87,6 @@ internal interface LoginContract {
 
         suspend fun logoutUser()
 
-        suspend fun checkLogInStatus() : LoginDomain
+        suspend fun checkLogInStatus(): LoginDomain
     }
 }

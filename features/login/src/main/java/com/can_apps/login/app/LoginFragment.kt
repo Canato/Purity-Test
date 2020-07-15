@@ -49,7 +49,6 @@ internal class LoginFragment :
             )
         }
 
-
         loginNameEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {}
 
@@ -57,7 +56,6 @@ internal class LoginFragment :
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 presenter.onLoginInputChanged(loginNameEditText.text.toString())
-
             }
         })
 
@@ -69,7 +67,6 @@ internal class LoginFragment :
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 presenter.onPasswordInputChanged(loginPasswordEditText.text.toString())
             }
-
         })
 
         logoutButton.setOnClickListener { presenter.logoutUser() }
@@ -143,7 +140,6 @@ internal class LoginFragment :
 
     override fun cleanPasswordTextView() {
         loginPasswordEditText.text = null
-
     }
 
     private fun Button.disableLogin(): Button {
@@ -157,5 +153,4 @@ internal class LoginFragment :
         this.alpha = 1f
         return this
     }
-
 }
