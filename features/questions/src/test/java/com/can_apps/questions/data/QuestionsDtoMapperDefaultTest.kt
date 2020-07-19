@@ -7,7 +7,7 @@ import com.can_apps.questions.core.QuestionValidDomain
 import com.can_apps.questions.core.QuestionsDomain
 import com.can_apps.questions.data.questions_data_source.QuestionsDtoMapperDefault
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsMapperDomainValid
-import com.can_apps.questions_data_source.data.QuestionsDataSourceDto
+import com.can_apps.questions_data_source.data.QuestionDataSourceDto
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.every
@@ -35,7 +35,7 @@ internal class QuestionsDtoMapperDefaultTest {
     @Test
     fun `GIVEN questions_dto_valid, WHEN assetToDomain, THEN return questionsdomain_valid`() {
         //GIVEN
-        val questionDataSourceSet = mockk<Set<QuestionsDataSourceDto>>()
+        val questionDataSourceSet = mockk<Set<QuestionDataSourceDto>>()
         val questionDomainSet = mockk<Set<QuestionValidDomain>>()
         val expected = QuestionsDomain.Valid(questionDomainSet)
 
@@ -53,7 +53,7 @@ internal class QuestionsDtoMapperDefaultTest {
         //GIVEN
         val message = "iOS sucks"
         val questionErrorDomain = QuestionErrorDomain(message)
-        val emptySet = emptySet<QuestionsDataSourceDto>()
+        val emptySet = emptySet<QuestionDataSourceDto>()
         val expected = QuestionsDomain.Error(questionErrorDomain)
 
         coEvery { stringResource.getString(R.string.questions_dto_error) } returns message

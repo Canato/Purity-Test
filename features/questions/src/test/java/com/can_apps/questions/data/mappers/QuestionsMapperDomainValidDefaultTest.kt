@@ -5,7 +5,7 @@ import com.can_apps.questions.data.questions_data_source.mappers.QuestionsCatego
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdAssetMapper
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsMapperDomainValidDefault
 import com.can_apps.questions_data_source.data.Question
-import com.can_apps.questions_data_source.data.QuestionsDataSourceDto
+import com.can_apps.questions_data_source.data.QuestionDataSourceDto
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -40,15 +40,20 @@ internal class QuestionsMapperDomainValidDefaultTest {
         val questionWeightDomain = QuestionWeightDomain(questionWeightValue)
         val questionDataSourceSet =
             setOf(
-                QuestionsDataSourceDto(
+                QuestionDataSourceDto(
                     questionCategory,
-                    setOf(Question(questionId, questionWeightValue)
-                    )))
+                    setOf(
+                        Question(questionId, questionWeightValue)
+                    )
+                )
+            )
 
         val questionDomainSet = setOf(
             QuestionDetailsDomain(
                 questionIdDomainEnum,
-                questionWeightDomain))
+                questionWeightDomain
+            )
+        )
 
         val questionValidDomain =
             setOf(QuestionValidDomain(questionCategoryDomainEnum, questionDomainSet))

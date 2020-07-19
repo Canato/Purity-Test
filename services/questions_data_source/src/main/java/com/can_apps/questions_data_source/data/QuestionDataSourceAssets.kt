@@ -5,11 +5,11 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 
-internal interface QuestionsDataSourceAssets {
+interface QuestionsDataSourceAssets {
     fun getQuestions(): Set<QuestionDataSourceDto>
 }
 
-internal class QuestionsDataSourceAssetsDefault(private val context: Context)
+class QuestionsDataSourceAssetsDefault(private val context: Context)
     : QuestionsDataSourceAssets {
 
     override fun getQuestions(): Set<QuestionDataSourceDto> {

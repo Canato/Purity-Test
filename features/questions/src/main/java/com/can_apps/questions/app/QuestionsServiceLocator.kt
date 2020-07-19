@@ -4,7 +4,6 @@ import android.content.Context
 import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.common.CoroutineDispatcherFactory
 import com.can_apps.common.CoroutineDispatcherFactoryDefault
-import com.can_apps.questions.bresenter.QuestionTextModel
 import com.can_apps.questions.bresenter.mappers.QuestionsModelMapper
 import com.can_apps.questions.bresenter.mappers.QuestionsModelMapperDefault
 import com.can_apps.questions.bresenter.QuestionsPresenter

@@ -4,8 +4,8 @@ import com.can_apps.questions.core.QuestionErrorDomain
 import com.can_apps.questions.core.QuestionValidDomain
 import com.can_apps.questions.core.QuestionsDomain
 import com.can_apps.questions.data.questions_data_source.QuestionsDtoMapper
+import com.can_apps.questions_data_source.data.QuestionDataSourceDto
 import com.can_apps.questions_data_source.data.QuestionsDataSourceAssets
-import com.can_apps.questions_data_source.data.QuestionsDataSourceDto
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.InjectMockKs
@@ -37,7 +37,7 @@ internal class QuestionsRepositoryTest {
         val setQuestionValidDomain = setOf(mockk<QuestionValidDomain>(relaxed = true))
         val expected = QuestionsDomain.Valid(setQuestionValidDomain)
 
-        val setQuestionsDataSourceDto = setOf(mockk<QuestionsDataSourceDto>(relaxed = true))
+        val setQuestionsDataSourceDto = setOf(mockk<QuestionDataSourceDto>(relaxed = true))
 
         coEvery { asset.getQuestions() } returns setQuestionsDataSourceDto
         coEvery { dtoMapper.assetToDomain(setQuestionsDataSourceDto) } returns expected
@@ -54,7 +54,7 @@ internal class QuestionsRepositoryTest {
         //GIVEN
         val message = "something is missing here"
         val errorDomain = QuestionErrorDomain(message)
-        val emptySet = emptySet<QuestionsDataSourceDto>()
+        val emptySet = emptySet<QuestionDataSourceDto>()
         val expected = QuestionsDomain.Error(errorDomain)
 
 
@@ -72,7 +72,7 @@ internal class QuestionsRepositoryTest {
     @Test
     fun `GIVEN exception, WHEN retrieveList, THEN return questionsdomain_error`() {
         //GIVEN
-        val emptySet = emptySet<QuestionsDataSourceDto>()
+        val emptySet = emptySet<QuestionDataSourceDto>()
         val message = "expect unexpected"
         val errorDomain = QuestionErrorDomain(message)
         val exception = Exception(errorDomain.value)

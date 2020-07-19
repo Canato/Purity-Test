@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.questions.R
-import com.can_apps.questions.bresenter.QuestionIdModel
+import com.can_apps.questions.bresenter.QuestionIdModelEnum
 import com.can_apps.questions.bresenter.QuestionsModel
 import com.can_apps.questions.core.QuestionsContract
 import com.google.android.material.snackbar.Snackbar
@@ -57,7 +57,7 @@ internal class QuestionsFragment :
         })
     }
 
-    override fun onItemSelected(questionId: QuestionIdModel) {
+    override fun onItemSelected(questionId: QuestionIdModelEnum) {
         //todo presenter.onItemSelected
     }
 
