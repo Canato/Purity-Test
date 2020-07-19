@@ -12,7 +12,7 @@
         {
           "id": 1002,
           "score": 1,
-          "question": "Get a fee for drive drunk?"
+          "question": "Get a ticket for drive drunk?"
         },
         {
           "id": 1003,
@@ -32,7 +32,7 @@
         {
           "id": 1006,
           "score": 1,
-          "question": "Already stole?"
+          "question": "Already stole something?"
         },
         {
           "id": 1007,
@@ -48,11 +48,6 @@
           "id": 1009,
           "score": 1,
           "question": "Lost the notion when lying?"
-        },
-        {
-          "id": 1010,
-          "score": 3,
-          "question": "Have you ever get/tried to get/ or be close to have sex without the other person want it?"
         },
         {
           "id": 1011,
@@ -83,12 +78,12 @@
         {
           "id": 2003,
           "score": 2,
-          "question": "a Man/woman"
+          "question": "...same as your gender?"
         },
         {
           "id": 2004,
           "score": 1,
-          "question": "One unknown?"
+          "question": "...One unknown?"
         },
         {
           "id": 2005,
@@ -98,7 +93,7 @@
         {
           "id": 2006,
           "score": 1,
-          "question": "Already catch really hard with a woman? || Already catch really hard with a man?"
+          "question": "Already catch really hard with a opposite gender?"
         },
         {
           "id": 2007,
@@ -108,32 +103,37 @@
         {
           "id": 2008,
           "score": 1,
-          "question": "Have you ever had a hand in that, that in your hand?"
+          "question": "Tchaca tchaca in butchaca? (a.k.a: rub, seduce, vamp, bait, scrubbing)"
         },
         {
           "id": 2009,
           "score": 1,
-          "question": "Have happens your mouth into that, that in your mouth?"
+          "question": "Have you already touched a breast?"
         },
         {
           "id": 2010,
           "score": 1,
-          "question": "Tchaca tchaca in butchaca? (a.k.a: rub, seduce, vamp, bait, scrubbing)"
+          "question": "...An Ass?"
         },
         {
           "id": 2011,
           "score": 1,
-          "question": "You have already touched a breast?"
+          "question": "...Genital Organs?"
         },
         {
           "id": 2012,
           "score": 1,
-          "question": "&#8230;An Ass?"
+          "question": "Have you already touch a breast with your mouth?"
         },
         {
           "id": 2013,
-          "score": 1,
-          "question": "&#8230;Genital Organs?"
+          "score": 2,
+          "question": "...Genital Organs?"
+        },
+        {
+          "id": 2014,
+          "score": 2,
+          "question": "Have you already touch Genital Organs with your mouth of the same gender?"
         }
       ]
     },
@@ -149,52 +149,52 @@
         {
           "id": 3002,
           "score": 1,
-          "question": "With tongue"
+          "question": "With tongue?"
         },
         {
           "id": 3003,
           "score": 1,
-          "question": "A MSO"
+          "question": "Opposite gender?"
         },
         {
           "id": 3004,
           "score": 3,
-          "question": "A MMS"
+          "question": "Same gender?"
         },
         {
           "id": 3005,
           "score": 1,
-          "question": "More than one person at a time?"
+          "question": "More than one person at same time?"
         },
         {
           "id": 3006,
           "score": 1,
-          "question": "Both persons MSO"
+          "question": "...both persons opposite gender?"
         },
         {
           "id": 3007,
-          "score": 1,
-          "question": "In the ear?"
+          "score": 2,
+          "question": "...both persons same gender?"
         },
         {
           "id": 3008,
           "score": 1,
-          "question": "In the neck?"
+          "question": "In the ear?"
         },
         {
           "id": 3009,
           "score": 1,
-          "question": "Below shoulder line?"
+          "question": "In the neck?"
         },
         {
           "id": 3010,
           "score": 1,
-          "question": "Below waistline?"
+          "question": "Below shoulder line?"
         },
         {
           "id": 3011,
           "score": 1,
-          "question": "Below the equator line?"
+          "question": "Below waist?"
         },
         {
           "id": 3012,
@@ -204,7 +204,7 @@
         {
           "id": 3013,
           "score": 1,
-          "question": "Have you ever gotten someone because as in a game?"
+          "question": "Have you ever kiss someone because a game?"
         },
         {
           "id": 3014,
@@ -214,7 +214,7 @@
         {
           "id": 3015,
           "score": 2,
-          "question": "&#8230;Quadruple?"
+          "question": "...Quadruple?"
         },
         {
           "id": 3016,
@@ -229,7 +229,7 @@
         {
           "id": 3018,
           "score": 3,
-          "question": "Did you receive a Franco-Greek kiss? (Watch out for what a French kiss is, and a Greek kiss)"
+          "question": "Did you receive a Franco-Greek kiss? (Watch out for what is French kiss and a Greek kiss)"
         }
       ]
     },
@@ -265,7 +265,7 @@
         {
           "id": 4006,
           "score": 2,
-          "question": "A foodstuff?"
+          "question": "Using food?"
         },
         {
           "id": 4007,
@@ -347,7 +347,7 @@
         {
           "id": 6004,
           "score": 1,
-          "question": "Take xerox of your genitals?"
+          "question": "Xerox your genitals?"
         },
         {
           "id": 6005,
@@ -368,7 +368,7 @@
         {
           "id": 7001,
           "score": 1,
-          "question": "Sleept with more than five peoples on the same bad?"
+          "question": "Sleep with more than five peoples on the same bad?"
         },
         {
           "id": 7002,
@@ -383,7 +383,7 @@
         {
           "id": 7004,
           "score": 1,
-          "question": "&#8230;with someone which you are making sex?"
+          "question": "...with someone which you are making sex?"
         },
         {
           "id": 7005,
@@ -429,421 +429,520 @@
     },
     {
       "subjectName": "Illegal Drugs",
-      "subjectId": 80,
+      "subjectId": 90,
       "questions": [
         {
-          "id": 8001,
+          "id": 9001,
           "score": 1,
           "question": "Have you ever used an illicit drug?"
         },
         {
-          "id": 8002,
+          "id": 9002,
           "score": 1,
           "question": "More than one on the same night?"
         },
         {
-          "id": 8003,
+          "id": 9003,
           "score": 2,
-          "question": "More than two different ones on the same night?"
+          "question": "More than two different on the same night?"
         },
         {
-          "id": 8004,
+          "id": 9004,
           "score": 3,
           "question": "Five or more different on the same night?"
         },
         {
-          "id": 8005,
+          "id": 9005,
           "score": 1,
           "question": "Have you ever used synthetic drugs?"
         },
         {
-          "id": 8006,
+          "id": 9006,
           "score": 1,
           "question": "Have you ever shared drugs with friends?"
         },
         {
-          "id": 8007,
+          "id": 9007,
           "score": 1,
           "question": "Did you sell it?"
         },
         {
-          "id": 8008,
+          "id": 9008,
           "score": 2,
           "question": "Buy from dealer?"
         },
         {
-          "id": 8009,
+          "id": 9009,
           "score": 1,
           "question": "Already cultivated?"
         },
         {
-          "id": 8010,
+          "id": 9010,
           "score": 1,
-          "question": "Already got off the plant?"
+          "question": "Already got from the plant?"
         },
         {
-          "id": 8011,
+          "id": 9011,
           "score": 3,
           "question": "Have you ever used cocaine or heroin?"
         },
         {
-          "id": 8012,
+          "id": 9012,
           "score": 2,
           "question": "Already have a black-out?"
         },
         {
-          "id": 8013,
+          "id": 9013,
           "score": 3,
           "question": "Have you used synthetic drug once a day for 4 days?"
         },
         {
-          "id": 8014,
+          "id": 9014,
           "score": 1,
-          "question": "Already canceled the effect of one drug with another? (ecstasy with weed, for example)"
+          "question": "Already canceled the effect of one drug with another? (e.g. ecstasy with weed)"
         },
         {
-          "id": 8015,
+          "id": 9015,
           "score": 1,
           "question": "Have you ever cooked with drugs?"
         },
         {
-          "id": 8016,
+          "id": 9016,
           "score": 1,
           "question": "Have you forgotten you were under the influence of drugs?"
         }
       ]
     },
     {
-      "subjectName": "Legalized Drugs",
-      "subjectId": 90,
-      "questions": [
-        {
-          "id": 9001,
-          "score": 1,
-          "question": "Already drank a lot of good drinks?"
-        },
-        {
-          "id": 9002,
-          "score": 1,
-          "question": "More than 3 differents types of drinks together?"
-        },
-        {
-          "id": 9003,
-          "score": 1,
-          "question": "Until throw up?"
-        },
-        {
-          "id": 9004,
-          "score": 1,
-          "question": "Until you falls?"
-        },
-        {
-          "id": 9005,
-          "score": 1,
-          "question": "Until you pee yourself?"
-        },
-        {
-          "id": 9006,
-          "score": 2,
-          "question": "Until you faint?"
-        },
-        {
-          "id": 9007,
-          "score": 2,
-          "question": "Go to hospital?"
-        },
-        {
-          "id": 9008,
-          "score": 3,
-          "question": "Until get in coma?"
-        },
-        {
-          "id": 9009,
-          "score": 1,
-          "question": "To be crazy?"
-        },
-        {
-          "id": 9010,
-          "score": 1,
-          "question": "To forget someone"
-        },
-        {
-          "id": 9011,
-          "score": 2,
-          "question": "To throw up?"
-        },
-        {
-          "id": 9012,
-          "score": 1,
-          "question": "Already make someone drunk someone for sexual purposes?"
-        },
-        {
-          "id": 9013,
-          "score": 1,
-          "question": "Ever been drunk for sexual purposes?"
-        },
-        {
-          "id": 9014,
-          "score": 1,
-          "question": "Have a blackout because you was drunk?"
-        },
-        {
-          "id": 9015,
-          "score": 2,
-          "question": "&#8230;from a sexual event?"
-        },
-        {
-          "id": 9016,
-          "score": 1,
-          "question": "Already smoke cigarette?"
-        },
-        {
-          "id": 9017,
-          "score": 1,
-          "question": "More than 3 on the same day?"
-        },
-        {
-          "id": 9018,
-          "score": 2,
-          "question": "More than one pack per day?"
-        },
-        {
-          "id": 9019,
-          "score": 1,
-          "question": "Organic?"
-        },
-        {
-          "id": 9020,
-          "score": 1,
-          "question": "Already smoke Shisha?"
-        },
-        {
-          "id": 9021,
-          "score": 1,
-          "question": "Already use some medicine to be high?"
-        },
-        {
-          "id": 9022,
-          "score": 2,
-          "question": "Black stripe remedy?"
-        },
-        {
-          "id": 9023,
-          "score": 3,
-          "question": "Already manufactured his own drink (distilled / fermented his own drink))?"
-        },
-        {
-          "id": 9024,
-          "score": 1,
-          "question": "Make body-shot?"
-        },
-        {
-          "id": 9025,
-          "score": 2,
-          "question": "Already drink somthing from the floor?"
-        },
-        {
-          "id": 9026,
-          "score": 3,
-          "question": "Already slept in own vomit?"
-        }
-      ]
-    },
-    {
-      "subjectName": "",
+      "subjectName": "University Feelings",
       "subjectId": 100,
       "questions": [
         {
           "id": 10001,
           "score": 1,
-          "question": ""
+          "question": "Already go to a weekend of university parties(travel)?"
         },
         {
           "id": 10002,
           "score": 1,
-          "question": ""
+          "question": "More than two?"
         },
         {
           "id": 10003,
-          "score": 1,
-          "question": ""
+          "score": 3,
+          "question": "For five or more?"
         },
         {
           "id": 10004,
           "score": 1,
-          "question": ""
+          "question": "Have you did sex in the university precinct?"
         },
         {
           "id": 10005,
-          "score": 1,
-          "question": ""
+          "score": 2,
+          "question": "In the cafeteria/University restaurant?"
         },
         {
           "id": 10006,
-          "score": 1,
-          "question": ""
+          "score": 2,
+          "question": "At the library?"
         },
         {
           "id": 10007,
           "score": 1,
-          "question": ""
+          "question": "In the lab?"
         },
         {
           "id": 10008,
           "score": 1,
-          "question": ""
+          "question": "In the student center?"
         },
         {
           "id": 10009,
-          "score": 1,
-          "question": ""
+          "score": 2,
+          "question": "In the main room of the student center?"
         },
         {
           "id": 10010,
           "score": 1,
-          "question": ""
+          "question": "Already dance on a table in a party?"
         },
         {
           "id": 10011,
-          "score": 1,
-          "question": ""
-        },
-        {
-          "id": 10012,
-          "score": 1,
-          "question": ""
+          "score": 2,
+          "question": "...using underwear only?"
         }
       ]
     },
     {
-      "subjectName": "",
-      "subjectId": 110,
+      "subjectName": "Legal Drugs",
+      "subjectId": 80,
       "questions": [
         {
-          "id": 11001,
+          "id": 8001,
           "score": 1,
-          "question": ""
+          "question": "Already drank a lot of good drinks?"
         },
         {
-          "id": 11002,
+          "id": 8002,
           "score": 1,
-          "question": ""
+          "question": "More than 3 different types of drinks together?"
         },
         {
-          "id": 11003,
+          "id": 8003,
           "score": 1,
-          "question": ""
+          "question": "Until throw up?"
         },
         {
-          "id": 11004,
+          "id": 8004,
           "score": 1,
-          "question": ""
+          "question": "Until you falls?"
         },
         {
-          "id": 11005,
+          "id": 8005,
           "score": 1,
-          "question": ""
+          "question": "Until you pee yourself?"
         },
         {
-          "id": 11006,
-          "score": 1,
-          "question": ""
+          "id": 8006,
+          "score": 2,
+          "question": "Until you faint?"
         },
         {
-          "id": 11007,
-          "score": 1,
-          "question": ""
+          "id": 8007,
+          "score": 2,
+          "question": "Went to hospital because alcohol?"
         },
         {
-          "id": 11008,
-          "score": 1,
-          "question": ""
+          "id": 8008,
+          "score": 3,
+          "question": "Until get in coma?"
         },
         {
-          "id": 11009,
+          "id": 8009,
           "score": 1,
-          "question": ""
+          "question": "To be crazy?"
         },
         {
-          "id": 11010,
+          "id": 8010,
           "score": 1,
-          "question": ""
+          "question": "To forget someone"
         },
         {
-          "id": 11011,
-          "score": 1,
-          "question": ""
+          "id": 8011,
+          "score": 2,
+          "question": "To throw up?"
         },
         {
-          "id": 11012,
+          "id": 8012,
           "score": 1,
-          "question": ""
+          "question": "Already make someone drunk someone for sexual purposes?"
+        },
+        {
+          "id": 8013,
+          "score": 1,
+          "question": "Ever get yourself drunk for sexual purposes?"
+        },
+        {
+          "id": 8014,
+          "score": 1,
+          "question": "Have a blackout because you was drunk?"
+        },
+        {
+          "id": 8015,
+          "score": 2,
+          "question": "...during a sexual event?"
+        },
+        {
+          "id": 8016,
+          "score": 1,
+          "question": "Already smoke cigarette?"
+        },
+        {
+          "id": 8017,
+          "score": 1,
+          "question": "More than 3 on the same day?"
+        },
+        {
+          "id": 8018,
+          "score": 2,
+          "question": "More than one pack per day?"
+        },
+        {
+          "id": 8019,
+          "score": 1,
+          "question": "Organic cigarettes?"
+        },
+        {
+          "id": 8020,
+          "score": 1,
+          "question": "Already smoke Shisha/Narguile?"
+        },
+        {
+          "id": 8021,
+          "score": 1,
+          "question": "Already use some medicine to be high?"
+        },
+        {
+          "id": 8022,
+          "score": 2,
+          "question": "...Black stripe medicine?"
+        },
+        {
+          "id": 8023,
+          "score": 3,
+          "question": "Already manufactured your own drink (distilled / fermented)?"
+        },
+        {
+          "id": 8024,
+          "score": 1,
+          "question": "Make body-shot?"
+        },
+        {
+          "id": 8025,
+          "score": 2,
+          "question": "Already drink something from the floor?"
+        },
+        {
+          "id": 8026,
+          "score": 3,
+          "question": "Already slept in your own vomit?"
         }
       ]
     },
     {
-      "subjectName": "",
+      "subjectName": "Sex",
       "subjectId": 120,
       "questions": [
         {
           "id": 12001,
           "score": 1,
-          "question": ""
+          "question": "Have you had sex?"
         },
         {
           "id": 12002,
           "score": 1,
-          "question": ""
+          "question": "Just because has anything else to do?"
         },
         {
           "id": 12003,
           "score": 1,
-          "question": ""
+          "question": "With someone you met less than 12 hours?"
         },
         {
           "id": 12004,
-          "score": 1,
-          "question": ""
+          "score": 2,
+          "question": "With someone who slept during?"
         },
         {
           "id": 12005,
-          "score": 1,
-          "question": ""
+          "score": 2,
+          "question": "With someone else sleeping in the same room / tent (in the alley, or in the car)?"
         },
         {
           "id": 12006,
-          "score": 1,
-          "question": ""
+          "score": 3,
+          "question": "With someone else sleeping in the same bed?"
         },
         {
           "id": 12007,
           "score": 1,
-          "question": ""
+          "question": "With two persons from the same family? (Up to second cousin)"
         },
         {
           "id": 12008,
           "score": 1,
-          "question": ""
+          "question": "Already make sex with a MILF/DILF?"
         },
         {
           "id": 12009,
-          "score": 1,
-          "question": ""
+          "score": 2,
+          "question": "During pregnancy?"
         },
         {
           "id": 12010,
           "score": 1,
-          "question": ""
+          "question": "Have you done a threesome?"
+        },
+        {
+          "id": 12010,
+          "score": 1,
+          "question": "...two woman and one man?"
+        },
+        {
+          "id": 12010,
+          "score": 2,
+          "question": "...two man and one woman?"
         },
         {
           "id": 12011,
-          "score": 1,
-          "question": ""
+          "score": 3,
+          "question": "A orgy?"
         },
         {
           "id": 12012,
+          "score": 2,
+          "question": "A couple swing?"
+        },
+        {
+          "id": 12013,
           "score": 1,
-          "question": ""
+          "question": "Did you have sex more than three times the same night without any business transactions?"
+        },
+        {
+          "id": 12014,
+          "score": 1,
+          "question": "With more than 3 people in life?"
+        },
+        {
+          "id": 12015,
+          "score": 1,
+          "question": "With more than 10 people in life?"
+        },
+        {
+          "id": 12016,
+          "score": 1,
+          "question": "Have you ever had sex with someone under 18, while being above 18??"
+        },
+        {
+          "id": 12017,
+          "score": 1,
+          "question": "Have you ever had oral sex?"
+        },
+        {
+          "id": 12018,
+          "score": 1,
+          "question": "...Anal?"
+        },
+        {
+          "id": 12019,
+          "score": 1,
+          "question": "Did someone lost virginity with you?"
+        },
+        {
+          "id": 12020,
+          "score": 1,
+          "question": "Sex without condom?"
+        },
+        {
+          "id": 12021,
+          "score": 1,
+          "question": "With sex toys?"
+        },
+        {
+          "id": 12022,
+          "score": 3,
+          "question": "Upside down?"
+        },
+        {
+          "id": 12023,
+          "score": 1,
+          "question": "Sex in public places?"
+        },
+        {
+          "id": 12024,
+          "score": 1,
+          "question": "On a shopping?"
+        },
+        {
+          "id": 12025,
+          "score": 2,
+          "question": "On movie theater?"
+        },
+        {
+          "id": 12026,
+          "score": 1,
+          "question": "To the public? (Exhibitionist sex)"
+        },
+        {
+          "id": 12027,
+          "score": 1,
+          "question": "Filmed / photographed a sexual activity?"
+        },
+        {
+          "id": 12028,
+          "score": 3,
+          "question": "Without the consent of others involved?"
+        },
+        {
+          "id": 12029,
+          "score": 2,
+          "question": "With an animal as a stimulant?"
+        },
+        {
+          "id": 12030,
+          "score": 1,
+          "question": "With a plat as support?"
+        },
+        {
+          "id": 12031,
+          "score": 2,
+          "question": "On roof or similar?"
+        },
+        {
+          "id": 12032,
+          "score": 1,
+          "question": "In aqueous place(pool, bath, sea, river, tank basin)?"
+        },
+        {
+          "id": 12033,
+          "score": 3,
+          "question": "In a pool/container with non-Newtonian liquid? (Water mixed with something that leaves more dense..ex. Chocolate)"
+        },
+        {
+          "id": 12034,
+          "score": 2,
+          "question": "Have you eaten food in the middle of sex?"
+        },
+        {
+          "id": 12035,
+          "score": 1,
+          "question": "Already make a 69?"
+        },
+        {
+          "id": 12036,
+          "score": 2,
+          "question": "Have you ever had sex in five different positions in less than twenty minutes?"
+        },
+        {
+          "id": 12037,
+          "score": 1,
+          "question": "Ever had sex on hammock?"
+        },
+        {
+          "id": 12038,
+          "score": 1,
+          "question": "Have you ever had a manual colonoscopy? (a.k.a. finger in asshole)"
+        },
+        {
+          "id": 12039,
+          "score": 1,
+          "question": "Have had sex during menstruation?"
+        },
+        {
+          "id": 12040,
+          "score": 2,
+          "question": "Have you done or did some done in you the clown? (Oral sex with menstruating woman)"
+        },
+        {
+          "id": 12041,
+          "score": 1,
+          "question": "Have you given or received a slip of surprise? (I was in a hole, when I saw... it was in the other hole)"
+        },
+        {
+          "id": 12042,
+          "score": 3,
+          "question": "Has had sex with excreta refinements?"
+        },
+        {
+          "id": 12043,
+          "score": 2,
+          "question": "Have you ever done or made someone do the Butt Washer/Anal Cleaning?"
+        },
+        {
+          "id": 12044,
+          "score": 2,
+          "question": "Have you ever had sex with costume?"
         }
       ]
     },
@@ -860,93 +959,3 @@
     }
   ]
 }
-
-
-progresso    Progress
-pr_ximo    Next
-voc_j    Have you ever&#8230;
-quais_pecados_voc_pratica    What sins do you practice?
-amar_a_deus_sobre_todas_as_coisas    Love God above everything
-bonus_round    Bonus Round
-guardar_domingos_e_dias_santos    Rest on sundays and holidays
-honrar_pai_e_m_e    Honor mother and father
-n_o_cobi_ar_as_coisas_alheias    Do not covet other peoples things
-n_o_desejar_a_mulher_do_pr_ximo    Do not wish the wife of the other
-n_o_levantar_falso_testemunho    Do not bear false witness
-n_o_matar    Not kill
-n_o_pecar_contra_a_castidade    Do not sin against chastity
-n_o_roubar    Do not steal
-n_o_tomar_seu_santo_nome_em_v_o    Do not speak the name of God in vain
-quais_dos_dez_mandamentos_j_profanou    Which of the ten commandments have you profaned?
-testes_de_pureza_existem_desde_sempre_n_com_o_avan_o_das_tecnologias_eles_foram_para_os_sites_o_respons_vel_mais_famoso_por_isso_o_john_dubois_com_o_site_http_www_armory_com_tests_purity_html_n_o_brasileiro_mais_famoso_que_fez_a_tradu_o_de_um_dos_testes_o_lond_www_lond_com_br_n_agora_junto_com_alguns_amigos_n_mineira_paracatu_thotas_babi_stifa_b_rbara_anna_carla_tchellows_saul_o_jesine_luci_pikachu_n_pude_trazer_nossa_vers_o_para_o_aplicativo_n_n_aplicativo_e_adapta_o_victor_canato_vcanato_gmail_com_n_designer_algu_m_descubra_n_n_aten_o_algumas_perguntas_foram_adaptadas    Purity tests have been around forever. \nWith the advancement of technologies have gone to the sites, the most famous responsible for this is John DuBois with the website http: //www.armory.com./tests/purity.html. \nThe most famous Brazilian who did the translation of one of the tests is Lond (www.lond.com.br) \n\nNow with some friends: Mineira, Paracatu, Thotas, Babi, Stifa, Barbara, Anna Carla, Tchellows, Saulão, Jesine , Luci, Pikachu. \nI was able to bring our version to the application. \n\nApplication and adaptation Victor Canato (vcanato@gmail.com) \nDesigner Someone (#descubra) \n\n* Attention, some questions have been adapted
-pega_o    FLIRTING
-de_roupas_ntimas    With only underware?
-j_dan_ou_na_mesa_em_um_happy_hour    Already dance on a table in a party?
-j_fez_sexo_na_universidade_faculdade    Already make sex in university?
-string_j_fez_sexo_na_universidade_faculdade" />
-j_foi_pra_um_encontro_universit_rio_n_o_congresso    Already go to a weekend of university partys(travel)?
-na_biblioteca    At the library?
-na_sala_principal_do_ca_da    In the main room of the student center?
-no_centro_acad_mico_diret_rio_acad_mico    In the student center?
-no_laborat_rio    In the lab?
-no_refeit_rio    In the cafeteria/University restaurant?
-pra_cinco_ou_mais    For five or more?
-pra_mais_de_dois    More than two?
-universidade_feelings    University Feelings
-vida_loka    Crazy Life
-quest_o_final    Last Question
-em_meio_aquoso_piscina_banheira_mar_rio_bacia_do_tanque    In aqueous place(pool, bath, sea, river, tank basin)?
-com_um_animal_como_estimulante    With an animal as a stimulant?
-com_um_vegetal_planta_como_apoio    With a plat as support?
-em_um_piscina_recipiente_com_l_quido_n_o_newtoniano_gua_misturado_com_algo_que_deixe_mais_denso_ex_chocolate    In a pool/container with non-Newtonian liquid? (Water mixed with something that leaves more dense..ex. Chocolate)
-filmou_fotografou_uma_atividade_sexual    Filmed / photographed a sexual activity?
-j_comeu_comendo    Have you eaten in the middle of sex?
-j_deu_ou_recebeu_uma_escorregada_surpresa_tava_num_buraco_quando_eu_vi_tava_no_outro    Have you given or received a slip of surprise?(I was in a hole, when I saw&#8230; it was in the other)
-j_fez_ou_fez_algu_m_fazer_a_chuca    Have you ever done or made someone do the Butt Washer/Anal Cleaning?
-j_fez_ou_fizeram_em_voc_o_bozo_sexo_oral_com_a_mulher_menstruada    Have you done or did some done in you the clown? (Oral sex with menstruating woman)
-j_fez_sexo_com_fantasia_usando_ou_n_o    Have you ever had sex with Fantasy (Using or not)
-j_fez_sexo_com_requintes_escatol_gicos    Has had sex with excreta refinements
-j_fez_sexo_durante_a_menstrua_o    Have had sex during menstruation?
-j_fez_sexo_em_cinco_posi_es_diferentes_em_menos_de_vinte_minutos    Have you ever had sex in five different positions in less than twenty minutes?
-j_fez_sexo_na_rede    Ever had sex on the rest net?
-j_fez_um_69    Already make a 69?
-j_fez_uma_colonoscopia_digital_vulgo_fio_terra    Have you ever had a manual colonoscopy?(a.k.a. finger in asshole)
-no_cinema    On movie theater?
-no_shopping    On a shopping?
-no_telhado_laje_afins    On roof or similar?
-para_o_p_blico_sexo_exibicionista    To the public? (Exhibitionist sex)
-sem_consentimento_dos_demais_envolvidos    Without the consent of others involved?
-sexo_em_lugares_p_blicos    Sex in public places?
-sexo    Sex
-anal    &#8230;Anal?
-com_alguma_das_pessoas_envolvidas_dormindo    With any of the people involved sleeping?
-com_algu_m_da_mesma_fam_lia_at_primo_de_segundo_grau    With someone from the same family? (Up to second cousin)
-com_algu_m_dormindo_na_mesma_cama    With someone sleeping in the same bed?
-com_algu_m_dormindo_no_mesmo_quarto_barraca_no_beco_ou_no_carro    With someone sleeping in the same room / tent (in the alley, or in the car)?
-com_algu_m_que_voc_conheceu_a_menos_de_12_horas    With someone you met less than 12 hours?
-com_mais_de_dez_pessoas_na_vida    With more than 10 people in life?
-com_mais_de_tr_s_pessoas_na_vida    With more than 3 people in life?
-com_sex_toys    With sex toys?
-de_cabe_a_pra_baixo    Upside down?
-durante_gr_videz    During pregnancy?
-fez_sexo_mais_de_tr_s_vezes_na_mesma_noite_sem_transa_es_comerciais    Did you have sex more than three times the same night without any business transactions?
-j_fez_sexo_com_um_menor_de_idade_sendo_maior    Have you ever had sex with a minor, being older?
-j_fez_sexo_oral    Have you ever had oral sex?
-j_fez_sexo    Have you had sex?
-j_fez_um_m_nage    Have you done a ménage?
-sexo_sem_camisinha    Sex without condom?
-s_porque_n_o_tava_comendo_nada_fazendo_ningu_m    Just because I was not eating anything, doing nobody?
-tirou_a_virgindade_de_algu_m    Did you take someones virginity?
-um_swing    A swing?
-uma_orgia    A orgy?
-voc_j_beijou    You already kissed&#8230;
-language    Language: flagaboutthelanguage    FlagAboutTheLanguage
-
-NotImplement    Not implement yet, sorry&#8230;
-AnyMan    A man?
-AnyWoman    A woman?
-BothWomans    Both persons womans?
-BothMans    Both persons mans?
-MILF    Already make sex with a MILF?
-DILF    Already make sex with a DILF?
-{}
