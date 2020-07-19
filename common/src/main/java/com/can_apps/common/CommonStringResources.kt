@@ -18,7 +18,8 @@ class CommonStringResourceWrapper(private val context: Context) {
         context.resources?.getQuantityString(quantityStringResId, size)
 
     fun getQuantityStringWithFormatting(
-        @PluralsRes quantityStringResId: Int, count: Int,
+        @PluralsRes quantityStringResId: Int,
+        count: Int,
         vararg formatArgs: Any?
     ): String? = context.resources?.getQuantityString(quantityStringResId, count, *formatArgs)
 }

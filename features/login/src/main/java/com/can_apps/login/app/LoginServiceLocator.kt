@@ -11,9 +11,9 @@ import com.can_apps.login.core.LoginContract
 import com.can_apps.login.core.LoginInteractor
 import com.can_apps.login.data.LoginDtoMapper
 import com.can_apps.login.data.LoginDtoMapperDefault
+import com.can_apps.login.data.LoginRepository
 import com.can_apps.login.data.firebase_data_source.FirebaseApi
 import com.can_apps.login.data.firebase_data_source.FirebaseApiDefault
-import com.can_apps.login.data.LoginRepository
 import com.google.firebase.auth.FirebaseAuth
 
 internal class LoginServiceLocator(private val context: Context) {
@@ -34,5 +34,4 @@ internal class LoginServiceLocator(private val context: Context) {
     private fun getApi(): FirebaseApi = FirebaseApiDefault(FirebaseAuth.getInstance())
 
     private fun getCoroutineDispatcher(): CoroutineDispatcherFactory = CoroutineDispatcherFactoryDefault()
-
 }

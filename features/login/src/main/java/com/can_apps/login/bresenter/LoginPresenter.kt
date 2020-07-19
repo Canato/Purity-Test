@@ -3,13 +3,18 @@ package com.can_apps.login.bresenter
 import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.common.CoroutineDispatcherFactory
 import com.can_apps.login.R
-import com.can_apps.login.core.*
+import com.can_apps.login.core.LoginContract
+import com.can_apps.login.core.LoginDomain
+import com.can_apps.login.core.LoginNameDomain
+import com.can_apps.login.core.LoginNameValidationDomain
+import com.can_apps.login.core.LoginPasswordDomain
+import com.can_apps.login.core.LoginPasswordValidationDomain
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 internal class LoginPresenter(
     private val interactor: LoginContract.Interactor,
@@ -28,7 +33,7 @@ internal class LoginPresenter(
         get() = dispatcher.UI + job
 
     private val passwordChannel = Channel<OnPasswordChangedEvent>(Channel.CONFLATED)
-    //todo tomasz, create the same behaviour for LoginName with Flow
+    // todo tomasz, create the same behaviour for LoginName with Flow
 
     override fun bind(view: LoginContract.View) {
         this.view = view
@@ -45,7 +50,9 @@ internal class LoginPresenter(
         updateButtonsFunction(loginValid && passwordValid)
     }
 
-    override fun onBackPressed() { view?.close() }
+    override fun onBackPressed() {
+        view?.close()
+    }
 
     override fun onSignClicked(loginName: String, password: String) {
         signInUser(loginName, password)
@@ -55,11 +62,17 @@ internal class LoginPresenter(
         createNewUser(loginName, password)
     }
 
-    override fun logoutUser() { logout() }
+    override fun logoutUser() {
+        logout()
+    }
 
-    override fun checkLogIn() { checkLogInStatus() }
+    override fun checkLogIn() {
+        checkLogInStatus()
+    }
 
-    override fun onLoginInputChanged(login: String) { verifyLogin(login) }
+    override fun onLoginInputChanged(login: String) {
+        verifyLogin(login)
+    }
 
     override fun onPasswordInputChanged(password: String) {
         passwordChannel.offer(OnPasswordChangedEvent(password))
@@ -87,9 +100,10 @@ internal class LoginPresenter(
         receiveChannel: ReceiveChannel<OnPasswordChangedEvent>
     ) = launch(dispatcher.IO) {
         for (event in receiveChannel) {
-            when(event) {
+            when (event) {
                 is OnPasswordChangedEvent -> {
-                    when (val domain = interactor.passwordValidation(LoginPasswordDomain(event.value))) {
+                    when (val domain =
+                        interactor.passwordValidation(LoginPasswordDomain(event.value))) {
                         is LoginPasswordValidationDomain.Valid -> {
                             checkPasswordBox(true)
                             updatePasswordView(null)
@@ -105,7 +119,8 @@ internal class LoginPresenter(
                         }
                     }
                 }
-                else -> { } //do nothing
+                else -> {
+                } // do nothing
             }
         }
     }
@@ -120,7 +135,9 @@ internal class LoginPresenter(
                     showSuccess()
                     cleanInputViews()
                 }
-                is LoginDomain.Fail -> {showError(result.error.value)}
+                is LoginDomain.Fail -> {
+                    showError(result.error.value)
+                }
             }
         }
 
@@ -148,7 +165,9 @@ internal class LoginPresenter(
 
     private fun CoroutineScope.checkLogInStatus() = launch(dispatcher.IO) {
         when (val result = interactor.checkLogInStatus()) {
-            is LoginDomain.Success -> {showLogInStatus(stringResource.getString(R.string.sign_in_true)) }
+            is LoginDomain.Success -> {
+                showLogInStatus(stringResource.getString(R.string.sign_in_true))
+            }
             is LoginDomain.Fail -> showLogInStatus(result.error.value)
         }
     }
@@ -175,9 +194,10 @@ internal class LoginPresenter(
         view?.updateLoginTextViewErrorMessage(message)
     }
 
-    private fun CoroutineScope.updatePasswordView(message: LoginModel.Error?) = launch(dispatcher.UI) {
-        view?.updatePasswordTextViewErrorMessage(message)
-    }
+    private fun CoroutineScope.updatePasswordView(message: LoginModel.Error?) =
+        launch(dispatcher.UI) {
+            view?.updatePasswordTextViewErrorMessage(message)
+        }
 
     private fun CoroutineScope.updateButtonsFunction(enable: Boolean) = launch(dispatcher.UI) {
         when (enable) {
@@ -200,6 +220,4 @@ internal class LoginPresenter(
     private fun CoroutineScope.logout() = launch(dispatcher.IO) {
         interactor.logoutUser()
     }
-
 }
-
