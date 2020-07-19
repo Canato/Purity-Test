@@ -26,23 +26,23 @@ internal class LoginDtoMapperDefaultTest {
 
     @Test
     fun `GIVEN firebase_dto_valid, WHEN dto_toDomain, THEN return LoginDomain_Success`() {
-        //GIVEN
+        // GIVEN
         val email = "JamesBond"
         val fireBaseUserEmail = FireBaseUserEmail(email)
 
         val firebaseDto = FirebaseDto.Valid(fireBaseUserEmail)
         val expected = LoginDomain.Success
 
-        //WHEN
+        // WHEN
         val result = dto.toDomain(firebaseDto)
 
-        //THEN
+        // THEN
         assertEquals(expected, result)
     }
 
     @Test
     fun `GIVEN firebase_dto_invalid, WHEN dto_toDomain, THEN return LoginDomain_Fail`() {
-        //GIVEN
+        // GIVEN
         val firebaseDto = FirebaseDto.Invalid
         val message = "in the bottle"
         val errorDomain = LoginErrorDomain(message)
@@ -50,10 +50,10 @@ internal class LoginDtoMapperDefaultTest {
 
         coEvery { stringResource.getString(R.string.firebase_dto_error) } returns message
 
-        //WHEN
+        // WHEN
         val result = dto.toDomain(firebaseDto)
 
-        //THEN
+        // THEN
         assertEquals(expected, result)
     }
 }

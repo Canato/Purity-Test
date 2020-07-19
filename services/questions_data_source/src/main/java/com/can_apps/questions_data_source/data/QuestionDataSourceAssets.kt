@@ -4,13 +4,12 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-
 interface QuestionsDataSourceAssets {
     fun getQuestions(): Set<QuestionDataSourceDto>
 }
 
-class QuestionsDataSourceAssetsDefault(private val context: Context)
-    : QuestionsDataSourceAssets {
+class QuestionsDataSourceAssetsDefault(private val context: Context) :
+    QuestionsDataSourceAssets {
 
     override fun getQuestions(): Set<QuestionDataSourceDto> {
 

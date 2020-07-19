@@ -10,6 +10,4 @@ internal class QuestionsCategoryAssetMapperDefault() : QuestionsCategoryAssetMap
     override fun mapCategoryToDomain(category: String): QuestionCategoryDomainEnum {
         TODO()
     }
-
-
 }

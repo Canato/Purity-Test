@@ -1,10 +1,5 @@
 package com.can_apps.questions.bresenter
 
-import com.can_apps.questions.bresenter.mappers.QuestionsModelMapperDefault
-import com.can_apps.questions.core.*
-import org.junit.Assert.assertEquals
-import org.junit.Test
-
 internal class QuestionsModelMapperTest {
 
 //    private val mapper =

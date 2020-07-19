@@ -6,9 +6,13 @@ import com.can_apps.questions.bresenter.mappers.QuestionsModelMapper
 import com.can_apps.questions.core.QuestionErrorDomain
 import com.can_apps.questions.core.QuestionsContract
 import com.can_apps.questions.core.QuestionsDomain
-import io.mockk.*
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
+import io.mockk.verify
 import org.junit.Before
 import org.junit.Test
 
@@ -41,18 +45,18 @@ internal class QuestionsPresenterTest {
     }
 
     @Test
-    fun `GIVEN valid data, WHEN on create view, THEN show list` () {
-        //GIVEN
+    fun `GIVEN valid data, WHEN on create view, THEN show list`() {
+        // GIVEN
         val domain = mockk<QuestionsDomain.Valid>(relaxed = true)
         val model = mockk<QuestionsModel>(relaxed = true)
 
         coEvery { interactor.retrieveList() } returns domain
         coEvery { mapper.toModel(domain) } returns listOf(model)
 
-        //WHEN
+        // WHEN
         presenter.onViewCreated()
 
-        //THEN
+        // THEN
         verify {
             view.showLoading()
             view.hideLoading()
@@ -61,18 +65,18 @@ internal class QuestionsPresenterTest {
     }
 
     @Test
-    fun `GIVEN invalid data, WHEN on create view, THEN show error` () {
-        //GIVEN
+    fun `GIVEN invalid data, WHEN on create view, THEN show error`() {
+        // GIVEN
         val message = "ErrorCheck"
         val questionErrorDomain = QuestionErrorDomain(message)
         val domain = QuestionsDomain.Error(questionErrorDomain)
 
         coEvery { interactor.retrieveList() } returns domain
 
-        //WHEN
+        // WHEN
         presenter.onViewCreated()
 
-        //THEN
+        // THEN
         verify {
             view.showLoading()
             view.hideLoading()
@@ -85,10 +89,10 @@ internal class QuestionsPresenterTest {
 
     @Test
     fun `WHEN back press, THEN close`() {
-        //WHEN
+        // WHEN
         presenter.onBackPressed()
 
-        //THEN
+        // THEN
         verify {
             view.close()
         }

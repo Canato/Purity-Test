@@ -8,7 +8,7 @@ internal interface QuestionsIdDomainMapper {
     fun mapIdToReligionDomain(id: Int): QuestionIdDomainEnum
 }
 
-internal class QuestionsIdDomainMapperDefault() : QuestionsIdDomainMapper{
+internal class QuestionsIdDomainMapperDefault() : QuestionsIdDomainMapper {
     override fun mapIdToDrugsDomain(id: Int): QuestionIdDomainEnum {
         TODO("Not yet implemented")
     }
@@ -20,5 +20,4 @@ internal class QuestionsIdDomainMapperDefault() : QuestionsIdDomainMapper{
     override fun mapIdToReligionDomain(id: Int): QuestionIdDomainEnum {
         TODO("Not yet implemented")
     }
-
 }

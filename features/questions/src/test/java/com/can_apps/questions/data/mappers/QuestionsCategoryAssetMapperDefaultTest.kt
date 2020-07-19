@@ -11,7 +11,7 @@ internal class QuestionsCategoryAssetMapperDefaultTest {
 
     @Test
     fun `GIVEN category, WHEN asset_mapCategoryToDomain, THEN return QuestionIdDomainEnum`() {
-        //GIVEN
+        // GIVEN
         val category = listOf("drugs", "sex", "religion")
         val expected = listOf(
             QuestionCategoryDomainEnum.DRUGS,
@@ -19,11 +19,10 @@ internal class QuestionsCategoryAssetMapperDefaultTest {
             QuestionCategoryDomainEnum.RELIGION
         )
 
-        //WHEN
+        // WHEN
         val result = category.map { assetCategoryMapper.mapCategoryToDomain(it) }
 
-        //THEN
+        // THEN
         Assert.assertEquals(expected, result)
     }
-
 }

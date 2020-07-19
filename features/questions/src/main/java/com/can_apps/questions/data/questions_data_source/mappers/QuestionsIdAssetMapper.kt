@@ -4,12 +4,12 @@ import com.can_apps.questions.core.QuestionCategoryDomainEnum
 import com.can_apps.questions.core.QuestionIdDomainEnum
 
 internal interface QuestionsIdAssetMapper {
-   fun mapAssetId(category: QuestionCategoryDomainEnum, id: Int) : QuestionIdDomainEnum
+    fun mapAssetId(category: QuestionCategoryDomainEnum, id: Int): QuestionIdDomainEnum
 }
 
 internal class QuestionsIdAssetMapperDefault(
     private val idDomainMapper: QuestionsIdDomainMapper
-) : QuestionsIdAssetMapper{
+) : QuestionsIdAssetMapper {
     override fun mapAssetId(
         category: QuestionCategoryDomainEnum,
         id: Int

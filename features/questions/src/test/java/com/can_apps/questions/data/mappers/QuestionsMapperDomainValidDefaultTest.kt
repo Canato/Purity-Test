@@ -1,6 +1,11 @@
 package com.can_apps.questions.data.mappers
 
-import com.can_apps.questions.core.*
+import com.can_apps.questions.core.QuestionCategoryDomainEnum
+import com.can_apps.questions.core.QuestionDetailsDomain
+import com.can_apps.questions.core.QuestionIdDomainEnum
+import com.can_apps.questions.core.QuestionValidDomain
+import com.can_apps.questions.core.QuestionWeightDomain
+import com.can_apps.questions.core.QuestionsDomain
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsCategoryAssetMapper
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdAssetMapper
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsMapperDomainValidDefault
@@ -31,7 +36,7 @@ internal class QuestionsMapperDomainValidDefaultTest {
 
     @Test
     fun `GIVEN asset, WHEN asset_mapToDomainValid, THEN return questionsdomain_valid`() {
-        //GIVEN
+        // GIVEN
         val questionId = mockk<Int>(relaxed = true)
         val questionCategory = "some fancy category"
         val questionCategoryDomainEnum = mockk<QuestionCategoryDomainEnum>()
@@ -68,10 +73,10 @@ internal class QuestionsMapperDomainValidDefaultTest {
             assetIdMapper.mapAssetId(questionCategoryDomainEnum, questionId)
         } returns questionIdDomainEnum
 
-        //WHEN
+        // WHEN
         val result = assetMapper.mapToDomainValid(questionDataSourceSet)
 
-        //THEN
+        // THEN
         Assert.assertEquals(expected, result)
     }
 }

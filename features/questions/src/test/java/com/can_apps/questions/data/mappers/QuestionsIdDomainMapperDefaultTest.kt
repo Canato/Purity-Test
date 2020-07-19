@@ -11,7 +11,7 @@ internal class QuestionsIdDomainMapperDefaultTest {
 
     @Test
     fun `GIVEN id, WHEN mapIdToDrugsDomain, THEN return QuestionIdDomainEnum_DRUGS_JAIL`() {
-        //GIVEN
+        // GIVEN
         val id = listOf(1, 2, 3, 4)
         val expected = listOf(
             QuestionIdDomainEnum.DRUGS_JAIL,
@@ -20,37 +20,36 @@ internal class QuestionsIdDomainMapperDefaultTest {
             QuestionIdDomainEnum.DRUGS_USAGE
         )
 
-        //WHEN
+        // WHEN
         val result = id.map { idDomainMapper.mapIdToDrugsDomain(it) }
 
-        //THEN
+        // THEN
         Assert.assertEquals(expected, result)
     }
 
-
     @Test
     fun `GIVEN id, WHEN mapIdToSexDomain, THEN return QuestionIdDomainEnum_SEX_SAME`() {
-        //GIVEN
+        // GIVEN
         val id = listOf(1)
         val expected = listOf(QuestionIdDomainEnum.SEX_SAME)
 
-        //WHEN
+        // WHEN
         val result = id.map { idDomainMapper.mapIdToSexDomain(it) }
 
-        //THEN
+        // THEN
         Assert.assertEquals(expected, result)
     }
 
     @Test
     fun `GIVEN id, WHEN mapIdToSexDomain, THEN return QuestionIdDomainEnum_RELIGION_ANTI`() {
-        //GIVEN
+        // GIVEN
         val id = listOf(1)
         val expected = listOf(QuestionIdDomainEnum.RELIGION_ANTI)
 
-        //WHEN
+        // WHEN
         val result = id.map { idDomainMapper.mapIdToReligionDomain(it) }
 
-        //THEN
+        // THEN
         Assert.assertEquals(expected, result)
     }
 }

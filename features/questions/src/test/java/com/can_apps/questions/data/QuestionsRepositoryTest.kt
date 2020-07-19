@@ -32,7 +32,7 @@ internal class QuestionsRepositoryTest {
 
     @Test
     fun `GIVEN api with set, WHEN retrieveList, THEN return questionsdomain_valid`() {
-        //GIVEN
+        // GIVEN
 
         val setQuestionValidDomain = setOf(mockk<QuestionValidDomain>(relaxed = true))
         val expected = QuestionsDomain.Valid(setQuestionValidDomain)
@@ -42,36 +42,34 @@ internal class QuestionsRepositoryTest {
         coEvery { asset.getQuestions() } returns setQuestionsDataSourceDto
         coEvery { dtoMapper.assetToDomain(setQuestionsDataSourceDto) } returns expected
 
-        //WHEN
+        // WHEN
         val result = runBlocking { repository.retrieveList() }
 
-        //THEN
+        // THEN
         assertEquals(expected, result)
     }
 
     @Test
     fun `GIVEN empty set, WHEN retrieveList, THEN return questionsdomain_error`() {
-        //GIVEN
+        // GIVEN
         val message = "something is missing here"
         val errorDomain = QuestionErrorDomain(message)
         val emptySet = emptySet<QuestionDataSourceDto>()
         val expected = QuestionsDomain.Error(errorDomain)
 
-
         coEvery { asset.getQuestions() } returns emptySet
         coEvery { dtoMapper.assetToDomain(emptySet) } returns expected
 
-        //WHEN
+        // WHEN
         val result = runBlocking { repository.retrieveList() }
 
-        //THEN
+        // THEN
         assertEquals(expected, result)
-
     }
 
     @Test
     fun `GIVEN exception, WHEN retrieveList, THEN return questionsdomain_error`() {
-        //GIVEN
+        // GIVEN
         val emptySet = emptySet<QuestionDataSourceDto>()
         val message = "expect unexpected"
         val errorDomain = QuestionErrorDomain(message)
@@ -80,12 +78,10 @@ internal class QuestionsRepositoryTest {
 
         coEvery { asset.getQuestions() } throws exception
 
-        //WHEN
+        // WHEN
         val result = runBlocking { repository.retrieveList() }
 
-        //THEN
+        // THEN
         assertEquals(expected, result)
-
     }
-
 }

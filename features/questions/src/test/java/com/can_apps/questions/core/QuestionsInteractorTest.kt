@@ -23,27 +23,28 @@ internal class QuestionsInteractorTest {
 
     @Test
     fun `GIVEN valid return, WHEN retrieve list, THEN return domain`() = runBlocking {
-        //GIVEN
+        // GIVEN
         val expected = mockk<QuestionsDomain.Valid>()
         coEvery { repository.retrieveList() } returns expected
 
-        //WHEN
+        // WHEN
         val result = interactor.retrieveList()
 
-        //THEN
+        // THEN
         assertEquals(expected, result)
     }
 
     @Test
     fun `GIVEN invalid return, WHEN retrieve list, THEN return domain`() = runBlocking {
-        //GIVEN
+        // GIVEN
         val expected = mockk<QuestionsDomain.Error>()
+
         coEvery { repository.retrieveList() } returns expected
 
-        //WHEN
+        // WHEN
         val result = interactor.retrieveList()
 
-        //THEN
+        // THEN
         assertEquals(expected, result)
     }
 }

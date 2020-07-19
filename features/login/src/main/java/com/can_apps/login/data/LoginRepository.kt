@@ -1,6 +1,10 @@
 package com.can_apps.login.data
 
-import com.can_apps.login.core.*
+import com.can_apps.login.core.LoginContract
+import com.can_apps.login.core.LoginDomain
+import com.can_apps.login.core.LoginErrorDomain
+import com.can_apps.login.core.LoginNameDomain
+import com.can_apps.login.core.LoginPasswordDomain
 import com.can_apps.login.data.firebase_data_source.FirebaseApi
 
 internal class LoginRepository(

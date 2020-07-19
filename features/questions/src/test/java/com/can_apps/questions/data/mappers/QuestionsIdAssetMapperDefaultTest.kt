@@ -27,17 +27,17 @@ internal class QuestionsIdAssetMapperDefaultTest {
 
     @Test
     fun `GIVEN drugs category, WHEN mapAssetId, THEN return QuestionIdDomainEnum`() {
-        //GIVEN
+        // GIVEN
         val id = mockk<Int>(relaxed = true)
         val category = QuestionCategoryDomainEnum.DRUGS
         val expected = mockk<QuestionIdDomainEnum>()
 
         every { idDomainMapper.mapIdToDrugsDomain(id) } returns expected
 
-        //WHEN
+        // WHEN
         val result = assetIdMapper.mapAssetId(category, id)
 
-        //THEN
+        // THEN
         verify {
             idDomainMapper.mapIdToDrugsDomain(id)
         }
@@ -46,17 +46,17 @@ internal class QuestionsIdAssetMapperDefaultTest {
 
     @Test
     fun `GIVEN sex category, WHEN mapAssetId, THEN return QuestionIdDomainEnum`() {
-        //GIVEN
+        // GIVEN
         val id = mockk<Int>(relaxed = true)
         val category = QuestionCategoryDomainEnum.SEX
         val expected = mockk<QuestionIdDomainEnum>()
 
         every { idDomainMapper.mapIdToSexDomain(id) } returns expected
 
-        //WHEN
+        // WHEN
         val result = assetIdMapper.mapAssetId(category, id)
 
-        //THEN
+        // THEN
         verify {
             idDomainMapper.mapIdToSexDomain(id)
         }
@@ -65,17 +65,17 @@ internal class QuestionsIdAssetMapperDefaultTest {
 
     @Test
     fun `GIVEN religion category, WHEN mapAssetId, THEN return QuestionIdDomainEnum`() {
-        //GIVEN
+        // GIVEN
         val id = mockk<Int>(relaxed = true)
         val category = QuestionCategoryDomainEnum.RELIGION
         val expected = mockk<QuestionIdDomainEnum>()
 
         every { idDomainMapper.mapIdToReligionDomain(id) } returns expected
 
-        //WHEN
+        // WHEN
         val result = assetIdMapper.mapAssetId(category, id)
 
-        //THEN
+        // THEN
         verify {
             idDomainMapper.mapIdToReligionDomain(id)
         }

@@ -3,7 +3,7 @@ package com.can_apps.questions.bresenter
 internal data class QuestionsModel(
     val questionCategory: QuestionCategoryModel,
     val questionsModelDetails: Set<QuestionsModelDetails>
-    )
+)
 
 internal data class QuestionsModelDetails(
     val questionId: QuestionIdModelEnum,
