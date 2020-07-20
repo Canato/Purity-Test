@@ -5,8 +5,18 @@ import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.common.CoroutineDispatcherFactory
 import com.can_apps.common.CoroutineDispatcherFactoryDefault
 import com.can_apps.questions.bresenter.QuestionsPresenter
+import com.can_apps.questions.bresenter.mappers.QuestionsCategoryModelMapper
+import com.can_apps.questions.bresenter.mappers.QuestionsCategoryModelMapperDefault
+import com.can_apps.questions.bresenter.mappers.QuestionsIdDomainMapper
+import com.can_apps.questions.bresenter.mappers.QuestionsIdDomainMapperDefault
+import com.can_apps.questions.bresenter.mappers.QuestionsIdDomainToModelMapper
+import com.can_apps.questions.bresenter.mappers.QuestionsIdDomainToModelMapperDefault
 import com.can_apps.questions.bresenter.mappers.QuestionsModelMapper
 import com.can_apps.questions.bresenter.mappers.QuestionsModelMapperDefault
+import com.can_apps.questions.bresenter.mappers.QuestionsTextModelMapper
+import com.can_apps.questions.bresenter.mappers.QuestionsTextModelMapperDefault
+import com.can_apps.questions.bresenter.mappers.QuestionsTextModelStringMapper
+import com.can_apps.questions.bresenter.mappers.QuestionsTextModelStringMapperDefault
 import com.can_apps.questions.core.QuestionsContract
 import com.can_apps.questions.core.QuestionsInteractor
 import com.can_apps.questions.data.QuestionsRepository
@@ -17,7 +27,7 @@ import com.can_apps.questions.data.questions_data_source.mappers.QuestionsCatego
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdAssetMapper
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdAssetMapperDefault
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdAssetToDomainMapper
-import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdDomainMapperDefault
+import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdAssetToDomainMapperDefault
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsMapperDomainValid
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsMapperDomainValidDefault
 import com.can_apps.questions_data_source.data.QuestionsDataSourceAssets
@@ -43,13 +53,23 @@ internal class QuestionsServiceLocator(private val context: Context) {
 
     private fun getCategoryDomainMapper(): QuestionsCategoryAssetMapper = QuestionsCategoryAssetMapperDefault()
 
-    private fun getIdAssetMapper(): QuestionsIdAssetMapper = QuestionsIdAssetMapperDefault(getIdDomainMapper())
+    private fun getIdAssetMapper(): QuestionsIdAssetMapper = QuestionsIdAssetMapperDefault(getIdAssetToDomainMapper())
 
-    private fun getIdDomainMapper(): QuestionsIdAssetToDomainMapper = QuestionsIdDomainMapperDefault()
+    private fun getIdAssetToDomainMapper(): QuestionsIdAssetToDomainMapper = QuestionsIdAssetToDomainMapperDefault()
 
     private fun getStringResource(): CommonStringResourceWrapper = CommonStringResourceWrapper(context)
 
-    private fun getModelMapper(): QuestionsModelMapper = QuestionsModelMapperDefault()
+    private fun getModelMapper(): QuestionsModelMapper = QuestionsModelMapperDefault(getCategoryModelMapper(), getIdModelMapper(), getTextModelMapper())
+
+    private fun getCategoryModelMapper(): QuestionsCategoryModelMapper = QuestionsCategoryModelMapperDefault()
+
+    private fun getIdModelMapper(): QuestionsIdDomainMapper = QuestionsIdDomainMapperDefault(getIdDomainToModelMapper())
+
+    private fun getIdDomainToModelMapper(): QuestionsIdDomainToModelMapper = QuestionsIdDomainToModelMapperDefault()
+
+    private fun getTextModelMapper(): QuestionsTextModelMapper = QuestionsTextModelMapperDefault(getTextModelStringMapper())
+
+    private fun getTextModelStringMapper(): QuestionsTextModelStringMapper = QuestionsTextModelStringMapperDefault(getStringResource())
 
     private fun getCoroutineDispatcher(): CoroutineDispatcherFactory = CoroutineDispatcherFactoryDefault()
 }

@@ -1,13 +1,13 @@
 package com.can_apps.questions.data.mappers
 
 import com.can_apps.questions.core.QuestionIdDomainEnum
-import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdDomainMapperDefault
+import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdAssetToDomainMapperDefault
 import org.junit.Assert
 import org.junit.Test
 
-internal class QuestionsIdDomainMapperDefaultTest {
+internal class QuestionsIdAssetToDomainMapperDefaultTest {
 
-    private val idDomainMapper = QuestionsIdDomainMapperDefault()
+    private val idDomainMapper = QuestionsIdAssetToDomainMapperDefault()
 
     @Test
     fun `GIVEN id, WHEN mapIdToDrugsDomain, THEN return QuestionIdDomainEnum_DRUGS_JAIL`() {

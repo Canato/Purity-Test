@@ -7,7 +7,11 @@ internal interface QuestionsModelMapper {
     fun toModel(domain: QuestionsDomain.Valid): List<QuestionsModel>
 }
 
-internal class QuestionsModelMapperDefault() : QuestionsModelMapper {
+internal class QuestionsModelMapperDefault(
+    private var categoryMapper: QuestionsCategoryModelMapper,
+    private var idMapper: QuestionsIdDomainMapper,
+    private var textMapper: QuestionsTextModelMapper
+) : QuestionsModelMapper {
 
     override fun toModel(domain: QuestionsDomain.Valid): List<QuestionsModel> {
         TODO()
