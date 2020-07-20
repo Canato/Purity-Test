@@ -1,7 +1,7 @@
 package com.can_apps.questions.data.questions_data_source.mappers
 
 import com.can_apps.questions.core.QuestionDetailsDomain
-import com.can_apps.questions.core.QuestionValidDomain
+import com.can_apps.questions.core.QuestionObjectDomain
 import com.can_apps.questions.core.QuestionWeightDomain
 import com.can_apps.questions.core.QuestionsDomain
 import com.can_apps.questions_data_source.data.QuestionDataSourceDto
@@ -16,7 +16,7 @@ internal class QuestionsMapperDomainValidDefault(
 ) : QuestionsMapperDomainValid {
 
     override fun mapToDomainValid(asset: Set<QuestionDataSourceDto>): QuestionsDomain.Valid {
-        val validDomainSet = mutableSetOf<QuestionValidDomain>()
+        val validDomainSet = mutableSetOf<QuestionObjectDomain>()
         val questionDetailsDomainSet = mutableSetOf<QuestionDetailsDomain>()
 
         asset.forEach { questionDto ->
@@ -33,7 +33,7 @@ internal class QuestionsMapperDomainValidDefault(
                 )
 
                 validDomainSet.add(
-                    QuestionValidDomain(
+                    QuestionObjectDomain(
                         categoryDomainEnum,
                         questionDetailsDomainSet
                     )

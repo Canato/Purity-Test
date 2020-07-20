@@ -9,7 +9,7 @@ internal interface QuestionsModelMapper {
 
 internal class QuestionsModelMapperDefault() : QuestionsModelMapper {
 
-    override fun toModel(domain: QuestionsDomain.Valid): List<QuestionsModel> =
-
+    override fun toModel(domain: QuestionsDomain.Valid): List<QuestionsModel> {
         TODO()
+    }
 }

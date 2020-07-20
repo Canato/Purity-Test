@@ -3,7 +3,6 @@ package com.can_apps.questions.app
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.questions.R
 import com.can_apps.questions.bresenter.QuestionIdModelEnum
 import com.can_apps.questions.bresenter.QuestionsModel
@@ -25,8 +24,7 @@ internal class QuestionsRecyclerViewAdapter(
                 parent,
                 false
             ),
-            listener,
-            CommonStringResourceWrapper(parent.context)
+            listener
         )
 
     override fun getItemCount(): Int = questions.size

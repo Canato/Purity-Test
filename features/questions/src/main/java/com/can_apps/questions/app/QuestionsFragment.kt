@@ -44,7 +44,7 @@ internal class QuestionsFragment :
         setOnBackPressedCallback()
         presenter.onViewCreated()
         recyclerView.apply {
-            layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             recyclerView.adapter = recyclerViewAdapter
         }
     }

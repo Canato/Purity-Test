@@ -16,7 +16,7 @@ import com.can_apps.questions.data.questions_data_source.mappers.QuestionsCatego
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsCategoryAssetMapperDefault
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdAssetMapper
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdAssetMapperDefault
-import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdDomainMapper
+import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdAssetToDomainMapper
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdDomainMapperDefault
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsMapperDomainValid
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsMapperDomainValidDefault
@@ -45,7 +45,7 @@ internal class QuestionsServiceLocator(private val context: Context) {
 
     private fun getIdAssetMapper(): QuestionsIdAssetMapper = QuestionsIdAssetMapperDefault(getIdDomainMapper())
 
-    private fun getIdDomainMapper(): QuestionsIdDomainMapper = QuestionsIdDomainMapperDefault()
+    private fun getIdDomainMapper(): QuestionsIdAssetToDomainMapper = QuestionsIdDomainMapperDefault()
 
     private fun getStringResource(): CommonStringResourceWrapper = CommonStringResourceWrapper(context)
 

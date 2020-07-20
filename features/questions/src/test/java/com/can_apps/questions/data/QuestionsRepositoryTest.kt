@@ -1,7 +1,7 @@
 package com.can_apps.questions.data
 
 import com.can_apps.questions.core.QuestionErrorDomain
-import com.can_apps.questions.core.QuestionValidDomain
+import com.can_apps.questions.core.QuestionObjectDomain
 import com.can_apps.questions.core.QuestionsDomain
 import com.can_apps.questions.data.questions_data_source.QuestionsDtoMapper
 import com.can_apps.questions_data_source.data.QuestionDataSourceDto
@@ -34,7 +34,7 @@ internal class QuestionsRepositoryTest {
     fun `GIVEN api with set, WHEN retrieveList, THEN return questionsdomain_valid`() {
         // GIVEN
 
-        val setQuestionValidDomain = setOf(mockk<QuestionValidDomain>(relaxed = true))
+        val setQuestionValidDomain = setOf(mockk<QuestionObjectDomain>(relaxed = true))
         val expected = QuestionsDomain.Valid(setQuestionValidDomain)
 
         val setQuestionsDataSourceDto = setOf(mockk<QuestionDataSourceDto>(relaxed = true))

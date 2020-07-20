@@ -8,7 +8,7 @@ internal interface QuestionsIdAssetMapper {
 }
 
 internal class QuestionsIdAssetMapperDefault(
-    private val idDomainMapper: QuestionsIdDomainMapper
+    private val idDomainMapper: QuestionsIdAssetToDomainMapper
 ) : QuestionsIdAssetMapper {
     override fun mapAssetId(
         category: QuestionCategoryDomainEnum,

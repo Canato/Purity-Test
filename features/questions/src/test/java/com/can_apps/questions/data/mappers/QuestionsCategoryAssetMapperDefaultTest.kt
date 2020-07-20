@@ -10,7 +10,7 @@ internal class QuestionsCategoryAssetMapperDefaultTest {
     private val assetCategoryMapper = QuestionsCategoryAssetMapperDefault()
 
     @Test
-    fun `GIVEN category, WHEN asset_mapCategoryToDomain, THEN return QuestionIdDomainEnum`() {
+    fun `GIVEN category, WHEN asset_mapCategoryToDomain, THEN return QuestionCategoryDomainEnum`() {
         // GIVEN
         val category = listOf("drugs", "sex", "religion")
         val expected = listOf(

@@ -1,7 +1,7 @@
 package com.can_apps.questions.bresenter
 
 internal data class QuestionsModel(
-    val questionCategory: QuestionCategoryModel,
+    val questionCategory: QuestionCategoryModelEnum,
     val questionsModelDetails: Set<QuestionsModelDetails>
 )
 
@@ -10,6 +10,10 @@ internal data class QuestionsModelDetails(
     val questionText: QuestionTextModel,
     val questionWeight: QuestionWeightModel
 )
+
+internal enum class QuestionCategoryModelEnum {
+    DRUGS, SEX, RELIGION
+}
 
 internal enum class QuestionIdModelEnum {
     DRUGS_SMOKE,
@@ -20,6 +24,5 @@ internal enum class QuestionIdModelEnum {
     RELIGION_ANTI
 }
 
-internal inline class QuestionCategoryModel(val value: String)
 internal inline class QuestionTextModel(val value: String)
 internal inline class QuestionWeightModel(val value: Int)

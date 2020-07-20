@@ -3,7 +3,7 @@ package com.can_apps.questions.data.mappers
 import com.can_apps.questions.core.QuestionCategoryDomainEnum
 import com.can_apps.questions.core.QuestionIdDomainEnum
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdAssetMapperDefault
-import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdDomainMapper
+import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdAssetToDomainMapper
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -17,7 +17,7 @@ import org.junit.Test
 internal class QuestionsIdAssetMapperDefaultTest {
 
     @MockK
-    private lateinit var idDomainMapper: QuestionsIdDomainMapper
+    private lateinit var idDomainMapper: QuestionsIdAssetToDomainMapper
 
     @InjectMockKs
     private lateinit var assetIdMapper: QuestionsIdAssetMapperDefault

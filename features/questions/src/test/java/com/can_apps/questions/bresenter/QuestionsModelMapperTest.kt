@@ -1,40 +1,93 @@
 package com.can_apps.questions.bresenter
 
+import com.can_apps.questions.bresenter.mappers.QuestionsCategoryModelMapper
+import com.can_apps.questions.bresenter.mappers.QuestionsIdDomainMapper
+import com.can_apps.questions.bresenter.mappers.QuestionsModelMapperDefault
+import com.can_apps.questions.bresenter.mappers.QuestionsTextModelMapper
+import com.can_apps.questions.core.QuestionCategoryDomainEnum
+import com.can_apps.questions.core.QuestionDetailsDomain
+import com.can_apps.questions.core.QuestionIdDomainEnum
+import com.can_apps.questions.core.QuestionObjectDomain
+import com.can_apps.questions.core.QuestionWeightDomain
+import com.can_apps.questions.core.QuestionsDomain
+import io.mockk.MockKAnnotations
+import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
+import io.mockk.mockk
+import junit.framework.Assert.assertEquals
+import org.junit.Before
+import org.junit.Test
+
 internal class QuestionsModelMapperTest {
 
-//    private val mapper =
-//        QuestionsModelMapperDefault()
-//
-//    @Test
-//    fun `GIVEN domain, WHEN map, THEN return model`() {
-//        //GIVEN
-//        val questionId = 0
-//        val questionCategory = "sexlife"
-//        val questionWeight = 0
-//        val questionIsSelected = false
-//
-//        val domain = QuestionsDomain.Valid(
-//            setOf(
-//                QuestionDetailsDomain(
-//                    QuestionWeightDomain(questionWeight),
-//                    QuestionSelectedDomain(questionIsSelected)
-//                )
-//            )
-//        )
-//
-//        val expected = listOf(
-//            QuestionsModel(
-//                QuestionCategoryModel(questionCategory),
-//                QuestionIdModel(questionId),
-//                QuestionWeightModel(questionWeight),
-//                QuestionSelectedModel(questionIsSelected)
-//            )
-//        )
-//
-//        //WHEN
-//        val result = mapper.toModel(domain)
-//
-//        //THEN
-//        assertEquals(expected, result)
-//    }
+    @MockK
+    private lateinit var categoryMapper: QuestionsCategoryModelMapper
+
+    @MockK
+    private lateinit var idMapper: QuestionsIdDomainMapper
+
+    @MockK
+    private lateinit var textMapper: QuestionsTextModelMapper
+
+    @InjectMockKs
+    private lateinit var modelMapper: QuestionsModelMapperDefault
+
+    @Before
+    fun setup() {
+        MockKAnnotations.init(this, relaxed = true)
+    }
+
+    @Test
+    fun `GIVEN domain, WHEN map, THEN return model`() {
+        // GIVEN
+        val questionCategoryDomainEnum = mockk<QuestionCategoryDomainEnum>()
+        val questionIdDomainEnum = mockk<QuestionIdDomainEnum>()
+        val questionWeightValue = mockk<Int>(relaxed = true)
+        val questionWeightDomain = QuestionWeightDomain(questionWeightValue)
+
+        val questionDomainSet = setOf(
+            QuestionDetailsDomain(
+                questionIdDomainEnum,
+                questionWeightDomain
+            )
+        )
+
+        val questionObjectDomain =
+            QuestionObjectDomain(questionCategoryDomainEnum, questionDomainSet)
+        val questionDomain: QuestionsDomain.Valid =
+            QuestionsDomain.Valid(setOf(questionObjectDomain))
+
+        val questionsCategoryModelEnum = mockk<QuestionCategoryModelEnum>()
+        val questionIdModelEnum = mockk<QuestionIdModelEnum>()
+        val questionTextModel = mockk<QuestionTextModel>(relaxed = true)
+        val questionWeightModel = QuestionWeightModel(questionWeightValue)
+        val questionsModelDetails =
+            QuestionsModelDetails(questionIdModelEnum, questionTextModel, questionWeightModel)
+
+        val expected =
+            listOf(QuestionsModel(questionsCategoryModelEnum, setOf(questionsModelDetails)))
+
+        every { categoryMapper.mapCategoryToModel(questionCategoryDomainEnum) } returns questionsCategoryModelEnum
+
+        every {
+            idMapper.mapDomainId(
+                questionsCategoryModelEnum,
+                questionIdDomainEnum
+            )
+        } returns questionIdModelEnum
+
+        every {
+            textMapper.mapText(
+                questionsCategoryModelEnum,
+                questionIdModelEnum
+            )
+        } returns questionTextModel
+
+        // WHEN
+        val result = modelMapper.toModel(questionDomain)
+
+        // THEN
+        assertEquals(expected, result)
+    }
 }
