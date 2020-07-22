@@ -1,6 +1,7 @@
 package com.can_apps.questions.bresenter.mappers
 
 import com.can_apps.common.CommonStringResourceWrapper
+import com.can_apps.questions.R
 import com.can_apps.questions.bresenter.QuestionIdModelEnum
 import com.can_apps.questions.bresenter.QuestionTextModel
 import io.mockk.MockKAnnotations
@@ -41,10 +42,10 @@ internal class QuestionsTextModelStringMapperDefaultTest {
             QuestionTextModel(stringResourceValue[3])
         )
 
-        every { stringResourceWrapper.getString(idModelEnum[0].ordinal) } returns stringResourceValue[0]
-        every { stringResourceWrapper.getString(idModelEnum[1].ordinal) } returns stringResourceValue[1]
-        every { stringResourceWrapper.getString(idModelEnum[2].ordinal) } returns stringResourceValue[2]
-        every { stringResourceWrapper.getString(idModelEnum[3].ordinal) } returns stringResourceValue[3]
+        every { stringResourceWrapper.getString(R.string.drugs_jail) } returns stringResourceValue[0]
+        every { stringResourceWrapper.getString(R.string.drugs_quantity) } returns stringResourceValue[1]
+        every { stringResourceWrapper.getString(R.string.drugs_smoke) } returns stringResourceValue[2]
+        every { stringResourceWrapper.getString(R.string.drugs_usage) } returns stringResourceValue[3]
 
         // WHEN
         val result = idModelEnum.map { textStringMapper.mapDrugsEnumToString(it) }
@@ -64,7 +65,7 @@ internal class QuestionsTextModelStringMapperDefaultTest {
             QuestionTextModel(stringResourceValue[0])
         )
 
-        every { stringResourceWrapper.getString(idModelEnum[0].ordinal) } returns stringResourceValue[0]
+        every { stringResourceWrapper.getString(R.string.sex_same) } returns stringResourceValue[0]
 
         // WHEN
         val result = idModelEnum.map { textStringMapper.mapSexEnumToString(it) }
@@ -84,7 +85,7 @@ internal class QuestionsTextModelStringMapperDefaultTest {
             QuestionTextModel(stringResourceValue[0])
         )
 
-        every { stringResourceWrapper.getString(idModelEnum[0].ordinal) } returns stringResourceValue[0]
+        every { stringResourceWrapper.getString(R.string.religion_anti) } returns stringResourceValue[0]
 
         // WHEN
         val result = idModelEnum.map { textStringMapper.mapReligionEnumToString(it) }

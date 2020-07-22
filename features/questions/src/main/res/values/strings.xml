@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="questions_dto_error">Error fetching questions</string>
+    <string name="drugs_jail">Drugs Jail </string>>
+    <string name="drugs_quantity"> Drugs Quantity </string>>
+    <string name="drugs_smoke"> Drugs Smoke </string>>
+    <string name="drugs_usage"> Drugs Usage </string>>
+    <string name="sex_same"> Sex Same </string>>
+    <string name="religion_anti"> Religion Anti </string>>
 </resources>

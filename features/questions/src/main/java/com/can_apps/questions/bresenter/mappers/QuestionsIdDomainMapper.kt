@@ -17,7 +17,10 @@ internal class QuestionsIdDomainMapperDefault(
     override fun mapDomainId(
         category: QuestionCategoryModelEnum,
         id: QuestionIdDomainEnum
-    ): QuestionIdModelEnum {
-        TODO("Not yet implemented")
-    }
+    ): QuestionIdModelEnum =
+        when (category) {
+            QuestionCategoryModelEnum.DRUGS -> idDomainMapper.mapIdToDrugsModel(id)
+            QuestionCategoryModelEnum.SEX -> idDomainMapper.mapIdToSexModel(id)
+            QuestionCategoryModelEnum.RELIGION -> idDomainMapper.mapIdToReligionModel(id)
+        }
 }

@@ -7,7 +7,12 @@ internal interface QuestionsCategoryAssetMapper {
 }
 
 internal class QuestionsCategoryAssetMapperDefault() : QuestionsCategoryAssetMapper {
-    override fun mapCategoryToDomain(category: String): QuestionCategoryDomainEnum {
-        TODO()
-    }
+    override fun mapCategoryToDomain(category: String): QuestionCategoryDomainEnum =
+        when (category) {
+            "drugs" -> QuestionCategoryDomainEnum.DRUGS
+            "sex" -> QuestionCategoryDomainEnum.SEX
+            "religion" -> QuestionCategoryDomainEnum.RELIGION
+            // TODO -> adding new enum.Others ? or  make it nullable
+            else -> QuestionCategoryDomainEnum.DRUGS
+        }
 }

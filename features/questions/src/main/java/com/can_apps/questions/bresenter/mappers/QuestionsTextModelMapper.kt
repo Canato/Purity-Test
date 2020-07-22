@@ -13,12 +13,16 @@ internal interface QuestionsTextModelMapper {
 
 internal class QuestionsTextModelMapperDefault(
     private val textStringMapper: QuestionsTextModelStringMapper
-
 ) : QuestionsTextModelMapper {
     override fun mapText(
         categoryModelEnum: QuestionCategoryModelEnum,
         idModelEnum: QuestionIdModelEnum
-    ): QuestionTextModel {
-        TODO("Not yet implemented")
-    }
+    ): QuestionTextModel =
+        when (categoryModelEnum) {
+            QuestionCategoryModelEnum.DRUGS -> textStringMapper.mapDrugsEnumToString(idModelEnum)
+            QuestionCategoryModelEnum.SEX -> textStringMapper.mapSexEnumToString(idModelEnum)
+            QuestionCategoryModelEnum.RELIGION -> textStringMapper.mapReligionEnumToString(
+                idModelEnum
+            )
+        }
 }

@@ -13,7 +13,10 @@ internal class QuestionsIdAssetMapperDefault(
     override fun mapAssetId(
         category: QuestionCategoryDomainEnum,
         id: Int
-    ): QuestionIdDomainEnum {
-            TODO("Not yet implemented")
-    }
+    ): QuestionIdDomainEnum =
+        when (category) {
+            QuestionCategoryDomainEnum.DRUGS -> idDomainMapper.mapIdToDrugsDomain(id)
+            QuestionCategoryDomainEnum.SEX -> idDomainMapper.mapIdToSexDomain(id)
+            QuestionCategoryDomainEnum.RELIGION -> idDomainMapper.mapIdToReligionDomain(id)
+        }
 }

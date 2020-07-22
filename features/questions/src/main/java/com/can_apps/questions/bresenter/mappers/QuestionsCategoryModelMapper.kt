@@ -9,7 +9,10 @@ internal interface QuestionsCategoryModelMapper {
 
 internal class QuestionsCategoryModelMapperDefault() :
     QuestionsCategoryModelMapper {
-    override fun mapCategoryToModel(category: QuestionCategoryDomainEnum): QuestionCategoryModelEnum {
-        TODO("Not yet implemented")
-    }
+    override fun mapCategoryToModel(category: QuestionCategoryDomainEnum): QuestionCategoryModelEnum =
+        when (category) {
+            QuestionCategoryDomainEnum.DRUGS -> QuestionCategoryModelEnum.DRUGS
+            QuestionCategoryDomainEnum.SEX -> QuestionCategoryModelEnum.SEX
+            QuestionCategoryDomainEnum.RELIGION -> QuestionCategoryModelEnum.RELIGION
+        }
 }

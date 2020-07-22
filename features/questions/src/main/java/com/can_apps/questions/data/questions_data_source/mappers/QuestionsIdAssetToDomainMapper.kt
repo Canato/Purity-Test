@@ -9,15 +9,23 @@ internal interface QuestionsIdAssetToDomainMapper {
 }
 
 internal class QuestionsIdAssetToDomainMapperDefault() : QuestionsIdAssetToDomainMapper {
-    override fun mapIdToDrugsDomain(id: Int): QuestionIdDomainEnum {
-        TODO("Not yet implemented")
-    }
+    override fun mapIdToDrugsDomain(id: Int): QuestionIdDomainEnum =
+        when (id) {
+            1 -> QuestionIdDomainEnum.DRUGS_JAIL
+            2 -> QuestionIdDomainEnum.DRUGS_QUANTITY
+            3 -> QuestionIdDomainEnum.DRUGS_SMOKE
+            else -> QuestionIdDomainEnum.DRUGS_USAGE
+        }
 
-    override fun mapIdToSexDomain(id: Int): QuestionIdDomainEnum {
-        TODO("Not yet implemented")
-    }
+    override fun mapIdToSexDomain(id: Int): QuestionIdDomainEnum =
+        when (id) {
+            1 -> QuestionIdDomainEnum.SEX_SAME
+            else -> QuestionIdDomainEnum.SEX_SAME
+        }
 
-    override fun mapIdToReligionDomain(id: Int): QuestionIdDomainEnum {
-        TODO("Not yet implemented")
-    }
+    override fun mapIdToReligionDomain(id: Int): QuestionIdDomainEnum =
+        when (id) {
+            1 -> QuestionIdDomainEnum.RELIGION_ANTI
+            else -> QuestionIdDomainEnum.RELIGION_ANTI
+        }
 }
