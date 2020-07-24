@@ -4,10 +4,10 @@ import com.can_apps.common.CoroutineDispatcherFactory
 import com.can_apps.questions.bresenter.mappers.QuestionsModelMapper
 import com.can_apps.questions.core.QuestionsContract
 import com.can_apps.questions.core.QuestionsDomain
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 internal class QuestionsPresenter(
     private val interactor: QuestionsContract.Interactor,
