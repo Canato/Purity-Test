@@ -4,10 +4,10 @@ import com.can_apps.common.CoroutineDispatcherFactory
 import com.can_apps.questions.bresenter.mappers.QuestionsModelMapper
 import com.can_apps.questions.core.QuestionsContract
 import com.can_apps.questions.core.QuestionsDomain
-import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 internal class QuestionsPresenter(
     private val interactor: QuestionsContract.Interactor,
@@ -20,6 +20,12 @@ internal class QuestionsPresenter(
         get() = dispatcher.UI + job
 
     private lateinit var view: QuestionsContract.View
+
+    private val categoryList = listOf(
+        QuestionCategoryModelEnum.DRUGS,
+        QuestionCategoryModelEnum.SEX,
+        QuestionCategoryModelEnum.RELIGION
+    )
 
     override fun bind(view: QuestionsContract.View) {
         this.view = view
@@ -39,10 +45,13 @@ internal class QuestionsPresenter(
     }
 
     private fun CoroutineScope.retrieveData() = launch(dispatcher.IO) {
-        when (val domain = interactor.retrieveList()) {
+        when (val domain = interactor.retrieveList(
+//            categoryList[0]
+        )) {
             is QuestionsDomain.Valid -> {
                 val model = mapper.toModel(domain)
-                showList(model)
+                // TODO logic for category [0] issue
+                showList(model[0].questionsModelDetails.toList())
             }
             is QuestionsDomain.Error -> {
                 showError(domain.message.value)
@@ -55,8 +64,9 @@ internal class QuestionsPresenter(
         view.showError(message)
     }
 
-    private fun CoroutineScope.showList(model: List<QuestionsModel>) = launch(dispatcher.UI) {
-        view.hideLoading()
-        view.showList(model)
-    }
+    private fun CoroutineScope.showList(model: List<QuestionsModelDetails>) =
+        launch(dispatcher.UI) {
+            view.hideLoading()
+            view.showList(model)
+        }
 }

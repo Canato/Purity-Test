@@ -7,7 +7,6 @@ import com.can_apps.questions.bresenter.mappers.QuestionsTextModelMapper
 import com.can_apps.questions.core.QuestionCategoryDomainEnum
 import com.can_apps.questions.core.QuestionDetailsDomain
 import com.can_apps.questions.core.QuestionIdDomainEnum
-import com.can_apps.questions.core.QuestionObjectDomain
 import com.can_apps.questions.core.QuestionWeightDomain
 import com.can_apps.questions.core.QuestionsDomain
 import io.mockk.MockKAnnotations
@@ -53,10 +52,8 @@ internal class QuestionsModelMapperTest {
             )
         )
 
-        val questionObjectDomain =
-            QuestionObjectDomain(questionCategoryDomainEnum, questionDomainSet)
-        val questionDomain: QuestionsDomain.Valid =
-            QuestionsDomain.Valid(setOf(questionObjectDomain))
+        val questionDomain =
+            QuestionsDomain.Valid(questionCategoryDomainEnum, questionDomainSet)
 
         val questionsCategoryModelEnum = mockk<QuestionCategoryModelEnum>()
         val questionIdModelEnum = mockk<QuestionIdModelEnum>()
@@ -82,7 +79,7 @@ internal class QuestionsModelMapperTest {
                 questionsCategoryModelEnum,
                 questionIdModelEnum
             )
-        } returns questionTextModel
+        } returns questionTextModel.value
 
         // WHEN
         val result = modelMapper.toModel(questionDomain)

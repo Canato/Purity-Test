@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.questions.R
 import com.can_apps.questions.bresenter.QuestionIdModelEnum
-import com.can_apps.questions.bresenter.QuestionsModel
+import com.can_apps.questions.bresenter.QuestionsModelDetails
 
 internal class QuestionsRecyclerViewAdapter(
     private val listener: Listener
@@ -15,7 +15,7 @@ internal class QuestionsRecyclerViewAdapter(
         fun onItemSelected(questionId: QuestionIdModelEnum)
     }
 
-    private var questions = emptyList<QuestionsModel>()
+    private var questions = emptyList<QuestionsModelDetails>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionItemViewHolder =
         QuestionItemViewHolder(
@@ -33,7 +33,7 @@ internal class QuestionsRecyclerViewAdapter(
         holder.bindView(questions[position])
     }
 
-    fun updateList(model: List<QuestionsModel>) {
+    fun updateList(model: List<QuestionsModelDetails>) {
         questions = model
         notifyDataSetChanged()
     }

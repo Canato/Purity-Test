@@ -3,18 +3,14 @@ package com.can_apps.questions.core
 internal sealed class QuestionsDomain {
 
     data class Valid(
-        val validSet: Set<QuestionObjectDomain>
+        val category: QuestionCategoryDomainEnum,
+        val questions: Set<QuestionDetailsDomain>
     ) : QuestionsDomain()
 
     data class Error(
         val message: QuestionErrorDomain
     ) : QuestionsDomain()
 }
-
-internal data class QuestionObjectDomain(
-    val category: QuestionCategoryDomainEnum,
-    val questions: Set<QuestionDetailsDomain>
-)
 
 internal data class QuestionDetailsDomain(
     val id: QuestionIdDomainEnum,

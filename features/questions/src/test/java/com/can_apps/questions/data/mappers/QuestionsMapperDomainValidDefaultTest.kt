@@ -3,7 +3,6 @@ package com.can_apps.questions.data.mappers
 import com.can_apps.questions.core.QuestionCategoryDomainEnum
 import com.can_apps.questions.core.QuestionDetailsDomain
 import com.can_apps.questions.core.QuestionIdDomainEnum
-import com.can_apps.questions.core.QuestionObjectDomain
 import com.can_apps.questions.core.QuestionWeightDomain
 import com.can_apps.questions.core.QuestionsDomain
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsCategoryAssetMapper
@@ -60,10 +59,8 @@ internal class QuestionsMapperDomainValidDefaultTest {
             )
         )
 
-        val questionValidDomain =
-            setOf(QuestionObjectDomain(questionCategoryDomainEnum, questionDomainSet))
-
-        val expected = QuestionsDomain.Valid(questionValidDomain)
+        val expected =
+            setOf(QuestionsDomain.Valid(questionCategoryDomainEnum, questionDomainSet))
 
         every {
             assetCategoryMapper.mapCategoryToDomain(questionCategory)

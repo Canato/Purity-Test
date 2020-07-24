@@ -3,7 +3,6 @@ package com.can_apps.questions.bresenter.mappers
 import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.questions.R
 import com.can_apps.questions.bresenter.QuestionIdModelEnum
-import com.can_apps.questions.bresenter.QuestionTextModel
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -36,10 +35,10 @@ internal class QuestionsTextModelStringMapperDefaultTest {
             listOf("that should be a value", "or this", "maybe this", "definitely this")
 
         val expected = listOf(
-            QuestionTextModel(stringResourceValue[0]),
-            QuestionTextModel(stringResourceValue[1]),
-            QuestionTextModel(stringResourceValue[2]),
-            QuestionTextModel(stringResourceValue[3])
+            stringResourceValue[0],
+            stringResourceValue[1],
+            stringResourceValue[2],
+            stringResourceValue[3]
         )
 
         every { stringResourceWrapper.getString(R.string.drugs_jail) } returns stringResourceValue[0]
@@ -62,7 +61,7 @@ internal class QuestionsTextModelStringMapperDefaultTest {
             listOf("that should be a value")
 
         val expected = listOf(
-            QuestionTextModel(stringResourceValue[0])
+            stringResourceValue[0]
         )
 
         every { stringResourceWrapper.getString(R.string.sex_same) } returns stringResourceValue[0]
@@ -82,7 +81,7 @@ internal class QuestionsTextModelStringMapperDefaultTest {
             listOf("that should be a value")
 
         val expected = listOf(
-            QuestionTextModel(stringResourceValue[0])
+            stringResourceValue[0]
         )
 
         every { stringResourceWrapper.getString(R.string.religion_anti) } returns stringResourceValue[0]

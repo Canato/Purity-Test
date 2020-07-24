@@ -1,5 +1,6 @@
 package com.can_apps.questions.bresenter.mappers
 
+import com.can_apps.questions.bresenter.QuestionTextModel
 import com.can_apps.questions.bresenter.QuestionWeightModel
 import com.can_apps.questions.bresenter.QuestionsModel
 import com.can_apps.questions.bresenter.QuestionsModelDetails
@@ -16,31 +17,29 @@ internal class QuestionsModelMapperDefault(
 ) : QuestionsModelMapper {
 
     override fun toModel(domain: QuestionsDomain.Valid): List<QuestionsModel> {
+
         val questionsModel = mutableSetOf<QuestionsModel>()
         val questionsModelDetails = mutableSetOf<QuestionsModelDetails>()
 
-        domain.validSet.map { questionsObjectDomain ->
-            val categoryModelEnum =
-                categoryMapper.mapCategoryToModel(questionsObjectDomain.category)
+        val categoryModelEnum =
+            categoryMapper.mapCategoryToModel(domain.category)
+        domain.questions.forEach { question ->
 
-            questionsObjectDomain.questions.forEach { questionsDetailDomain ->
-                val idModelEnum = idMapper.mapDomainId(categoryModelEnum, questionsDetailDomain.id)
-                val textModel = textMapper.mapText(categoryModelEnum, idModelEnum)
-                questionsModelDetails.add(
-                    QuestionsModelDetails(
-                        idModelEnum,
-                        textModel,
-                        QuestionWeightModel(questionsDetailDomain.weight.value)
-
-                    )
+            val idModelEnum = idMapper.mapDomainId(categoryModelEnum, question.id)
+            val textModel = QuestionTextModel(textMapper.mapText(categoryModelEnum, idModelEnum))
+            questionsModelDetails.add(
+                QuestionsModelDetails(
+                    idModelEnum,
+                    textModel,
+                    QuestionWeightModel(question.weight.value)
                 )
-                questionsModel.add(
-                    QuestionsModel(
-                        categoryModelEnum,
-                        questionsModelDetails
-                    )
+            )
+            questionsModel.add(
+                QuestionsModel(
+                    categoryModelEnum,
+                    questionsModelDetails
                 )
-            }
+            )
         }
 
         return questionsModel.toList()

@@ -1,13 +1,12 @@
 package com.can_apps.questions.data.questions_data_source.mappers
 
 import com.can_apps.questions.core.QuestionDetailsDomain
-import com.can_apps.questions.core.QuestionObjectDomain
 import com.can_apps.questions.core.QuestionWeightDomain
 import com.can_apps.questions.core.QuestionsDomain
 import com.can_apps.questions_data_source.data.QuestionDataSourceDto
 
 internal interface QuestionsMapperDomainValid {
-    fun mapToDomainValid(asset: Set<QuestionDataSourceDto>): QuestionsDomain.Valid
+    fun mapToDomainValid(asset: Set<QuestionDataSourceDto>): Set<QuestionsDomain.Valid>
 }
 
 internal class QuestionsMapperDomainValidDefault(
@@ -15,8 +14,8 @@ internal class QuestionsMapperDomainValidDefault(
     private val assetIdMapper: QuestionsIdAssetMapper
 ) : QuestionsMapperDomainValid {
 
-    override fun mapToDomainValid(asset: Set<QuestionDataSourceDto>): QuestionsDomain.Valid {
-        val objectDomainSet = mutableSetOf<QuestionObjectDomain>()
+    override fun mapToDomainValid(asset: Set<QuestionDataSourceDto>): Set<QuestionsDomain.Valid> {
+        val questionDomainValidSet = mutableSetOf<QuestionsDomain.Valid>()
         val questionDetailsDomainSet = mutableSetOf<QuestionDetailsDomain>()
 
         asset.forEach { questionDto ->
@@ -32,8 +31,8 @@ internal class QuestionsMapperDomainValidDefault(
                     )
                 )
 
-                objectDomainSet.add(
-                    QuestionObjectDomain(
+                questionDomainValidSet.add(
+                    QuestionsDomain.Valid(
                         categoryDomainEnum,
                         questionDetailsDomainSet
                     )
@@ -41,6 +40,6 @@ internal class QuestionsMapperDomainValidDefault(
             }
         }
 
-        return QuestionsDomain.Valid(objectDomainSet.toSet())
+        return questionDomainValidSet
     }
 }

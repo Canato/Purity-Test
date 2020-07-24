@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.questions.R
 import com.can_apps.questions.bresenter.QuestionIdModelEnum
-import com.can_apps.questions.bresenter.QuestionsModel
+import com.can_apps.questions.bresenter.QuestionsModelDetails
 import com.can_apps.questions.core.QuestionsContract
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_questions.*
@@ -69,7 +69,7 @@ internal class QuestionsFragment :
         progressView.visibility = View.GONE
     }
 
-    override fun showList(model: List<QuestionsModel>) {
+    override fun showList(model: List<QuestionsModelDetails>) {
         recyclerViewAdapter.updateList(model)
     }
 

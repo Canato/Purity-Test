@@ -1,6 +1,6 @@
 package com.can_apps.questions.core
 
-import com.can_apps.questions.bresenter.QuestionsModel
+import com.can_apps.questions.bresenter.QuestionsModelDetails
 
 internal interface QuestionsContract {
 
@@ -9,7 +9,7 @@ internal interface QuestionsContract {
 
         fun hideLoading()
 
-        fun showList(model: List<QuestionsModel>)
+        fun showList(model: List<QuestionsModelDetails>)
 
         fun showError(message: String)
 
@@ -31,6 +31,6 @@ internal interface QuestionsContract {
     }
 
     interface Repository {
-        suspend fun retrieveList(): QuestionsDomain
+        suspend fun retrieveList(): Set<QuestionsDomain>
     }
 }

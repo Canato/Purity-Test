@@ -49,6 +49,7 @@ internal class QuestionsPresenterTest {
         // GIVEN
         val domain = mockk<QuestionsDomain.Valid>(relaxed = true)
         val model = mockk<QuestionsModel>(relaxed = true)
+        val modelDetails = model.questionsModelDetails.toList()
 
         coEvery { interactor.retrieveList() } returns domain
         coEvery { mapper.toModel(domain) } returns listOf(model)
@@ -60,7 +61,7 @@ internal class QuestionsPresenterTest {
         verify {
             view.showLoading()
             view.hideLoading()
-            view.showList(listOf(model))
+            view.showList(modelDetails)
         }
     }
 

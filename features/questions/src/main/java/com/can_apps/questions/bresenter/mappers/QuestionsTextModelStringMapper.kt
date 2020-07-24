@@ -3,34 +3,33 @@ package com.can_apps.questions.bresenter.mappers
 import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.questions.R
 import com.can_apps.questions.bresenter.QuestionIdModelEnum
-import com.can_apps.questions.bresenter.QuestionTextModel
 
 internal interface QuestionsTextModelStringMapper {
 
-    fun mapDrugsEnumToString(id: QuestionIdModelEnum): QuestionTextModel
-    fun mapSexEnumToString(id: QuestionIdModelEnum): QuestionTextModel
-    fun mapReligionEnumToString(id: QuestionIdModelEnum): QuestionTextModel
+    fun mapDrugsEnumToString(id: QuestionIdModelEnum): String
+    fun mapSexEnumToString(id: QuestionIdModelEnum): String
+    fun mapReligionEnumToString(id: QuestionIdModelEnum): String
 }
 
 internal class QuestionsTextModelStringMapperDefault(private val stringResource: CommonStringResourceWrapper) :
     QuestionsTextModelStringMapper {
-    override fun mapDrugsEnumToString(id: QuestionIdModelEnum): QuestionTextModel =
+    override fun mapDrugsEnumToString(id: QuestionIdModelEnum): String =
         when (id) {
-            QuestionIdModelEnum.DRUGS_JAIL -> QuestionTextModel(stringResource.getString(R.string.drugs_jail))
-            QuestionIdModelEnum.DRUGS_QUANTITY -> QuestionTextModel(stringResource.getString(R.string.drugs_quantity))
-            QuestionIdModelEnum.DRUGS_SMOKE -> QuestionTextModel(stringResource.getString(R.string.drugs_smoke))
-            else -> QuestionTextModel(stringResource.getString(R.string.drugs_usage))
+            QuestionIdModelEnum.DRUGS_JAIL -> stringResource.getString(R.string.drugs_jail)
+            QuestionIdModelEnum.DRUGS_QUANTITY -> stringResource.getString(R.string.drugs_quantity)
+            QuestionIdModelEnum.DRUGS_SMOKE -> stringResource.getString(R.string.drugs_smoke)
+            else -> stringResource.getString(R.string.drugs_usage)
         }
 
-    override fun mapSexEnumToString(id: QuestionIdModelEnum): QuestionTextModel =
+    override fun mapSexEnumToString(id: QuestionIdModelEnum): String =
         when (id) {
-            QuestionIdModelEnum.SEX_SAME -> QuestionTextModel(stringResource.getString(R.string.sex_same))
-            else -> QuestionTextModel(stringResource.getString(R.string.sex_same))
+            QuestionIdModelEnum.SEX_SAME -> stringResource.getString(R.string.sex_same)
+            else -> stringResource.getString(R.string.sex_same)
         }
 
-    override fun mapReligionEnumToString(id: QuestionIdModelEnum): QuestionTextModel =
+    override fun mapReligionEnumToString(id: QuestionIdModelEnum): String =
         when (id) {
-            QuestionIdModelEnum.RELIGION_ANTI -> QuestionTextModel(stringResource.getString(R.string.religion_anti))
-            else -> QuestionTextModel(stringResource.getString(R.string.religion_anti))
+            QuestionIdModelEnum.RELIGION_ANTI -> stringResource.getString(R.string.religion_anti)
+            else -> stringResource.getString(R.string.religion_anti)
         }
 }

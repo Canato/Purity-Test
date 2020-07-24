@@ -1,7 +1,6 @@
 package com.can_apps.questions.data
 
 import com.can_apps.questions.core.QuestionErrorDomain
-import com.can_apps.questions.core.QuestionObjectDomain
 import com.can_apps.questions.core.QuestionsDomain
 import com.can_apps.questions.data.questions_data_source.QuestionsDtoMapper
 import com.can_apps.questions_data_source.data.QuestionDataSourceDto
@@ -34,8 +33,8 @@ internal class QuestionsRepositoryTest {
     fun `GIVEN api with set, WHEN retrieveList, THEN return questionsdomain_valid`() {
         // GIVEN
 
-        val setQuestionValidDomain = setOf(mockk<QuestionObjectDomain>(relaxed = true))
-        val expected = QuestionsDomain.Valid(setQuestionValidDomain)
+        val questionsDomain = mockk<QuestionsDomain.Valid>()
+        val expected = setOf(questionsDomain)
 
         val setQuestionsDataSourceDto = setOf(mockk<QuestionDataSourceDto>(relaxed = true))
 
@@ -55,7 +54,7 @@ internal class QuestionsRepositoryTest {
         val message = "something is missing here"
         val errorDomain = QuestionErrorDomain(message)
         val emptySet = emptySet<QuestionDataSourceDto>()
-        val expected = QuestionsDomain.Error(errorDomain)
+        val expected = setOf(QuestionsDomain.Error(errorDomain))
 
         coEvery { asset.getQuestions() } returns emptySet
         coEvery { dtoMapper.assetToDomain(emptySet) } returns expected
@@ -74,7 +73,7 @@ internal class QuestionsRepositoryTest {
         val message = "expect unexpected"
         val errorDomain = QuestionErrorDomain(message)
         val exception = Exception(errorDomain.value)
-        val expected = QuestionsDomain.Error(errorDomain)
+        val expected = setOf(QuestionsDomain.Error(errorDomain))
 
         coEvery { asset.getQuestions() } throws exception
 
