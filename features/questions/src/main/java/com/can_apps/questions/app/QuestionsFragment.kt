@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -58,7 +59,7 @@ internal class QuestionsFragment :
     }
 
     override fun onItemSelected(questionId: QuestionIdModelEnum) {
-        // todo presenter.onItemSelected
+        Toast.makeText(requireContext(), questionId.name, Toast.LENGTH_SHORT).show()
     }
 
     override fun showLoading() {
@@ -101,5 +102,9 @@ internal class QuestionsFragment :
 
     override fun close() {
         activity?.finish()
+    }
+
+    override fun showCategory(category: String) {
+        categoryView.text = category
     }
 }

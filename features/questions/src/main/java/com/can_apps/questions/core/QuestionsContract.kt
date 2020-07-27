@@ -14,6 +14,8 @@ internal interface QuestionsContract {
         fun showError(message: String)
 
         fun close()
+
+        fun showCategory(category: String)
     }
 
     interface Presenter {

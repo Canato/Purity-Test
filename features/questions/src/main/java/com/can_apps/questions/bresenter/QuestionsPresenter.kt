@@ -52,6 +52,7 @@ internal class QuestionsPresenter(
                 val model = mapper.toModel(domain)
                 // TODO logic for category [0] issue
                 showList(model[0].questionsModelDetails.toList())
+                showCategory(model[0].questionCategory.name)
             }
             is QuestionsDomain.Error -> {
                 showError(domain.message.value)
@@ -69,4 +70,8 @@ internal class QuestionsPresenter(
             view.hideLoading()
             view.showList(model)
         }
+
+    private fun CoroutineScope.showCategory(category: String) = launch(dispatcher.UI) {
+        view.showCategory(category)
+    }
 }
