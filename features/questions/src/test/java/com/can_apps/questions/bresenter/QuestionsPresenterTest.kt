@@ -62,8 +62,8 @@ internal class QuestionsPresenterTest {
         verify {
             view.showLoading()
             view.hideLoading()
-            view.showList(modelDetails)
             view.showCategory(modelCategory)
+            view.showList(modelDetails)
         }
     }
 
