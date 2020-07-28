@@ -69,4 +69,20 @@ internal class QuestionsTextModelMapperTest {
         // THEN
         Assert.assertEquals(expected, result)
     }
+
+    @Test
+    fun `GIVEN invalid category, WHEN mapText, THEN return QuestionTextModel`() {
+        // GIVEN
+        val id = mockk<QuestionIdModelEnum>()
+        val category = QuestionCategoryModelEnum.INVALID
+        val expected = "mopped"
+
+        every { textStringMapper.mapInvalidEnumToString(id) } returns expected
+
+        // WHEN
+        val result = textMapper.mapText(category, id)
+
+        // THEN
+        Assert.assertEquals(expected, result)
+    }
 }

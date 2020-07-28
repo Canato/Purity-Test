@@ -80,4 +80,18 @@ internal class QuestionsIdDomainMapperDefaultTest {
         }
         Assert.assertEquals(expected, result)
     }
+
+    @Test
+    fun `GIVEN invalid category, WHEN mapDomainId, THEN return QuestionIdModelEnum_Invalid`() {
+        // GIVEN
+        val id = mockk<QuestionIdDomainEnum>()
+        val category = QuestionCategoryModelEnum.INVALID
+        val expected = QuestionIdModelEnum.INVALID
+
+        // WHEN
+        val result = domainIdMapper.mapDomainId(category, id)
+
+        // THEN
+        Assert.assertEquals(expected, result)
+    }
 }

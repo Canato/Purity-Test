@@ -7,4 +7,5 @@
     <string name="drugs_usage">Drugs Usage</string>>
     <string name="sex_same">Sex Same</string>>
     <string name="religion_anti">Religion Anti</string>
+    <string name="questions_id_model_error">Question not recognized</string>
 </resources>

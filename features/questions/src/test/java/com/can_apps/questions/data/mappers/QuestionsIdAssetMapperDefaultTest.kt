@@ -81,4 +81,18 @@ internal class QuestionsIdAssetMapperDefaultTest {
         }
         Assert.assertEquals(expected, result)
     }
+
+    @Test
+    fun `GIVEN invalid category, WHEN mapAssetId, THEN return QuestionIdDomainEnum_Invalid`() {
+        // GIVEN
+        val id = mockk<Int>(relaxed = true)
+        val category = QuestionCategoryDomainEnum.INVALID
+        val expected = QuestionIdDomainEnum.INVALID
+
+        // WHEN
+        val result = assetIdMapper.mapAssetId(category, id)
+
+        // THEN
+        Assert.assertEquals(expected, result)
+    }
 }

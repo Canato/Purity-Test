@@ -14,5 +14,6 @@ internal class QuestionsCategoryModelMapperDefault() :
             QuestionCategoryDomainEnum.DRUGS -> QuestionCategoryModelEnum.DRUGS
             QuestionCategoryDomainEnum.SEX -> QuestionCategoryModelEnum.SEX
             QuestionCategoryDomainEnum.RELIGION -> QuestionCategoryModelEnum.RELIGION
+            QuestionCategoryDomainEnum.INVALID -> QuestionCategoryModelEnum.INVALID
         }
 }
