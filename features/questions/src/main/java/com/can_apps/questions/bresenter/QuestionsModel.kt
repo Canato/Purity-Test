@@ -12,7 +12,7 @@ internal data class QuestionsModelDetails(
 )
 
 internal enum class QuestionCategoryModelEnum {
-    DRUGS, SEX, RELIGION
+    DRUGS, SEX, RELIGION, INVALID
 }
 
 internal enum class QuestionIdModelEnum {
@@ -21,7 +21,8 @@ internal enum class QuestionIdModelEnum {
     DRUGS_QUANTITY,
     DRUGS_JAIL,
     SEX_SAME,
-    RELIGION_ANTI
+    RELIGION_ANTI,
+    INVALID
 }
 
 internal inline class QuestionTextModel(val value: String)

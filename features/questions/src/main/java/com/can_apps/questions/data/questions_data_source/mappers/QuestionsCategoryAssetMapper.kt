@@ -12,7 +12,6 @@ internal class QuestionsCategoryAssetMapperDefault() : QuestionsCategoryAssetMap
             "drugs" -> QuestionCategoryDomainEnum.DRUGS
             "sex" -> QuestionCategoryDomainEnum.SEX
             "religion" -> QuestionCategoryDomainEnum.RELIGION
-            // TODO -> adding new enum.Others ? or  make it nullable
-            else -> QuestionCategoryDomainEnum.DRUGS
+            else -> QuestionCategoryDomainEnum.INVALID
         }
 }

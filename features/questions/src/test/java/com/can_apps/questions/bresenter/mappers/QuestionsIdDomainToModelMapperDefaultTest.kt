@@ -16,13 +16,17 @@ internal class QuestionsIdDomainToModelMapperDefaultTest {
             QuestionIdDomainEnum.DRUGS_JAIL,
             QuestionIdDomainEnum.DRUGS_QUANTITY,
             QuestionIdDomainEnum.DRUGS_SMOKE,
-            QuestionIdDomainEnum.DRUGS_USAGE
+            QuestionIdDomainEnum.DRUGS_USAGE,
+            QuestionIdDomainEnum.SEX_SAME,
+            QuestionIdDomainEnum.RELIGION_ANTI
         )
         val expected = listOf(
             QuestionIdModelEnum.DRUGS_JAIL,
             QuestionIdModelEnum.DRUGS_QUANTITY,
             QuestionIdModelEnum.DRUGS_SMOKE,
-            QuestionIdModelEnum.DRUGS_USAGE
+            QuestionIdModelEnum.DRUGS_USAGE,
+            QuestionIdModelEnum.INVALID,
+            QuestionIdModelEnum.INVALID
         )
 
         // WHEN
@@ -35,8 +39,22 @@ internal class QuestionsIdDomainToModelMapperDefaultTest {
     @Test
     fun `GIVEN domainIdSex, WHEN mapIdToSexModel, THEN return QuestionIdModelEnum_value`() {
         // GIVEN
-        val id = listOf(QuestionIdDomainEnum.SEX_SAME)
-        val expected = listOf(QuestionIdModelEnum.SEX_SAME)
+        val id = listOf(
+            QuestionIdDomainEnum.SEX_SAME,
+            QuestionIdDomainEnum.DRUGS_JAIL,
+            QuestionIdDomainEnum.DRUGS_QUANTITY,
+            QuestionIdDomainEnum.DRUGS_SMOKE,
+            QuestionIdDomainEnum.DRUGS_USAGE,
+            QuestionIdDomainEnum.RELIGION_ANTI
+        )
+        val expected = listOf(
+            QuestionIdModelEnum.SEX_SAME,
+            QuestionIdModelEnum.INVALID,
+            QuestionIdModelEnum.INVALID,
+            QuestionIdModelEnum.INVALID,
+            QuestionIdModelEnum.INVALID,
+            QuestionIdModelEnum.INVALID
+        )
 
         // WHEN
         val result = id.map { idMapper.mapIdToSexModel(it) }
@@ -48,8 +66,22 @@ internal class QuestionsIdDomainToModelMapperDefaultTest {
     @Test
     fun `GIVEN domainIdReligion, WHEN mapIdToReligionModel, THEN return QuestionIdModelEnum_value`() {
         // GIVEN
-        val id = listOf(QuestionIdDomainEnum.RELIGION_ANTI)
-        val expected = listOf(QuestionIdModelEnum.RELIGION_ANTI)
+        val id = listOf(
+            QuestionIdDomainEnum.RELIGION_ANTI,
+            QuestionIdDomainEnum.DRUGS_JAIL,
+            QuestionIdDomainEnum.DRUGS_QUANTITY,
+            QuestionIdDomainEnum.DRUGS_SMOKE,
+            QuestionIdDomainEnum.DRUGS_USAGE,
+            QuestionIdDomainEnum.SEX_SAME
+        )
+        val expected = listOf(
+            QuestionIdModelEnum.RELIGION_ANTI,
+            QuestionIdModelEnum.INVALID,
+            QuestionIdModelEnum.INVALID,
+            QuestionIdModelEnum.INVALID,
+            QuestionIdModelEnum.INVALID,
+            QuestionIdModelEnum.INVALID
+        )
 
         // WHEN
         val result = id.map { idMapper.mapIdToReligionModel(it) }

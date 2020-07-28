@@ -14,18 +14,19 @@ internal class QuestionsIdAssetToDomainMapperDefault() : QuestionsIdAssetToDomai
             1 -> QuestionIdDomainEnum.DRUGS_JAIL
             2 -> QuestionIdDomainEnum.DRUGS_QUANTITY
             3 -> QuestionIdDomainEnum.DRUGS_SMOKE
-            else -> QuestionIdDomainEnum.DRUGS_USAGE
+            4 -> QuestionIdDomainEnum.DRUGS_USAGE
+            else -> QuestionIdDomainEnum.INVALID
         }
 
     override fun mapIdToSexDomain(id: Int): QuestionIdDomainEnum =
         when (id) {
             1 -> QuestionIdDomainEnum.SEX_SAME
-            else -> QuestionIdDomainEnum.SEX_SAME
+            else -> QuestionIdDomainEnum.INVALID
         }
 
     override fun mapIdToReligionDomain(id: Int): QuestionIdDomainEnum =
         when (id) {
             1 -> QuestionIdDomainEnum.RELIGION_ANTI
-            else -> QuestionIdDomainEnum.RELIGION_ANTI
+            else -> QuestionIdDomainEnum.INVALID
         }
 }

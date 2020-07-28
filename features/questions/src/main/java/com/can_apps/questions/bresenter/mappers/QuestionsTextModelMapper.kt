@@ -20,8 +20,7 @@ internal class QuestionsTextModelMapperDefault(
         when (categoryModelEnum) {
             QuestionCategoryModelEnum.DRUGS -> textStringMapper.mapDrugsEnumToString(idModelEnum)
             QuestionCategoryModelEnum.SEX -> textStringMapper.mapSexEnumToString(idModelEnum)
-            QuestionCategoryModelEnum.RELIGION -> textStringMapper.mapReligionEnumToString(
-                idModelEnum
-            )
+            QuestionCategoryModelEnum.RELIGION -> textStringMapper.mapReligionEnumToString(idModelEnum)
+            QuestionCategoryModelEnum.INVALID -> textStringMapper.mapInvalidEnumToString(idModelEnum)
         }
 }

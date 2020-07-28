@@ -18,7 +18,7 @@ internal data class QuestionDetailsDomain(
 )
 
 internal enum class QuestionCategoryDomainEnum {
-    DRUGS, SEX, RELIGION
+    DRUGS, SEX, RELIGION, INVALID
 }
 
 internal enum class QuestionIdDomainEnum {
@@ -27,7 +27,8 @@ internal enum class QuestionIdDomainEnum {
     DRUGS_QUANTITY,
     DRUGS_JAIL,
     SEX_SAME,
-    RELIGION_ANTI
+    RELIGION_ANTI,
+    INVALID
 }
 
 internal inline class QuestionWeightDomain(val value: Int)
