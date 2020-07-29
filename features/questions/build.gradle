@@ -32,6 +32,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':common')
+    implementation project(':services:questions_data_source')
 
     implementation Deps.appcompat
     implementation Deps.coreKtx
@@ -45,6 +46,8 @@ dependencies {
     implementation Deps.kotlinStdLib
     implementation Deps.ktCoroutineCore
     implementation Deps.ktCoroutineAndroid
+    implementation Deps.appcompat
+    implementation Deps.constraintLayout
 
     //Test
     testImplementation DepsTest.junit

@@ -16,6 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.can_apps.questions.app.QuestionsActivity" />
+        <activity android:name="com.can_apps.login.app.LoginActivity" />
     </application>
 
 </manifest>

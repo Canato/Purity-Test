@@ -2,7 +2,7 @@ package com.can_apps.questions_data_source.data
 
 import com.google.gson.annotations.SerializedName
 
-internal class QuestionDataSourceDto(
+data class QuestionDataSourceDto(
     @SerializedName("category_name")
     var categoryName: String,
 
@@ -10,7 +10,7 @@ internal class QuestionDataSourceDto(
     var questions: Set<Question>
 )
 
-internal data class Question(
+data class Question(
     @SerializedName("id")
     var id: Int,
 
