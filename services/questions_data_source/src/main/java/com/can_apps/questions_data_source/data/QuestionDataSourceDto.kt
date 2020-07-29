@@ -14,6 +14,6 @@ data class Question(
     @SerializedName("id")
     var id: Int,
 
-    @SerializedName("weight")
+    @SerializedName("weight") //change to score
     var weight: Int
 )
