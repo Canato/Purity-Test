@@ -2,6 +2,8 @@ package com.can_apps.questions.bresenter
 
 import com.can_apps.common.CoroutineDispatcherFactory
 import com.can_apps.common.CoroutineDispatcherFactoryUnconfined
+import com.can_apps.questions.bresenter.mappers.QuestionsModelMapper
+import com.can_apps.questions.core.QuestionErrorDomain
 import com.can_apps.questions.core.QuestionsContract
 import com.can_apps.questions.core.QuestionsDomain
 import io.mockk.MockKAnnotations
@@ -47,6 +49,8 @@ internal class QuestionsPresenterTest {
         // GIVEN
         val domain = mockk<QuestionsDomain.Valid>(relaxed = true)
         val model = mockk<QuestionsModel>(relaxed = true)
+        val modelDetails = model.questionsModelDetails.toList()
+        val modelCategory = model.questionCategory.name
 
         coEvery { interactor.retrieveList() } returns domain
         coEvery { mapper.toModel(domain) } returns listOf(model)
@@ -58,7 +62,8 @@ internal class QuestionsPresenterTest {
         verify {
             view.showLoading()
             view.hideLoading()
-            view.showList(listOf(model))
+            view.showCategory(modelCategory)
+            view.showList(modelDetails)
         }
     }
 
@@ -66,7 +71,8 @@ internal class QuestionsPresenterTest {
     fun `GIVEN invalid data, WHEN on create view, THEN show error`() {
         // GIVEN
         val message = "ErrorCheck"
-        val domain = QuestionsDomain.Error(message)
+        val questionErrorDomain = QuestionErrorDomain(message)
+        val domain = QuestionsDomain.Error(questionErrorDomain)
 
         coEvery { interactor.retrieveList() } returns domain
 

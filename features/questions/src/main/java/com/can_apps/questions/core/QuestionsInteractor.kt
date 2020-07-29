@@ -5,5 +5,5 @@ internal class QuestionsInteractor(
 ) : QuestionsContract.Interactor {
 
     override suspend fun retrieveList(): QuestionsDomain =
-        repository.retrieveList()
+        repository.retrieveList().first()
 }

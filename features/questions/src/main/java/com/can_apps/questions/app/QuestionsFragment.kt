@@ -5,12 +5,15 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.can_apps.questions.R
-import com.can_apps.questions.bresenter.QuestionIdModel
-import com.can_apps.questions.bresenter.QuestionsModel
+import com.can_apps.questions.bresenter.QuestionIdModelEnum
+import com.can_apps.questions.bresenter.QuestionsModelDetails
 import com.can_apps.questions.core.QuestionsContract
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_questions.*
@@ -41,6 +44,10 @@ internal class QuestionsFragment :
         presenter.bind(this)
         setOnBackPressedCallback()
         presenter.onViewCreated()
+        recyclerView.apply {
+            layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            recyclerView.adapter = recyclerViewAdapter
+        }
     }
 
     private fun setOnBackPressedCallback() {
@@ -51,8 +58,8 @@ internal class QuestionsFragment :
         })
     }
 
-    override fun onItemSelected(questionId: QuestionIdModel) {
-        // todo presenter.onItemSelected
+    override fun onItemSelected(questionId: QuestionIdModelEnum) {
+        Toast.makeText(requireContext(), questionId.name, Toast.LENGTH_SHORT).show()
     }
 
     override fun showLoading() {
@@ -63,7 +70,7 @@ internal class QuestionsFragment :
         progressView.visibility = View.GONE
     }
 
-    override fun showList(model: List<QuestionsModel>) {
+    override fun showList(model: List<QuestionsModelDetails>) {
         recyclerViewAdapter.updateList(model)
     }
 
@@ -95,5 +102,9 @@ internal class QuestionsFragment :
 
     override fun close() {
         activity?.finish()
+    }
+
+    override fun showCategory(category: String) {
+        categoryView.text = category
     }
 }

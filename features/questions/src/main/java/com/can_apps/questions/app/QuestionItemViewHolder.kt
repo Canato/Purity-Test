@@ -2,20 +2,20 @@ package com.can_apps.questions.app
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.can_apps.questions.bresenter.QuestionsModel
-import kotlinx.android.extensions.LayoutContainer
+import com.can_apps.questions.bresenter.QuestionsModelDetails
+import kotlinx.android.synthetic.main.fragment_questions.view.*
+import kotlinx.android.synthetic.main.item_question_item.view.*
 
 internal class QuestionItemViewHolder(
-    override val containerView: View,
-    val listener: QuestionsRecyclerViewAdapter.Listener
-) : RecyclerView.ViewHolder(containerView), LayoutContainer {
+    private val containerView: View,
+    private val listener: QuestionsRecyclerViewAdapter.Listener
+) : RecyclerView.ViewHolder(containerView) {
 
-// todo canato now
-    fun bindView(model: QuestionsModel) {
-//        question.text = model.question.value
-//
-//        questionItem.setOnClickListener {
-//            listener.onItemSelected(model.questionId)
-//        }
+    fun bindView(model: QuestionsModelDetails) {
+
+        containerView.question.text = model.questionText.value
+        containerView.questionItem.setOnClickListener {
+            listener.onItemSelected(model.questionId)
+        }
     }
 }
