@@ -16,10 +16,9 @@ internal class QuestionsMapperDomainValidDefault(
 
     override fun mapToDomainValid(asset: Set<QuestionDataSourceDto>): Set<QuestionsDomain.Valid> {
         val questionDomainValidSet = mutableSetOf<QuestionsDomain.Valid>()
-        val questionDetailsDomainSet = mutableSetOf<QuestionDetailsDomain>()
 
         asset.forEach { questionDto ->
-
+            val questionDetailsDomainSet = mutableSetOf<QuestionDetailsDomain>()
             val categoryDomainEnum =
                 assetCategoryMapper.mapCategoryToDomain(questionDto.categoryName)
 
@@ -30,14 +29,14 @@ internal class QuestionsMapperDomainValidDefault(
                         QuestionWeightDomain(question.weight)
                     )
                 )
-
-                questionDomainValidSet.add(
-                    QuestionsDomain.Valid(
-                        categoryDomainEnum,
-                        questionDetailsDomainSet
-                    )
-                )
             }
+
+            questionDomainValidSet.add(
+                QuestionsDomain.Valid(
+                    categoryDomainEnum,
+                    questionDetailsDomainSet
+                )
+            )
         }
 
         return questionDomainValidSet

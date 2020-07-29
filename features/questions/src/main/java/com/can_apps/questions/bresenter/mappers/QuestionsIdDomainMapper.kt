@@ -22,6 +22,7 @@ internal class QuestionsIdDomainMapperDefault(
             QuestionCategoryModelEnum.DRUGS -> idDomainMapper.mapIdToDrugsModel(id)
             QuestionCategoryModelEnum.SEX -> idDomainMapper.mapIdToSexModel(id)
             QuestionCategoryModelEnum.RELIGION -> idDomainMapper.mapIdToReligionModel(id)
+            QuestionCategoryModelEnum.BANDITRY -> idDomainMapper.mapIdToBanditryModel(id)
             QuestionCategoryModelEnum.INVALID -> QuestionIdModelEnum.INVALID
         }
 }

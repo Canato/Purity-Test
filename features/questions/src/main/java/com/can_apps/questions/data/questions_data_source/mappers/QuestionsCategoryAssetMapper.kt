@@ -12,6 +12,7 @@ internal class QuestionsCategoryAssetMapperDefault() : QuestionsCategoryAssetMap
             "drugs" -> QuestionCategoryDomainEnum.DRUGS
             "sex" -> QuestionCategoryDomainEnum.SEX
             "religion" -> QuestionCategoryDomainEnum.RELIGION
+            "banditry" -> QuestionCategoryDomainEnum.BANDITRY
             else -> QuestionCategoryDomainEnum.INVALID
         }
 }

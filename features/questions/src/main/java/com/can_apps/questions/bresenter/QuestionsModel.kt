@@ -12,7 +12,7 @@ internal data class QuestionsModelDetails(
 )
 
 internal enum class QuestionCategoryModelEnum {
-    DRUGS, SEX, RELIGION, INVALID
+    DRUGS, SEX, RELIGION, INVALID, BANDITRY
 }
 
 internal enum class QuestionIdModelEnum {
@@ -22,7 +22,18 @@ internal enum class QuestionIdModelEnum {
     DRUGS_JAIL,
     SEX_SAME,
     RELIGION_ANTI,
-    INVALID
+    INVALID,
+    BANDITRY_POLICE,
+    BANDITRY_DRIVE_DRUNK,
+    BANDITRY_LOST_LICENCE,
+    BANDITRY_ACCUSED,
+    BANDITRY_JUVENILE,
+    BANDITRY_STEALING,
+    BANDITRY_SOLD_STOLEN,
+    BANDITRY_NOTION,
+    BANDITRY_PREGNANT,
+    BANDITRY_ABORTION,
+    BANDITRY_BOUGHT_STOLEN
 }
 
 internal inline class QuestionTextModel(val value: String)

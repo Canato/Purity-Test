@@ -6,6 +6,7 @@ internal interface QuestionsIdAssetToDomainMapper {
     fun mapIdToDrugsDomain(id: Int): QuestionIdDomainEnum
     fun mapIdToSexDomain(id: Int): QuestionIdDomainEnum
     fun mapIdToReligionDomain(id: Int): QuestionIdDomainEnum
+    fun mapBanditryToDomain(id: Int): QuestionIdDomainEnum
 }
 
 internal class QuestionsIdAssetToDomainMapperDefault() : QuestionsIdAssetToDomainMapper {
@@ -27,6 +28,22 @@ internal class QuestionsIdAssetToDomainMapperDefault() : QuestionsIdAssetToDomai
     override fun mapIdToReligionDomain(id: Int): QuestionIdDomainEnum =
         when (id) {
             1 -> QuestionIdDomainEnum.RELIGION_ANTI
+            else -> QuestionIdDomainEnum.INVALID
+        }
+
+    override fun mapBanditryToDomain(id: Int): QuestionIdDomainEnum =
+        when (id) {
+            1001 -> QuestionIdDomainEnum.BANDITRY_POLICE
+            1002 -> QuestionIdDomainEnum.BANDITRY_DRIVE_DRUNK
+            1003 -> QuestionIdDomainEnum.BANDITRY_LOST_LICENCE
+            1004 -> QuestionIdDomainEnum.BANDITRY_ACCUSED
+            1005 -> QuestionIdDomainEnum.BANDITRY_JUVENILE
+            1006 -> QuestionIdDomainEnum.BANDITRY_STEALING
+            1007 -> QuestionIdDomainEnum.BANDITRY_SOLD_STOLEN
+            1008 -> QuestionIdDomainEnum.BANDITRY_BOUGHT_STOLEN
+            1009 -> QuestionIdDomainEnum.BANDITRY_NOTION
+            1011 -> QuestionIdDomainEnum.BANDITRY_PREGNANT
+            1012 -> QuestionIdDomainEnum.BANDITRY_ABORTION
             else -> QuestionIdDomainEnum.INVALID
         }
 }

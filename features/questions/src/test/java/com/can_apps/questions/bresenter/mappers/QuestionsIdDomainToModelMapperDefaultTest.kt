@@ -89,4 +89,47 @@ internal class QuestionsIdDomainToModelMapperDefaultTest {
         // THEN
         Assert.assertEquals(expected, result)
     }
+
+    @Test
+    fun `GIVEN domainIdBanditry, WHEN mapIdToBanditryModel, THEN return QuestionIdModelEnum_value`() {
+        // GIVEN
+        val id = listOf(
+            QuestionIdDomainEnum.BANDITRY_POLICE,
+            QuestionIdDomainEnum.BANDITRY_DRIVE_DRUNK,
+            QuestionIdDomainEnum.BANDITRY_LOST_LICENCE,
+            QuestionIdDomainEnum.BANDITRY_ACCUSED,
+            QuestionIdDomainEnum.BANDITRY_JUVENILE,
+            QuestionIdDomainEnum.BANDITRY_STEALING,
+            QuestionIdDomainEnum.BANDITRY_SOLD_STOLEN,
+            QuestionIdDomainEnum.BANDITRY_BOUGHT_STOLEN,
+            QuestionIdDomainEnum.BANDITRY_NOTION,
+            QuestionIdDomainEnum.BANDITRY_PREGNANT,
+            QuestionIdDomainEnum.BANDITRY_ABORTION,
+            QuestionIdDomainEnum.RELIGION_ANTI,
+            QuestionIdDomainEnum.DRUGS_JAIL,
+            QuestionIdDomainEnum.SEX_SAME
+        )
+        val expected = listOf(
+            QuestionIdModelEnum.BANDITRY_POLICE,
+            QuestionIdModelEnum.BANDITRY_DRIVE_DRUNK,
+            QuestionIdModelEnum.BANDITRY_LOST_LICENCE,
+            QuestionIdModelEnum.BANDITRY_ACCUSED,
+            QuestionIdModelEnum.BANDITRY_JUVENILE,
+            QuestionIdModelEnum.BANDITRY_STEALING,
+            QuestionIdModelEnum.BANDITRY_SOLD_STOLEN,
+            QuestionIdModelEnum.BANDITRY_BOUGHT_STOLEN,
+            QuestionIdModelEnum.BANDITRY_NOTION,
+            QuestionIdModelEnum.BANDITRY_PREGNANT,
+            QuestionIdModelEnum.BANDITRY_ABORTION,
+            QuestionIdModelEnum.INVALID,
+            QuestionIdModelEnum.INVALID,
+            QuestionIdModelEnum.INVALID
+        )
+
+        // WHEN
+        val result = id.map { idMapper.mapIdToBanditryModel(it) }
+
+        // THEN
+        Assert.assertEquals(expected, result)
+    }
 }

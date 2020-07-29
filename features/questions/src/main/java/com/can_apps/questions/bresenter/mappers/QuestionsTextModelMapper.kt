@@ -21,6 +21,7 @@ internal class QuestionsTextModelMapperDefault(
             QuestionCategoryModelEnum.DRUGS -> textStringMapper.mapDrugsEnumToString(idModelEnum)
             QuestionCategoryModelEnum.SEX -> textStringMapper.mapSexEnumToString(idModelEnum)
             QuestionCategoryModelEnum.RELIGION -> textStringMapper.mapReligionEnumToString(idModelEnum)
+            QuestionCategoryModelEnum.BANDITRY -> textStringMapper.mapBanditryEnumToString(idModelEnum)
             QuestionCategoryModelEnum.INVALID -> textStringMapper.mapInvalidEnumToString(idModelEnum)
         }
 }
