@@ -12,13 +12,25 @@ internal class QuestionsCategoryAssetMapperDefaultTest {
     @Test
     fun `GIVEN category, WHEN asset_mapCategoryToDomain, THEN return QuestionCategoryDomainEnum`() {
         // GIVEN
-        val category = listOf("drugs", "sex", "religion", "banditry", "pterodactyl")
+        val category = listOf(
+            "pterodactyl", "banditry", "make_out", "NERVOUS MOUTH",
+            "masturbation", "Sins", "Exhibitionism", "Crazy Life", "Legal Drugs",
+            "Illegal Drugs", "University Feelings", "Sex", "purity_seeker"
+        )
         val expected = listOf(
-            QuestionCategoryDomainEnum.DRUGS,
-            QuestionCategoryDomainEnum.SEX,
-            QuestionCategoryDomainEnum.RELIGION,
+            QuestionCategoryDomainEnum.INVALID,
             QuestionCategoryDomainEnum.BANDITRY,
-            QuestionCategoryDomainEnum.INVALID
+            QuestionCategoryDomainEnum.MAKE_OUT,
+            QuestionCategoryDomainEnum.NERVOUS_MOUTH,
+            QuestionCategoryDomainEnum.MASTURBATION,
+            QuestionCategoryDomainEnum.SINS,
+            QuestionCategoryDomainEnum.EXHIBITIONISM,
+            QuestionCategoryDomainEnum.CRAZY_LIFE,
+            QuestionCategoryDomainEnum.LEGAL_DRUGS,
+            QuestionCategoryDomainEnum.ILLEGAL_DRUGS,
+            QuestionCategoryDomainEnum.UNIVERSITY_FEELINGS,
+            QuestionCategoryDomainEnum.SEX,
+            QuestionCategoryDomainEnum.PURITY_SEEKER
         )
 
         // WHEN

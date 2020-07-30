@@ -22,9 +22,7 @@ internal class QuestionsPresenter(
     private lateinit var view: QuestionsContract.View
 
     private val categoryList = listOf(
-        QuestionCategoryModelEnum.DRUGS,
-        QuestionCategoryModelEnum.SEX,
-        QuestionCategoryModelEnum.RELIGION
+        QuestionCategoryModelEnum.SEX
     )
 
     override fun bind(view: QuestionsContract.View) {

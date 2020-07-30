@@ -13,18 +13,34 @@ internal class QuestionsCategoryModelMapperDefaultTest {
     fun `GIVEN category, WHEN domain_mapCategoryToModel, THEN return QuestionsCategoryModelEnum`() {
         // GIVEN
         val category = listOf(
-            QuestionCategoryDomainEnum.DRUGS,
-            QuestionCategoryDomainEnum.SEX,
-            QuestionCategoryDomainEnum.RELIGION,
+            QuestionCategoryDomainEnum.INVALID,
             QuestionCategoryDomainEnum.BANDITRY,
-            QuestionCategoryDomainEnum.INVALID
+            QuestionCategoryDomainEnum.MAKE_OUT,
+            QuestionCategoryDomainEnum.NERVOUS_MOUTH,
+            QuestionCategoryDomainEnum.MASTURBATION,
+            QuestionCategoryDomainEnum.SINS,
+            QuestionCategoryDomainEnum.EXHIBITIONISM,
+            QuestionCategoryDomainEnum.CRAZY_LIFE,
+            QuestionCategoryDomainEnum.LEGAL_DRUGS,
+            QuestionCategoryDomainEnum.ILLEGAL_DRUGS,
+            QuestionCategoryDomainEnum.UNIVERSITY_FEELINGS,
+            QuestionCategoryDomainEnum.SEX,
+            QuestionCategoryDomainEnum.PURITY_SEEKER
         )
         val expected = listOf(
-            QuestionCategoryModelEnum.DRUGS,
-            QuestionCategoryModelEnum.SEX,
-            QuestionCategoryModelEnum.RELIGION,
+            QuestionCategoryModelEnum.INVALID,
             QuestionCategoryModelEnum.BANDITRY,
-            QuestionCategoryModelEnum.INVALID
+            QuestionCategoryModelEnum.MAKE_OUT,
+            QuestionCategoryModelEnum.NERVOUS_MOUTH,
+            QuestionCategoryModelEnum.MASTURBATION,
+            QuestionCategoryModelEnum.SINS,
+            QuestionCategoryModelEnum.EXHIBITIONISM,
+            QuestionCategoryModelEnum.CRAZY_LIFE,
+            QuestionCategoryModelEnum.LEGAL_DRUGS,
+            QuestionCategoryModelEnum.ILLEGAL_DRUGS,
+            QuestionCategoryModelEnum.UNIVERSITY_FEELINGS,
+            QuestionCategoryModelEnum.SEX,
+            QuestionCategoryModelEnum.PURITY_SEEKER
         )
 
         // WHEN
