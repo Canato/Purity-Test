@@ -18,9 +18,9 @@ class QuestionsDataSourceAssetsDefault(private val context: Context) :
         val buffer = context.assets.open(QUESTIONS_FILENAME).bufferedReader()
         val jsonString = buffer.use { it.readText() }
 
-        val dto = object : TypeToken<Set<QuestionDataSourceDto>>() {}.type
-
-        return gson.fromJson(jsonString, dto)
+        val dto = object : TypeToken<QuestionDataSourceObject>() {}.type
+        val questionDataSourceObject: QuestionDataSourceObject = gson.fromJson(jsonString, dto)
+        return questionDataSourceObject.objectDto
     }
 
     companion object {
