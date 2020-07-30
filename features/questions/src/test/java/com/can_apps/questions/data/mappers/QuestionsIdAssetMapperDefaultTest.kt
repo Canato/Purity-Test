@@ -83,6 +83,25 @@ internal class QuestionsIdAssetMapperDefaultTest {
     }
 
     @Test
+    fun `GIVEN banditry category, WHEN mapAssetId, THEN return QuestionIdDomainEnum`() {
+        // GIVEN
+        val id = mockk<Int>(relaxed = true)
+        val category = QuestionCategoryDomainEnum.BANDITRY
+        val expected = mockk<QuestionIdDomainEnum>()
+
+        every { idDomainMapper.mapBanditryToDomain(id) } returns expected
+
+        // WHEN
+        val result = assetIdMapper.mapAssetId(category, id)
+
+        // THEN
+        verify {
+            idDomainMapper.mapBanditryToDomain(id)
+        }
+        Assert.assertEquals(expected, result)
+    }
+
+    @Test
     fun `GIVEN invalid category, WHEN mapAssetId, THEN return QuestionIdDomainEnum_Invalid`() {
         // GIVEN
         val id = mockk<Int>(relaxed = true)

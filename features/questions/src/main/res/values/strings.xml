@@ -8,4 +8,15 @@
     <string name="sex_same">Sex Same</string>>
     <string name="religion_anti">Religion Anti</string>
     <string name="questions_id_model_error">Question not recognized</string>
+    <string name="banditry_police">Be inspected by police?</string>
+    <string name="banditry_drive_drunk">Get a ticket for drive drunk?</string>
+    <string name="banditry_lost_licence">Lost the drivers license in a blitz?</string>
+    <string name="banditry_accused">Already go to police office as accused?</string>
+    <string name="banditry_juvenile">Have some problem with juvenile court?</string>
+    <string name="banditry_stealing">Already stole something?</string>
+    <string name="banditry_sold_stolen">Sold something stolen?</string>
+    <string name="banditry_bought_stolen">Have you bought anything stolen?</string>
+    <string name="banditry_notion">Lost the notion when lying?</string>
+    <string name="banditry_pregnant">Already make someone pregnant or got pregnant?</string>
+    <string name="banditry_abortion">Have you ever aborted or provided an abortion?</string>
 </resources>

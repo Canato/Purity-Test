@@ -18,7 +18,7 @@ internal data class QuestionDetailsDomain(
 )
 
 internal enum class QuestionCategoryDomainEnum {
-    DRUGS, SEX, RELIGION, INVALID
+    DRUGS, SEX, RELIGION, INVALID, BANDITRY
 }
 
 internal enum class QuestionIdDomainEnum {
@@ -28,7 +28,18 @@ internal enum class QuestionIdDomainEnum {
     DRUGS_JAIL,
     SEX_SAME,
     RELIGION_ANTI,
-    INVALID
+    INVALID,
+    BANDITRY_BOUGHT_STOLEN,
+    BANDITRY_POLICE,
+    BANDITRY_DRIVE_DRUNK,
+    BANDITRY_LOST_LICENCE,
+    BANDITRY_ACCUSED,
+    BANDITRY_JUVENILE,
+    BANDITRY_STEALING,
+    BANDITRY_SOLD_STOLEN,
+    BANDITRY_NOTION,
+    BANDITRY_PREGNANT,
+    BANDITRY_ABORTION
 }
 
 internal inline class QuestionWeightDomain(val value: Int)

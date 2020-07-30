@@ -7,6 +7,7 @@ internal interface QuestionsIdDomainToModelMapper {
     fun mapIdToDrugsModel(id: QuestionIdDomainEnum): QuestionIdModelEnum
     fun mapIdToSexModel(id: QuestionIdDomainEnum): QuestionIdModelEnum
     fun mapIdToReligionModel(id: QuestionIdDomainEnum): QuestionIdModelEnum
+    fun mapIdToBanditryModel(id: QuestionIdDomainEnum): QuestionIdModelEnum
 }
 
 internal class QuestionsIdDomainToModelMapperDefault() : QuestionsIdDomainToModelMapper {
@@ -28,6 +29,22 @@ internal class QuestionsIdDomainToModelMapperDefault() : QuestionsIdDomainToMode
     override fun mapIdToReligionModel(id: QuestionIdDomainEnum): QuestionIdModelEnum =
         when (id) {
             QuestionIdDomainEnum.RELIGION_ANTI -> QuestionIdModelEnum.RELIGION_ANTI
+            else -> QuestionIdModelEnum.INVALID
+        }
+
+    override fun mapIdToBanditryModel(id: QuestionIdDomainEnum): QuestionIdModelEnum =
+        when (id) {
+            QuestionIdDomainEnum.BANDITRY_ABORTION -> QuestionIdModelEnum.BANDITRY_ABORTION
+            QuestionIdDomainEnum.BANDITRY_ACCUSED -> QuestionIdModelEnum.BANDITRY_ACCUSED
+            QuestionIdDomainEnum.BANDITRY_BOUGHT_STOLEN -> QuestionIdModelEnum.BANDITRY_BOUGHT_STOLEN
+            QuestionIdDomainEnum.BANDITRY_DRIVE_DRUNK -> QuestionIdModelEnum.BANDITRY_DRIVE_DRUNK
+            QuestionIdDomainEnum.BANDITRY_JUVENILE -> QuestionIdModelEnum.BANDITRY_JUVENILE
+            QuestionIdDomainEnum.BANDITRY_LOST_LICENCE -> QuestionIdModelEnum.BANDITRY_LOST_LICENCE
+            QuestionIdDomainEnum.BANDITRY_NOTION -> QuestionIdModelEnum.BANDITRY_NOTION
+            QuestionIdDomainEnum.BANDITRY_POLICE -> QuestionIdModelEnum.BANDITRY_POLICE
+            QuestionIdDomainEnum.BANDITRY_PREGNANT -> QuestionIdModelEnum.BANDITRY_PREGNANT
+            QuestionIdDomainEnum.BANDITRY_SOLD_STOLEN -> QuestionIdModelEnum.BANDITRY_SOLD_STOLEN
+            QuestionIdDomainEnum.BANDITRY_STEALING -> QuestionIdModelEnum.BANDITRY_STEALING
             else -> QuestionIdModelEnum.INVALID
         }
 }

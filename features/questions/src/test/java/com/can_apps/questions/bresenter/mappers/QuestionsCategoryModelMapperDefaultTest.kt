@@ -16,12 +16,14 @@ internal class QuestionsCategoryModelMapperDefaultTest {
             QuestionCategoryDomainEnum.DRUGS,
             QuestionCategoryDomainEnum.SEX,
             QuestionCategoryDomainEnum.RELIGION,
+            QuestionCategoryDomainEnum.BANDITRY,
             QuestionCategoryDomainEnum.INVALID
         )
         val expected = listOf(
             QuestionCategoryModelEnum.DRUGS,
             QuestionCategoryModelEnum.SEX,
             QuestionCategoryModelEnum.RELIGION,
+            QuestionCategoryModelEnum.BANDITRY,
             QuestionCategoryModelEnum.INVALID
         )
 

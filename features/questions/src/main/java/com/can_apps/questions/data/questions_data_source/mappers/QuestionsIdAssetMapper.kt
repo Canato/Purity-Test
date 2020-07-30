@@ -18,6 +18,7 @@ internal class QuestionsIdAssetMapperDefault(
             QuestionCategoryDomainEnum.DRUGS -> idDomainMapper.mapIdToDrugsDomain(id)
             QuestionCategoryDomainEnum.SEX -> idDomainMapper.mapIdToSexDomain(id)
             QuestionCategoryDomainEnum.RELIGION -> idDomainMapper.mapIdToReligionDomain(id)
+            QuestionCategoryDomainEnum.BANDITRY -> idDomainMapper.mapBanditryToDomain(id)
             QuestionCategoryDomainEnum.INVALID -> QuestionIdDomainEnum.INVALID
         }
 }
