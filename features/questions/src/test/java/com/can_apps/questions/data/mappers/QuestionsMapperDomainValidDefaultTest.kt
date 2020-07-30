@@ -36,39 +36,89 @@ internal class QuestionsMapperDomainValidDefaultTest {
     @Test
     fun `GIVEN asset, WHEN asset_mapToDomainValid, THEN return questionsdomain_valid`() {
         // GIVEN
-        val questionId = mockk<Int>(relaxed = true)
-        val questionCategory = "some fancy category"
-        val questionCategoryDomainEnum = mockk<QuestionCategoryDomainEnum>()
-        val questionIdDomainEnum = mockk<QuestionIdDomainEnum>()
+        val questionIdFirst = 1
+        val questionIdSecond = 2
+        val questionIdThird = 3
+        val questionIdFourth = 4
+        val questionCategoryFirst = "some fancy category"
+        val questionCategorySecond = "some fancier category"
+        val questionCategoryDomainEnumFirst = mockk<QuestionCategoryDomainEnum>()
+        val questionCategoryDomainEnumSecond = mockk<QuestionCategoryDomainEnum>()
+        val questionIdDomainEnumFirst = mockk<QuestionIdDomainEnum>()
+        val questionIdDomainEnumSecond = mockk<QuestionIdDomainEnum>()
+        val questionIdDomainEnumThird = mockk<QuestionIdDomainEnum>()
+        val questionIdDomainEnumForth = mockk<QuestionIdDomainEnum>()
         val questionWeightValue = mockk<Int>(relaxed = true)
         val questionWeightDomain = QuestionWeightDomain(questionWeightValue)
         val questionDataSourceSet =
             setOf(
                 QuestionDataSourceDto(
-                    questionCategory,
+                    questionCategoryFirst,
                     setOf(
-                        Question(questionId, questionWeightValue)
+                        Question(questionIdFirst, questionWeightValue)
+                    )
+                ),
+                QuestionDataSourceDto(
+                    questionCategorySecond,
+                    setOf(
+                        Question(questionIdSecond, questionWeightValue),
+                        Question(questionIdThird, questionWeightValue),
+                        Question(questionIdFourth, questionWeightValue)
                     )
                 )
             )
 
-        val questionDomainSet = setOf(
+        val questionDomainSetFirst = setOf(
             QuestionDetailsDomain(
-                questionIdDomainEnum,
+                questionIdDomainEnumFirst,
+                questionWeightDomain
+            )
+        )
+
+        val questionDomainSetSecond = setOf(
+            QuestionDetailsDomain(
+                questionIdDomainEnumSecond,
+                questionWeightDomain
+            ),
+            QuestionDetailsDomain(
+                questionIdDomainEnumThird,
+                questionWeightDomain
+            ),
+            QuestionDetailsDomain(
+                questionIdDomainEnumForth,
                 questionWeightDomain
             )
         )
 
         val expected =
-            setOf(QuestionsDomain.Valid(questionCategoryDomainEnum, questionDomainSet))
+            setOf(
+                QuestionsDomain.Valid(questionCategoryDomainEnumFirst, questionDomainSetFirst),
+                QuestionsDomain.Valid(questionCategoryDomainEnumSecond, questionDomainSetSecond)
+            )
 
         every {
-            assetCategoryMapper.mapCategoryToDomain(questionCategory)
-        } returns questionCategoryDomainEnum
+            assetCategoryMapper.mapCategoryToDomain(questionCategoryFirst)
+        } returns questionCategoryDomainEnumFirst
 
         every {
-            assetIdMapper.mapAssetId(questionCategoryDomainEnum, questionId)
-        } returns questionIdDomainEnum
+            assetCategoryMapper.mapCategoryToDomain(questionCategorySecond)
+        } returns questionCategoryDomainEnumSecond
+
+        every {
+            assetIdMapper.mapAssetId(questionCategoryDomainEnumFirst, questionIdFirst)
+        } returns questionIdDomainEnumFirst
+
+        every {
+            assetIdMapper.mapAssetId(questionCategoryDomainEnumSecond, questionIdSecond)
+        } returns questionIdDomainEnumSecond
+
+        every {
+            assetIdMapper.mapAssetId(questionCategoryDomainEnumSecond, questionIdThird)
+        } returns questionIdDomainEnumThird
+
+        every {
+            assetIdMapper.mapAssetId(questionCategoryDomainEnumSecond, questionIdFourth)
+        } returns questionIdDomainEnumForth
 
         // WHEN
         val result = assetMapper.mapToDomainValid(questionDataSourceSet)
