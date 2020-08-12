@@ -63,7 +63,7 @@ internal class QuestionsModelMapperTest {
             QuestionsModelDetails(questionIdModelEnum, questionTextModel, questionWeightModel)
 
         val expected =
-            listOf(QuestionsModel(questionsCategoryModelEnum, setOf(questionsModelDetails)))
+            QuestionsModel(questionsCategoryModelEnum, setOf(questionsModelDetails))
 
         every { categoryMapper.mapCategoryToModel(questionCategoryDomainEnum) } returns questionsCategoryModelEnum
 

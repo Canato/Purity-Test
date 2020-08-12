@@ -7,7 +7,7 @@ import com.can_apps.questions.bresenter.QuestionsModelDetails
 import com.can_apps.questions.core.QuestionsDomain
 
 internal interface QuestionsModelMapper {
-    fun toModel(domain: QuestionsDomain.Valid): List<QuestionsModel>
+    fun toModel(domain: QuestionsDomain.Valid): QuestionsModel
 }
 
 internal class QuestionsModelMapperDefault(
@@ -16,9 +16,8 @@ internal class QuestionsModelMapperDefault(
     private var textMapper: QuestionsTextModelMapper
 ) : QuestionsModelMapper {
 
-    override fun toModel(domain: QuestionsDomain.Valid): List<QuestionsModel> {
+    override fun toModel(domain: QuestionsDomain.Valid): QuestionsModel {
 
-        val questionsModel = mutableSetOf<QuestionsModel>()
         val questionsModelDetails = mutableSetOf<QuestionsModelDetails>()
 
         val categoryModelEnum =
@@ -34,14 +33,8 @@ internal class QuestionsModelMapperDefault(
                     QuestionWeightModel(question.weight.value)
                 )
             )
-            questionsModel.add(
-                QuestionsModel(
-                    categoryModelEnum,
-                    questionsModelDetails
-                )
-            )
         }
 
-        return questionsModel.toList()
+        return     QuestionsModel(categoryModelEnum, questionsModelDetails)
     }
 }

@@ -42,15 +42,11 @@ internal class QuestionsPresenter(
         view.close()
     }
 
-    // TODO next PR - > implementation
     private fun CoroutineScope.retrieveData() = launch(dispatcher.IO) {
-        when (val domain = interactor.retrieveList(
-//            categoryList[0]
-        )) {
+        when (val domain = interactor.retrieveList()) {
             is QuestionsDomain.Valid -> {
                 val model = mapper.toModel(domain)
-                // TODO logic for category [0] issue
-                showList(model[0].questionsModelDetails.toList(), model[0].questionCategory.name)
+                showList(model.questionsModelDetails.toList(), model.questionCategory.name)
             }
 
             is QuestionsDomain.Error -> {

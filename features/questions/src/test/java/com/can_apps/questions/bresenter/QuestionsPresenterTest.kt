@@ -53,7 +53,7 @@ internal class QuestionsPresenterTest {
         val modelCategory = model.questionCategory.name
 
         coEvery { interactor.retrieveList() } returns domain
-        coEvery { mapper.toModel(domain) } returns listOf(model)
+        coEvery { mapper.toModel(domain) } returns model
 
         // WHEN
         presenter.onViewCreated()
