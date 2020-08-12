@@ -42,6 +42,7 @@ internal class QuestionsPresenter(
         view.close()
     }
 
+    // TODO next PR - > implementation
     private fun CoroutineScope.retrieveData() = launch(dispatcher.IO) {
         when (val domain = interactor.retrieveList(
 //            categoryList[0]
