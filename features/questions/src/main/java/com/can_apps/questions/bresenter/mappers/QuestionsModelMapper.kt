@@ -35,6 +35,6 @@ internal class QuestionsModelMapperDefault(
             )
         }
 
-        return     QuestionsModel(categoryModelEnum, questionsModelDetails)
+        return QuestionsModel(categoryModelEnum, questionsModelDetails)
     }
 }
