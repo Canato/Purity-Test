@@ -15,10 +15,18 @@ internal class QuestionsIdAssetMapperDefault(
         id: Int
     ): QuestionIdDomainEnum =
         when (category) {
-            QuestionCategoryDomainEnum.DRUGS -> idDomainMapper.mapIdToDrugsDomain(id)
+            QuestionCategoryDomainEnum.BANDITRY -> idDomainMapper.mapIdToBanditryDomain(id)
+            QuestionCategoryDomainEnum.MAKE_OUT -> idDomainMapper.mapIdToMakeOutDomain(id)
+            QuestionCategoryDomainEnum.NERVOUS_MOUTH -> idDomainMapper.mapIdToNervousMouthDomain(id)
+            QuestionCategoryDomainEnum.MASTURBATION -> idDomainMapper.mapIdToMasturbationDomain(id)
+            QuestionCategoryDomainEnum.SINS -> idDomainMapper.mapIdToSinsDomain(id)
+            QuestionCategoryDomainEnum.EXHIBITIONISM -> idDomainMapper.mapIdToExhibitionismDomain(id)
+            QuestionCategoryDomainEnum.CRAZY_LIFE -> idDomainMapper.mapIdToCrazyLifeDomain(id)
+            QuestionCategoryDomainEnum.LEGAL_DRUGS -> idDomainMapper.mapIdToLegalDrugsDomain(id)
+            QuestionCategoryDomainEnum.ILLEGAL_DRUGS -> idDomainMapper.mapIdToIllegalDrugsDomain(id)
+            QuestionCategoryDomainEnum.UNIVERSITY_FEELINGS -> idDomainMapper.mapIdToUniFeelingsDomain(id)
             QuestionCategoryDomainEnum.SEX -> idDomainMapper.mapIdToSexDomain(id)
-            QuestionCategoryDomainEnum.RELIGION -> idDomainMapper.mapIdToReligionDomain(id)
-            QuestionCategoryDomainEnum.BANDITRY -> idDomainMapper.mapBanditryToDomain(id)
+            QuestionCategoryDomainEnum.PURITY_SEEKER -> idDomainMapper.mapIdToPurityDomain(id)
             QuestionCategoryDomainEnum.INVALID -> QuestionIdDomainEnum.INVALID
         }
 }

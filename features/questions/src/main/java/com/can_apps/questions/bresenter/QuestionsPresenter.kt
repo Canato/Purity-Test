@@ -22,9 +22,7 @@ internal class QuestionsPresenter(
     private lateinit var view: QuestionsContract.View
 
     private val categoryList = listOf(
-        QuestionCategoryModelEnum.DRUGS,
-        QuestionCategoryModelEnum.SEX,
-        QuestionCategoryModelEnum.RELIGION
+        QuestionCategoryModelEnum.SEX
     )
 
     override fun bind(view: QuestionsContract.View) {
@@ -44,6 +42,7 @@ internal class QuestionsPresenter(
         view.close()
     }
 
+    // TODO next PR - > implementation
     private fun CoroutineScope.retrieveData() = launch(dispatcher.IO) {
         when (val domain = interactor.retrieveList(
 //            categoryList[0]

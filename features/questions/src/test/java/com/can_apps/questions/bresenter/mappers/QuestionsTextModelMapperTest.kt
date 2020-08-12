@@ -23,80 +23,56 @@ internal class QuestionsTextModelMapperTest {
     fun setup() = MockKAnnotations.init(this, relaxed = true)
 
     @Test
-    fun `GIVEN drugs category, WHEN mapText, THEN return QuestionTextModel`() {
-        // GIVEN
-        val id = QuestionIdModelEnum.DRUGS_USAGE
-        val category = QuestionCategoryModelEnum.DRUGS
-        val expected = "mopped"
-
-        every { textStringMapper.mapDrugsEnumToString(id) } returns expected
-
-        // WHEN
-        val result = textMapper.mapText(category, id)
-
-        // THEN
-        Assert.assertEquals(expected, result)
-    }
-
-    @Test
-    fun `GIVEN sex category, WHEN mapText, THEN return QuestionTextModel`() {
+    fun `GIVEN category, WHEN mapText, THEN return string`() {
         // GIVEN
         val id = mockk<QuestionIdModelEnum>()
-        val category = QuestionCategoryModelEnum.SEX
-        val expected = "mopped"
+        val category = listOf(
+            QuestionCategoryModelEnum.BANDITRY,
+            QuestionCategoryModelEnum.MAKE_OUT,
+            QuestionCategoryModelEnum.NERVOUS_MOUTH,
+            QuestionCategoryModelEnum.MASTURBATION,
+            QuestionCategoryModelEnum.SINS,
+            QuestionCategoryModelEnum.EXHIBITIONISM,
+            QuestionCategoryModelEnum.CRAZY_LIFE,
+            QuestionCategoryModelEnum.LEGAL_DRUGS,
+            QuestionCategoryModelEnum.ILLEGAL_DRUGS,
+            QuestionCategoryModelEnum.UNIVERSITY_FEELINGS,
+            QuestionCategoryModelEnum.SEX,
+            QuestionCategoryModelEnum.PURITY_SEEKER,
+            QuestionCategoryModelEnum.INVALID
+        )
+        val expected = listOf(
+            "that",
+            "should",
+            "be",
+            "a",
+            "value",
+            "here",
+            "is",
+            "question",
+            "are",
+            "you",
+            "fine",
+            "finally",
+            "pterodactyl"
+        )
 
-        every { textStringMapper.mapSexEnumToString(id) } returns expected
-
-        // WHEN
-        val result = textMapper.mapText(category, id)
-
-        // THEN
-        Assert.assertEquals(expected, result)
-    }
-
-    @Test
-    fun `GIVEN religion category, WHEN mapText, THEN return QuestionTextModel`() {
-        // GIVEN
-        val id = mockk<QuestionIdModelEnum>()
-        val category = QuestionCategoryModelEnum.RELIGION
-        val expected = "mopped"
-
-        every { textStringMapper.mapReligionEnumToString(id) } returns expected
-
-        // WHEN
-        val result = textMapper.mapText(category, id)
-
-        // THEN
-        Assert.assertEquals(expected, result)
-    }
-
-    @Test
-    fun `GIVEN banditry category, WHEN mapText, THEN return QuestionTextModel`() {
-        // GIVEN
-        val id = mockk<QuestionIdModelEnum>()
-        val category = QuestionCategoryModelEnum.BANDITRY
-        val expected = "mopped"
-
-        every { textStringMapper.mapBanditryEnumToString(id) } returns expected
-
-        // WHEN
-        val result = textMapper.mapText(category, id)
-
-        // THEN
-        Assert.assertEquals(expected, result)
-    }
-
-    @Test
-    fun `GIVEN invalid category, WHEN mapText, THEN return QuestionTextModel`() {
-        // GIVEN
-        val id = mockk<QuestionIdModelEnum>()
-        val category = QuestionCategoryModelEnum.INVALID
-        val expected = "mopped"
-
-        every { textStringMapper.mapInvalidEnumToString(id) } returns expected
+        every { textStringMapper.mapBanditryEnumToString(id) } returns expected[0]
+        every { textStringMapper.mapMakeOutEnumToString(id) } returns expected[1]
+        every { textStringMapper.mapNervousMouthEnumToString(id) } returns expected[2]
+        every { textStringMapper.mapMasturbationEnumToString(id) } returns expected[3]
+        every { textStringMapper.mapSinsEnumToString(id) } returns expected[4]
+        every { textStringMapper.mapExhibitionismEnumToString(id) } returns expected[5]
+        every { textStringMapper.mapCrazyLifeEnumToString(id) } returns expected[6]
+        every { textStringMapper.mapLegalDrugsEnumToString(id) } returns expected[7]
+        every { textStringMapper.mapIllegalDrugsEnumToString(id) } returns expected[8]
+        every { textStringMapper.mapUniFeelingsEnumToString(id) } returns expected[9]
+        every { textStringMapper.mapSexEnumToString(id) } returns expected[10]
+        every { textStringMapper.mapPurityEnumToString(id) } returns expected[11]
+        every { textStringMapper.mapInvalidEnumToString(id) } returns expected[12]
 
         // WHEN
-        val result = textMapper.mapText(category, id)
+        val result = category.map { textMapper.mapText(it, id) }
 
         // THEN
         Assert.assertEquals(expected, result)
