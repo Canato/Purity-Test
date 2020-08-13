@@ -38,17 +38,29 @@ internal class QuestionsPresenter(
         view.close()
     }
 
+    override fun fetchNextCategoryList() {
+        view.showLoading()
+        retrieveData()
+    }
+
     private fun CoroutineScope.retrieveData() = launch(dispatcher.IO) {
         when (val domain = interactor.retrieveList()) {
             is QuestionsDomain.Valid -> {
                 val model = mapper.toModel(domain)
                 showList(model.questionsModelDetails.toList(), model.questionCategory.name)
+                checkActionButtonFunction()
             }
 
             is QuestionsDomain.Error -> {
                 showError(domain.message.value)
             }
         }
+    }
+
+    private fun checkActionButtonFunction() {
+        if (interactor.checkListSize())
+            updateActionButtonFunction()
+
     }
 
     private fun CoroutineScope.showError(message: String) = launch(dispatcher.UI) {
@@ -62,4 +74,8 @@ internal class QuestionsPresenter(
             view.showCategory(category)
             view.showList(model)
         }
+
+    private fun CoroutineScope.updateActionButtonFunction() = launch(dispatcher.UI) {
+        view.updateActionButtonFunction()
+    }
 }

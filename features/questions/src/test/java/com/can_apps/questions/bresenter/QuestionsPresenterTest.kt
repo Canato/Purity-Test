@@ -91,6 +91,60 @@ internal class QuestionsPresenterTest {
     }
 
     @Test
+    fun `GIVEN non last valid data, WHEN fetchNextCategoryList, THEN show list`() {
+        // GIVEN
+        val lastCategory = false
+        val domain = mockk<QuestionsDomain.Valid>(relaxed = true)
+        val model = mockk<QuestionsModel>(relaxed = true)
+        val modelDetails = model.questionsModelDetails.toList()
+        val modelCategory = model.questionCategory.name
+
+        coEvery { interactor.retrieveList() } returns domain
+        coEvery { mapper.toModel(domain) } returns model
+        coEvery { interactor.checkListSize() } returns lastCategory
+
+        // WHEN
+        presenter.fetchNextCategoryList()
+
+        // THEN
+        verify {
+            view.showLoading()
+            view.hideLoading()
+            view.showCategory(modelCategory)
+            view.showList(modelDetails)
+        }
+        verify (exactly = 0){
+            view.updateActionButtonFunction()
+        }
+    }
+
+    @Test
+    fun `GIVEN last valid data, WHEN fetchNextCategoryList, THEN show list`() {
+        // GIVEN
+        val lastCategory = true
+        val domain = mockk<QuestionsDomain.Valid>(relaxed = true)
+        val model = mockk<QuestionsModel>(relaxed = true)
+        val modelDetails = model.questionsModelDetails.toList()
+        val modelCategory = model.questionCategory.name
+
+        coEvery { interactor.retrieveList() } returns domain
+        coEvery { mapper.toModel(domain) } returns model
+        coEvery { interactor.checkListSize() } returns lastCategory
+
+        // WHEN
+        presenter.fetchNextCategoryList()
+
+        // THEN
+        verify {
+            view.showLoading()
+            view.hideLoading()
+            view.showCategory(modelCategory)
+            view.showList(modelDetails)
+            view.updateActionButtonFunction()
+        }
+    }
+
+    @Test
     fun `WHEN back press, THEN close`() {
         // WHEN
         presenter.onBackPressed()

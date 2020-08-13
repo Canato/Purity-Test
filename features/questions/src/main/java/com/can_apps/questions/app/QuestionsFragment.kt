@@ -48,6 +48,9 @@ internal class QuestionsFragment :
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             recyclerView.adapter = recyclerViewAdapter
         }
+        actionButton.setOnClickListener {
+            presenter.fetchNextCategoryList()
+        }
     }
 
     private fun setOnBackPressedCallback() {
@@ -106,5 +109,12 @@ internal class QuestionsFragment :
 
     override fun showCategory(category: String) {
         categoryView.text = category
+    }
+
+    override fun updateActionButtonFunction() {
+        actionButton.text = getString(R.string.action_button_finish)
+        actionButton.setOnClickListener {
+            presenter.onBackPressed()
+        }
     }
 }
