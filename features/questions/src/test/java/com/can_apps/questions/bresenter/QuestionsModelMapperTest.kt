@@ -7,6 +7,7 @@ import com.can_apps.questions.bresenter.mappers.QuestionsTextModelMapper
 import com.can_apps.questions.core.QuestionCategoryDomainEnum
 import com.can_apps.questions.core.QuestionDetailsDomain
 import com.can_apps.questions.core.QuestionIdDomainEnum
+import com.can_apps.questions.core.QuestionLastCategoryDomain
 import com.can_apps.questions.core.QuestionWeightDomain
 import com.can_apps.questions.core.QuestionsDomain
 import io.mockk.MockKAnnotations
@@ -41,6 +42,7 @@ internal class QuestionsModelMapperTest {
     fun `GIVEN domain, WHEN map, THEN return model`() {
         // GIVEN
         val questionCategoryDomainEnum = mockk<QuestionCategoryDomainEnum>()
+        val questionLastCategoryDomain = mockk<QuestionLastCategoryDomain>(relaxed = true)
         val questionIdDomainEnum = mockk<QuestionIdDomainEnum>()
         val questionWeightValue = mockk<Int>(relaxed = true)
         val questionWeightDomain = QuestionWeightDomain(questionWeightValue)
@@ -53,7 +55,11 @@ internal class QuestionsModelMapperTest {
         )
 
         val questionDomain =
-            QuestionsDomain.Valid(questionCategoryDomainEnum, questionDomainSet)
+            QuestionsDomain.Valid(
+                questionCategoryDomainEnum,
+                questionLastCategoryDomain,
+                questionDomainSet
+            )
 
         val questionsCategoryModelEnum = mockk<QuestionCategoryModelEnum>()
         val questionIdModelEnum = mockk<QuestionIdModelEnum>()
@@ -61,9 +67,10 @@ internal class QuestionsModelMapperTest {
         val questionWeightModel = QuestionWeightModel(questionWeightValue)
         val questionsModelDetails =
             QuestionsModelDetails(questionIdModelEnum, questionTextModel, questionWeightModel)
+        val questionLastCategoryModel = mockk<QuestionLastCategoryModel>(relaxed = true)
 
         val expected =
-            QuestionsModel(questionsCategoryModelEnum, setOf(questionsModelDetails))
+            QuestionsModel(questionsCategoryModelEnum, questionLastCategoryModel, setOf(questionsModelDetails))
 
         every { categoryMapper.mapCategoryToModel(questionCategoryDomainEnum) } returns questionsCategoryModelEnum
 

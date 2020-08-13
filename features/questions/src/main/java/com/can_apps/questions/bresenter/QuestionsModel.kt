@@ -2,6 +2,7 @@ package com.can_apps.questions.bresenter
 
 internal data class QuestionsModel(
     val questionCategory: QuestionCategoryModelEnum,
+    val isLastCategory: QuestionLastCategoryModel,
     val questionsModelDetails: Set<QuestionsModelDetails>
 )
 
@@ -200,3 +201,4 @@ internal enum class QuestionIdModelEnum {
 
 internal inline class QuestionTextModel(val value: String)
 internal inline class QuestionWeightModel(val value: Int)
+internal inline class QuestionLastCategoryModel(val value: Boolean)

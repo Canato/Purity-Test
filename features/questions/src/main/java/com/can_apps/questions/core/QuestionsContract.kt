@@ -34,8 +34,6 @@ internal interface QuestionsContract {
 
     interface Interactor {
         suspend fun retrieveQuestionsDomain(): QuestionsDomain
-
-        fun isLastShownCategory(): Boolean
     }
 
     interface Repository {

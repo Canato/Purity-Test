@@ -61,18 +61,13 @@ internal class QuestionsPresenter(
             is QuestionsDomain.Valid -> {
                 val model = mapper.toModel(domain)
                 showList(model.questionsModelDetails.toList(), model.questionCategory.name)
-                checkIfLastCategory()
+                setNewActionButtonFunction(model.isLastCategory.value)
             }
 
             is QuestionsDomain.Error -> {
                 showError(domain.message.value)
             }
         }
-    }
-
-    private fun checkIfLastCategory() {
-        if (interactor.isLastShownCategory())
-            setNewActionButtonFunction()
     }
 
     private fun CoroutineScope.showError(message: String) = launch(dispatcher.UI) {
@@ -87,7 +82,8 @@ internal class QuestionsPresenter(
             view.showList(model)
         }
 
-    private fun CoroutineScope.setNewActionButtonFunction() = launch(dispatcher.UI) {
+    private fun CoroutineScope.setNewActionButtonFunction(value: Boolean) = launch(dispatcher.UI) {
+        if (value) {
         view.setNewActionButtonFunction()
-    }
+    } }
 }

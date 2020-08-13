@@ -1,5 +1,6 @@
 package com.can_apps.questions.bresenter.mappers
 
+import com.can_apps.questions.bresenter.QuestionLastCategoryModel
 import com.can_apps.questions.bresenter.QuestionTextModel
 import com.can_apps.questions.bresenter.QuestionWeightModel
 import com.can_apps.questions.bresenter.QuestionsModel
@@ -21,6 +22,8 @@ internal class QuestionsModelMapperDefault(
         val questionsModelDetails = mutableSetOf<QuestionsModelDetails>()
         val categoryModelEnum =
             categoryMapper.mapCategoryToModel(domain.category)
+        val questionLastCategory = QuestionLastCategoryModel(domain.isLastCategory.value)
+
         domain.questions.forEach { question ->
 
             val idModelEnum = idMapper.mapDomainId(categoryModelEnum, question.id)
@@ -34,6 +37,6 @@ internal class QuestionsModelMapperDefault(
             )
         }
 
-        return QuestionsModel(categoryModelEnum, questionsModelDetails)
+        return QuestionsModel(categoryModelEnum, questionLastCategory, questionsModelDetails)
     }
 }

@@ -94,14 +94,16 @@ internal class QuestionsPresenterTest {
     fun `GIVEN non last valid data, WHEN fetchNextCategoryList, THEN show list`() {
         // GIVEN
         val lastCategory = false
-        val domain = mockk<QuestionsDomain.Valid>(relaxed = true)
-        val model = mockk<QuestionsModel>(relaxed = true)
+        val domain = mockk<QuestionsDomain.Valid>()
+        val categoryModel = mockk<QuestionCategoryModelEnum>(relaxed = true)
+        val questionLastCategoryModel = QuestionLastCategoryModel(lastCategory)
+        val setQuestionsModel = mockk<Set<QuestionsModelDetails>>(relaxed = true)
+        val model = QuestionsModel(categoryModel, questionLastCategoryModel, setQuestionsModel)
         val modelDetails = model.questionsModelDetails.toList()
         val modelCategory = model.questionCategory.name
 
         coEvery { interactor.retrieveQuestionsDomain() } returns domain
         coEvery { mapper.toModel(domain) } returns model
-        coEvery { interactor.isLastShownCategory() } returns lastCategory
 
         // WHEN
         presenter.fetchNextCategoryQuestions()
@@ -123,13 +125,15 @@ internal class QuestionsPresenterTest {
         // GIVEN
         val lastCategory = true
         val domain = mockk<QuestionsDomain.Valid>(relaxed = true)
-        val model = mockk<QuestionsModel>(relaxed = true)
+        val categoryModel = mockk<QuestionCategoryModelEnum>(relaxed = true)
+        val questionLastCategoryModel = QuestionLastCategoryModel(lastCategory)
+        val setQuestionsModel = mockk<Set<QuestionsModelDetails>>(relaxed = true)
+        val model = QuestionsModel(categoryModel, questionLastCategoryModel, setQuestionsModel)
         val modelDetails = model.questionsModelDetails.toList()
         val modelCategory = model.questionCategory.name
 
         coEvery { interactor.retrieveQuestionsDomain() } returns domain
         coEvery { mapper.toModel(domain) } returns model
-        coEvery { interactor.isLastShownCategory() } returns lastCategory
 
         // WHEN
         presenter.fetchNextCategoryQuestions()

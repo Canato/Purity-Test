@@ -13,10 +13,6 @@ internal class QuestionsInteractor(
             false -> getNextQuestionsDomain()
         }
 
-    override fun isLastShownCategory(): Boolean {
-        return listPosition == questionsDomainList.size - 1
-    }
-
     private suspend fun fetchRepositoryList(): QuestionsDomain {
         questionsDomainList = repository.retrieveList()
         return questionsDomainList.first()

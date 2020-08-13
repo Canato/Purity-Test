@@ -4,6 +4,7 @@ internal sealed class QuestionsDomain {
 
     data class Valid(
         val category: QuestionCategoryDomainEnum,
+        val isLastCategory: QuestionLastCategoryDomain,
         val questions: Set<QuestionDetailsDomain>
     ) : QuestionsDomain()
 
@@ -206,3 +207,4 @@ internal enum class QuestionIdDomainEnum {
 
 internal inline class QuestionWeightDomain(val value: Int)
 internal inline class QuestionErrorDomain(val value: String)
+internal inline class QuestionLastCategoryDomain(val value: Boolean)
