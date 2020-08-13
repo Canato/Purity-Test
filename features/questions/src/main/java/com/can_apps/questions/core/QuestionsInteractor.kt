@@ -4,6 +4,9 @@ internal class QuestionsInteractor(
     private val repository: QuestionsContract.Repository
 ) : QuestionsContract.Interactor {
 
-    override suspend fun retrieveList(): QuestionsDomain =
-        repository.retrieveList().first()
+//    private lateinit var
+
+    override suspend fun retrieveList(): QuestionsDomain {
+        return repository.retrieveList().first()
+    }
 }

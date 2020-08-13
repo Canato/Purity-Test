@@ -33,6 +33,6 @@ internal interface QuestionsContract {
     }
 
     interface Repository {
-        suspend fun retrieveList(): Set<QuestionsDomain>
+        suspend fun retrieveList(): List<QuestionsDomain>
     }
 }

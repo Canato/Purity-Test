@@ -50,8 +50,8 @@ internal class QuestionsMapperDomainValidDefaultTest {
         val questionIdDomainEnumForth = mockk<QuestionIdDomainEnum>()
         val questionWeightValue = mockk<Int>(relaxed = true)
         val questionWeightDomain = QuestionWeightDomain(questionWeightValue)
-        val questionDataSourceSet =
-            setOf(
+        val questionDataSourceList =
+            listOf(
                 QuestionDataSourceDto(
                     questionCategoryFirst,
                     setOf(
@@ -91,7 +91,7 @@ internal class QuestionsMapperDomainValidDefaultTest {
         )
 
         val expected =
-            setOf(
+            listOf(
                 QuestionsDomain.Valid(questionCategoryDomainEnumFirst, questionDomainSetFirst),
                 QuestionsDomain.Valid(questionCategoryDomainEnumSecond, questionDomainSetSecond)
             )
@@ -121,7 +121,7 @@ internal class QuestionsMapperDomainValidDefaultTest {
         } returns questionIdDomainEnumForth
 
         // WHEN
-        val result = assetMapper.mapToDomainValid(questionDataSourceSet)
+        val result = assetMapper.mapToDomainValid(questionDataSourceList)
 
         // THEN
         Assert.assertEquals(expected, result)

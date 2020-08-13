@@ -34,8 +34,8 @@ internal class QuestionsDtoMapperDefaultTest {
     @Test
     fun `GIVEN questions_dto_valid, WHEN assetToDomain, THEN return questionsdomain_valid`() {
         // GIVEN
-        val questionDataSourceSet = mockk<Set<QuestionDataSourceDto>>()
-        val expected = mockk<Set<QuestionsDomain.Valid>>()
+        val questionDataSourceSet = mockk<List<QuestionDataSourceDto>>()
+        val expected = mockk<List<QuestionsDomain.Valid>>()
 
         every { assetMapper.mapToDomainValid(questionDataSourceSet) } returns expected
 
@@ -51,13 +51,13 @@ internal class QuestionsDtoMapperDefaultTest {
         // GIVEN
         val message = "iOS sucks"
         val questionErrorDomain = QuestionErrorDomain(message)
-        val emptySet = emptySet<QuestionDataSourceDto>()
-        val expected = setOf(QuestionsDomain.Error(questionErrorDomain))
+        val emptyList = emptyList<QuestionDataSourceDto>()
+        val expected = listOf(QuestionsDomain.Error(questionErrorDomain))
 
         coEvery { stringResource.getString(R.string.questions_dto_error) } returns message
 
         // WHEN
-        val result = dto.assetToDomain(emptySet)
+        val result = dto.assetToDomain(emptyList)
 
         // THEN
         assertEquals(expected, result)

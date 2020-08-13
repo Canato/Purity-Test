@@ -19,7 +19,6 @@ internal class QuestionsModelMapperDefault(
     override fun toModel(domain: QuestionsDomain.Valid): QuestionsModel {
 
         val questionsModelDetails = mutableSetOf<QuestionsModelDetails>()
-
         val categoryModelEnum =
             categoryMapper.mapCategoryToModel(domain.category)
         domain.questions.forEach { question ->

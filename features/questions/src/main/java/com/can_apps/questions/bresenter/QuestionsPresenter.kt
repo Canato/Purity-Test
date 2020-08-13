@@ -21,10 +21,6 @@ internal class QuestionsPresenter(
 
     private lateinit var view: QuestionsContract.View
 
-    private val categoryList = listOf(
-        QuestionCategoryModelEnum.SEX
-    )
-
     override fun bind(view: QuestionsContract.View) {
         this.view = view
     }

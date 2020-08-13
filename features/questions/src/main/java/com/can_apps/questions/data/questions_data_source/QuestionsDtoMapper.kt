@@ -8,7 +8,7 @@ import com.can_apps.questions.data.questions_data_source.mappers.QuestionsMapper
 import com.can_apps.questions_data_source.data.QuestionDataSourceDto
 
 internal interface QuestionsDtoMapper {
-    fun assetToDomain(asset: Set<QuestionDataSourceDto>): Set<QuestionsDomain>
+    fun assetToDomain(asset: List<QuestionDataSourceDto>): List<QuestionsDomain>
 }
 
 internal class QuestionsDtoMapperDefault(
@@ -17,9 +17,9 @@ internal class QuestionsDtoMapperDefault(
 ) :
     QuestionsDtoMapper {
 
-    override fun assetToDomain(asset: Set<QuestionDataSourceDto>): Set<QuestionsDomain> =
-        when (asset == emptySet<QuestionDataSourceDto>()) {
-            true -> setOf(QuestionsDomain.Error(QuestionErrorDomain(stringResource.getString(R.string.questions_dto_error))))
+    override fun assetToDomain(asset: List<QuestionDataSourceDto>): List<QuestionsDomain> =
+        when (asset == emptyList<QuestionDataSourceDto>()) {
+            true -> listOf(QuestionsDomain.Error(QuestionErrorDomain(stringResource.getString(R.string.questions_dto_error))))
             false -> assetMapper.mapToDomainValid(asset)
         }
 }
