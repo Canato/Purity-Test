@@ -49,7 +49,7 @@ internal class QuestionsFragment :
             recyclerView.adapter = recyclerViewAdapter
         }
         actionButton.setOnClickListener {
-            presenter.fetchNextCategoryList()
+            presenter.fetchNextCategoryQuestions()
         }
     }
 
@@ -111,7 +111,7 @@ internal class QuestionsFragment :
         categoryView.text = category
     }
 
-    override fun updateActionButtonFunction() {
+    override fun setNewActionButtonFunction() {
         actionButton.text = getString(R.string.action_button_finish)
         actionButton.setOnClickListener {
             presenter.onBackPressed()

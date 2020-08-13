@@ -104,7 +104,7 @@ internal class QuestionsPresenterTest {
         coEvery { interactor.checkListSize() } returns lastCategory
 
         // WHEN
-        presenter.fetchNextCategoryList()
+        presenter.fetchNextCategoryQuestions()
 
         // THEN
         verify {
@@ -114,7 +114,7 @@ internal class QuestionsPresenterTest {
             view.showList(modelDetails)
         }
         verify(exactly = 0) {
-            view.updateActionButtonFunction()
+            view.setNewActionButtonFunction()
         }
     }
 
@@ -132,7 +132,7 @@ internal class QuestionsPresenterTest {
         coEvery { interactor.checkListSize() } returns lastCategory
 
         // WHEN
-        presenter.fetchNextCategoryList()
+        presenter.fetchNextCategoryQuestions()
 
         // THEN
         verify {
@@ -140,7 +140,7 @@ internal class QuestionsPresenterTest {
             view.hideLoading()
             view.showCategory(modelCategory)
             view.showList(modelDetails)
-            view.updateActionButtonFunction()
+            view.setNewActionButtonFunction()
         }
     }
 

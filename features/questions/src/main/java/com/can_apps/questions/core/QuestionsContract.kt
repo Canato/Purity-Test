@@ -17,7 +17,7 @@ internal interface QuestionsContract {
 
         fun showCategory(category: String)
 
-        fun updateActionButtonFunction()
+        fun setNewActionButtonFunction()
     }
 
     interface Presenter {
@@ -29,7 +29,7 @@ internal interface QuestionsContract {
 
         fun onBackPressed()
 
-        fun fetchNextCategoryList()
+        fun fetchNextCategoryQuestions()
     }
 
     interface Interactor {

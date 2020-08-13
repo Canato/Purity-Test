@@ -38,9 +38,9 @@ internal class QuestionsPresenter(
         view.close()
     }
 
-    override fun fetchNextCategoryList() {
+    override fun fetchNextCategoryQuestions() {
         view.showLoading()
-        retrieveData()
+        retrieveNextList()
     }
 
     private fun CoroutineScope.retrieveData() = launch(dispatcher.IO) {
@@ -48,7 +48,6 @@ internal class QuestionsPresenter(
             is QuestionsDomain.Valid -> {
                 val model = mapper.toModel(domain)
                 showList(model.questionsModelDetails.toList(), model.questionCategory.name)
-                checkActionButtonFunction()
             }
 
             is QuestionsDomain.Error -> {
@@ -57,9 +56,23 @@ internal class QuestionsPresenter(
         }
     }
 
-    private fun checkActionButtonFunction() {
+    private fun CoroutineScope.retrieveNextList() = launch(dispatcher.IO) {
+        when (val domain = interactor.retrieveList()) {
+            is QuestionsDomain.Valid -> {
+                val model = mapper.toModel(domain)
+                showList(model.questionsModelDetails.toList(), model.questionCategory.name)
+                checkIfLastCategory()
+            }
+
+            is QuestionsDomain.Error -> {
+                showError(domain.message.value)
+            }
+        }
+    }
+
+    private fun checkIfLastCategory() {
         if (interactor.checkListSize())
-            updateActionButtonFunction()
+            setNewActionButtonFunction()
     }
 
     private fun CoroutineScope.showError(message: String) = launch(dispatcher.UI) {
@@ -74,7 +87,7 @@ internal class QuestionsPresenter(
             view.showList(model)
         }
 
-    private fun CoroutineScope.updateActionButtonFunction() = launch(dispatcher.UI) {
-        view.updateActionButtonFunction()
+    private fun CoroutineScope.setNewActionButtonFunction() = launch(dispatcher.UI) {
+        view.setNewActionButtonFunction()
     }
 }
