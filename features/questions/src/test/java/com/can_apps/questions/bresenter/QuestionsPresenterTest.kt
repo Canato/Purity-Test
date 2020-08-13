@@ -113,7 +113,7 @@ internal class QuestionsPresenterTest {
             view.showCategory(modelCategory)
             view.showList(modelDetails)
         }
-        verify (exactly = 0){
+        verify(exactly = 0) {
             view.updateActionButtonFunction()
         }
     }

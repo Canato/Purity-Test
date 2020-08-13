@@ -60,7 +60,6 @@ internal class QuestionsPresenter(
     private fun checkActionButtonFunction() {
         if (interactor.checkListSize())
             updateActionButtonFunction()
-
     }
 
     private fun CoroutineScope.showError(message: String) = launch(dispatcher.UI) {

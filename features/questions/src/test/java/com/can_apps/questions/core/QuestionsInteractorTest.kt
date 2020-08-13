@@ -57,5 +57,4 @@ internal class QuestionsInteractorTest {
         // THEN
         assertEquals(expected, result)
     }
-
 }
