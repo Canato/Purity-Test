@@ -7,13 +7,13 @@ internal class QuestionsInteractor(
     private var questionsDomainList: List<QuestionsDomain> = emptyList()
     private var listPosition = 0
 
-    override suspend fun retrieveList(): QuestionsDomain =
+    override suspend fun retrieveQuestionsDomain(): QuestionsDomain =
         when (questionsDomainList == emptyList<List<QuestionsDomain>>()) {
             true -> fetchRepositoryList()
             false -> getNextQuestionsDomain()
         }
 
-    override fun checkListSize(): Boolean {
+    override fun isLastShownCategory(): Boolean {
         return listPosition == questionsDomainList.size - 1
     }
 

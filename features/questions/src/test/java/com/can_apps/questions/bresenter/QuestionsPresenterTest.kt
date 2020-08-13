@@ -52,7 +52,7 @@ internal class QuestionsPresenterTest {
         val modelDetails = model.questionsModelDetails.toList()
         val modelCategory = model.questionCategory.name
 
-        coEvery { interactor.retrieveList() } returns domain
+        coEvery { interactor.retrieveQuestionsDomain() } returns domain
         coEvery { mapper.toModel(domain) } returns model
 
         // WHEN
@@ -74,7 +74,7 @@ internal class QuestionsPresenterTest {
         val questionErrorDomain = QuestionErrorDomain(message)
         val domain = QuestionsDomain.Error(questionErrorDomain)
 
-        coEvery { interactor.retrieveList() } returns domain
+        coEvery { interactor.retrieveQuestionsDomain() } returns domain
 
         // WHEN
         presenter.onViewCreated()
@@ -99,9 +99,9 @@ internal class QuestionsPresenterTest {
         val modelDetails = model.questionsModelDetails.toList()
         val modelCategory = model.questionCategory.name
 
-        coEvery { interactor.retrieveList() } returns domain
+        coEvery { interactor.retrieveQuestionsDomain() } returns domain
         coEvery { mapper.toModel(domain) } returns model
-        coEvery { interactor.checkListSize() } returns lastCategory
+        coEvery { interactor.isLastShownCategory() } returns lastCategory
 
         // WHEN
         presenter.fetchNextCategoryQuestions()
@@ -127,9 +127,9 @@ internal class QuestionsPresenterTest {
         val modelDetails = model.questionsModelDetails.toList()
         val modelCategory = model.questionCategory.name
 
-        coEvery { interactor.retrieveList() } returns domain
+        coEvery { interactor.retrieveQuestionsDomain() } returns domain
         coEvery { mapper.toModel(domain) } returns model
-        coEvery { interactor.checkListSize() } returns lastCategory
+        coEvery { interactor.isLastShownCategory() } returns lastCategory
 
         // WHEN
         presenter.fetchNextCategoryQuestions()

@@ -36,7 +36,100 @@ internal class QuestionsInteractorTest {
         coEvery { repository.retrieveList() } returns repositoryList
 
         // WHEN
-        val result = interactor.retrieveList()
+        val result = interactor.retrieveQuestionsDomain()
+
+        // THEN
+        assertEquals(expected, result)
+    }
+
+    @Test
+    fun `GIVEN previously fetched list, WHEN retrieveNextCategory, THEN return domain`() =
+        runBlocking {
+            // GIVEN
+            val repositoryList =
+                listOf<QuestionsDomain>(
+                    mockk<QuestionsDomain.Valid>(),
+                    mockk<QuestionsDomain.Valid>(),
+                    mockk<QuestionsDomain.Valid>()
+                )
+
+            val expected = repositoryList[1]
+
+            coEvery { repository.retrieveList() } returns repositoryList
+            interactor.retrieveQuestionsDomain()
+
+            // WHEN
+            val result = interactor.retrieveQuestionsDomain()
+
+            // THEN
+            assertEquals(expected, result)
+        }
+
+    @Test
+    fun `GIVEN fetched first category, WHEN checkIfLastCategory, THEN return false`() =
+        runBlocking {
+            // GIVEN
+            val repositoryList =
+                listOf<QuestionsDomain>(
+                    mockk<QuestionsDomain.Valid>(),
+                    mockk<QuestionsDomain.Valid>(),
+                    mockk<QuestionsDomain.Valid>()
+                )
+
+            val expected = false
+
+            coEvery { repository.retrieveList() } returns repositoryList
+            interactor.retrieveQuestionsDomain()
+
+            // WHEN
+            val result = interactor.isLastShownCategory()
+
+            // THEN
+            assertEquals(expected, result)
+        }
+
+    @Test
+    fun `GIVEN fetched middle category, WHEN checkIfLastCategory, THEN return true`() =
+        runBlocking {
+            // GIVEN
+            val repositoryList =
+                listOf<QuestionsDomain>(
+                    mockk<QuestionsDomain.Valid>(),
+                    mockk<QuestionsDomain.Valid>(),
+                    mockk<QuestionsDomain.Valid>()
+                )
+
+            val expected = false
+
+            coEvery { repository.retrieveList() } returns repositoryList
+            interactor.retrieveQuestionsDomain()
+
+            // WHEN
+            val result = interactor.isLastShownCategory()
+
+            // THEN
+            assertEquals(expected, result)
+        }
+
+    @Test
+    fun `GIVEN fetched last category, WHEN checkIfLastCategory, THEN return true`() = runBlocking {
+        // GIVEN
+        val repositoryList =
+            listOf<QuestionsDomain>(
+                mockk<QuestionsDomain.Valid>(),
+                mockk<QuestionsDomain.Valid>(),
+                mockk<QuestionsDomain.Valid>()
+            )
+
+        val expected = true
+
+        coEvery { repository.retrieveList() } returns repositoryList
+        interactor.retrieveQuestionsDomain()
+        interactor.retrieveQuestionsDomain()
+        interactor.retrieveQuestionsDomain()
+
+        // WHEN
+        val result = interactor.isLastShownCategory()
 
         // THEN
         assertEquals(expected, result)
@@ -52,7 +145,7 @@ internal class QuestionsInteractorTest {
         coEvery { repository.retrieveList() } returns repositoryList
 
         // WHEN
-        val result = interactor.retrieveList()
+        val result = interactor.retrieveQuestionsDomain()
 
         // THEN
         assertEquals(expected, result)

@@ -44,7 +44,7 @@ internal class QuestionsPresenter(
     }
 
     private fun CoroutineScope.retrieveData() = launch(dispatcher.IO) {
-        when (val domain = interactor.retrieveList()) {
+        when (val domain = interactor.retrieveQuestionsDomain()) {
             is QuestionsDomain.Valid -> {
                 val model = mapper.toModel(domain)
                 showList(model.questionsModelDetails.toList(), model.questionCategory.name)
@@ -57,7 +57,7 @@ internal class QuestionsPresenter(
     }
 
     private fun CoroutineScope.retrieveNextList() = launch(dispatcher.IO) {
-        when (val domain = interactor.retrieveList()) {
+        when (val domain = interactor.retrieveQuestionsDomain()) {
             is QuestionsDomain.Valid -> {
                 val model = mapper.toModel(domain)
                 showList(model.questionsModelDetails.toList(), model.questionCategory.name)
@@ -71,7 +71,7 @@ internal class QuestionsPresenter(
     }
 
     private fun checkIfLastCategory() {
-        if (interactor.checkListSize())
+        if (interactor.isLastShownCategory())
             setNewActionButtonFunction()
     }
 

@@ -33,9 +33,9 @@ internal interface QuestionsContract {
     }
 
     interface Interactor {
-        suspend fun retrieveList(): QuestionsDomain
+        suspend fun retrieveQuestionsDomain(): QuestionsDomain
 
-        fun checkListSize(): Boolean
+        fun isLastShownCategory(): Boolean
     }
 
     interface Repository {
