@@ -24,10 +24,8 @@ internal class QuestionsMapperDomainValidDefault(
             val categoryDomainEnum =
                 assetCategoryMapper.mapCategoryToDomain(questionDto.categoryName)
 
-            var questionLastCategoryDomain = QuestionLastCategoryDomain(false)
-
-            if (lastQuestion == questionDto)
-                questionLastCategoryDomain = QuestionLastCategoryDomain(true)
+            val lastCategoryValue = lastQuestion == questionDto
+            val questionLastCategoryDomain = QuestionLastCategoryDomain(lastCategoryValue)
 
             questionDto.questions.forEach { question ->
                 questionDetailsDomainSet.add(
