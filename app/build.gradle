@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion Versions.compileSDK
@@ -42,4 +44,7 @@ dependencies {
 
     testImplementation DepsTest.junit
     testImplementation DepsTest.espressoCore
+
+    implementation Deps.hilt
+    kapt Deps.hiltComplier
 }
