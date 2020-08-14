@@ -5,8 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.can_apps.login.app.LoginActivity
 import com.can_apps.questions.app.QuestionsActivity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

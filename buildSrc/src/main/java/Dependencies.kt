@@ -38,6 +38,9 @@ object Versions {
     const val mockk = "1.9.3"
     const val junitAndroid = "1.1.1"
     const val espressoAndroid = "3.2.0"
+
+    // Dependency Injection
+    const val hilt = "2.28-alpha"
 }
 
 object Deps {
@@ -72,6 +75,13 @@ object Deps {
 
     const val firebaseAnalytics =
         "com.google.firebase:firebase-analytics:${Versions.firebaseAnalytics}"
+
+    const val hiltGradle =
+        "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt}"
+
+    const val hilt = "com.google.dagger:hilt-android:${Versions.hilt}"
+
+    const val hiltComplier = "com.google.dagger:hilt-android-compiler:${Versions.hilt}"
 }
 
 object DepsTest {
