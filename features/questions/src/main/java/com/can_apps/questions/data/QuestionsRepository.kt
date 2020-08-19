@@ -11,10 +11,10 @@ internal class QuestionsRepository(
     private val dtoMapper: QuestionsDtoMapper
 ) : QuestionsContract.Repository {
 
-    override suspend fun retrieveList(): Set<QuestionsDomain> =
+    override suspend fun retrieveList(): List<QuestionsDomain> =
         try {
             dtoMapper.assetToDomain(asset.getQuestions())
         } catch (e: Exception) {
-            setOf(QuestionsDomain.Error(QuestionErrorDomain(e.message.toString())))
+            listOf(QuestionsDomain.Error(QuestionErrorDomain(e.message.toString())))
         }
 }

@@ -21,10 +21,6 @@ internal class QuestionsPresenter(
 
     private lateinit var view: QuestionsContract.View
 
-    private val categoryList = listOf(
-        QuestionCategoryModelEnum.SEX
-    )
-
     override fun bind(view: QuestionsContract.View) {
         this.view = view
     }
@@ -42,15 +38,30 @@ internal class QuestionsPresenter(
         view.close()
     }
 
-    // TODO next PR - > implementation
+    override fun fetchNextCategoryQuestions() {
+        view.showLoading()
+        retrieveNextList()
+    }
+
     private fun CoroutineScope.retrieveData() = launch(dispatcher.IO) {
-        when (val domain = interactor.retrieveList(
-//            categoryList[0]
-        )) {
+        when (val domain = interactor.retrieveQuestionsDomain()) {
             is QuestionsDomain.Valid -> {
                 val model = mapper.toModel(domain)
-                // TODO logic for category [0] issue
-                showList(model[0].questionsModelDetails.toList(), model[0].questionCategory.name)
+                showList(model.questionsModelDetails.toList(), model.questionCategory.name)
+            }
+
+            is QuestionsDomain.Error -> {
+                showError(domain.message.value)
+            }
+        }
+    }
+
+    private fun CoroutineScope.retrieveNextList() = launch(dispatcher.IO) {
+        when (val domain = interactor.retrieveQuestionsDomain()) {
+            is QuestionsDomain.Valid -> {
+                val model = mapper.toModel(domain)
+                showList(model.questionsModelDetails.toList(), model.questionCategory.name)
+                setNewActionButtonFunction(model.isLastCategory.value)
             }
 
             is QuestionsDomain.Error -> {
@@ -70,4 +81,9 @@ internal class QuestionsPresenter(
             view.showCategory(category)
             view.showList(model)
         }
+
+    private fun CoroutineScope.setNewActionButtonFunction(value: Boolean) = launch(dispatcher.UI) {
+        if (value) {
+        view.setNewActionButtonFunction()
+    } }
 }

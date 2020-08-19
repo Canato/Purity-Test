@@ -2,6 +2,8 @@
 <resources>
     <string name="questions_dto_error">Error fetching questions</string>
     <string name="questions_id_model_error">Question not recognized</string>
+    <string name="action_button_next">Next category</string>
+    <string name="action_button_finish">Finish Test</string>
     <string name="banditry_police">Be inspected by police?</string>
     <string name="banditry_drive_drunk">Get a ticket for drive drunk?</string>
     <string name="banditry_lost_licence">Lost the drivers license in a blitz?</string>

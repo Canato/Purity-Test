@@ -24,25 +24,58 @@ internal class QuestionsInteractorTest {
     @Test
     fun `GIVEN valid return, WHEN retrieve list, THEN return domain`() = runBlocking {
         // GIVEN
-        val expected = mockk<QuestionsDomain.Valid>()
-        coEvery { repository.retrieveList() } returns setOf(expected)
+        val repositoryList =
+            listOf<QuestionsDomain>(
+                mockk<QuestionsDomain.Valid>(),
+                mockk<QuestionsDomain.Valid>(),
+                mockk<QuestionsDomain.Valid>()
+            )
+
+        val expected = repositoryList.first()
+
+        coEvery { repository.retrieveList() } returns repositoryList
 
         // WHEN
-        val result = interactor.retrieveList()
+        val result = interactor.retrieveQuestionsDomain()
 
         // THEN
         assertEquals(expected, result)
     }
 
     @Test
+    fun `GIVEN previously fetched list, WHEN retrieveNextCategory, THEN return domain`() =
+        runBlocking {
+            // GIVEN
+            val repositoryList =
+                listOf<QuestionsDomain>(
+                    mockk<QuestionsDomain.Valid>(),
+                    mockk<QuestionsDomain.Valid>(),
+                    mockk<QuestionsDomain.Valid>()
+                )
+
+            val expected = repositoryList[1]
+
+            coEvery { repository.retrieveList() } returns repositoryList
+            interactor.retrieveQuestionsDomain()
+
+            // WHEN
+            val result = interactor.retrieveQuestionsDomain()
+
+            // THEN
+            assertEquals(expected, result)
+        }
+
+    @Test
     fun `GIVEN invalid return, WHEN retrieve list, THEN return domain`() = runBlocking {
         // GIVEN
-        val expected = mockk<QuestionsDomain.Error>()
+        val repositoryList = listOf<QuestionsDomain>(mockk<QuestionsDomain.Error>())
 
-        coEvery { repository.retrieveList() } returns setOf(expected)
+        val expected = repositoryList.first()
+
+        coEvery { repository.retrieveList() } returns repositoryList
 
         // WHEN
-        val result = interactor.retrieveList()
+        val result = interactor.retrieveQuestionsDomain()
 
         // THEN
         assertEquals(expected, result)

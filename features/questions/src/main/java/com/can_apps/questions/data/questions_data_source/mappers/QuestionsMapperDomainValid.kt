@@ -1,12 +1,13 @@
 package com.can_apps.questions.data.questions_data_source.mappers
 
 import com.can_apps.questions.core.QuestionDetailsDomain
+import com.can_apps.questions.core.QuestionLastCategoryDomain
 import com.can_apps.questions.core.QuestionWeightDomain
 import com.can_apps.questions.core.QuestionsDomain
 import com.can_apps.questions_data_source.data.QuestionDataSourceDto
 
 internal interface QuestionsMapperDomainValid {
-    fun mapToDomainValid(asset: Set<QuestionDataSourceDto>): Set<QuestionsDomain.Valid>
+    fun mapToDomainValid(asset: List<QuestionDataSourceDto>): List<QuestionsDomain.Valid>
 }
 
 internal class QuestionsMapperDomainValidDefault(
@@ -14,13 +15,16 @@ internal class QuestionsMapperDomainValidDefault(
     private val assetIdMapper: QuestionsIdAssetMapper
 ) : QuestionsMapperDomainValid {
 
-    override fun mapToDomainValid(asset: Set<QuestionDataSourceDto>): Set<QuestionsDomain.Valid> {
-        val questionDomainValidSet = mutableSetOf<QuestionsDomain.Valid>()
+    override fun mapToDomainValid(asset: List<QuestionDataSourceDto>): List<QuestionsDomain.Valid> {
+        val questionDomainValidSet = mutableListOf<QuestionsDomain.Valid>()
+        val lastQuestion = asset.last()
 
         asset.forEach { questionDto ->
             val questionDetailsDomainSet = mutableSetOf<QuestionDetailsDomain>()
             val categoryDomainEnum =
                 assetCategoryMapper.mapCategoryToDomain(questionDto.categoryName)
+
+            val questionLastCategoryDomain = QuestionLastCategoryDomain(lastQuestion == questionDto)
 
             questionDto.questions.forEach { question ->
                 questionDetailsDomainSet.add(
@@ -34,6 +38,7 @@ internal class QuestionsMapperDomainValidDefault(
             questionDomainValidSet.add(
                 QuestionsDomain.Valid(
                     categoryDomainEnum,
+                    questionLastCategoryDomain,
                     questionDetailsDomainSet
                 )
             )

@@ -5,13 +5,13 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 interface QuestionsDataSourceAssets {
-    fun getQuestions(): Set<QuestionDataSourceDto>
+    fun getQuestions(): List<QuestionDataSourceDto>
 }
 
 class QuestionsDataSourceAssetsDefault(private val context: Context) :
     QuestionsDataSourceAssets {
 
-    override fun getQuestions(): Set<QuestionDataSourceDto> {
+    override fun getQuestions(): List<QuestionDataSourceDto> {
 
         val gson = Gson()
 

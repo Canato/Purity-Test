@@ -52,8 +52,8 @@ internal class QuestionsPresenterTest {
         val modelDetails = model.questionsModelDetails.toList()
         val modelCategory = model.questionCategory.name
 
-        coEvery { interactor.retrieveList() } returns domain
-        coEvery { mapper.toModel(domain) } returns listOf(model)
+        coEvery { interactor.retrieveQuestionsDomain() } returns domain
+        coEvery { mapper.toModel(domain) } returns model
 
         // WHEN
         presenter.onViewCreated()
@@ -74,7 +74,7 @@ internal class QuestionsPresenterTest {
         val questionErrorDomain = QuestionErrorDomain(message)
         val domain = QuestionsDomain.Error(questionErrorDomain)
 
-        coEvery { interactor.retrieveList() } returns domain
+        coEvery { interactor.retrieveQuestionsDomain() } returns domain
 
         // WHEN
         presenter.onViewCreated()
@@ -87,6 +87,64 @@ internal class QuestionsPresenterTest {
         }
         verify(exactly = 0) {
             view.showList(any())
+        }
+    }
+
+    @Test
+    fun `GIVEN non last valid data, WHEN fetchNextCategoryList, THEN show list`() {
+        // GIVEN
+        val lastCategory = false
+        val domain = mockk<QuestionsDomain.Valid>()
+        val categoryModel = mockk<QuestionCategoryModelEnum>(relaxed = true)
+        val questionLastCategoryModel = QuestionLastCategoryModel(lastCategory)
+        val setQuestionsModel = mockk<Set<QuestionsModelDetails>>(relaxed = true)
+        val model = QuestionsModel(categoryModel, questionLastCategoryModel, setQuestionsModel)
+        val modelDetails = model.questionsModelDetails.toList()
+        val modelCategory = model.questionCategory.name
+
+        coEvery { interactor.retrieveQuestionsDomain() } returns domain
+        coEvery { mapper.toModel(domain) } returns model
+
+        // WHEN
+        presenter.fetchNextCategoryQuestions()
+
+        // THEN
+        verify {
+            view.showLoading()
+            view.hideLoading()
+            view.showCategory(modelCategory)
+            view.showList(modelDetails)
+        }
+        verify(exactly = 0) {
+            view.setNewActionButtonFunction()
+        }
+    }
+
+    @Test
+    fun `GIVEN last valid data, WHEN fetchNextCategoryList, THEN show list`() {
+        // GIVEN
+        val lastCategory = true
+        val domain = mockk<QuestionsDomain.Valid>(relaxed = true)
+        val categoryModel = mockk<QuestionCategoryModelEnum>(relaxed = true)
+        val questionLastCategoryModel = QuestionLastCategoryModel(lastCategory)
+        val setQuestionsModel = mockk<Set<QuestionsModelDetails>>(relaxed = true)
+        val model = QuestionsModel(categoryModel, questionLastCategoryModel, setQuestionsModel)
+        val modelDetails = model.questionsModelDetails.toList()
+        val modelCategory = model.questionCategory.name
+
+        coEvery { interactor.retrieveQuestionsDomain() } returns domain
+        coEvery { mapper.toModel(domain) } returns model
+
+        // WHEN
+        presenter.fetchNextCategoryQuestions()
+
+        // THEN
+        verify {
+            view.showLoading()
+            view.hideLoading()
+            view.showCategory(modelCategory)
+            view.showList(modelDetails)
+            view.setNewActionButtonFunction()
         }
     }
 

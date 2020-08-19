@@ -3,6 +3,7 @@ package com.can_apps.questions.data.mappers
 import com.can_apps.questions.core.QuestionCategoryDomainEnum
 import com.can_apps.questions.core.QuestionDetailsDomain
 import com.can_apps.questions.core.QuestionIdDomainEnum
+import com.can_apps.questions.core.QuestionLastCategoryDomain
 import com.can_apps.questions.core.QuestionWeightDomain
 import com.can_apps.questions.core.QuestionsDomain
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsCategoryAssetMapper
@@ -42,6 +43,8 @@ internal class QuestionsMapperDomainValidDefaultTest {
         val questionIdFourth = 4
         val questionCategoryFirst = "some fancy category"
         val questionCategorySecond = "some fancier category"
+        val questionLastCategoryDomainFirst = QuestionLastCategoryDomain(false)
+        val questionLastCategoryDomainSecond = QuestionLastCategoryDomain(true)
         val questionCategoryDomainEnumFirst = mockk<QuestionCategoryDomainEnum>()
         val questionCategoryDomainEnumSecond = mockk<QuestionCategoryDomainEnum>()
         val questionIdDomainEnumFirst = mockk<QuestionIdDomainEnum>()
@@ -50,8 +53,8 @@ internal class QuestionsMapperDomainValidDefaultTest {
         val questionIdDomainEnumForth = mockk<QuestionIdDomainEnum>()
         val questionWeightValue = mockk<Int>(relaxed = true)
         val questionWeightDomain = QuestionWeightDomain(questionWeightValue)
-        val questionDataSourceSet =
-            setOf(
+        val questionDataSourceList =
+            listOf(
                 QuestionDataSourceDto(
                     questionCategoryFirst,
                     setOf(
@@ -91,9 +94,17 @@ internal class QuestionsMapperDomainValidDefaultTest {
         )
 
         val expected =
-            setOf(
-                QuestionsDomain.Valid(questionCategoryDomainEnumFirst, questionDomainSetFirst),
-                QuestionsDomain.Valid(questionCategoryDomainEnumSecond, questionDomainSetSecond)
+            listOf(
+                QuestionsDomain.Valid(
+                    questionCategoryDomainEnumFirst,
+                    questionLastCategoryDomainFirst,
+                    questionDomainSetFirst
+                ),
+                QuestionsDomain.Valid(
+                    questionCategoryDomainEnumSecond,
+                    questionLastCategoryDomainSecond,
+                    questionDomainSetSecond
+                )
             )
 
         every {
@@ -121,7 +132,7 @@ internal class QuestionsMapperDomainValidDefaultTest {
         } returns questionIdDomainEnumForth
 
         // WHEN
-        val result = assetMapper.mapToDomainValid(questionDataSourceSet)
+        val result = assetMapper.mapToDomainValid(questionDataSourceList)
 
         // THEN
         Assert.assertEquals(expected, result)

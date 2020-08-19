@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class QuestionDataSourceObject(
     @SerializedName("object")
-    var objectDto: Set<QuestionDataSourceDto>
+    var objectDto: List<QuestionDataSourceDto>
 )
 
 data class QuestionDataSourceDto(

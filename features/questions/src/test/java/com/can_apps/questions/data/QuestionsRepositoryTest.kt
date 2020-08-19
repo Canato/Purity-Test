@@ -34,12 +34,12 @@ internal class QuestionsRepositoryTest {
         // GIVEN
 
         val questionsDomain = mockk<QuestionsDomain.Valid>()
-        val expected = setOf(questionsDomain)
+        val expected = listOf(questionsDomain)
 
-        val setQuestionsDataSourceDto = setOf(mockk<QuestionDataSourceDto>(relaxed = true))
+        val listQuestionsDataSourceDto = listOf(mockk<QuestionDataSourceDto>(relaxed = true))
 
-        coEvery { asset.getQuestions() } returns setQuestionsDataSourceDto
-        coEvery { dtoMapper.assetToDomain(setQuestionsDataSourceDto) } returns expected
+        coEvery { asset.getQuestions() } returns listQuestionsDataSourceDto
+        coEvery { dtoMapper.assetToDomain(listQuestionsDataSourceDto) } returns expected
 
         // WHEN
         val result = runBlocking { repository.retrieveList() }
@@ -53,11 +53,11 @@ internal class QuestionsRepositoryTest {
         // GIVEN
         val message = "something is missing here"
         val errorDomain = QuestionErrorDomain(message)
-        val emptySet = emptySet<QuestionDataSourceDto>()
-        val expected = setOf(QuestionsDomain.Error(errorDomain))
+        val emptyList = emptyList<QuestionDataSourceDto>()
+        val expected = listOf(QuestionsDomain.Error(errorDomain))
 
-        coEvery { asset.getQuestions() } returns emptySet
-        coEvery { dtoMapper.assetToDomain(emptySet) } returns expected
+        coEvery { asset.getQuestions() } returns emptyList
+        coEvery { dtoMapper.assetToDomain(emptyList) } returns expected
 
         // WHEN
         val result = runBlocking { repository.retrieveList() }
@@ -73,7 +73,7 @@ internal class QuestionsRepositoryTest {
         val message = "expect unexpected"
         val errorDomain = QuestionErrorDomain(message)
         val exception = Exception(errorDomain.value)
-        val expected = setOf(QuestionsDomain.Error(errorDomain))
+        val expected = listOf(QuestionsDomain.Error(errorDomain))
 
         coEvery { asset.getQuestions() } throws exception
 

@@ -16,6 +16,8 @@ internal interface QuestionsContract {
         fun close()
 
         fun showCategory(category: String)
+
+        fun setNewActionButtonFunction()
     }
 
     interface Presenter {
@@ -26,13 +28,15 @@ internal interface QuestionsContract {
         fun onViewCreated()
 
         fun onBackPressed()
+
+        fun fetchNextCategoryQuestions()
     }
 
     interface Interactor {
-        suspend fun retrieveList(): QuestionsDomain
+        suspend fun retrieveQuestionsDomain(): QuestionsDomain
     }
 
     interface Repository {
-        suspend fun retrieveList(): Set<QuestionsDomain>
+        suspend fun retrieveList(): List<QuestionsDomain>
     }
 }
