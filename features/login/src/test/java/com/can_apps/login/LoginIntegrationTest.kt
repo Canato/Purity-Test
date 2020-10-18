@@ -9,10 +9,10 @@ import com.can_apps.login.data.firebase_data_source.FirebaseApi
 import com.can_apps.login.data.firebase_data_source.FirebaseDto
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
-import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
@@ -37,39 +37,19 @@ internal class LoginIntegrationTest {
         presenter.bind(view)
     }
 
-    //    fun onViewCreated()
     @Test
-    fun `WHEN onViewCreated, THEN return default view`() {
-
-        // WHEN
-        presenter.onViewCreated()
-        // THEN
-        verify {
-            view.disableCreateUserButton()
-            view.disableSignInButton()
-            view.showWelcomeMessage()
-        }
-    }
-
-    //    fun onBackPressed()
-    @Test
-    fun `WHEN onBackPressed, THEN close the view`() {
-        // WHEN
-        presenter.onBackPressed()
-        // THEN
-        verify {
-            view.close()
-        }
-    }
-
-    @Test
-    fun `GIVEN valid name and valid password, WHEN values change, THEN enable buttons`() {
+    fun `GIVEN valid name and valid password, WHEN perform sign in, THEN enable buttons`() {
         // GIVEN
         val loginName = "TomaszBoy@unittest.com"
         val password = "Cr3ateProperIntegrationTest"
+        val firebaseUserEmail = FireBaseUserEmail(loginName)
+        val user = FirebaseDto.Valid(firebaseUserEmail)
+
+        coEvery { firebaseApi.signInExistingUser(loginName, password) } returns user
         // WHEN
         presenter.onLoginInputChanged(loginName)
         presenter.onPasswordInputChanged(password)
+        presenter.onSignClicked(loginName, password)
 
         // THEN
         verify(exactly = 1) {
@@ -81,25 +61,6 @@ internal class LoginIntegrationTest {
             view.setPasswordCheckBoxAsTrue()
             view.enableCreateUserButton()
             view.enableSignInButton()
-        }
-    }
-
-    //    fun onSignClicked(loginName: String, password: String)
-    @Test
-    fun `GIVEN success, WHEN on sign in clicked, THEN show success`() {
-        // GIVEN
-        val loginName = "TomaszBoy@unittest.com"
-        val password = "Cr3ateProperIntegrationTest"
-        val firebaseUserEmail = FireBaseUserEmail(loginName)
-        val user = FirebaseDto.Valid(firebaseUserEmail)
-
-        coEvery { firebaseApi.signInExistingUser(loginName, password) } returns user
-
-        // WHEN
-        presenter.onSignClicked(loginName, password)
-
-        // THEN
-        verify(exactly = 1) {
             view.showSuccess()
             view.cleanLoginTextView()
             view.cleanPasswordTextView()
@@ -126,9 +87,8 @@ internal class LoginIntegrationTest {
         }
     }
 
-    //    fun onCreateLoginClicked(loginName: String, password: String)
     @Test
-    fun `GIVEN success, WHEN on create user clicked, THEN show success`() {
+    fun `GIVEN success, WHEN perform create user, THEN show success`() {
         // GIVEN
         val loginName = "TomaszBoy@unittest.com"
         val password = "Cr3ateProperIntegrationTest"
@@ -138,10 +98,20 @@ internal class LoginIntegrationTest {
         coEvery { firebaseApi.createNewUser(loginName, password) } returns user
 
         // WHEN
+        presenter.onPasswordInputChanged(password)
+        presenter.onLoginInputChanged(loginName)
         presenter.onCreateLoginClicked(loginName, password)
 
         // THEN
         verify(exactly = 1) {
+            view.disableCreateUserButton()
+            view.disableSignInButton()
+            view.updatePasswordTextViewErrorMessage(null)
+            view.updateLoginTextViewErrorMessage(null)
+            view.setPasswordCheckBoxAsTrue()
+            view.setLoginCheckBoxAsTrue()
+            view.enableCreateUserButton()
+            view.enableSignInButton()
             view.showSuccess()
             view.cleanLoginTextView()
             view.cleanPasswordTextView()
@@ -168,18 +138,16 @@ internal class LoginIntegrationTest {
         }
     }
 
-    //    fun logoutUser()
     @Test
     fun `WHEN on logoutUser pressed, THEN perform logout user`() {
         // WHEN
         presenter.logoutUser()
         // THEN
-        verify {
-            runBlocking { firebaseApi.logoutUser() }
+        coVerify {
+            firebaseApi.logoutUser()
         }
     }
 
-    //    fun checkLogIn()
     @Test
     fun `GIVEN firebase check login status success, WHEN checkLogInStatus, THEN show success`() {
         // GIVEN
@@ -218,7 +186,6 @@ internal class LoginIntegrationTest {
         }
     }
 
-    //    fun onLoginInputChanged(login: String)
     @Test
     fun `GIVEN valid login, WHEN onLoginInputChanged, THEN clean error`() {
         // GIVEN
@@ -254,7 +221,6 @@ internal class LoginIntegrationTest {
         }
     }
 
-    //    fun onPasswordInputChanged(password: String)
     @Test
     fun `GIVEN valid password, WHEN onPasswordInputChanged, THEN clean error`() {
         // GIVEN
