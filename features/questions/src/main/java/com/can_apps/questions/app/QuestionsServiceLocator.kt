@@ -33,7 +33,7 @@ import com.can_apps.questions.data.questions_data_source.mappers.QuestionsMapper
 import com.can_apps.questions_data_source.data.QuestionsDataSourceAssets
 import com.can_apps.questions_data_source.data.QuestionsDataSourceAssetsDefault
 
-internal class QuestionsServiceLocator(private val context: Context) {
+internal open class QuestionsServiceLocator(private val context: Context) {
 
     fun getPresenter(): QuestionsContract.Presenter =
         QuestionsPresenter(getInteractor(), getModelMapper(), getCoroutineDispatcher())
@@ -45,7 +45,7 @@ internal class QuestionsServiceLocator(private val context: Context) {
 
     private fun getRepository(): QuestionsContract.Repository = QuestionsRepository(getAsset(), getDtoMapper())
 
-    private fun getAsset(): QuestionsDataSourceAssets = QuestionsDataSourceAssetsDefault(context)
+    open fun getAsset(): QuestionsDataSourceAssets = QuestionsDataSourceAssetsDefault(context)
 
     private fun getDtoMapper(): QuestionsDtoMapper = QuestionsDtoMapperDefault(getStringResource(), getAssetMapper())
 
@@ -57,7 +57,7 @@ internal class QuestionsServiceLocator(private val context: Context) {
 
     private fun getIdAssetToDomainMapper(): QuestionsIdAssetToDomainMapper = QuestionsIdAssetToDomainMapperDefault()
 
-    private fun getStringResource(): CommonStringResourceWrapper = CommonStringResourceWrapper(context)
+    open fun getStringResource(): CommonStringResourceWrapper = CommonStringResourceWrapper(context)
 
     private fun getModelMapper(): QuestionsModelMapper = QuestionsModelMapperDefault(getCategoryModelMapper(), getIdModelMapper(), getTextModelMapper())
 
@@ -71,5 +71,5 @@ internal class QuestionsServiceLocator(private val context: Context) {
 
     private fun getTextModelStringMapper(): QuestionsTextModelStringMapper = QuestionsTextModelStringMapperDefault(getStringResource())
 
-    private fun getCoroutineDispatcher(): CoroutineDispatcherFactory = CoroutineDispatcherFactoryDefault()
+    open fun getCoroutineDispatcher(): CoroutineDispatcherFactory = CoroutineDispatcherFactoryDefault()
 }
