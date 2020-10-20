@@ -34,26 +34,6 @@ internal class QuestionsIntegrationTest {
     }
 
     @Test
-    fun `GIVEN valid data, WHEN on create view, THEN show list`() {
-        // GIVEN
-        coEvery { assets.getQuestions() } returns mockedQuestionsAssetDto
-        every { stringResource.getString(R.string.banditry_police) } returns questionFirstOne
-        every { stringResource.getString(R.string.banditry_drive_drunk) } returns questionFirstTwo
-        every { stringResource.getString(R.string.banditry_lost_licence) } returns questionFirstThree
-
-        // WHEN
-        presenter.onViewCreated()
-
-        // THEN
-        verify {
-            view.showLoading()
-            view.hideLoading()
-            view.showCategory(questionExpectedModel[0].questionCategory.name)
-            view.showList(questionExpectedModel[0].questionsModelDetails.toList())
-        }
-    }
-
-    @Test
     fun `GIVEN invalid data, WHEN on create view, THEN show error`() {
         // GIVEN
         val message = "ErrorCheck"
@@ -72,39 +52,6 @@ internal class QuestionsIntegrationTest {
         }
         verify(exactly = 0) {
             view.showList(any())
-        }
-    }
-
-    @Test
-    fun `GIVEN valid data, WHEN fetchNextCategoryList, THEN show list`() {
-        // GIVEN
-        coEvery { assets.getQuestions() } returns mockedQuestionsAssetDto
-        every { stringResource.getString(R.string.banditry_police) } returns questionFirstOne
-        every { stringResource.getString(R.string.banditry_drive_drunk) } returns questionFirstTwo
-        every { stringResource.getString(R.string.banditry_lost_licence) } returns questionFirstThree
-        every { stringResource.getString(R.string.make_out_night_party) } returns questionSecondOne
-        every { stringResource.getString(R.string.make_out_with_person) } returns questionSecondTwo
-        every { stringResource.getString(R.string.make_out_with_same_gender) } returns questionSecondThree
-
-        // WHEN
-        presenter.onViewCreated()
-        presenter.fetchNextCategoryQuestions()
-
-        // THEN
-        verify(exactly = 2) {
-            view.showLoading()
-            view.hideLoading()
-        }
-
-        verify(exactly = 1) {
-            view.showCategory(questionExpectedModel[0].questionCategory.name)
-            view.showList(questionExpectedModel[0].questionsModelDetails.toList())
-            view.showCategory(questionExpectedModel[1].questionCategory.name)
-            view.showList(questionExpectedModel[1].questionsModelDetails.toList())
-        }
-
-        verify(exactly = 0) {
-            view.setNewActionButtonFunction()
         }
     }
 
