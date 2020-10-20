@@ -187,21 +187,6 @@ internal class LoginIntegrationTest {
     }
 
     @Test
-    fun `GIVEN valid login, WHEN onLoginInputChanged, THEN clean error`() {
-        // GIVEN
-        val loginName = "TomaszBoy@unittest.com"
-        val loginModelSuccess = null
-        // WHEN
-        presenter.onLoginInputChanged(loginName)
-
-        // THEN
-        verify {
-            view.setLoginCheckBoxAsTrue()
-            view.updateLoginTextViewErrorMessage(loginModelSuccess)
-        }
-    }
-
-    @Test
     fun `GIVEN invalid login, WHEN onLoginInputChanged, THEN show error`() {
         // GIVEN
         val loginName = "TomaszBoyATunittest.com"
@@ -218,21 +203,6 @@ internal class LoginIntegrationTest {
         verify {
             view.setLoginCheckBoxAsFalse()
             view.updateLoginTextViewErrorMessage(loginModelError)
-        }
-    }
-
-    @Test
-    fun `GIVEN valid password, WHEN onPasswordInputChanged, THEN clean error`() {
-        // GIVEN
-        val password = "Cr3ateProperIntegrationTest"
-        val passwordModelSuccess = null
-        // WHEN
-        presenter.onPasswordInputChanged(password)
-
-        // THEN
-        verify {
-            view.setPasswordCheckBoxAsTrue()
-            view.updatePasswordTextViewErrorMessage(passwordModelSuccess)
         }
     }
 
