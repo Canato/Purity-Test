@@ -7,7 +7,9 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.can_apps.login.R
 import com.can_apps.login.bresenter.LoginModel
 import com.can_apps.login.core.LoginContract
@@ -72,6 +74,8 @@ internal class LoginFragment :
         logoutButton.setOnClickListener { presenter.logoutUser() }
 
         checkLogInButton.setOnClickListener { presenter.checkLogIn() }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, true) { findNavController().navigateUp() }
     }
 
     override fun showWelcomeMessage() {

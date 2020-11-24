@@ -1,11 +1,8 @@
 package com.can_apps.purity_test
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.can_apps.login.app.LoginActivity
-import com.can_apps.questions.app.QuestionsActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import androidx.navigation.fragment.NavHostFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,11 +10,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        questionButton.setOnClickListener {
-            startActivity(Intent(this, QuestionsActivity::class.java))
-        }
-        loginButton.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-        }
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_fragment) as NavHostFragment?
+        val navController = navHostFragment!!.navController
+        navController.setGraph(R.navigation.nav_graph_home)
     }
 }
