@@ -39,8 +39,8 @@ object Versions {
     const val mockk = "1.9.3"
     const val junitAndroid = "1.1.1"
     const val espressoAndroid = "3.2.0"
-    const val fragmentTest: String = "1.2.5"
-
+    const val fragmentTest = "1.2.5"
+    const val roboelectric = "4.4"
 }
 
 object Deps {
@@ -90,6 +90,7 @@ object DepsTest {
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoAndroid}"
     const val navigationTest = "androidx.navigation:navigation-testing:${Versions.navigationComponent}"
     const val fragmentTest = "androidx.fragment:fragment-testing:${Versions.fragmentTest}"
+    const val roboelectric = "org.robolectric:robolectric:${Versions.roboelectric}"
 
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
 }

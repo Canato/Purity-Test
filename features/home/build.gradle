@@ -12,18 +12,22 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 }
 
@@ -41,9 +45,10 @@ dependencies {
     implementation Deps.navigationFragment
     implementation Deps.navigationUI
 
-    implementation DepsTest.junitAndroid
-    implementation DepsTest.espressoCore
-    implementation DepsTest.navigationTest
-    implementation DepsTest.fragmentTest
+    testImplementation DepsTest.espressoCore
+    testImplementation DepsTest.navigationTest
+    testImplementation DepsTest.fragmentTest
+    testImplementation DepsTest.roboelectric
+    testImplementation DepsTest.junitAndroid
 
 }
