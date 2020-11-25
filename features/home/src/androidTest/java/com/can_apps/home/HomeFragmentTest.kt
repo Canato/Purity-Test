@@ -20,7 +20,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 internal class HomeFragmentTest {
 
-    lateinit var scenario: FragmentScenario<HomeFragment>
+    private lateinit var scenario: FragmentScenario<HomeFragment>
 
     @Before
     fun setUp() {
@@ -40,15 +40,19 @@ internal class HomeFragmentTest {
         )
         navController.setGraph(R.navigation.nav_graph_home)
 
+        val expectedFragment = R.id.questionsFragment
+        val viewMatcher = ViewMatchers.withId(R.id.questionButton)
+        val performAction = ViewActions.click()
+
         scenario.onFragment { fragment ->
             Navigation.setViewNavController(fragment.requireView(), navController)
         }
 
         // When
-        onView(ViewMatchers.withId(R.id.questionButton)).perform(ViewActions.click())
+        onView(viewMatcher).perform(performAction)
 
         // Then
-        assertEquals(navController.currentDestination?.id, R.id.questionsFragment)
+        assertEquals(expectedFragment, navController.currentDestination?.id)
     }
 
     @Test
@@ -59,14 +63,18 @@ internal class HomeFragmentTest {
         )
         navController.setGraph(R.navigation.nav_graph_home)
 
+        val expectedFragment = R.id.loginFragment
+        val viewMatcher = ViewMatchers.withId(R.id.loginButton)
+        val performAction = ViewActions.click()
+
         scenario.onFragment { fragment ->
             Navigation.setViewNavController(fragment.requireView(), navController)
         }
 
         // When
-        onView(ViewMatchers.withId(R.id.loginButton)).perform(ViewActions.click())
+        onView(viewMatcher).perform(performAction)
 
         // Then
-        assertEquals(navController.currentDestination?.id, R.id.loginFragment)
+        assertEquals(expectedFragment, navController.currentDestination?.id)
     }
 }
