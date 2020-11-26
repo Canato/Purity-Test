@@ -49,6 +49,8 @@ dependencies {
     implementation Deps.coroutinesPlayService
     implementation Deps.appcompat
     implementation Deps.constraintLayout
+    implementation Deps.navigationFragment
+    implementation Deps.navigationUI
 
     //Test
     testImplementation DepsTest.junit

@@ -5,6 +5,7 @@ include ':app',
         ':features',
         ':features:login',
         ':features:questions',
+        ':features:home',
 
         // Services Module
         ':services',

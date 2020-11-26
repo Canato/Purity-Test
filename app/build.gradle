@@ -30,6 +30,7 @@ dependencies {
     implementation project(':common')
     implementation project(':features:questions')
     implementation project(':features:login')
+    implementation project(':features:home')
 
     implementation project(':services:questions_data_source')
 
@@ -37,6 +38,9 @@ dependencies {
     implementation Deps.appcompat
     implementation Deps.coreKtx
     implementation Deps.constraintLayout
+
+    implementation Deps.navigationFragment
+    implementation Deps.navigationUI
 
     implementation Deps.firebaseAuth
 

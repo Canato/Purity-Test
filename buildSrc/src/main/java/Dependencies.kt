@@ -22,6 +22,7 @@ object Versions {
     // Android
     const val appcompact = "1.1.0"
     const val core = "1.2.0"
+    const val navigationComponent = "2.3.1"
 
     // Layout
     const val recyclerview = "1.1.0"
@@ -38,6 +39,8 @@ object Versions {
     const val mockk = "1.9.3"
     const val junitAndroid = "1.1.1"
     const val espressoAndroid = "3.2.0"
+    const val fragmentTest: String = "1.2.5"
+
 }
 
 object Deps {
@@ -72,6 +75,12 @@ object Deps {
 
     const val firebaseAnalytics =
         "com.google.firebase:firebase-analytics:${Versions.firebaseAnalytics}"
+
+    const val navigationFragment =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationComponent}"
+
+    const val navigationUI =
+     "androidx.navigation:navigation-ui-ktx:${Versions.navigationComponent}"
 }
 
 object DepsTest {
@@ -79,6 +88,8 @@ object DepsTest {
     const val junit = "junit:junit:${Versions.junit}"
     const val junitAndroid = "androidx.test.ext:junit:${Versions.junitAndroid}"
     const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoAndroid}"
+    const val navigationTest = "androidx.navigation:navigation-testing:${Versions.navigationComponent}"
+    const val fragmentTest = "androidx.fragment:fragment-testing:${Versions.fragmentTest}"
 
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
 }
