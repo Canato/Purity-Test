@@ -43,7 +43,7 @@ internal interface QuestionsContract {
 
         suspend fun calculateScore(question: QuestionDetailsDomain, isChecked: Boolean)
 
-        suspend fun getPurityScore() : Int
+        suspend fun getPurityScore(): Int
     }
 
     interface Repository {
