@@ -43,6 +43,15 @@ internal class QuestionsPresenter(
         retrieveNextList()
     }
 
+    override fun calculateScore(question: QuestionsModelDetails, isChecked: Boolean) {
+        TODO("Not yet implemented - concept - maps question model details into details domain and " +
+            "sent to interactor to add/remove from its list - planned usage of channel to collect all clicks from presenter")
+    }
+
+    override fun getPurityScore() {
+        TODO("Not yet implemented - concept - get score collected by interactor")
+    }
+
     private fun CoroutineScope.retrieveData() = launch(dispatcher.IO) {
         when (val domain = interactor.retrieveQuestionsDomain()) {
             is QuestionsDomain.Valid -> {

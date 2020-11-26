@@ -10,5 +10,13 @@
         android:id="@+id/questionsFragment"
         android:name="com.can_apps.questions.app.QuestionsFragment"
         android:label="fragment_questions"
-        tools:layout="@layout/fragment_questions" />
+        tools:layout="@layout/fragment_questions" >
+        <action
+            android:id="@+id/actionShowResults"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.can_apps.questions.app.ResultFragment"
+        android:label="ResultFragment" />
 </navigation>

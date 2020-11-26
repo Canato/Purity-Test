@@ -114,4 +114,8 @@ internal class QuestionsFragment :
             presenter.onBackPressed()
         }
     }
+
+    override fun showScore(score: Int) {
+        TODO("Not yet implemented - navigate to result fragment with bundle of score")
+    }
 }
