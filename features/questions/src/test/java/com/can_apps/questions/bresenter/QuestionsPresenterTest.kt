@@ -1,11 +1,11 @@
 package com.can_apps.questions.bresenter
 
+import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.common.CoroutineDispatcherFactory
 import com.can_apps.common.CoroutineDispatcherFactoryUnconfined
 import com.can_apps.questions.bresenter.mappers.QuestionsModelMapper
-import com.can_apps.questions.core.QuestionErrorDomain
 import com.can_apps.questions.core.QuestionsContract
-import com.can_apps.questions.core.QuestionsDomain
+import com.can_apps.questions.core.QuestionsDetailsDomain
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.every
@@ -30,6 +30,9 @@ internal class QuestionsPresenterTest {
     @MockK
     private lateinit var view: QuestionsContract.View
 
+    @MockK
+    private lateinit var stringResource: CommonStringResourceWrapper
+
     @InjectMockKs
     private lateinit var presenter: QuestionsPresenter
 
@@ -47,12 +50,12 @@ internal class QuestionsPresenterTest {
     @Test
     fun `GIVEN valid data, WHEN on create view, THEN show list`() {
         // GIVEN
-        val domain = mockk<QuestionsDomain.Valid>(relaxed = true)
+        val domain = mockk<QuestionsDetailsDomain>(relaxed = true)
         val model = mockk<QuestionsModel>(relaxed = true)
         val modelDetails = model.questionsModelDetails.toList()
         val modelCategory = model.questionCategory.name
 
-        coEvery { interactor.retrieveQuestionsDomain() } returns domain
+        coEvery { interactor.retrieveQuestionsDomain(null) } returns domain
         coEvery { mapper.toModel(domain) } returns model
 
         // WHEN
@@ -71,10 +74,9 @@ internal class QuestionsPresenterTest {
     fun `GIVEN invalid data, WHEN on create view, THEN show error`() {
         // GIVEN
         val message = "ErrorCheck"
-        val questionErrorDomain = QuestionErrorDomain(message)
-        val domain = QuestionsDomain.Error(questionErrorDomain)
+        val exception = Exception(message)
 
-        coEvery { interactor.retrieveQuestionsDomain() } returns domain
+        coEvery { interactor.retrieveQuestionsDomain(null) } throws exception
 
         // WHEN
         presenter.onViewCreated()
@@ -94,7 +96,7 @@ internal class QuestionsPresenterTest {
     fun `GIVEN non last valid data, WHEN fetchNextCategoryList, THEN show list`() {
         // GIVEN
         val lastCategory = false
-        val domain = mockk<QuestionsDomain.Valid>()
+        val domain = mockk<QuestionsDetailsDomain>()
         val categoryModel = mockk<QuestionCategoryModelEnum>(relaxed = true)
         val questionLastCategoryModel = QuestionLastCategoryModel(lastCategory)
         val setQuestionsModel = mockk<Set<QuestionsModelDetails>>(relaxed = true)
@@ -102,7 +104,7 @@ internal class QuestionsPresenterTest {
         val modelDetails = model.questionsModelDetails.toList()
         val modelCategory = model.questionCategory.name
 
-        coEvery { interactor.retrieveQuestionsDomain() } returns domain
+        coEvery { interactor.retrieveQuestionsDomain(null) } returns domain
         coEvery { mapper.toModel(domain) } returns model
 
         // WHEN
@@ -124,7 +126,7 @@ internal class QuestionsPresenterTest {
     fun `GIVEN last valid data, WHEN fetchNextCategoryList, THEN show list`() {
         // GIVEN
         val lastCategory = true
-        val domain = mockk<QuestionsDomain.Valid>(relaxed = true)
+        val domain = mockk<QuestionsDetailsDomain>(relaxed = true)
         val categoryModel = mockk<QuestionCategoryModelEnum>(relaxed = true)
         val questionLastCategoryModel = QuestionLastCategoryModel(lastCategory)
         val setQuestionsModel = mockk<Set<QuestionsModelDetails>>(relaxed = true)
@@ -132,7 +134,7 @@ internal class QuestionsPresenterTest {
         val modelDetails = model.questionsModelDetails.toList()
         val modelCategory = model.questionCategory.name
 
-        coEvery { interactor.retrieveQuestionsDomain() } returns domain
+        coEvery { interactor.retrieveQuestionsDomain(null) } returns domain
         coEvery { mapper.toModel(domain) } returns model
 
         // WHEN

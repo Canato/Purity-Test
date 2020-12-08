@@ -34,28 +34,6 @@ internal class QuestionsIntegrationTest {
     }
 
     @Test
-    fun `GIVEN invalid data, WHEN on create view, THEN show error`() {
-        // GIVEN
-        val message = "ErrorCheck"
-        val emptyDto = emptyList<QuestionDataSourceDto>()
-
-        coEvery { assets.getQuestions() } returns emptyDto
-        every { stringResource.getString(R.string.questions_dto_error) } returns message
-        // WHEN
-        presenter.onViewCreated()
-
-        // THEN
-        verify {
-            view.showLoading()
-            view.hideLoading()
-            view.showError(message)
-        }
-        verify(exactly = 0) {
-            view.showList(any())
-        }
-    }
-
-    @Test
     fun `GIVEN valid data, WHEN fetchNextCategoryList, THEN show last list`() {
         // GIVEN
         coEvery { assets.getQuestions() } returns mockedQuestionsAssetDto

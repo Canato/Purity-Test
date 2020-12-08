@@ -9,7 +9,7 @@ import com.can_apps.questions.core.QuestionCategoryDomain
 import com.can_apps.questions.core.QuestionIdDomainEnum
 import com.can_apps.questions.core.QuestionLastCategoryDomain
 import com.can_apps.questions.core.QuestionWeightDomain
-import com.can_apps.questions.core.QuestionsDomain
+import com.can_apps.questions.core.QuestionsDetailsDomain
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
@@ -55,7 +55,7 @@ internal class QuestionsModelMapperTest {
         )
 
         val questionDomain =
-            QuestionsDomain.Valid(
+            QuestionsDetailsDomain(
                 questionCategoryDomainEnum,
                 questionLastCategoryDomain,
                 questionDomainSet
