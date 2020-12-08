@@ -36,7 +36,12 @@ import com.can_apps.questions_data_source.data.QuestionsDataSourceAssetsDefault
 internal open class QuestionsServiceLocator(private val context: Context) {
 
     fun getPresenter(): QuestionsContract.Presenter =
-        QuestionsPresenter(getInteractor(), getModelMapper(), getCoroutineDispatcher())
+        QuestionsPresenter(
+            getInteractor(),
+            getModelMapper(),
+            getCoroutineDispatcher(),
+            getStringResource(),
+        )
 
     fun getRecyclerViewAdapter(questionsFragment: QuestionsFragment): QuestionsRecyclerViewAdapter =
         QuestionsRecyclerViewAdapter(questionsFragment)
@@ -51,7 +56,7 @@ internal open class QuestionsServiceLocator(private val context: Context) {
         QuestionsDataSourceAssetsDefault(context)
 
     private fun getDtoMapper(): QuestionsDtoMapper =
-        QuestionsDtoMapperDefault(getStringResource(), getAssetMapper())
+        QuestionsDtoMapperDefault(getAssetMapper())
 
     private fun getAssetMapper(): QuestionsMapperDomainValid =
         QuestionsMapperDomainValidDefault(getCategoryDomainMapper(), getIdAssetMapper())
