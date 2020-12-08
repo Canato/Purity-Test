@@ -5,38 +5,32 @@ import com.can_apps.questions.bresenter.QuestionTextModel
 import com.can_apps.questions.bresenter.QuestionWeightModel
 import com.can_apps.questions.bresenter.QuestionsModel
 import com.can_apps.questions.bresenter.QuestionsModelDetails
-import com.can_apps.questions.core.QuestionsDomain
+import com.can_apps.questions.core.QuestionsDetailsDomain
 
 internal interface QuestionsModelMapper {
-    fun toModel(domain: QuestionsDomain.Valid): QuestionsModel
+
+    fun toModel(domain: QuestionsDetailsDomain): QuestionsModel
 }
 
 internal class QuestionsModelMapperDefault(
     private var categoryMapper: QuestionsCategoryModelMapper,
     private var idMapper: QuestionsIdDomainMapper,
-    private var textMapper: QuestionsTextModelMapper
+    private var textMapper: QuestionsTextModelMapper,
 ) : QuestionsModelMapper {
 
-    override fun toModel(domain: QuestionsDomain.Valid): QuestionsModel {
+    override fun toModel(domain: QuestionsDetailsDomain): QuestionsModel {
+        val categoryEnum = categoryMapper.mapCategoryToModel(domain.category)
+        val isLast = QuestionLastCategoryModel(domain.isLastCategory.value)
 
-        val questionsModelDetails = mutableSetOf<QuestionsModelDetails>()
-        val categoryModelEnum =
-            categoryMapper.mapCategoryToModel(domain.category)
-        val questionLastCategory = QuestionLastCategoryModel(domain.isLastCategory.value)
-
-        domain.questions.forEach { question ->
-
-            val idModelEnum = idMapper.mapDomainId(categoryModelEnum, question.id)
-            val textModel = QuestionTextModel(textMapper.mapText(categoryModelEnum, idModelEnum))
-            questionsModelDetails.add(
-                QuestionsModelDetails(
-                    idModelEnum,
-                    textModel,
-                    QuestionWeightModel(question.weight.value)
-                )
+        val questions = domain.questions.map {
+            val idEnum = idMapper.mapDomainId(categoryEnum, it.id)
+            QuestionsModelDetails(
+                idEnum,
+                QuestionTextModel(textMapper.mapText(categoryEnum, idEnum)),
+                QuestionWeightModel(it.weight.value),
             )
-        }
+        }.toSet()
 
-        return QuestionsModel(categoryModelEnum, questionLastCategory, questionsModelDetails)
+        return QuestionsModel(categoryEnum, isLast, questions)
     }
 }

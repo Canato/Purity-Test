@@ -41,35 +41,55 @@ internal open class QuestionsServiceLocator(private val context: Context) {
     fun getRecyclerViewAdapter(questionsFragment: QuestionsFragment): QuestionsRecyclerViewAdapter =
         QuestionsRecyclerViewAdapter(questionsFragment)
 
-    private fun getInteractor(): QuestionsContract.Interactor = QuestionsInteractor(getRepository())
+    private fun getInteractor(): QuestionsContract.Interactor =
+        QuestionsInteractor(getRepository())
 
-    private fun getRepository(): QuestionsContract.Repository = QuestionsRepository(getAsset(), getDtoMapper())
+    private fun getRepository(): QuestionsContract.Repository =
+        QuestionsRepository(getAsset(), getDtoMapper())
 
-    open fun getAsset(): QuestionsDataSourceAssets = QuestionsDataSourceAssetsDefault(context)
+    open fun getAsset(): QuestionsDataSourceAssets =
+        QuestionsDataSourceAssetsDefault(context)
 
-    private fun getDtoMapper(): QuestionsDtoMapper = QuestionsDtoMapperDefault(getStringResource(), getAssetMapper())
+    private fun getDtoMapper(): QuestionsDtoMapper =
+        QuestionsDtoMapperDefault(getStringResource(), getAssetMapper())
 
-    private fun getAssetMapper(): QuestionsMapperDomainValid = QuestionsMapperDomainValidDefault(getCategoryDomainMapper(), getIdAssetMapper())
+    private fun getAssetMapper(): QuestionsMapperDomainValid =
+        QuestionsMapperDomainValidDefault(getCategoryDomainMapper(), getIdAssetMapper())
 
-    private fun getCategoryDomainMapper(): QuestionsCategoryAssetMapper = QuestionsCategoryAssetMapperDefault()
+    private fun getCategoryDomainMapper(): QuestionsCategoryAssetMapper =
+        QuestionsCategoryAssetMapperDefault()
 
-    private fun getIdAssetMapper(): QuestionsIdAssetMapper = QuestionsIdAssetMapperDefault(getIdAssetToDomainMapper())
+    private fun getIdAssetMapper(): QuestionsIdAssetMapper =
+        QuestionsIdAssetMapperDefault(getIdAssetToDomainMapper())
 
-    private fun getIdAssetToDomainMapper(): QuestionsIdAssetToDomainMapper = QuestionsIdAssetToDomainMapperDefault()
+    private fun getIdAssetToDomainMapper(): QuestionsIdAssetToDomainMapper =
+        QuestionsIdAssetToDomainMapperDefault()
 
-    open fun getStringResource(): CommonStringResourceWrapper = CommonStringResourceWrapper(context)
+    open fun getStringResource(): CommonStringResourceWrapper =
+        CommonStringResourceWrapper(context)
 
-    private fun getModelMapper(): QuestionsModelMapper = QuestionsModelMapperDefault(getCategoryModelMapper(), getIdModelMapper(), getTextModelMapper())
+    private fun getModelMapper(): QuestionsModelMapper =
+        QuestionsModelMapperDefault(
+            getCategoryModelMapper(),
+            getIdModelMapper(),
+            getTextModelMapper()
+        )
 
-    private fun getCategoryModelMapper(): QuestionsCategoryModelMapper = QuestionsCategoryModelMapperDefault()
+    private fun getCategoryModelMapper(): QuestionsCategoryModelMapper =
+        QuestionsCategoryModelMapperDefault()
 
-    private fun getIdModelMapper(): QuestionsIdDomainMapper = QuestionsIdDomainMapperDefault(getIdDomainToModelMapper())
+    private fun getIdModelMapper(): QuestionsIdDomainMapper =
+        QuestionsIdDomainMapperDefault(getIdDomainToModelMapper())
 
-    private fun getIdDomainToModelMapper(): QuestionsIdDomainToModelMapper = QuestionsIdDomainToModelMapperDefault()
+    private fun getIdDomainToModelMapper(): QuestionsIdDomainToModelMapper =
+        QuestionsIdDomainToModelMapperDefault()
 
-    private fun getTextModelMapper(): QuestionsTextModelMapper = QuestionsTextModelMapperDefault(getTextModelStringMapper())
+    private fun getTextModelMapper(): QuestionsTextModelMapper =
+        QuestionsTextModelMapperDefault(getTextModelStringMapper())
 
-    private fun getTextModelStringMapper(): QuestionsTextModelStringMapper = QuestionsTextModelStringMapperDefault(getStringResource())
+    private fun getTextModelStringMapper(): QuestionsTextModelStringMapper =
+        QuestionsTextModelStringMapperDefault(getStringResource())
 
-    open fun getCoroutineDispatcher(): CoroutineDispatcherFactory = CoroutineDispatcherFactoryDefault()
+    open fun getCoroutineDispatcher(): CoroutineDispatcherFactory =
+        CoroutineDispatcherFactoryDefault()
 }

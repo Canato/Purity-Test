@@ -9,10 +9,10 @@ buildscript {
         maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
-        classpath Deps.gradle
-        classpath Deps.googleServices
-        classpath Deps.kotlinGradle
-        classpath Deps.ktlint
+        classpath "com.android.tools.build:gradle:${Versions.gradle}"
+        classpath "com.google.gms:google-services:${Versions.kotlinGradlePlugin}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
+        classpath "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktLint}"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

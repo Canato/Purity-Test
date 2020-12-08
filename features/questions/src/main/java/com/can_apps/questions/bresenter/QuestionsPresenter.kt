@@ -1,18 +1,21 @@
 package com.can_apps.questions.bresenter
 
+import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.common.CoroutineDispatcherFactory
+import com.can_apps.questions.R
 import com.can_apps.questions.bresenter.mappers.QuestionsModelMapper
 import com.can_apps.questions.core.QuestionsContract
-import com.can_apps.questions.core.QuestionsDomain
 import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 internal class QuestionsPresenter(
     private val interactor: QuestionsContract.Interactor,
     private val mapper: QuestionsModelMapper,
-    private val dispatcher: CoroutineDispatcherFactory
+    private val dispatcher: CoroutineDispatcherFactory,
+    private val stringResource: CommonStringResourceWrapper,
 ) : QuestionsContract.Presenter, CoroutineScope {
 
     private val job = Job()
@@ -20,6 +23,7 @@ internal class QuestionsPresenter(
         get() = dispatcher.UI + job
 
     private lateinit var view: QuestionsContract.View
+    private var model: QuestionsModel? = null
 
     override fun bind(view: QuestionsContract.View) {
         this.view = view
@@ -44,29 +48,26 @@ internal class QuestionsPresenter(
     }
 
     private fun CoroutineScope.retrieveData() = launch(dispatcher.IO) {
-        when (val domain = interactor.retrieveQuestionsDomain()) {
-            is QuestionsDomain.Valid -> {
-                val model = mapper.toModel(domain)
-                showList(model.questionsModelDetails.toList(), model.questionCategory.name)
-            }
-
-            is QuestionsDomain.Error -> {
-                showError(domain.message.value)
-            }
+        try {
+            model = interactor.retrieveQuestionsDomain(null)?.let {  mapper.toModel(it) }
+            model?.let { showList(it) } // ?: Go to results screen, nothing else to show
+        } catch (e : Exception) {
+            showError(e.message ?: stringResource.getString(R.string.questions_dto_error))
         }
     }
 
     private fun CoroutineScope.retrieveNextList() = launch(dispatcher.IO) {
-        when (val domain = interactor.retrieveQuestionsDomain()) {
-            is QuestionsDomain.Valid -> {
-                val model = mapper.toModel(domain)
-                showList(model.questionsModelDetails.toList(), model.questionCategory.name)
-                setNewActionButtonFunction(model.isLastCategory.value)
-            }
 
-            is QuestionsDomain.Error -> {
-                showError(domain.message.value)
-            }
+        try {
+            model = interactor.retrieveQuestionsDomain(model?.questionCategory?.name)
+                    ?.let { mapper.toModel(it) }
+
+            model?.let {
+                showList(it)
+                if(it.isLastCategory.value) setNewActionButtonFunction()
+            } // ?: Go to results screen, nothing else to show
+        } catch (e : Exception) {
+            showError(e.message ?: stringResource.getString(R.string.questions_dto_error))
         }
     }
 
@@ -75,15 +76,14 @@ internal class QuestionsPresenter(
         view.showError(message)
     }
 
-    private fun CoroutineScope.showList(model: List<QuestionsModelDetails>, category: String) =
+    private fun CoroutineScope.showList(model: QuestionsModel) =
         launch(dispatcher.UI) {
             view.hideLoading()
-            view.showCategory(category)
-            view.showList(model)
+            view.showCategory(model.questionCategory.name)
+            view.showList(model.questionsModelDetails.toList())
         }
 
-    private fun CoroutineScope.setNewActionButtonFunction(value: Boolean) = launch(dispatcher.UI) {
-        if (value) {
+    private fun CoroutineScope.setNewActionButtonFunction() = launch(dispatcher.UI) {
         view.setNewActionButtonFunction()
-    } }
+    }
 }

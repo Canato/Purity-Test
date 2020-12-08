@@ -1,9 +1,9 @@
 object Versions {
 
     // Build Config
-    const val minSDK = 21
-    const val compileSDK = 29
-    const val targetSDK = 29
+    const val minSDK = 24
+    const val compileSDK = 30
+    const val targetSDK = 30
 
     // App Version
     const val appVersionCode = 1
@@ -14,82 +14,30 @@ object Versions {
 
     // Kotlin
     const val ktLint = "9.2.1"
-    const val kotlin = "1.3.70"
-    const val coroutine = "1.3.7"
+    const val kotlin = "1.4.20"
+    const val coroutine = "1.4.0"
     const val coroutineServices = "1.1.1"
     const val kotlinGradlePlugin = "4.3.3"
 
     // Android
-    const val appcompact = "1.1.0"
-    const val core = "1.2.0"
-    const val navigationComponent = "2.3.1"
+    const val appcompact = "1.2.0"
+    const val core = "1.3.2"
+    const val navigationComponent = "2.3.2"
 
     // Layout
     const val recyclerview = "1.1.0"
-    const val materialDesign = "1.1.0"
-    const val constraintLayout = "1.1.3"
+    const val materialDesign = "1.2.1"
+    const val constraintLayout = "2.0.4"
 
     // Google
-    const val firebaseAuth = "19.3.0"
+    const val firebaseAuth = "20.0.1"
     const val firebaseAnalytics = "17.3.0"
     const val gson = "2.8.6"
 
     // Tests
-    const val junit = "4.12"
-    const val mockk = "1.9.3"
-    const val junitAndroid = "1.1.1"
-    const val espressoAndroid = "3.2.0"
+    const val junit = "4.13.1"
+    const val mockk = "1.10.2"
+    const val junitAndroid = "1.1.2"
+    const val espressoAndroid = "3.3.0"
     const val fragmentTest: String = "1.2.5"
-
-}
-
-object Deps {
-
-    const val ktlint = "org.jlleitschuh.gradle:ktlint-gradle:${Versions.ktLint}"
-
-    const val gradle = "com.android.tools.build:gradle:${Versions.gradle}"
-    const val googleServices = "com.google.gms:google-services:${Versions.kotlinGradlePlugin}"
-    const val kotlinGradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}"
-
-    const val kotlinStdLib = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-
-    const val appcompat = "androidx.appcompat:appcompat:${Versions.appcompact}"
-    const val coreKtx = "androidx.core:core-ktx:${Versions.core}"
-
-    const val ktCoroutineCore =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutine}"
-    const val ktCoroutineAndroid =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutine}"
-
-    const val gson = "com.google.code.gson:gson:${Versions.gson}"
-
-    const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerview}"
-    const val constraintLayout =
-        "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
-
-    const val materialDesign = "com.google.android.material:material:${Versions.materialDesign}"
-    const val coroutinesPlayService =
-        "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Versions.coroutineServices}"
-
-    const val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
-
-    const val firebaseAnalytics =
-        "com.google.firebase:firebase-analytics:${Versions.firebaseAnalytics}"
-
-    const val navigationFragment =
-        "androidx.navigation:navigation-fragment-ktx:${Versions.navigationComponent}"
-
-    const val navigationUI =
-     "androidx.navigation:navigation-ui-ktx:${Versions.navigationComponent}"
-}
-
-object DepsTest {
-
-    const val junit = "junit:junit:${Versions.junit}"
-    const val junitAndroid = "androidx.test.ext:junit:${Versions.junitAndroid}"
-    const val espressoCore = "androidx.test.espresso:espresso-core:${Versions.espressoAndroid}"
-    const val navigationTest = "androidx.navigation:navigation-testing:${Versions.navigationComponent}"
-    const val fragmentTest = "androidx.fragment:fragment-testing:${Versions.fragmentTest}"
-
-    const val mockk = "io.mockk:mockk:${Versions.mockk}"
 }

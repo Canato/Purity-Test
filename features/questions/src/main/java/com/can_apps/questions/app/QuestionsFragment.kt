@@ -24,10 +24,6 @@ internal class QuestionsFragment :
     QuestionsRecyclerViewAdapter.Listener,
     QuestionsContract.View {
 
-    companion object {
-        fun newInstance(): Fragment = QuestionsFragment()
-    }
-
     private lateinit var presenter: QuestionsContract.Presenter
     private lateinit var recyclerViewAdapter: QuestionsRecyclerViewAdapter
 
@@ -44,18 +40,23 @@ internal class QuestionsFragment :
 
         presenter.bind(this)
         setOnBackPressedCallback()
-        presenter.onViewCreated()
+
         recyclerView.apply {
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
             recyclerView.adapter = recyclerViewAdapter
         }
+
         actionButton.setOnClickListener {
             presenter.fetchNextCategoryQuestions()
         }
+
+        presenter.onViewCreated()
     }
 
     private fun setOnBackPressedCallback() {
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, true) { findNavController().navigateUp() }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, true) {
+            findNavController().navigateUp()
+        }
     }
 
     override fun onItemSelected(questionId: QuestionIdModelEnum) {
@@ -74,6 +75,7 @@ internal class QuestionsFragment :
         recyclerViewAdapter.updateList(model)
     }
 
+    // todo put in common module
     override fun showError(message: String) {
         view?.let {
             val snackbar = Snackbar.make(it, message, Snackbar.LENGTH_LONG)
@@ -104,14 +106,12 @@ internal class QuestionsFragment :
         activity?.finish()
     }
 
+    // show = visible/invisible/gone. Change to set/setup
     override fun showCategory(category: String) {
         categoryView.text = category
     }
 
     override fun setNewActionButtonFunction() {
         actionButton.text = getString(R.string.action_button_finish)
-        actionButton.setOnClickListener {
-            presenter.onBackPressed()
-        }
     }
 }

@@ -1,13 +1,13 @@
 package com.can_apps.questions.data.questions_data_source.mappers
 
-import com.can_apps.questions.core.QuestionDetailsDomain
+import com.can_apps.questions.core.QuestionCategoryDomain
 import com.can_apps.questions.core.QuestionLastCategoryDomain
 import com.can_apps.questions.core.QuestionWeightDomain
-import com.can_apps.questions.core.QuestionsDomain
+import com.can_apps.questions.core.QuestionsDetailsDomain
 import com.can_apps.questions_data_source.data.QuestionDataSourceDto
 
 internal interface QuestionsMapperDomainValid {
-    fun mapToDomainValid(asset: List<QuestionDataSourceDto>): List<QuestionsDomain.Valid>
+    fun mapToDomainValid(asset: List<QuestionDataSourceDto>): List<QuestionsDetailsDomain>
 }
 
 internal class QuestionsMapperDomainValidDefault(
@@ -15,35 +15,19 @@ internal class QuestionsMapperDomainValidDefault(
     private val assetIdMapper: QuestionsIdAssetMapper
 ) : QuestionsMapperDomainValid {
 
-    override fun mapToDomainValid(asset: List<QuestionDataSourceDto>): List<QuestionsDomain.Valid> {
-        val questionDomainValidSet = mutableListOf<QuestionsDomain.Valid>()
-        val lastQuestion = asset.last()
-
-        asset.forEach { questionDto ->
-            val questionDetailsDomainSet = mutableSetOf<QuestionDetailsDomain>()
-            val categoryDomainEnum =
-                assetCategoryMapper.mapCategoryToDomain(questionDto.categoryName)
-
-            val questionLastCategoryDomain = QuestionLastCategoryDomain(lastQuestion == questionDto)
-
-            questionDto.questions.forEach { question ->
-                questionDetailsDomainSet.add(
-                    QuestionDetailsDomain(
-                        assetIdMapper.mapAssetId(categoryDomainEnum, question.id),
-                        QuestionWeightDomain(question.weight)
-                    )
+    override fun mapToDomainValid(
+        asset: List<QuestionDataSourceDto>
+    ): List<QuestionsDetailsDomain> =
+        asset.map { dto ->
+            val enum = assetCategoryMapper.mapCategoryToDomain(dto.categoryName)
+            val isLast = QuestionLastCategoryDomain(dto.categoryName == asset.last().categoryName)
+            val questions = dto.questions.map {
+                QuestionCategoryDomain(
+                    assetIdMapper.mapAssetId(enum, it.id),
+                    QuestionWeightDomain(it.weight)
                 )
-            }
+            }.toSet()
 
-            questionDomainValidSet.add(
-                QuestionsDomain.Valid(
-                    categoryDomainEnum,
-                    questionLastCategoryDomain,
-                    questionDetailsDomainSet
-                )
-            )
+            QuestionsDetailsDomain(enum, isLast, questions)
         }
-
-        return questionDomainValidSet
-    }
 }

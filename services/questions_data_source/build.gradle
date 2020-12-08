@@ -25,10 +25,10 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 
-    implementation Deps.kotlinStdLib
-    implementation Deps.coreKtx
-    implementation Deps.appcompat
-    testImplementation DepsTest.junit
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+    implementation "androidx.core:core-ktx:${Versions.core}"
+    implementation "androidx.appcompat:appcompat:${Versions.appcompact}"
+    implementation "com.google.code.gson:gson:${Versions.gson}"
 
-    implementation Deps.gson
+    testImplementation "junit:junit:${Versions.junit}"
 }
