@@ -44,5 +44,5 @@ dependencies {
     implementation "androidx.test.ext:junit:${Versions.junitAndroid}"
     implementation "androidx.test.espresso:espresso-core:${Versions.espressoAndroid}"
     implementation "androidx.navigation:navigation-testing:${Versions.navigationComponent}"
-    implementation "androidx.fragment:fragment-testing:${Versions.fragmentTest}"
+    debugImplementation "androidx.fragment:fragment-testing:${Versions.fragmentTest}"
 }
