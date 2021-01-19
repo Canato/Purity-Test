@@ -40,7 +40,7 @@ internal open class QuestionsServiceLocator(private val context: Context) {
             getInteractor(),
             getModelMapper(),
             getCoroutineDispatcher(),
-            getStringResource(),
+            getStringResource()
         )
 
     fun getRecyclerViewAdapter(questionsFragment: QuestionsFragment): QuestionsRecyclerViewAdapter =

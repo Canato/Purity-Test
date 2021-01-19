@@ -15,7 +15,7 @@ internal interface QuestionsModelMapper {
 internal class QuestionsModelMapperDefault(
     private var categoryMapper: QuestionsCategoryModelMapper,
     private var idMapper: QuestionsIdDomainMapper,
-    private var textMapper: QuestionsTextModelMapper,
+    private var textMapper: QuestionsTextModelMapper
 ) : QuestionsModelMapper {
 
     override fun toModel(domain: QuestionsDetailsDomain): QuestionsModel {
@@ -27,7 +27,7 @@ internal class QuestionsModelMapperDefault(
             QuestionsModelDetails(
                 idEnum,
                 QuestionTextModel(textMapper.mapText(categoryEnum, idEnum)),
-                QuestionWeightModel(it.weight.value),
+                QuestionWeightModel(it.weight.value)
             )
         }.toSet()
 

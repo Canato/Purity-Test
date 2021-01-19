@@ -9,7 +9,7 @@ internal class QuestionsInteractor(
     override suspend fun retrieveQuestionsDomain(
         categoryId: String?
     ): QuestionsDetailsDomain? =
-        when(questions.isEmpty()) {
+        when (questions.isEmpty()) {
             true -> {
                 questions = repository.retrieveList()
                 questions.first()
@@ -18,7 +18,7 @@ internal class QuestionsInteractor(
                 val actualIndex = questions.indexOfFirst { it.category.name == categoryId }
 
                 if (actualIndex == -1 || actualIndex == questions.size) null
-                else questions[actualIndex+1]
+                else questions[actualIndex + 1]
             }
         }
 }
