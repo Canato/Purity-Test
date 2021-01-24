@@ -5,11 +5,11 @@ import com.can_apps.common.CoroutineDispatcherFactory
 import com.can_apps.questions.R
 import com.can_apps.questions.bresenter.mappers.QuestionsModelMapper
 import com.can_apps.questions.core.QuestionsContract
-import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import kotlin.coroutines.CoroutineContext
 
 internal class QuestionsPresenter(
     private val interactor: QuestionsContract.Interactor,
@@ -49,9 +49,9 @@ internal class QuestionsPresenter(
 
     private fun CoroutineScope.retrieveData() = launch(dispatcher.IO) {
         try {
-            model = interactor.retrieveQuestionsDomain(null)?.let {  mapper.toModel(it) }
+            model = interactor.retrieveQuestionsDomain(null)?.let { mapper.toModel(it) }
             model?.let { showList(it) } // ?: Go to results screen, nothing else to show
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             showError(e.message ?: stringResource.getString(R.string.questions_dto_error))
         }
     }
@@ -60,13 +60,13 @@ internal class QuestionsPresenter(
 
         try {
             model = interactor.retrieveQuestionsDomain(model?.questionCategory?.name)
-                    ?.let { mapper.toModel(it) }
+                ?.let { mapper.toModel(it) }
 
             model?.let {
                 showList(it)
-                if(it.isLastCategory.value) setNewActionButtonFunction()
+                if (it.isLastCategory.value) setNewActionButtonFunction()
             } // ?: Go to results screen, nothing else to show
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             showError(e.message ?: stringResource.getString(R.string.questions_dto_error))
         }
     }

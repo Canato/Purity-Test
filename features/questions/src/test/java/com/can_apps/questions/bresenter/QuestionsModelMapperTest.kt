@@ -4,8 +4,8 @@ import com.can_apps.questions.bresenter.mappers.QuestionsCategoryModelMapper
 import com.can_apps.questions.bresenter.mappers.QuestionsIdDomainMapper
 import com.can_apps.questions.bresenter.mappers.QuestionsModelMapperDefault
 import com.can_apps.questions.bresenter.mappers.QuestionsTextModelMapper
-import com.can_apps.questions.core.QuestionCategoryDomainEnum
 import com.can_apps.questions.core.QuestionCategoryDomain
+import com.can_apps.questions.core.QuestionCategoryDomainEnum
 import com.can_apps.questions.core.QuestionIdDomainEnum
 import com.can_apps.questions.core.QuestionLastCategoryDomain
 import com.can_apps.questions.core.QuestionWeightDomain

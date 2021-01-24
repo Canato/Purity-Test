@@ -39,37 +39,43 @@ internal class LoginFragment :
         presenter.bind(this)
         presenter.onViewCreated()
 
-        signInButton.setOnClickListener { presenter.onSignClicked(
+        signInButton.setOnClickListener {
+            presenter.onSignClicked(
                 loginNameEditText.text.toString(),
                 loginPasswordEditText.text.toString()
             )
         }
 
-        createUserButton.setOnClickListener { presenter.onCreateLoginClicked(
+        createUserButton.setOnClickListener {
+            presenter.onCreateLoginClicked(
                 loginNameEditText.text.toString(),
                 loginPasswordEditText.text.toString()
             )
         }
 
-        loginNameEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
+        loginNameEditText.addTextChangedListener(
+            object : TextWatcher {
+                override fun afterTextChanged(p0: Editable?) {}
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                presenter.onLoginInputChanged(loginNameEditText.text.toString())
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    presenter.onLoginInputChanged(loginNameEditText.text.toString())
+                }
             }
-        })
+        )
 
-        loginPasswordEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {}
+        loginPasswordEditText.addTextChangedListener(
+            object : TextWatcher {
+                override fun afterTextChanged(p0: Editable?) {}
 
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                presenter.onPasswordInputChanged(loginPasswordEditText.text.toString())
+                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                    presenter.onPasswordInputChanged(loginPasswordEditText.text.toString())
+                }
             }
-        })
+        )
 
         logoutButton.setOnClickListener { presenter.logoutUser() }
 

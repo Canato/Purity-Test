@@ -13,7 +13,7 @@ object Versions {
     const val gradle = "4.0.0"
 
     // Kotlin
-    const val ktLint = "9.2.1"
+    const val ktLint = "9.4.1"
     const val kotlin = "1.4.20"
     const val coroutine = "1.4.0"
     const val coroutineServices = "1.1.1"
