@@ -70,7 +70,8 @@ internal class QuestionsIdAssetToDomainMapperDefaultTest {
     @Test
     fun `GIVEN id, WHEN mapIdToNervousMouthDomain, THEN return QuestionIdDomainEnum_NERVOUS_MOUTH_id`() {
         // GIVEN
-        val id = listOf(666,
+        val id = listOf(
+            666,
             3001, 3002, 3003, 3004, 3005, 3006, 3007, 3008, 3009,
             3010, 3011, 3012, 3013, 3014, 3015, 3016, 3017, 3018
         )
@@ -106,7 +107,8 @@ internal class QuestionsIdAssetToDomainMapperDefaultTest {
     @Test
     fun `GIVEN id, WHEN mapIdToMasturbationDomain, THEN return QuestionIdDomainEnum_MASTURBATION_id`() {
         // GIVEN
-        val id = listOf(666,
+        val id = listOf(
+            666,
             4001,
             4002,
             4003,
@@ -183,8 +185,10 @@ internal class QuestionsIdAssetToDomainMapperDefaultTest {
     @Test
     fun `GIVEN id, WHEN mapIdToCrazyLifeDomain, THEN return QuestionIdDomainEnum_CRAZY_LIFE_id`() {
         // GIVEN
-        val id = listOf(666, 7001, 7002, 7003, 7004,
-            7005, 7006, 7007, 7008, 7009, 7010, 7011, 7012)
+        val id = listOf(
+            666, 7001, 7002, 7003, 7004,
+            7005, 7006, 7007, 7008, 7009, 7010, 7011, 7012
+        )
         val expected = listOf(
             QuestionIdDomainEnum.INVALID,
             QuestionIdDomainEnum.CRAZY_LIFE_ORGY,
@@ -211,10 +215,12 @@ internal class QuestionsIdAssetToDomainMapperDefaultTest {
     @Test
     fun `GIVEN id, WHEN mapIdToLegalDrugsDomain, THEN return QuestionIdDomainEnum_LEGAL_DRUGS_id`() {
         // GIVEN
-        val id = listOf(666,
+        val id = listOf(
+            666,
             8001, 8002, 8003, 8004, 8005, 8006, 8007, 8008, 8009,
             8010, 8011, 8012, 8013, 8014, 8015, 8016, 8017, 8018, 8019,
-            8020, 8021, 8022, 8023, 8024, 8025, 8026)
+            8020, 8021, 8022, 8023, 8024, 8025, 8026
+        )
         val expected = listOf(
             QuestionIdDomainEnum.INVALID,
             QuestionIdDomainEnum.LEGAL_DRUGS_LOT_GOOD,
@@ -255,9 +261,11 @@ internal class QuestionsIdAssetToDomainMapperDefaultTest {
     @Test
     fun `GIVEN id, WHEN mapIdToIllegalDrugsDomain, THEN return QuestionIdDomainEnum_ILLEGAL_DRUGS_id`() {
         // GIVEN
-        val id = listOf(666,
+        val id = listOf(
+            666,
             9001, 9002, 9003, 9004, 9005, 9006, 9007, 9008,
-            9009, 9010, 9011, 9012, 9013, 9014, 9015, 9016)
+            9009, 9010, 9011, 9012, 9013, 9014, 9015, 9016
+        )
         val expected = listOf(
             QuestionIdDomainEnum.INVALID,
             QuestionIdDomainEnum.ILLEGAL_DRUGS_ILLICIT,
@@ -288,7 +296,8 @@ internal class QuestionsIdAssetToDomainMapperDefaultTest {
     @Test
     fun `GIVEN id, WHEN mapIdToUniFeelingDomain, THEN return QuestionIdDomainEnum_UNI_FEELINGS_id`() {
         // GIVEN
-        val id = listOf(666,
+        val id = listOf(
+            666,
             10001,
             10002,
             10003,
@@ -300,7 +309,7 @@ internal class QuestionsIdAssetToDomainMapperDefaultTest {
             10009,
             10010,
             10011
-            )
+        )
         val expected = listOf(
             QuestionIdDomainEnum.INVALID,
             QuestionIdDomainEnum.UNI_FEELINGS_WEEKEND_PARTY_ONCE,
@@ -326,7 +335,8 @@ internal class QuestionsIdAssetToDomainMapperDefaultTest {
     @Test
     fun `GIVEN id, WHEN mapIdToSexDomain, THEN return QuestionIdDomainEnum_SEX_id`() {
         // GIVEN
-        val id = listOf(666,
+        val id = listOf(
+            666,
             12001,
             12002,
             12003,

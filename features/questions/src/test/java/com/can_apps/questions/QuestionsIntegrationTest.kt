@@ -2,7 +2,6 @@ package com.can_apps.questions
 
 import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.questions.core.QuestionsContract
-import com.can_apps.questions_data_source.data.QuestionDataSourceDto
 import com.can_apps.questions_data_source.data.QuestionsDataSourceAssets
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
