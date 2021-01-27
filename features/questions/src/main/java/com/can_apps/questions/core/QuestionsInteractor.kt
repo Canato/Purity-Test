@@ -4,22 +4,21 @@ internal class QuestionsInteractor(
     private val repository: QuestionsContract.Repository
 ) : QuestionsContract.Interactor {
 
-    private var questionsDomainList: List<QuestionsDomain> = emptyList()
-    private var listPosition = 0
+    private var questions: List<QuestionsDetailsDomain> = emptyList()
 
-    override suspend fun retrieveQuestionsDomain(): QuestionsDomain =
-        when (questionsDomainList == emptyList<List<QuestionsDomain>>()) {
-            true -> fetchRepositoryList()
-            false -> getNextQuestionsDomain()
+    override suspend fun retrieveQuestionsDomain(
+        categoryId: String?
+    ): QuestionsDetailsDomain? =
+        when (questions.isEmpty()) {
+            true -> {
+                questions = repository.retrieveList()
+                questions.first()
+            }
+            else -> {
+                val actualIndex = questions.indexOfFirst { it.category.name == categoryId }
+
+                if (actualIndex == -1 || actualIndex == questions.size) null
+                else questions[actualIndex + 1]
+            }
         }
-
-    private suspend fun fetchRepositoryList(): QuestionsDomain {
-        questionsDomainList = repository.retrieveList()
-        return questionsDomainList.first()
-    }
-
-    private fun getNextQuestionsDomain(): QuestionsDomain {
-        listPosition++
-        return questionsDomainList[listPosition]
-    }
 }

@@ -1,11 +1,11 @@
 package com.can_apps.questions.data.mappers
 
+import com.can_apps.questions.core.QuestionCategoryDomain
 import com.can_apps.questions.core.QuestionCategoryDomainEnum
-import com.can_apps.questions.core.QuestionDetailsDomain
 import com.can_apps.questions.core.QuestionIdDomainEnum
 import com.can_apps.questions.core.QuestionLastCategoryDomain
 import com.can_apps.questions.core.QuestionWeightDomain
-import com.can_apps.questions.core.QuestionsDomain
+import com.can_apps.questions.core.QuestionsDetailsDomain
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsCategoryAssetMapper
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsIdAssetMapper
 import com.can_apps.questions.data.questions_data_source.mappers.QuestionsMapperDomainValidDefault
@@ -72,22 +72,22 @@ internal class QuestionsMapperDomainValidDefaultTest {
             )
 
         val questionDomainSetFirst = setOf(
-            QuestionDetailsDomain(
+            QuestionCategoryDomain(
                 questionIdDomainEnumFirst,
                 questionWeightDomain
             )
         )
 
         val questionDomainSetSecond = setOf(
-            QuestionDetailsDomain(
+            QuestionCategoryDomain(
                 questionIdDomainEnumSecond,
                 questionWeightDomain
             ),
-            QuestionDetailsDomain(
+            QuestionCategoryDomain(
                 questionIdDomainEnumThird,
                 questionWeightDomain
             ),
-            QuestionDetailsDomain(
+            QuestionCategoryDomain(
                 questionIdDomainEnumForth,
                 questionWeightDomain
             )
@@ -95,12 +95,12 @@ internal class QuestionsMapperDomainValidDefaultTest {
 
         val expected =
             listOf(
-                QuestionsDomain.Valid(
+                QuestionsDetailsDomain(
                     questionCategoryDomainEnumFirst,
                     questionLastCategoryDomainFirst,
                     questionDomainSetFirst
                 ),
-                QuestionsDomain.Valid(
+                QuestionsDetailsDomain(
                     questionCategoryDomainEnumSecond,
                     questionLastCategoryDomainSecond,
                     questionDomainSetSecond

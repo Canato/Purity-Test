@@ -5,6 +5,7 @@ import com.can_apps.questions.bresenter.QuestionsModelDetails
 internal interface QuestionsContract {
 
     interface View {
+
         fun showLoading()
 
         fun hideLoading()
@@ -21,6 +22,7 @@ internal interface QuestionsContract {
     }
 
     interface Presenter {
+
         fun bind(view: View)
 
         fun unbind()
@@ -33,10 +35,12 @@ internal interface QuestionsContract {
     }
 
     interface Interactor {
-        suspend fun retrieveQuestionsDomain(): QuestionsDomain
+
+        suspend fun retrieveQuestionsDomain(categoryId: String?): QuestionsDetailsDomain?
     }
 
     interface Repository {
-        suspend fun retrieveList(): List<QuestionsDomain>
+
+        suspend fun retrieveList(): List<QuestionsDetailsDomain>
     }
 }

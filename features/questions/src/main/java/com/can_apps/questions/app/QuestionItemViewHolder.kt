@@ -15,6 +15,7 @@ internal class QuestionItemViewHolder(
 
         containerView.question.text = model.questionText.value
         containerView.question_checkbox.isChecked = false
+
         containerView.setOnClickListener {
             containerView.question_checkbox.performClick()
             listener.onItemSelected(model.questionId)

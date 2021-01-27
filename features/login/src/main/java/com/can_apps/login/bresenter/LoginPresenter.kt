@@ -9,12 +9,12 @@ import com.can_apps.login.core.LoginNameDomain
 import com.can_apps.login.core.LoginNameValidationDomain
 import com.can_apps.login.core.LoginPasswordDomain
 import com.can_apps.login.core.LoginPasswordValidationDomain
-import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 internal class LoginPresenter(
     private val interactor: LoginContract.Interactor,
@@ -102,8 +102,10 @@ internal class LoginPresenter(
         for (event in receiveChannel) {
             when (event) {
                 is OnPasswordChangedEvent -> {
-                    when (val domain =
-                        interactor.passwordValidation(LoginPasswordDomain(event.value))) {
+                    when (
+                        val domain =
+                            interactor.passwordValidation(LoginPasswordDomain(event.value))
+                    ) {
                         is LoginPasswordValidationDomain.Valid -> {
                             checkPasswordBox(true)
                             updatePasswordView(null)

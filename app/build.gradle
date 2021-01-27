@@ -34,16 +34,16 @@ dependencies {
 
     implementation project(':services:questions_data_source')
 
-    implementation Deps.kotlinStdLib
-    implementation Deps.appcompat
-    implementation Deps.coreKtx
-    implementation Deps.constraintLayout
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+    implementation "androidx.appcompat:appcompat:${Versions.appcompact}"
+    implementation "androidx.core:core-ktx:${Versions.core}"
+    implementation "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
 
-    implementation Deps.navigationFragment
-    implementation Deps.navigationUI
+    implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigationComponent}"
+    implementation "androidx.navigation:navigation-ui-ktx:${Versions.navigationComponent}"
 
-    implementation Deps.firebaseAuth
+    implementation "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
 
-    testImplementation DepsTest.junit
-    testImplementation DepsTest.espressoCore
+    testImplementation "junit:junit:${Versions.junit}"
+    testImplementation "androidx.test.espresso:espresso-core:${Versions.espressoAndroid}"
 }

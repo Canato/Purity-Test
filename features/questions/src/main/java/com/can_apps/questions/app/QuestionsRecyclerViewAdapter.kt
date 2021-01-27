@@ -19,11 +19,7 @@ internal class QuestionsRecyclerViewAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuestionItemViewHolder =
         QuestionItemViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_question_item,
-                parent,
-                false
-            ),
+            LayoutInflater.from(parent.context).inflate(R.layout.item_question_item, parent, false),
             listener
         )
 

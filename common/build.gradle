@@ -26,16 +26,16 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation Deps.appcompat
-    implementation Deps.coreKtx
+    implementation "androidx.appcompat:appcompat:${Versions.appcompact}"
+    implementation "androidx.core:core-ktx:${Versions.core}"
 
     //kotlin
-    implementation Deps.kotlinStdLib
-    implementation Deps.ktCoroutineCore
-    implementation Deps.ktCoroutineAndroid
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutine}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutine}"
 
     //tests
-    testImplementation DepsTest.junit
-    androidTestImplementation DepsTest.junitAndroid
-    androidTestImplementation DepsTest.espressoCore
+    testImplementation "junit:junit:${Versions.junit}"
+    androidTestImplementation "androidx.test.ext:junit:${Versions.junitAndroid}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${Versions.espressoAndroid}"
 }

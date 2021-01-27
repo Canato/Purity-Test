@@ -2,7 +2,6 @@ package com.can_apps.questions
 
 import com.can_apps.common.CommonStringResourceWrapper
 import com.can_apps.questions.core.QuestionsContract
-import com.can_apps.questions_data_source.data.QuestionDataSourceDto
 import com.can_apps.questions_data_source.data.QuestionsDataSourceAssets
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -31,28 +30,6 @@ internal class QuestionsIntegrationTest {
         val serviceLocator = MockQuestionsServiceLocator(stringResource, assets)
         presenter = serviceLocator.getPresenter()
         presenter.bind(view)
-    }
-
-    @Test
-    fun `GIVEN invalid data, WHEN on create view, THEN show error`() {
-        // GIVEN
-        val message = "ErrorCheck"
-        val emptyDto = emptyList<QuestionDataSourceDto>()
-
-        coEvery { assets.getQuestions() } returns emptyDto
-        every { stringResource.getString(R.string.questions_dto_error) } returns message
-        // WHEN
-        presenter.onViewCreated()
-
-        // THEN
-        verify {
-            view.showLoading()
-            view.hideLoading()
-            view.showError(message)
-        }
-        verify(exactly = 0) {
-            view.showList(any())
-        }
     }
 
     @Test

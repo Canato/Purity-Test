@@ -34,28 +34,27 @@ dependencies {
 
     implementation project(':common')
 
-    implementation Deps.appcompat
-    implementation Deps.coreKtx
+    implementation "androidx.appcompat:appcompat:${Versions.appcompact}"
+    implementation "androidx.core:core-ktx:${Versions.core}"
 
     //layout
-    implementation Deps.recyclerView
+    implementation "androidx.recyclerview:recyclerview:${Versions.recyclerview}"
 
     //snackbar
-    implementation Deps.materialDesign
+    implementation "com.google.android.material:material:${Versions.materialDesign}"
 
-    implementation Deps.kotlinStdLib
-    implementation Deps.coroutinesPlayService
-    implementation Deps.ktCoroutineAndroid
-    implementation Deps.coroutinesPlayService
-    implementation Deps.appcompat
-    implementation Deps.constraintLayout
-    implementation Deps.navigationFragment
-    implementation Deps.navigationUI
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Versions.coroutineServices}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutine}"
+    implementation "androidx.appcompat:appcompat:${Versions.appcompact}"
+    implementation "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigationComponent}"
+    implementation "androidx.navigation:navigation-ui-ktx:${Versions.navigationComponent}"
 
     //Test
-    testImplementation DepsTest.junit
-    testImplementation DepsTest.mockk
+    testImplementation "junit:junit:${Versions.junit}"
+    testImplementation "io.mockk:mockk:${Versions.mockk}"
 
     // Firebase Auth
-    implementation Deps.firebaseAuth
+    implementation "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
 }

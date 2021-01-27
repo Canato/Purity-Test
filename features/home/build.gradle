@@ -34,16 +34,15 @@ dependencies {
     implementation project(':features:questions')
     implementation project(':features:login')
 
-    implementation Deps.appcompat
-    implementation Deps.coreKtx
+    implementation "androidx.appcompat:appcompat:${Versions.appcompact}"
+    implementation "androidx.core:core-ktx:${Versions.core}"
 
-    implementation Deps.constraintLayout
-    implementation Deps.navigationFragment
-    implementation Deps.navigationUI
+    implementation "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
+    implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigationComponent}"
+    implementation "androidx.navigation:navigation-ui-ktx:${Versions.navigationComponent}"
 
-    implementation DepsTest.junitAndroid
-    implementation DepsTest.espressoCore
-    implementation DepsTest.navigationTest
-    implementation DepsTest.fragmentTest
-
+    androidTestImplementation "androidx.test.ext:junit:${Versions.junitAndroid}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${Versions.espressoAndroid}"
+    androidTestImplementation "androidx.navigation:navigation-testing:${Versions.navigationComponent}"
+    androidTestImplementation "androidx.fragment:fragment-testing:${Versions.fragmentTest}"
 }

@@ -35,16 +35,31 @@ internal val questionFirstIdModelEnumTwo = QuestionIdModelEnum.BANDITRY_DRIVE_DR
 internal val questionFirstIdModelEnumThree = QuestionIdModelEnum.BANDITRY_LOST_LICENCE
 
 internal val questionFirstModelDetailsOne = QuestionsModelDetails(
-    questionFirstIdModelEnumOne, QuestionTextModel(questionFirstOne), QuestionWeightModel(1))
+    questionFirstIdModelEnumOne,
+    QuestionTextModel(questionFirstOne),
+    QuestionWeightModel(1)
+)
 internal val questionFirstModelDetailsTwo = QuestionsModelDetails(
-    questionFirstIdModelEnumTwo, QuestionTextModel(questionFirstTwo), QuestionWeightModel(1))
+    questionFirstIdModelEnumTwo,
+    QuestionTextModel(questionFirstTwo),
+    QuestionWeightModel(1)
+)
 internal val questionFirstModelDetailsThree = QuestionsModelDetails(
-    questionFirstIdModelEnumThree, QuestionTextModel(questionFirstThree), QuestionWeightModel(1))
+    questionFirstIdModelEnumThree,
+    QuestionTextModel(questionFirstThree),
+    QuestionWeightModel(1)
+)
 
 internal val questionsFirstModelSet = setOf(
-    questionFirstModelDetailsOne, questionFirstModelDetailsTwo, questionFirstModelDetailsThree)
+    questionFirstModelDetailsOne,
+    questionFirstModelDetailsTwo,
+    questionFirstModelDetailsThree
+)
 internal val questionsFirstModel = QuestionsModel(
-    questionFirstCategoryModel, QuestionLastCategoryModel(false), questionsFirstModelSet)
+    questionFirstCategoryModel,
+    QuestionLastCategoryModel(false),
+    questionsFirstModelSet
+)
 
 internal val questionSecondCategoryModel = QuestionCategoryModelEnum.MAKE_OUT
 
@@ -57,16 +72,31 @@ internal val questionSecondIdModelEnumTwo = QuestionIdModelEnum.MAKE_OUT_WITH_PE
 internal val questionSecondIdModelEnumThree = QuestionIdModelEnum.MAKE_OUT_WITH_SAME_GENDER
 
 internal val questionSecondModelDetailsOne = QuestionsModelDetails(
-    questionSecondIdModelEnumOne, QuestionTextModel(questionSecondOne), QuestionWeightModel(1))
+    questionSecondIdModelEnumOne,
+    QuestionTextModel(questionSecondOne),
+    QuestionWeightModel(1)
+)
 internal val questionSecondModelDetailsTwo = QuestionsModelDetails(
-    questionSecondIdModelEnumTwo, QuestionTextModel(questionSecondTwo), QuestionWeightModel(1))
+    questionSecondIdModelEnumTwo,
+    QuestionTextModel(questionSecondTwo),
+    QuestionWeightModel(1)
+)
 internal val questionSecondModelDetailsThree = QuestionsModelDetails(
-    questionSecondIdModelEnumThree, QuestionTextModel(questionSecondThree), QuestionWeightModel(2))
+    questionSecondIdModelEnumThree,
+    QuestionTextModel(questionSecondThree),
+    QuestionWeightModel(2)
+)
 
 internal val questionsSecondModelSet = setOf(
-    questionSecondModelDetailsOne, questionSecondModelDetailsTwo, questionSecondModelDetailsThree)
+    questionSecondModelDetailsOne,
+    questionSecondModelDetailsTwo,
+    questionSecondModelDetailsThree
+)
 internal val questionsSecondModel = QuestionsModel(
-    questionSecondCategoryModel, QuestionLastCategoryModel(false), questionsSecondModelSet)
+    questionSecondCategoryModel,
+    QuestionLastCategoryModel(false),
+    questionsSecondModelSet
+)
 
 internal val questionThirdCategoryModel = QuestionCategoryModelEnum.NERVOUS_MOUTH
 
@@ -79,15 +109,30 @@ internal val questionThreeIdModelEnumTwo = QuestionIdModelEnum.NERVOUS_MOUTH_WIT
 internal val questionThreeIdModelEnumThree = QuestionIdModelEnum.NERVOUS_MOUTH_OPPOSITE_GENDER
 
 internal val questionThirdModelDetailsOne = QuestionsModelDetails(
-    questionThreeIdModelEnumOne, QuestionTextModel(questionThirdOne), QuestionWeightModel(1))
+    questionThreeIdModelEnumOne,
+    QuestionTextModel(questionThirdOne),
+    QuestionWeightModel(1)
+)
 internal val questionThirdModelDetailsTwo = QuestionsModelDetails(
-    questionThreeIdModelEnumTwo, QuestionTextModel(questionThirdTwo), QuestionWeightModel(1))
+    questionThreeIdModelEnumTwo,
+    QuestionTextModel(questionThirdTwo),
+    QuestionWeightModel(1)
+)
 internal val questionThirdModelDetailsThree = QuestionsModelDetails(
-    questionThreeIdModelEnumThree, QuestionTextModel(questionThirdThree), QuestionWeightModel(3))
+    questionThreeIdModelEnumThree,
+    QuestionTextModel(questionThirdThree),
+    QuestionWeightModel(3)
+)
 
 internal val questionsThirdModelSet = setOf(
-    questionThirdModelDetailsOne, questionThirdModelDetailsTwo, questionThirdModelDetailsThree)
+    questionThirdModelDetailsOne,
+    questionThirdModelDetailsTwo,
+    questionThirdModelDetailsThree
+)
 internal val questionsThirdModel = QuestionsModel(
-    questionThirdCategoryModel, QuestionLastCategoryModel(true), questionsThirdModelSet)
+    questionThirdCategoryModel,
+    QuestionLastCategoryModel(true),
+    questionsThirdModelSet
+)
 
 internal val questionExpectedModel = listOf(questionsFirstModel, questionsSecondModel, questionsThirdModel)
