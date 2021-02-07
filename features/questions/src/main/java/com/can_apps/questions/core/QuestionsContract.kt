@@ -21,7 +21,7 @@ internal interface QuestionsContract {
 
         fun setNewActionButtonFunction()
 
-        fun showResult(score: List<QuestionsModelDetails>)
+        fun goToResultScreen(score: List<QuestionsModelDetails>)
     }
 
     interface Presenter {
