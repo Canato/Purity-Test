@@ -25,6 +25,8 @@ internal class QuestionsPresenter(
     private lateinit var view: QuestionsContract.View
     private var model: QuestionsModel? = null
 
+    private val score: MutableSet<QuestionsModelDetails> = mutableSetOf()
+
     override fun bind(view: QuestionsContract.View) {
         this.view = view
     }
@@ -45,6 +47,17 @@ internal class QuestionsPresenter(
     override fun fetchNextCategoryQuestions() {
         view.showLoading()
         retrieveNextList()
+    }
+
+    override fun onItemClicked(modelId: QuestionIdModelEnum) {
+        TODO("Item clicked will store current clicked item based on its score Set collection")
+        // f.e. if score.contains modelId - remove from set, else score.add(model) - since we cache the current model
+        // f.e. score.contains(model?.questionsModelDetails?.find { it.questionId == QuestionIdModelEnum.BANDITRY_ABORTION })
+    }
+
+    override fun onFinishTestPressed() {
+        TODO("On finish test presented will get a list of currently stored in score")
+        // view.showResult(score)
     }
 
     private fun CoroutineScope.retrieveData() = launch(dispatcher.IO) {
