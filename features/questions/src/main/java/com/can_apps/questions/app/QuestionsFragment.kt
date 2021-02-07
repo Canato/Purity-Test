@@ -114,4 +114,8 @@ internal class QuestionsFragment :
     override fun setNewActionButtonFunction() {
         actionButton.text = getString(R.string.action_button_finish)
     }
+
+    override fun goToResultScreen(score: List<QuestionsModelDetails>) {
+        TODO("fun will start new fragment and send score in bundle of models")
+    }
 }

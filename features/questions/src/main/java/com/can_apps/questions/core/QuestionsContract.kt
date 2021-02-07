@@ -1,5 +1,6 @@
 package com.can_apps.questions.core
 
+import com.can_apps.questions.bresenter.QuestionIdModelEnum
 import com.can_apps.questions.bresenter.QuestionsModelDetails
 
 internal interface QuestionsContract {
@@ -19,6 +20,8 @@ internal interface QuestionsContract {
         fun showCategory(category: String)
 
         fun setNewActionButtonFunction()
+
+        fun goToResultScreen(score: List<QuestionsModelDetails>)
     }
 
     interface Presenter {
@@ -32,6 +35,10 @@ internal interface QuestionsContract {
         fun onBackPressed()
 
         fun fetchNextCategoryQuestions()
+
+        fun onItemClicked(modelId: QuestionIdModelEnum)
+
+        fun onFinishTestPressed()
     }
 
     interface Interactor {
